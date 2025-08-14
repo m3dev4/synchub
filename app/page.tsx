@@ -1,3 +1,4 @@
+import { ModeToggle } from "@/components/darkMode";
 import Image from "next/image";
 import React from "react";
 
@@ -12,6 +13,7 @@ const page = () => {
         height={24}
         className="rounded-full"
       />
+      <ModeToggle />
     </div>
   );
 };
