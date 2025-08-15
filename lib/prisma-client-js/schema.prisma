@@ -34,14 +34,15 @@ model User {
   role userRole @default(USER)
 
   //  Attributes
-  nationalityId String
+  nationalityId String?
 
   //  Relations
-  nationality Nationality  @relation(fields: [nationalityId], references: [id])
+  nationality Nationality? @relation(fields: [nationalityId], references: [id])
   experiences Experience[]
   educations  Education[]
   skills      Skill[]
   degrees     Degree[]
+  session     Session[]
 }
 
 model Nationality {
@@ -104,4 +105,18 @@ model Degree {
 enum userRole {
   USER
   ADMIN
+}
+
+model Session {
+  id             String   @id() @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  ipAddress      String
+  useAgent       String
+  token          String
+  lastActivityAt DateTime
+  isOnline       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  expiresAt      DateTime
 }
