@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import QueryProvider from "@/components/providers/queryProvider";
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
@@ -30,7 +31,7 @@ export default function RootLayout({
           defaultTheme="light"
           disableTransitionOnChange
         >
-          {children}
+          <QueryProvider>{children}</QueryProvider>
         </ThemeProvider>
       </body>
     </html>

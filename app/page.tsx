@@ -23,7 +23,11 @@ const page = () => {
           <p className="uppercase text-xl font-bold">SyncHub</p>
         </div>
         <nav className="flex items-center gap-4 pr-10">
-          <Button variant="outline" className="font-bold" onClick={() => window.location.href = "/sign-in"}>
+          <Button
+            variant="outline"
+            className="font-bold"
+            onClick={() => (window.location.href = "/sign-in")}
+          >
             Sign In
           </Button>
           <ModeToggle />
@@ -62,7 +66,6 @@ bg-stone-800 text-xl font-bold text-white overflow-hidden py-0.5 sm:py-1 md:py-2
           animatePresenceMode="wait"
         />
       </div>
-
     </div>
   );
 };
