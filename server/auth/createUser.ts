@@ -40,6 +40,11 @@ export const signUp = async (data: UserCreateDto): Promise<Partial<User>> => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
 
+    // Generate a unique username from email
+    const emailPrefix = data.email.split('@')[0];
+    const randomSuffix = Math.floor(Math.random() * 10000);
+    const generatedUsername = `${emailPrefix}_${randomSuffix}`;
+
     const user = await prisma.user.create({
       data: {
         email: data.email,
@@ -51,7 +56,7 @@ export const signUp = async (data: UserCreateDto): Promise<Partial<User>> => {
         firstName: "",
         lastName: "",
         dateBirth: new Date(),
-        username: "",
+        username: generatedUsername,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

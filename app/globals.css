@@ -130,3 +130,10 @@
     rgba(26, 26, 26, 1) 100%
   );
 }
+
+
+@utility {
+  shadow: {
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  }
+}

@@ -7,7 +7,10 @@ export const createUserSchema = z.object({
     .min(1, "Email is required"),
   password: z
     .string()
-    .min(6, "Le mot de passe doit contenir au moins 6 caractères"),
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial",
+    ),
 });
 
 export const loginSchema = z.object({

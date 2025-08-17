@@ -38,11 +38,25 @@ const SignIn = () => {
   const onSubmit = async (data: loginType) => {
     try {
       setLoading(true);
+      setErrorMessage("");
       await login.mutateAsync(data);
       setLoading(false);
       toast.success("Connexion réussie");
-    } catch (error) {
-      toast.error("Échec de la connexion");
+      setSuccessMessage("Connexion réussie, redirection en cours...");
+    } catch (error: any) {
+      setLoading(false);
+      const errorMsg = error?.message || "Échec de la connexion";
+      
+      if (errorMsg.includes("Invalid credentials") || errorMsg.includes("User not found")) {
+        setErrorMessage("Email ou mot de passe incorrect");
+        toast.error("Email ou mot de passe incorrect");
+      } else if (errorMsg.includes("Email not verified")) {
+        setErrorMessage("Veuillez vérifier votre email avant de vous connecter");
+        toast.error("Veuillez vérifier votre email avant de vous connecter");
+      } else {
+        setErrorMessage(errorMsg);
+        toast.error(errorMsg);
+      }
     }
   };
 
@@ -64,12 +78,22 @@ const SignIn = () => {
             <h2 className="text-2xl font-bold">Welcome Back</h2>
             <p className="text-sm text-gray-400">
               Vous n'avez pas enncore un compte ?{" "}
-              <Link href="/auth/sign-up" className="text-cyan-500">
+              <Link href="/sign-up" className="text-cyan-500">
                 S'inscrire
               </Link>{" "}
             </p>
           </CardHeader>
           <CardContent className="flex flex-col items-center w-full justify-center space-y-4">
+            {errorMessage && (
+              <div className="w-full p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                {errorMessage}
+              </div>
+            )}
+            {successMessage && (
+              <div className="w-full p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+                {successMessage}
+              </div>
+            )}
             <div className="w-full relative">
               <Input
                 type="email"
