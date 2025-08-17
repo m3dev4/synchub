@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Feeds = () => {
-  return (
-    <div>Feeds</div>
-  )
-}
+  return <div>Feeds</div>;
+};
 
-export default Feeds
+export default Feeds;

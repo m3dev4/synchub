@@ -41,7 +41,7 @@ export const signUp = async (data: UserCreateDto): Promise<Partial<User>> => {
     tomorrow.setDate(tomorrow.getDate() + 1);
 
     // Generate a unique username from email
-    const emailPrefix = data.email.split('@')[0];
+    const emailPrefix = data.email.split("@")[0];
     const randomSuffix = Math.floor(Math.random() * 10000);
     const generatedUsername = `${emailPrefix}_${randomSuffix}`;
 

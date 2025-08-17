@@ -46,12 +46,17 @@ const SignIn = () => {
     } catch (error: any) {
       setLoading(false);
       const errorMsg = error?.message || "Échec de la connexion";
-      
-      if (errorMsg.includes("Invalid credentials") || errorMsg.includes("User not found")) {
+
+      if (
+        errorMsg.includes("Invalid credentials") ||
+        errorMsg.includes("User not found")
+      ) {
         setErrorMessage("Email ou mot de passe incorrect");
         toast.error("Email ou mot de passe incorrect");
       } else if (errorMsg.includes("Email not verified")) {
-        setErrorMessage("Veuillez vérifier votre email avant de vous connecter");
+        setErrorMessage(
+          "Veuillez vérifier votre email avant de vous connecter",
+        );
         toast.error("Veuillez vérifier votre email avant de vous connecter");
       } else {
         setErrorMessage(errorMsg);
@@ -114,7 +119,10 @@ const SignIn = () => {
                 {...register("password")}
               />
               <Lock className="absolute top-2 left-1 h-5 w-5" />
-              <Link href="/auth/forgot-password" className="text-cyan-500 text-sm">
+              <Link
+                href="/auth/forgot-password"
+                className="text-cyan-500 text-sm"
+              >
                 Mot de passe oublié ?
               </Link>
               {errors.password && (

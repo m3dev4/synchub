@@ -44,7 +44,7 @@ const SignUp = () => {
     } catch (error: any) {
       setLoading(false);
       const errorMsg = error?.message || "Échec de l'inscription";
-      
+
       if (errorMsg.includes("User already exists")) {
         setErrorMessage("Un compte avec cet email existe déjà");
         toast.error("Un compte avec cet email existe déjà");
@@ -70,15 +70,15 @@ const SignUp = () => {
             height={500}
             className="object-cover"
           />
-         <Link href="/">
-         <Image
-            src="/images/shlogo.png"
-            alt="logo syncHub"
-            width={50}
-            height={50}
-            className="object-contain absolute top-0 left-0 mt-3 cursor-pointer"
-          />
-         </Link>
+          <Link href="/">
+            <Image
+              src="/images/shlogo.png"
+              alt="logo syncHub"
+              width={50}
+              height={50}
+              className="object-contain absolute top-0 left-0 mt-3 cursor-pointer"
+            />
+          </Link>
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -131,7 +131,11 @@ const SignUp = () => {
               </div>
             </CardContent>
             <CardFooter>
-              <Button type="submit" disabled={createUser.isPending} className="w-full">
+              <Button
+                type="submit"
+                disabled={createUser.isPending}
+                className="w-full"
+              >
                 {createUser.isPending ? (
                   <Loader className="animate-spin" />
                 ) : (
