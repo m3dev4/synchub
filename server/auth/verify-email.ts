@@ -13,16 +13,24 @@ import { PrismaClient } from "@/lib/prisma-client-js";
 const prisma = new PrismaClient();
 export const verifyEmail = async (token: string) => {
   try {
+    // Find user with the provided token
     const user = await prisma.user.findFirst({
       where: {
         emailVerificationToken: token,
       },
     });
+
     if (!user) {
-      throw new Error("User not found");
+      throw new Error("Code de vérification invalide ou expiré");
     }
 
-    const updateUser = await prisma.user.update({
+    // Check if token is expired
+    if (user.emailVerificationTokenExpiresAt && user.emailVerificationTokenExpiresAt < new Date()) {
+      throw new Error("Code de vérification expiré");
+    }
+
+    // Update user verification status
+    const updatedUser = await prisma.user.update({
       where: { id: user.id },
       data: {
         isVerify: true,
@@ -31,9 +39,9 @@ export const verifyEmail = async (token: string) => {
       },
     });
 
-    return updateUser;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Failed to verify email");
+    return updatedUser;
+  } catch (error: any) {
+    console.error("Erreur vérification email:", error);
+    throw error; // Re-throw the original error with its message
   }
 };

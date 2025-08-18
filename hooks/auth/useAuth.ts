@@ -55,7 +55,7 @@ export const signIn = () => {
 
 export const verifyEmail = () => {
   const router = useRouter();
-  const { setLoading } = useAuthStore();
+  const { setLoading, setEmailVerified, setPendingVerification } = useAuthStore();
 
   return useMutation({
     mutationFn: async (token: string) => {
@@ -76,10 +76,43 @@ export const verifyEmail = () => {
     },
     onSuccess: (user) => {
       setLoading(false);
-      router.push("/pages/home");
+      setEmailVerified(user);
+      setPendingVerification("");
+      router.push("/feeds");
     },
     onError: (error) => {
+      setLoading(false);
       console.error("Erreur verification email", error);
+    },
+  });
+};
+
+export const resendVerificationCode = () => {
+  const { setLoading } = useAuthStore();
+
+  return useMutation({
+    mutationFn: async (email: string) => {
+      setLoading(true);
+      try {
+        const response = await fetch("/api/auth/resend-verification", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "Erreur inconnue");
+        return result;
+      } catch (error) {
+        setLoading(false);
+        throw error;
+      }
+    },
+    onSuccess: () => {
+      setLoading(false);
+    },
+    onError: (error) => {
+      setLoading(false);
+      console.error("Erreur renvoi code", error);
     },
   });
 };
