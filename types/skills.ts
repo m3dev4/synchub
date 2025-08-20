@@ -24,4 +24,3 @@ export interface Technology {
   createdAt: Date;
   updatedAt: Date;
 }
-

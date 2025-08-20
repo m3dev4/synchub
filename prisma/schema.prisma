@@ -42,6 +42,7 @@ model User {
   educations  Education[]
   degrees     Degree[]
   session     Session[]
+  userSkills  UserSkill[]
 }
 
 model Nationality {
@@ -55,24 +56,24 @@ model Nationality {
 }
 
 model Experience {
-  id        String   @id() @default(cuid())
+  id        String    @id() @default(cuid())
   title     String
   company   String
-  startDate DateTime
-  endDate   DateTime
-  current   Boolean
-  user      User     @relation(fields: [userId], references: [id])
+  startDate DateTime?
+  endDate   DateTime?
+  current   Boolean   @default(false)
+  user      User      @relation(fields: [userId], references: [id])
   userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Education {
   id        String   @id() @default(cuid())
   title     String
   school    String
-  startDate DateTime
-  endDate   DateTime
+  startDate DateTime?
+  endDate   DateTime?
   current   Boolean
   user      User     @relation(fields: [userId], references: [id])
   userId    String
@@ -86,6 +87,7 @@ model Skill {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   sousSkill sousSkill[]
+  userSkills UserSkill[]
 }
 
 model sousSkill {
@@ -106,7 +108,26 @@ model Technology {
   sousSkillTechId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
 
+model UserSkill {
+  id        String   @id() @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  skill     Skill    @relation(fields: [skillId], references: [id])
+  skillId   String
+  level     SkillLevel @default(BEGINNER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, skillId])
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
 }
 
 model Degree {

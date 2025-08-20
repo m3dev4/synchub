@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
           error: "Token is required",
           success: false,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
         message: "Email verified successfully",
         user: result,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error: any) {
     console.error("Erreur lors de la vérification", error);
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
         error: error.message || "Code de vérification invalide ou expiré",
         success: false,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }

@@ -8,7 +8,7 @@ export const countries = [
   },
   {
     id: 2,
-    name: "Afghanistan", 
+    name: "Afghanistan",
     flag: "AF",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -16,7 +16,7 @@ export const countries = [
   {
     id: 3,
     name: "Angola",
-    flag: "AO", 
+    flag: "AO",
     createdAt: new Date(),
     updatedAt: new Date(),
   },

@@ -1,7 +1,6 @@
 import { countries } from "@/constants/nationality/countries";
 import { PrismaClient } from "@/lib/prisma-client-js";
 
-
 const prisma = new PrismaClient();
 
 export const seedNationality = async () => {
@@ -23,7 +22,9 @@ export const seedNationality = async () => {
     }
 
     // Filtrer les pays qui n'existent pas encore
-    const existingNames = existingNationality.map((n: { name: string }) => n.name);
+    const existingNames = existingNationality.map(
+      (n: { name: string }) => n.name,
+    );
     const newCountries = countries.filter(
       (country) => !existingNames.includes(country.name),
     );

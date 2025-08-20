@@ -25,7 +25,10 @@ export const verifyEmail = async (token: string) => {
     }
 
     // Check if token is expired
-    if (user.emailVerificationTokenExpiresAt && user.emailVerificationTokenExpiresAt < new Date()) {
+    if (
+      user.emailVerificationTokenExpiresAt &&
+      user.emailVerificationTokenExpiresAt < new Date()
+    ) {
       throw new Error("Code de vérification expiré");
     }
 

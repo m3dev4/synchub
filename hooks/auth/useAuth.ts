@@ -55,7 +55,8 @@ export const signIn = () => {
 
 export const verifyEmail = () => {
   const router = useRouter();
-  const { setLoading, setEmailVerified, setPendingVerification } = useAuthStore();
+  const { setLoading, setEmailVerified, setPendingVerification } =
+    useAuthStore();
 
   return useMutation({
     mutationFn: async (token: string) => {

@@ -17,13 +17,13 @@ export const seedSkills = async () => {
     });
 
     if (existingSkills.length > 0) {
-      console.log(
-        `⚠️ ${existingSkills.length} skills existent déjà.`,
-      );
+      console.log(`⚠️ ${existingSkills.length} skills existent déjà.`);
     }
 
     // Filter skills that don't exist yet
-    const existingTitles = existingSkills.map((s: { title: string }) => s.title);
+    const existingTitles = existingSkills.map(
+      (s: { title: string }) => s.title,
+    );
     const newSkills = skills.filter(
       (skill) => !existingTitles.includes(skill.title),
     );
@@ -33,7 +33,9 @@ export const seedSkills = async () => {
       return;
     }
 
-    console.log(`📝 Création de ${newSkills.length} nouveaux skills globaux...`);
+    console.log(
+      `📝 Création de ${newSkills.length} nouveaux skills globaux...`,
+    );
 
     // Create skills with nested sousSkills and technologies
     for (const skillData of newSkills) {
@@ -62,7 +64,10 @@ export const seedSkills = async () => {
           console.log(`  📌 Créé sousSkill: ${createdSousSkill.title}`);
 
           // Create technologies for this sousSkill
-          if (sousSkillData.technologies && sousSkillData.technologies.length > 0) {
+          if (
+            sousSkillData.technologies &&
+            sousSkillData.technologies.length > 0
+          ) {
             for (const technologyData of sousSkillData.technologies) {
               await prisma.technology.create({
                 data: {
@@ -73,7 +78,9 @@ export const seedSkills = async () => {
                 },
               });
             }
-            console.log(`    🔧 Créé ${sousSkillData.technologies.length} technologies pour ${createdSousSkill.title}`);
+            console.log(
+              `    🔧 Créé ${sousSkillData.technologies.length} technologies pour ${createdSousSkill.title}`,
+            );
           }
         }
       }
@@ -85,7 +92,9 @@ export const seedSkills = async () => {
     if (newSkills.length > 0) {
       console.log("🏁 Exemples de skills créés :");
       newSkills.slice(0, 3).forEach((skill) => {
-        console.log(`   - ${skill.title} (${skill.sousSkills?.length || 0} sous-compétences)`);
+        console.log(
+          `   - ${skill.title} (${skill.sousSkills?.length || 0} sous-compétences)`,
+        );
       });
       if (newSkills.length > 3) {
         console.log(`   ... et ${newSkills.length - 3} autres skills`);
