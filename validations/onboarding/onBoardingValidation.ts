@@ -16,15 +16,20 @@ export const onBoardingValidation = z.object({
   title: z
     .string()
     .min(2, "Le titre doit contenir au moins 2 caractères")
-    .optional(),
+    .optional()
+    .or(z.literal("")),
   titleProfession: z
     .string()
     .min(2, "Le titre de profession doit contenir au moins 2 caractères")
-    .optional(),
+    .optional()
+    .or(z.literal("")),
   linkWebsite: z
     .string()
     .url("Le lien du site web doit être une URL valide")
-    .optional(),
+    .optional()
+    .or(z.literal("")),
+  avatarPicture: z.string().optional().or(z.literal("")),
+  description: z.string().optional().or(z.literal("")),
   experiences: z.array(
     z.object({
       id: z.string(),
@@ -55,6 +60,18 @@ export const onBoardingValidation = z.object({
       endDate: z.date(),
     }),
   ),
+  skills: z
+    .array(
+      z.object({
+        skillId: z.number(),
+        skillTitle: z.string(),
+        sousSkillId: z.number(),
+        sousSkillTitle: z.string(),
+        technologyId: z.number(),
+        technologyTitle: z.string(),
+      }),
+    )
+    .optional(),
 });
 
 export type OnBoardingValidation = z.infer<typeof onBoardingValidation>;

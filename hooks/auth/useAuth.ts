@@ -20,7 +20,7 @@ export const signUp = () => {
     },
     onSuccess: (user) => {
       setPendingVerification(user.email);
-      router.push("/auth/verify-email");
+      router.push("/verify-email");
     },
     onError: (error) => {
       console.error("Erreur inscription", error);
@@ -79,7 +79,7 @@ export const verifyEmail = () => {
       setLoading(false);
       setEmailVerified(user);
       setPendingVerification("");
-      router.push("/feeds");
+      router.push("/onboarding");
     },
     onError: (error) => {
       setLoading(false);

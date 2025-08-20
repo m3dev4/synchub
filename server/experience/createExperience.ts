@@ -3,7 +3,6 @@
 import { PrismaClient } from "@/lib/prisma-client-js";
 import { Experience } from "@/types/experiences";
 
-
 const prisma = new PrismaClient();
 
 export const createExperience = async (data: Experience) => {
