@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className={`${playfairDisplay.variable} font-sans`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           disableTransitionOnChange
         >
           <QueryProvider>{children}</QueryProvider>

@@ -45,6 +45,10 @@ export const signIn = () => {
     },
     onSuccess: (user) => {
       setLoading(false);
+      // Mettre à jour le store avec l'utilisateur connecté
+      const { setUser } = useAuthStore.getState();
+      setUser(user.user);
+      useAuthStore.setState({ isAuthenticated: true });
       router.push("/feeds");
     },
     onError: (error) => {
@@ -134,7 +138,7 @@ export const logout = () => {
     },
     onSuccess: () => {
       setLoading(false);
-      router.push("/pages/home");
+      router.push("/sign-in");
     },
     onError: (error) => {
       console.error("Erreur deconnexion", error);

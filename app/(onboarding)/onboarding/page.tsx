@@ -29,7 +29,7 @@ const page = () => {
   const [countries, setCountries] = useState<any[]>([]);
   const [loadingCountries, setLoadingCountries] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { user, isAuthenticated } = useAuthStore();
+  const { user, isAuthenticated, hydrated } = useAuthStore();
   const onboardingMutation = useOnboarding();
   const router = useRouter();
 
@@ -50,6 +50,22 @@ const page = () => {
 
     fetchNationalities();
   }, []);
+
+  // useEffect(() => {
+  //   // Attendre que l'hydratation soit terminée
+  //   if (hydrated && !isAuthenticated) {
+  //     router.push("/sign-in");
+  //   }
+  // }, [isAuthenticated, hydrated, router]);
+
+  // // Afficher un loader pendant l'hydratation
+  // if (!hydrated) {
+  //   return (
+  //     <div className="flex items-center justify-center min-h-screen">
+  //       <div>Chargement...</div>
+  //     </div>
+  //   );
+  // }
 
   // Form data
   const [formData, setFormData] = useState<UserOnboarding>({
@@ -271,28 +287,28 @@ const page = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-background overflow-hidden">
+    <div className="min-h-screen w-full bg-background overflow-auto">
       <OnboardingHeader currentStep={currentStep} totalSteps={7} />
       <Toaster />
       {/* Main Content */}
-      <div className="flex h-[calc(100vh-100px)] px-6 pb-6 gap-8">
+      <div className="flex h-[calc(100vh-100px)] max-md:flex-col px-4 md:px-6 pb-4 md:pb-6 gap-4 md:gap-8">
         {/* Left Side - Content */}
         <div className="flex-1 flex flex-col">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStep}
-              className="mb-8"
+              className="mb-4 md:mb-8"
               variants={titleVariants}
               initial="initial"
               animate="animate"
               exit="exit"
               transition={{ duration: 0.4 }}
             >
-              <h1 className="text-4xl font-bold text-white mb-4">
+              <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 md:mb-4">
                 {stepContent.title}
               </h1>
               <motion.p
-                className="text-gray-300 text-lg"
+                className="text-gray-300 text-base md:text-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
@@ -308,19 +324,19 @@ const page = () => {
                 key="step-0"
                 ref={scrollRef}
                 onScroll={handleScroll}
-                className="flex-1 bg-white/10 backdrop-blur-lg rounded-2xl p-8 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-400 scrollbar-track-transparent"
+                className="flex-1 bg-white/10 backdrop-blur-lg rounded-2xl p-4 md:p-8 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-400 scrollbar-track-transparent max-h-[60vh] md:max-h-none"
                 variants={contentVariants}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 transition={{ duration: 0.5 }}
               >
-                <div className="text-white space-y-6">
+                <div className="text-white space-y-4 md:space-y-6">
                   <section>
-                    <h2 className="text-xl font-semibold mb-3 text-purple-300">
+                    <h2 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-purple-300">
                       1. Acceptation des conditions
                     </h2>
-                    <p className="text-gray-200 leading-relaxed">
+                    <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       En utilisant SyncHub, vous acceptez d'être lié par ces
                       conditions d'utilisation. Si vous n'acceptez pas ces
                       conditions, veuillez ne pas utiliser notre service.
@@ -328,10 +344,10 @@ const page = () => {
                   </section>
 
                   <section>
-                    <h2 className="text-xl font-semibold mb-3 text-purple-300">
+                    <h2 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-purple-300">
                       2. Description du service
                     </h2>
-                    <p className="text-gray-200 leading-relaxed">
+                    <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       SyncHub est une plateforme de synchronisation et de
                       collaboration qui permet aux utilisateurs de partager et
                       de gérer leurs projets en temps réel. Notre service offre
@@ -341,10 +357,10 @@ const page = () => {
                   </section>
 
                   <section>
-                    <h2 className="text-xl font-semibold mb-3 text-purple-300">
+                    <h2 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-purple-300">
                       3. Compte utilisateur
                     </h2>
-                    <p className="text-gray-200 leading-relaxed">
+                    <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       Pour utiliser certaines fonctionnalités de SyncHub, vous
                       devez créer un compte. Vous êtes responsable de maintenir
                       la confidentialité de vos informations de compte et de
@@ -353,10 +369,10 @@ const page = () => {
                   </section>
 
                   <section>
-                    <h2 className="text-xl font-semibold mb-3 text-purple-300">
+                    <h2 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-purple-300">
                       4. Utilisation acceptable
                     </h2>
-                    <p className="text-gray-200 leading-relaxed">
+                    <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       Vous acceptez d'utiliser SyncHub uniquement à des fins
                       légales et de manière qui ne porte pas atteinte aux droits
                       d'autrui. Vous ne devez pas utiliser le service pour des
@@ -365,10 +381,10 @@ const page = () => {
                   </section>
 
                   <section>
-                    <h2 className="text-xl font-semibold mb-3 text-purple-300">
+                    <h2 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-purple-300">
                       5. Propriété intellectuelle
                     </h2>
-                    <p className="text-gray-200 leading-relaxed">
+                    <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       Tout le contenu et les matériaux disponibles sur SyncHub,
                       y compris mais sans s'y limiter, le texte, les graphiques,
                       le nom du site web, le code, les images et les logos sont
@@ -379,10 +395,10 @@ const page = () => {
                   </section>
 
                   <section>
-                    <h2 className="text-xl font-semibold mb-3 text-purple-300">
+                    <h2 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-purple-300">
                       6. Confidentialité
                     </h2>
-                    <p className="text-gray-200 leading-relaxed">
+                    <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       Votre vie privée est importante pour nous. Notre politique
                       de confidentialité explique comment nous collectons,
                       utilisons et protégeons vos informations lorsque vous
@@ -391,10 +407,10 @@ const page = () => {
                   </section>
 
                   <section>
-                    <h2 className="text-xl font-semibold mb-3 text-purple-300">
+                    <h2 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-purple-300">
                       7. Limitation de responsabilité
                     </h2>
-                    <p className="text-gray-200 leading-relaxed">
+                    <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       SyncHub ne sera pas responsable des dommages directs,
                       indirects, accessoires, spéciaux, consécutifs ou punitifs
                       résultant de votre utilisation ou de votre incapacité à
@@ -403,10 +419,10 @@ const page = () => {
                   </section>
 
                   <section>
-                    <h2 className="text-xl font-semibold mb-3 text-purple-300">
+                    <h2 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-purple-300">
                       8. Modifications des conditions
                     </h2>
-                    <p className="text-gray-200 leading-relaxed">
+                    <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       Nous nous réservons le droit de modifier ces conditions
                       d'utilisation à tout moment. Les modifications entreront
                       en vigueur immédiatement après leur publication sur cette
@@ -415,10 +431,10 @@ const page = () => {
                   </section>
 
                   <section>
-                    <h2 className="text-xl font-semibold mb-3 text-purple-300">
+                    <h2 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-purple-300">
                       9. Résiliation
                     </h2>
-                    <p className="text-gray-200 leading-relaxed">
+                    <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       Nous pouvons résilier ou suspendre votre compte et votre
                       accès au service immédiatement, sans préavis ni
                       responsabilité, pour quelque raison que ce soit, y compris
@@ -427,10 +443,10 @@ const page = () => {
                   </section>
 
                   <section>
-                    <h2 className="text-xl font-semibold mb-3 text-purple-300">
+                    <h2 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-purple-300">
                       10. Contact
                     </h2>
-                    <p className="text-gray-200 leading-relaxed">
+                    <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       Si vous avez des questions concernant ces conditions
                       d'utilisation, veuillez nous contacter à
                       support@synchub.com.
@@ -711,7 +727,7 @@ const page = () => {
         </div>
 
         {/* Right Side - Visual */}
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center max-md:hidden justify-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStep}

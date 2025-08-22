@@ -17,7 +17,27 @@ export const onboarding = async (data: UserOnboarding, userId: string) => {
     }
 
     if (user.onboarding) {
-      return { success: false, message: "User already onboarding" };
+      // Si l'utilisateur est déjà onboardé, retourner les données existantes
+      const existingUser = await prisma.user.findUnique({
+        where: { id: userId },
+        include: {
+          nationality: true,
+          experiences: true,
+          educations: true,
+          session: true,
+          userSkills: {
+            include: {
+              skill: true,
+            },
+          },
+        },
+      });
+
+      return {
+        success: true,
+        message: "User already onboarded",
+        user: existingUser,
+      };
     }
 
     // Update user data

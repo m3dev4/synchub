@@ -1,3 +1,7 @@
+import { Education } from "./educations";
+import { Experience } from "./experiences";
+import { Skill } from "./skills";
+
 export type UserRole = "USER" | "ADMIN";
 
 export interface User {
@@ -23,6 +27,10 @@ export interface User {
   updatedAt: Date;
   role: UserRole;
   nationalityId?: string;
+
+  experience: Experience[];
+  education: Education[];
+  skills: Skill[];
 }
 
 export interface UserCreateDto {

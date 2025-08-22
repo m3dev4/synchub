@@ -67,8 +67,11 @@ export const useAuthStore = create<AuthState>()(
             console.log("Synced auth data to cookies");
           }
         }
-        // Toujours marquer comme hydraté
-        return { ...state, hydrated: true };
+
+        // CORRECTION : Utiliser set() au lieu de return
+        if (state) {
+          state.setHydrated();
+        }
       },
     },
   ),

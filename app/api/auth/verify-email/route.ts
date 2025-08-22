@@ -20,7 +20,8 @@ export async function POST(request: NextRequest) {
 
     const result = await verifyEmail(token);
 
-    return NextResponse.json(
+    // Créer le cookie de session
+    const response = NextResponse.json(
       {
         success: true,
         message: "Email verified successfully",
@@ -28,6 +29,21 @@ export async function POST(request: NextRequest) {
       },
       { status: 200 },
     );
+
+    // Définir le cookie sessionToken
+    if (result.sessionToken) {
+      response.cookies.set({
+        name: "sessionToken",
+        value: result.sessionToken,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 jours
+        sameSite: "strict",
+        path: "/",
+      });
+    }
+
+    return response;
   } catch (error: any) {
     console.error("Erreur lors de la vérification", error);
     return NextResponse.json(

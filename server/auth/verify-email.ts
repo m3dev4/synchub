@@ -42,7 +42,25 @@ export const verifyEmail = async (token: string) => {
       },
     });
 
-    return updatedUser;
+    // Créer une session après vérification email
+    const { v4: uuidv4 } = await import("uuid");
+    const sessionToken = uuidv4();
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 7); // 7 jours
+
+    await prisma.session.create({
+      data: {
+        userId: user.id,
+        token: sessionToken,
+        expiresAt: expiresAt,
+        ipAddress: "",
+        useAgent: "",
+        isOnline: true,
+        lastActivityAt: new Date(),
+      },
+    });
+
+    return { ...updatedUser, sessionToken };
   } catch (error: any) {
     console.error("Erreur vérification email:", error);
     throw error; // Re-throw the original error with its message

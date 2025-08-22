@@ -43,6 +43,7 @@ model User {
   degrees     Degree[]
   session     Session[]
   userSkills  UserSkill[]
+  accounts    Account[]
 }
 
 model Nationality {
@@ -159,4 +160,36 @@ model Session {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   expiresAt      DateTime
+}
+
+// Better Auth required tables
+model Account {
+  id                String  @id @default(cuid())
+  accountId         String
+  providerId        String
+  userId            String
+  accessToken       String?
+  refreshToken      String?
+  idToken           String?
+  accessTokenExpiresAt DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope             String?
+  password          String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, accountId])
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, value])
 }
