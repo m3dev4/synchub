@@ -58,6 +58,13 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (pathname === "/forgot-password") {
+    return NextResponse.next();
+  }
+  if (pathname === "/reset-password") {
+    return NextResponse.next();
+  }
+
   // Page home - accessible sans authentification
   if (pathname === "/") {
     console.log("🏠 Home page, allowing access");

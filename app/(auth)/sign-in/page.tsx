@@ -126,7 +126,7 @@ const SignIn = () => {
               <Lock className="absolute top-2.5 left-2 h-4 w-4 text-gray-400" />
               <div className="flex justify-end">
                 <Link
-                  href="/auth/forgot-password"
+                  href="/forgot-password"
                   className="text-cyan-500 text-xs sm:text-sm hover:underline"
                 >
                   Mot de passe oublié ?

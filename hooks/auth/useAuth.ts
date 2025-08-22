@@ -145,3 +145,75 @@ export const logout = () => {
     },
   });
 };
+
+export const forgotPassword = () => {
+  const { setLoading } = useAuthStore();
+  return useMutation({
+    mutationFn: async (email: string) => {
+      setLoading(true);
+      try {
+        const response = await fetch("/api/auth/forgotPassword", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+        const result = await response.json();
+
+        if (!response.ok)
+          throw new Error(result.error || "Une Erreur est survenue");
+        return result;
+      } catch (error) {
+        setLoading(false);
+        throw Error;
+      }
+    },
+    onSuccess: () => {
+      setLoading(false);
+    },
+    onError: (error) => {
+      setLoading(false);
+      console.log("une erreur est suvernue lors de l'envoi l'email", error);
+    },
+  });
+};
+
+export const resetPassword = () => {
+  const { setLoading } = useAuthStore();
+  const router = useRouter();
+  return useMutation({
+    mutationFn: async ({
+      newPassword,
+      token,
+    }: {
+      newPassword: string;
+      token: string;
+    }) => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `/api/auth/reset-password?token=${token}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ newPassword }),
+          },
+        );
+        const result = await response.json();
+
+        if (!response.ok) throw new Error(result.error || "Erreur inconnue");
+        return result;
+      } catch (error) {
+        setLoading(false);
+        throw error;
+      }
+    },
+    onSuccess: () => {
+      setLoading(false);
+      router.push("/sign-in");
+    },
+    onError: (error) => {
+      setLoading(false);
+      console.log("Erreur:", error);
+    },
+  });
+};
