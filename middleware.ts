@@ -44,6 +44,11 @@ export async function middleware(request: NextRequest) {
   if (pathname === "/sign-in" || pathname === "/sign-up") {
     console.log("🔐 Auth route detected");
     if (user) {
+      // Si l'utilisateur n'est pas vérifié, rediriger vers verification
+      if (!user.isVerify) {
+        console.log("🔄 User not verified, redirecting to verify-email");
+        return NextResponse.redirect(new URL("/verify-email", request.url));
+      }
       const redirectTo = user.onboarding ? "/feeds" : "/onboarding";
       console.log("🔄 Redirecting authenticated user to:", redirectTo);
       return NextResponse.redirect(new URL(redirectTo, request.url));
@@ -78,6 +83,11 @@ export async function middleware(request: NextRequest) {
       console.log("🔄 No user, redirecting to sign-in");
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
+    // Vérifier si l'email est vérifié avant l'onboarding
+    if (!user.isVerify) {
+      console.log("🔄 User not verified, redirecting to verify-email");
+      return NextResponse.redirect(new URL("/verify-email", request.url));
+    }
     if (user.onboarding) {
       console.log("🔄 User already onboarded, redirecting to feeds");
       return NextResponse.redirect(new URL("/feeds", request.url));
@@ -93,12 +103,18 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
 
+  // Vérifier si l'email est vérifié avant d'accéder aux routes protégées
+  if (!user.isVerify) {
+    console.log("🔄 User not verified, redirecting to verify-email");
+    return NextResponse.redirect(new URL("/verify-email", request.url));
+  }
+
   if (!user.onboarding) {
     console.log("🔄 User not onboarded, redirecting to onboarding");
     return NextResponse.redirect(new URL("/onboarding", request.url));
   }
 
-  console.log("✅ User authenticated and onboarded, allowing access");
+  console.log("✅ User authenticated, verified and onboarded, allowing access");
   return NextResponse.next();
 }
 

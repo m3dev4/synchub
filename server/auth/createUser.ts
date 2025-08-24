@@ -5,6 +5,7 @@ import { UserCreateDto } from "@/types/user";
 import { User } from "better-auth";
 import bcrypt from "bcryptjs";
 import { sendVerification } from "@/email/resend";
+import { emailSchema } from "@/lib/security";
 
 const prisma = new PrismaClient();
 
@@ -22,9 +23,12 @@ export const signUp = async (data: UserCreateDto): Promise<Partial<User>> => {
       throw new Error("Email and password are required");
     }
 
+    // Validation sécurisée de l'email
+    const validatedEmail = emailSchema.parse(data.email);
+
     const existingUser = await prisma.user.findUnique({
       where: {
-        email: data.email,
+        email: validatedEmail,
       },
     });
 
@@ -34,6 +38,8 @@ export const signUp = async (data: UserCreateDto): Promise<Partial<User>> => {
 
     const salt = 12;
     const hashedPassword = await bcrypt.hash(data.password, salt);
+
+    // Token de 6 chiffres pour la vérification email
     const emailVerificationToken = Math.floor(
       100000 + Math.random() * 900000,
     ).toString();
@@ -41,13 +47,15 @@ export const signUp = async (data: UserCreateDto): Promise<Partial<User>> => {
     tomorrow.setDate(tomorrow.getDate() + 1);
 
     // Generate a unique username from email
-    const emailPrefix = data.email.split("@")[0];
+    const emailPrefix = validatedEmail
+      .split("@")[0]
+      .replace(/[^a-zA-Z0-9]/g, "");
     const randomSuffix = Math.floor(Math.random() * 10000);
     const generatedUsername = `${emailPrefix}_${randomSuffix}`;
 
     const user = await prisma.user.create({
       data: {
-        email: data.email,
+        email: validatedEmail,
         password: hashedPassword,
         isVerify: false,
         emailVerificationToken: emailVerificationToken,

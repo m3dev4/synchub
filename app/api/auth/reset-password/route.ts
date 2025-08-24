@@ -1,10 +1,35 @@
 "use server";
 
 import { resetPassword } from "@/server/auth/resetPassword";
+import {
+  checkRateLimit,
+  validateOrigin,
+  validateSecurityHeaders,
+  tokenSchema,
+  passwordSchema,
+} from "@/lib/security";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
+    // Validation de sécurité
+    if (!validateSecurityHeaders(request.headers)) {
+      return NextResponse.json({ error: "Invalid headers" }, { status: 400 });
+    }
+
+    if (!validateOrigin(request)) {
+      return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
+    }
+
+    // Rate limiting
+    const clientIP =
+      request.headers.get("x-forwarded-for") ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+    if (!checkRateLimit(`reset-password:${clientIP}`, 3, 15 * 60 * 1000)) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
     // Get token from query parameters
     const { searchParams } = new URL(request.url);
     const token = searchParams.get("token");
@@ -13,6 +38,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     const { newPassword } = data;
 
+    // Validation côté serveur
     if (!token) {
       return NextResponse.json(
         { error: "Token is required in query parameters" },
@@ -20,14 +46,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!newPassword) {
-      return NextResponse.json(
-        { error: "New password is required in request body" },
-        { status: 400 },
-      );
-    }
+    // Valider le token
+    const validatedToken = tokenSchema.parse(token);
 
-    const user = await resetPassword(token, newPassword);
+    // Valider le nouveau mot de passe
+    const validatedPassword = passwordSchema.parse(newPassword);
+
+    const user = await resetPassword(validatedToken, validatedPassword);
 
     if (user) {
       return NextResponse.json({
@@ -38,6 +63,17 @@ export async function POST(request: NextRequest) {
     }
   } catch (error: any) {
     console.error("Error reseting password:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+
+    if (error.name === "ZodError") {
+      return NextResponse.json(
+        { error: "Invalid input data" },
+        { status: 400 },
+      );
+    }
+
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }

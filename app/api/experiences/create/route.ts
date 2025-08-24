@@ -1,10 +1,52 @@
 import { createExperience } from "@/server/experience/createExperience";
+import { CreateExperienceData } from "@/types/experiences";
 import { auth } from "@/lib/auth";
+import {
+  checkRateLimit,
+  validateOrigin,
+  validateSecurityHeaders,
+  sanitizeInput,
+} from "@/lib/security";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+
+// Schema de validation pour les données d'expérience
+const experienceSchema = z.object({
+  title: z.string().min(1, "Title is required").max(100, "Title too long"),
+  company: z
+    .string()
+    .min(1, "Company is required")
+    .max(100, "Company name too long"),
+  startDate: z
+    .string()
+    .refine((date) => !isNaN(Date.parse(date)), "Invalid start date"),
+  endDate: z
+    .string()
+    .refine((date) => !isNaN(Date.parse(date)), "Invalid end date")
+    .optional(),
+  description: z.string().max(500, "Description too long").optional(),
+});
 
 export async function POST(request: NextRequest) {
   try {
-    // Get session to get userId
+    // Validation de sécurité
+    if (!validateSecurityHeaders(request.headers)) {
+      return NextResponse.json({ error: "Invalid headers" }, { status: 400 });
+    }
+
+    if (!validateOrigin(request)) {
+      return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
+    }
+
+    // Rate limiting
+    const clientIP =
+      request.headers.get("x-forwarded-for") ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+    if (!checkRateLimit(`experience:${clientIP}`, 10, 15 * 60 * 1000)) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
     let session = null;
     const cookieHeader = request.headers.get("cookie");
 
@@ -13,30 +55,16 @@ export async function POST(request: NextRequest) {
       session = await auth.api.getSession({
         headers: request.headers,
       });
-      console.log("✅ Method 1 - Standard headers:", session);
     } catch (error) {
-      console.log("❌ Method 1 failed:", error);
+      console.log("Auth session failed:", error);
     }
 
-    // Method 2: Try with just the request object
-    if (!session) {
-      try {
-        session = await auth.api.getSession({
-          headers: request.headers,
-        });
-        console.log("✅ Method 2 - Second attempt:", session);
-      } catch (error) {
-        console.log("❌ Method 2 failed:", error);
-      }
-    }
-
-    // Method 3: Handle custom sessionToken cookie
+    // Method 2: Handle custom sessionToken cookie
     if (!session && cookieHeader) {
       try {
         const sessionTokenMatch = cookieHeader.match(/sessionToken=([^;]+)/);
         if (sessionTokenMatch) {
           const sessionToken = decodeURIComponent(sessionTokenMatch[1]);
-          console.log("🔑 Found sessionToken:", sessionToken);
 
           // Query database directly for this session token
           const { PrismaClient } = await import("@/lib/prisma-client-js");
@@ -48,54 +76,65 @@ export async function POST(request: NextRequest) {
           });
 
           if (dbSession?.user && dbSession.expiresAt > new Date()) {
-            // Create a session-like object
             session = {
               user: {
                 id: dbSession.user.id,
                 email: dbSession.user.email,
               },
             };
-            console.log("✅ Method 3 - Custom sessionToken:", session);
-          } else {
-            console.log("❌ Session expired or not found in database");
           }
 
           await prisma.$disconnect();
         }
       } catch (error) {
-        console.log("❌ Method 3 failed:", error);
+        console.log("Session validation failed:", error);
       }
     }
 
     if (!session?.user?.id) {
-      console.log("❌ No valid session found after all methods");
-      return NextResponse.json(
-        { success: false, message: "Unauthorized - User not authenticated" },
-        { status: 401 },
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const data = await request.json();
 
-    // Add userId from session
-    const experienceData = {
-      ...data,
+    // Validation des données avec Zod
+    const validatedData = experienceSchema.parse(data);
+
+    // Sanitisation des données
+    const sanitizedData: CreateExperienceData = {
+      title: sanitizeInput(validatedData.title),
+      company: sanitizeInput(validatedData.company),
+      description: validatedData.description
+        ? sanitizeInput(validatedData.description)
+        : undefined,
+      startDate: new Date(validatedData.startDate),
+      endDate: validatedData.endDate
+        ? new Date(validatedData.endDate)
+        : undefined,
+      current: !validatedData.endDate, // Si pas de date de fin, alors c'est actuel
       userId: session.user.id,
     };
 
-    const experience = await createExperience(experienceData);
+    const experience = await createExperience(sanitizedData);
 
     return NextResponse.json({
-      message: "Experience creer avec success",
+      message: "Experience created successfully",
       experience: experience,
       status: 200,
     });
   } catch (error: any) {
     console.error("Experience creation error:", error);
-    return NextResponse.json({
-      message: "Création d'expérience échoué",
-      error: error.message,
-      status: 500,
-    });
+
+    if (error.name === "ZodError") {
+      return NextResponse.json(
+        { error: "Invalid input data" },
+        { status: 400 },
+      );
+    }
+
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }

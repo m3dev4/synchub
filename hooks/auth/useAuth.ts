@@ -30,7 +30,7 @@ export const signUp = () => {
 
 export const signIn = () => {
   const router = useRouter();
-  const { setLoading } = useAuthStore();
+  const { setLoading, setPendingVerification } = useAuthStore();
 
   return useMutation({
     mutationFn: async (data: loginDto) => {
@@ -40,7 +40,12 @@ export const signIn = () => {
         body: JSON.stringify(data),
       });
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || "Erreur inconnue");
+      if (!response.ok) {
+        const error = new Error(result.error || "Erreur inconnue");
+        (error as any).needsVerification = result.needsVerification;
+        (error as any).email = data.email;
+        throw error;
+      }
       return result;
     },
     onSuccess: (user) => {
@@ -51,8 +56,15 @@ export const signIn = () => {
       useAuthStore.setState({ isAuthenticated: true });
       router.push("/feeds");
     },
-    onError: (error) => {
+    onError: (error: any) => {
+      setLoading(false);
       console.error("Erreur connexion", error);
+
+      // Si l'email n'est pas vérifié, rediriger vers la page de vérification
+      if (error.message === "Email not verified" && error.needsVerification) {
+        setPendingVerification(error.email || "");
+        router.push("/verify-email");
+      }
     },
   });
 };
