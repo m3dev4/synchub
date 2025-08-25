@@ -6,7 +6,7 @@ export type UserRole = "USER" | "ADMIN";
 
 export interface User {
   id: string;
-  firtsName?: string;
+  firstName?: string;
   lastName?: string;
   username?: string;
   email: string;
