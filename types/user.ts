@@ -1,6 +1,7 @@
 import { Education } from "./educations";
 import { Experience } from "./experiences";
 import { Skill } from "./skills";
+import { Nationality } from "./nationality";
 
 export type UserRole = "USER" | "ADMIN";
 
@@ -12,6 +13,7 @@ export interface User {
   email: string;
   password: string;
   avatarPicture?: string | null;
+  coverPicture?: string | null;
   description?: string | null;
   dateBirth: Date;
   title?: string | null;
@@ -27,10 +29,18 @@ export interface User {
   updatedAt: Date;
   role: UserRole;
   nationalityId?: string;
+  nationality?: Nationality;
 
   experience: Experience[];
   education: Education[];
   skills: Skill[];
+  experiences: Experience[];
+  educations: Education[];
+  userSkills: {
+    id: string;
+    level: string;
+    skill: { id: string; title: string };
+  }[];
 }
 
 export interface UserCreateDto {

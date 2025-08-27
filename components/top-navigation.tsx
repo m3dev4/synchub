@@ -48,7 +48,7 @@ export function TopNavigation() {
   };
 
   return (
-    <div className="flex items-center justify-between w-full px-6 py-4 bg-background border-b sticky top-0 z-50">
+    <div className="flex items-center justify-between w-full px-6 py-4 bg-background border-b fixed top-0 z-50">
       {/* Avatar utilisateur */}
       <div className="flex items-center gap-3">
         <Avatar className="h-10 w-10">

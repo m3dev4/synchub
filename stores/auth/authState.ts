@@ -11,6 +11,7 @@ interface AuthState {
   hydrated: boolean;
 
   setUser: (user: User | null) => void;
+  updateUser: (userData: Partial<User>) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   setPendingVerification: (email: string) => void;
@@ -35,6 +36,10 @@ export const useAuthStore = create<AuthState>()(
       hydrated: false,
 
       setUser: (user) => set({ user }),
+      updateUser: (userData) =>
+        set((state) => ({
+          user: state.user ? { ...state.user, ...userData } : null,
+        })),
       setLoading: (loading) => set({ loading }),
       setError: (error) => set({ error }),
       setPendingVerification: (email) => set({ pendingEmail: email }),

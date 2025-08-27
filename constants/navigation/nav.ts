@@ -1,4 +1,3 @@
-import { Bell, Chat, Commu, Feeds, Project } from "@/public/icons";
 import { Settings, User2Icon } from "lucide-react";
 
 import { TbBrandSafari } from "react-icons/tb";

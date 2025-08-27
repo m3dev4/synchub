@@ -36,6 +36,8 @@ model User {
 
   //  Attributes
   nationalityId String?
+  followersId String?
+  followingId String?
 
   //  Relations
   nationality Nationality? @relation(fields: [nationalityId], references: [id])
@@ -45,6 +47,10 @@ model User {
   session     Session[]
   userSkills  UserSkill[]
   accounts    Account[]
+
+  Followers Followers[]
+
+  following following[]
 }
 
 model Nationality {
@@ -90,6 +96,24 @@ model Skill {
   updatedAt DateTime @updatedAt
   sousSkill sousSkill[]
   userSkills UserSkill[]
+}
+
+model Followers {
+  id        String   @id() @default(cuid())
+  count     Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model following {
+  id        String   @id() @default(cuid())
+  count     Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model sousSkill {

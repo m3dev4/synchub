@@ -131,14 +131,46 @@
   );
 }
 
-
 @layer utilities {
   .boxShadow {
-    -webkit-box-shadow: inset 13px 2px 18px -2px rgba(0,0,0,0.8); 
-    box-shadow: inset 13px 2px 18px -2px rgba(0,0,0,0.8);
+    -webkit-box-shadow: inset 13px 2px 18px -2px rgba(0, 0, 0, 0.8);
+    box-shadow: inset 13px 2px 18px -2px rgba(0, 0, 0, 0.8);
   }
   .boxShadowLight {
-    -webkit-box-shadow: inset 13px 2px 18px -2px rgba(255, 255, 255, 0.8); 
+    -webkit-box-shadow: inset 13px 2px 18px -2px rgba(255, 255, 255, 0.8);
     box-shadow: inset 13px 2px 18px -2px rgba(255, 255, 255, 0.8);
+  }
+}
+
+@layer utilities {
+  .coverBox {
+    background: linear-gradient(145deg, #323232, #3c3c3c);
+    box-shadow:
+      35px 35px 70px #1d1919,
+      -35px -35px 70px #2c2b2b;
+  }
+}
+
+@layer components {
+  .parent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+  }
+  .experience {
+    grid-column: span 2 / span 2;
+    grid-row: span 4 / span 4;
+  }
+  .education {
+    grid-column: span 3 / span 3;
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+  }
+  .skills {
+    grid-column: span 3 / span 3;
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+    grid-row-start: 4;
   }
 }

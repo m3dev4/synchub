@@ -9,6 +9,7 @@ export const AllExperiences = async () => {
     const experiences = await prisma.experience.findMany();
     return experiences;
   } catch (error) {
-    console.error("Error lors du récuperation des exepriences");
+    console.error("Erreur lors de la récupération des expériences:", error);
+    throw new Error("Impossible de récupérer les expériences");
   }
 };
