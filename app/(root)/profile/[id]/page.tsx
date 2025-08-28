@@ -13,14 +13,26 @@ import UserExperience from "@/components/user-experience";
 import UserEducation from "@/components/user-education";
 import { UserAvatar } from "@/components/ui/user-avatar";
 import { User } from "@/types/user";
+import { useFollow } from "@/hooks/follow/useFollow";
+import { useAuthStore } from "@/stores/auth/authState";
 
 const UserProfilePage = () => {
   const params = useParams();
   const userId = params.id as string;
+  const { user: currentUser } = useAuthStore();
 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Hook pour gérer le follow/unfollow
+  const {
+    isFollowing,
+    followersCount,
+    followingCount,
+    loading: followLoading,
+    toggleFollow,
+  } = useFollow(userId);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -75,7 +87,7 @@ const UserProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col w-full">
+    <div className="min-h-screen flex flex-col w-full py-6 my-6">
       <div className="flex flex-col w-full">
         {/* Header - Cover + Avatar */}
         <div className="relative w-full h-48 coverBox rounded-2xl overflow-hidden">
@@ -113,6 +125,16 @@ const UserProfilePage = () => {
                 <MapPin className="w-4 h-4" />
                 <span>{user.nationality?.name || "Pays non défini"}</span>
               </div>
+
+              {/* Statistiques de suivi */}
+              <div className="flex gap-4 items-center mt-2 text-sm text-muted-foreground">
+                <span>
+                  <strong>{followersCount}</strong> abonnés
+                </span>
+                <span>
+                  <strong>{followingCount}</strong> abonnements
+                </span>
+              </div>
               {user.linkWebsite && (
                 <div className="flex gap-2 items-center mt-1">
                   <Link2 className="w-4 h-4" />
@@ -128,16 +150,27 @@ const UserProfilePage = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm">
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Message
-              </Button>
-              <Button size="sm">
-                <UserPlus className="w-4 h-4 mr-2" />
-                Suivre
-              </Button>
-            </div>
+            {currentUser?.id && currentUser.id !== userId && (
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Message
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={toggleFollow}
+                  disabled={followLoading}
+                  variant={isFollowing ? "outline" : "default"}
+                >
+                  <UserPlus className="w-4 h-4 mr-2" />
+                  {followLoading
+                    ? "..."
+                    : isFollowing
+                      ? "Ne plus suivre"
+                      : "Suivre"}
+                </Button>
+              </div>
+            )}
           </div>
         </div>
 

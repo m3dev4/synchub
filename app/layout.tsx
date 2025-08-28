@@ -3,6 +3,7 @@ import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import QueryProvider from "@/components/providers/queryProvider";
+import { NotificationProvider } from "@/contexts/NotificationContext";
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
@@ -31,7 +32,9 @@ export default function RootLayout({
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <NotificationProvider>{children}</NotificationProvider>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

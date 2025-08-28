@@ -8,14 +8,20 @@ import {
   IconSun,
   IconSearch,
   IconLanguage,
+  IconBell,
 } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
+import { useNotifications } from "@/contexts/NotificationContext";
+import { NotificationCenter } from "@/components/notifications/NotificationCenter";
+import { Badge } from "@/components/ui/badge";
 
 export default function FloatingDockDemo() {
   const { theme, setTheme } = useTheme();
+  const { unreadCount } = useNotifications();
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentLanguage, setCurrentLanguage] = useState("EN");
+  const [notificationOpen, setNotificationOpen] = useState(false);
 
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -34,6 +40,10 @@ export default function FloatingDockDemo() {
     const nextIndex = (currentIndex + 1) % languages.length;
     setCurrentLanguage(languages[nextIndex]);
     console.log(`Language changed to: ${languages[nextIndex]}`);
+  };
+
+  const toggleNotifications = () => {
+    setNotificationOpen(!notificationOpen);
   };
 
   const toggleSearch = () => {
@@ -74,6 +84,23 @@ export default function FloatingDockDemo() {
       ),
       href: "#",
       onClick: toggleSearch,
+    },
+    {
+      title: `Notifications ${unreadCount > 0 ? `(${unreadCount})` : ""}`,
+      icon: (
+        <div className="relative h-full w-full">
+          <IconBell className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+          {unreadCount > 0 && (
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
+              <span className="text-xs text-white font-bold">
+                {unreadCount > 9 ? "9+" : unreadCount}
+              </span>
+            </div>
+          )}
+        </div>
+      ),
+      href: "#",
+      onClick: toggleNotifications,
     },
     {
       title: `Language (${currentLanguage})`,
@@ -161,6 +188,12 @@ export default function FloatingDockDemo() {
       )}
 
       <FloatingDock mobileClassName="translate-y-20" items={links} />
+
+      {/* Notification Center */}
+      <NotificationCenter
+        isOpen={notificationOpen}
+        onClose={() => setNotificationOpen(false)}
+      />
     </div>
   );
 }
