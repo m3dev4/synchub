@@ -10,27 +10,33 @@ datasource db {
 }
 
 model User {
-  id                              String    @id() @default(cuid())
-  firstName                       String
-  lastName                        String
-  username                        String    @unique
-  email                           String    @unique
-  password                        String
-  avatarPicture                   String?
-  coverPicture                    String?
-  description                     String?
-  dateBirth                       DateTime
-  title                           String?
-  titleProfession                 String?
-  linkWebsite                     String?
-  isVerify                        Boolean   @default(false)
-  emailVerificationToken          String?
-  emailVerificationTokenExpiresAt DateTime?
-  resetPasswordToken              String?
-  resetPasswordTokenExpiresAt     DateTime?
-  onboarding                      Boolean   @default(false)
-  createdAt                       DateTime  @default(now())
-  updatedAt                       DateTime  @updatedAt
+  id                                    String    @id() @default(cuid())
+  firstName                             String
+  lastName                              String
+  username                              String    @unique
+  email                                 String    @unique
+  password                              String
+  avatarPicture                         String?
+  coverPicture                          String?
+  description                           String?
+  dateBirth                             DateTime
+  title                                 String?
+  titleProfession                       String?
+  linkWebsite                           String?
+  isVerify                              Boolean   @default(false)
+  phoneNumber                           String?
+  isOnline                              Boolean   @default(false)
+  phoneNumberVerificationToken          String?
+  phoneNumberVerificationTokenExpiresAt DateTime?
+  location                              String?
+  socialLinks                           String?
+  emailVerificationToken                String?
+  emailVerificationTokenExpiresAt       DateTime?
+  resetPasswordToken                    String?
+  resetPasswordTokenExpiresAt           DateTime?
+  onboarding                            Boolean   @default(false)
+  createdAt                             DateTime  @default(now())
+  updatedAt                             DateTime  @updatedAt
 
   role userRole @default(USER)
 
@@ -49,7 +55,7 @@ model User {
   // Relations pour les follows
   followers Follow[] @relation("UserFollowing")
   following Follow[] @relation("UserFollowers")
-  
+
   // Relations pour les notifications
   notifications Notification[]
 }
@@ -78,31 +84,31 @@ model Experience {
 }
 
 model Education {
-  id        String   @id() @default(cuid())
+  id        String    @id() @default(cuid())
   title     String
   school    String
   startDate DateTime?
   endDate   DateTime?
   current   Boolean
-  user      User     @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
   userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Skill {
-  id        String   @id() @default(cuid())
-  title     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  sousSkill sousSkill[]
+  id         String      @id() @default(cuid())
+  title      String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  sousSkill  sousSkill[]
   userSkills UserSkill[]
 }
 
 model Follow {
   id          String   @id() @default(cuid())
-  followerId  String   // Celui qui suit
-  followingId String   // Celui qui est suivi
+  followerId  String // Celui qui suit
+  followingId String // Celui qui est suivi
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -115,11 +121,11 @@ model Follow {
 
 model Notification {
   id        String           @id() @default(cuid())
-  userId    String           // Utilisateur qui reçoit la notification
+  userId    String // Utilisateur qui reçoit la notification
   type      NotificationType
   title     String
   message   String
-  data      Json?            // Données supplémentaires (ex: userId de celui qui suit)
+  data      Json? // Données supplémentaires (ex: userId de celui qui suit)
   read      Boolean          @default(false)
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
@@ -151,23 +157,23 @@ model sousSkill {
 }
 
 model Technology {
-  id        String   @id() @default(cuid())
-  title     String
-  sousSkillTech sousSkill @relation(fields: [sousSkillTechId], references: [id])
+  id              String    @id() @default(cuid())
+  title           String
+  sousSkillTech   sousSkill @relation(fields: [sousSkillTechId], references: [id])
   sousSkillTechId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model UserSkill {
-  id        String   @id() @default(cuid())
-  user      User     @relation(fields: [userId], references: [id])
+  id        String     @id() @default(cuid())
+  user      User       @relation(fields: [userId], references: [id])
   userId    String
-  skill     Skill    @relation(fields: [skillId], references: [id])
+  skill     Skill      @relation(fields: [skillId], references: [id])
   skillId   String
   level     SkillLevel @default(BEGINNER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 
   @@unique([userId, skillId])
 }
@@ -212,19 +218,19 @@ model Session {
 
 // Better Auth required tables
 model Account {
-  id                String  @id @default(cuid())
-  accountId         String
-  providerId        String
-  userId            String
-  accessToken       String?
-  refreshToken      String?
-  idToken           String?
-  accessTokenExpiresAt DateTime?
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
   refreshTokenExpiresAt DateTime?
-  scope             String?
-  password          String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

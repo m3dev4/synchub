@@ -30,12 +30,15 @@ export interface User {
   role: UserRole;
   nationalityId?: string;
   nationality?: Nationality;
-
+  location?: string;
+  phoneNumber?: string;
+  phoneNumberVerificationToken?: string | null;
+  phoneNumberVerificationTokenExpiresAt?: Date | null;
+  socialLinks?: JSON;
+  isOnline?: boolean;
   experience: Experience[];
   education: Education[];
   skills: Skill[];
-  experiences: Experience[];
-  educations: Education[];
   userSkills: {
     id: string;
     level: string;
@@ -63,4 +66,23 @@ export interface Session extends User {
   userAgent: string;
   token: string;
   expiresAt: Date;
+}
+
+export interface userUpdateDto {
+  id: string;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  description?: string | null;
+  title?: string | null;
+  titleProfession?: string | null;
+  linkWebsite?: string | null;
+  password?: string | null;
+  nationalityId?: string | null;
+  nationality?: Nationality | null;
+  location?: string | null;
+  phoneNumber?: string | null;
+  phoneNumberVerificationToken?: string | null;
+  phoneNumberVerificationTokenExpiresAt?: Date | null;
+  socialLinks?: string;
 }
