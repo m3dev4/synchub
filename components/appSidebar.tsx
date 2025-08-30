@@ -18,6 +18,7 @@ import Link from "next/link";
 import { Playfair_Display } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { useAuthStore } from "@/stores/auth/authState";
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ const playfairDisplay = Playfair_Display({
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { user } = useAuthStore();
   return (
     <Sidebar className="bg-stone-800" collapsible="icon">
       <SidebarHeader>
@@ -83,7 +85,7 @@ export function AppSidebar() {
       <SidebarFooter className="-ml-2">
         <SidebarGroup>
           <SidebarMenu>
-            {navFooterLinks.map((link) => (
+            {navFooterLinks(user?.id || "").map((link) => (
               <SidebarMenuItem key={link.id}>
                 <SidebarMenuButton
                   asChild

@@ -39,11 +39,11 @@ export const navLinks = [
   },
 ];
 
-export const navFooterLinks = [
+export const navFooterLinks = (id: string) => [
   {
     id: 1,
     title: "Paramètres",
-    href: "/settings",
+    href: `/settings/${id}/profile`,
     icon: Settings,
   },
   {
