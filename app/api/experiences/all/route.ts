@@ -5,8 +5,18 @@ export async function GET() {
   try {
     const experiences = await AllExperiences();
     return NextResponse.json({
+      success: true,
       experiences: experiences,
-      status: 200,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.error("Erreur lors de la récupération des expériences:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Erreur lors de la récupération des expériences",
+        experiences: [],
+      },
+      { status: 500 },
+    );
+  }
 }

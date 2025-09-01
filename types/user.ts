@@ -1,13 +1,19 @@
+import { Education } from "./educations";
+import { Experience } from "./experiences";
+import { Skill } from "./skills";
+import { Nationality } from "./nationality";
+
 export type UserRole = "USER" | "ADMIN";
 
 export interface User {
   id: string;
-  firtsName?: string;
+  firstName?: string;
   lastName?: string;
   username?: string;
   email: string;
   password: string;
   avatarPicture?: string | null;
+  coverPicture?: string | null;
   description?: string | null;
   dateBirth: Date;
   title?: string | null;
@@ -23,6 +29,21 @@ export interface User {
   updatedAt: Date;
   role: UserRole;
   nationalityId?: string;
+  nationality?: Nationality;
+  location?: string;
+  phoneNumber?: string;
+  phoneNumberVerificationToken?: string | null;
+  phoneNumberVerificationTokenExpiresAt?: Date | null;
+  socialLinks?: JSON;
+  isOnline?: boolean;
+  experience: Experience[];
+  education: Education[];
+  skills: Skill[];
+  userSkills: {
+    id: string;
+    level: string;
+    skill: { id: string; title: string };
+  }[];
 }
 
 export interface UserCreateDto {
@@ -45,4 +66,23 @@ export interface Session extends User {
   userAgent: string;
   token: string;
   expiresAt: Date;
+}
+
+export interface userUpdateDto {
+  id: string;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  description?: string | null;
+  title?: string | null;
+  titleProfession?: string | null;
+  linkWebsite?: string | null;
+  password?: string | null;
+  nationalityId?: string | null;
+  nationality?: Nationality | null;
+  location?: string | null;
+  phoneNumber?: string | null;
+  phoneNumberVerificationToken?: string | null;
+  phoneNumberVerificationTokenExpiresAt?: Date | null;
+  socialLinks?: string;
 }

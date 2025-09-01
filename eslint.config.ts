@@ -18,6 +18,11 @@ export default [
       "lib/prisma-client-js/**",
       ".prisma/**",
       "prisma/client/**",
+      // Fichiers WASM et générés
+      "**/*.wasm.js",
+      "**/wasm.js",
+      "lib/prisma-client-js/client.js",
+      "lib/prisma-client-js/runtime/**",
       // Autres fichiers à ignorer
       "**/*.min.js",
       "**/*.bundle.js",

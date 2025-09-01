@@ -36,7 +36,7 @@ const VerifyEmail = () => {
   const verifyEmailMutation = verifyEmail();
   const resendCodeMutation = resendVerificationCode();
 
-  const email = searchParams.get("email") || pendingEmail;
+  const email = searchParams?.get("email") || pendingEmail;
 
   useEffect(() => {
     if (inputRefs.current[0]) {

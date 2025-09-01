@@ -614,7 +614,7 @@ export const skills = [
         ],
       },
       {
-        id: 15,
+        id: 8,
         title: "Database",
         createdAt: new Date(),
         updatedAt: new Date(),

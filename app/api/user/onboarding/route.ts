@@ -65,7 +65,7 @@ export async function PUT(request: NextRequest) {
                 email: dbSession.user.email,
               },
             };
-            console.log("✅ Method 3 - Custom sessionToken:", session);
+            console.log("✅ Method 3 - Custom session_token:", session);
           } else {
             console.log("❌ Session expired or not found in database");
           }
@@ -97,7 +97,7 @@ export async function PUT(request: NextRequest) {
       dateBirth: data.dateBirth ? new Date(data.dateBirth) : undefined,
     };
 
-    const result = await onboarding(onboardingData);
+    const result = await onboarding(onboardingData, session.user.id);
     if (result.success) {
       return NextResponse.json(result);
     } else {

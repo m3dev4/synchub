@@ -3,6 +3,7 @@ import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import QueryProvider from "@/components/providers/queryProvider";
+import { NotificationProvider } from "@/contexts/NotificationContext";
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   description:
     "Créer un espace authentique pour les développeurs et passionnés de tech au Sénégal (et Afrique francophone) où l’on se découvre, apprend et construit ensemble, avec de vraies communautés (pas des hashtags) et la collaboration de projets au cœur de l’expérience.",
   icons: {
-    icon: "./favi.ico",
+    icon: "/images/shlogo.png",
   },
 };
 
@@ -28,10 +29,12 @@ export default function RootLayout({
       <body className={`${playfairDisplay.variable} font-sans`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           disableTransitionOnChange
         >
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <NotificationProvider>{children}</NotificationProvider>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

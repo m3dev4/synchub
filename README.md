@@ -1,31 +1,38 @@
-# ✨ SyncHub
+# 🚀 SyncHub
 
-> **La plateforme sociale authentique pour les passionnés de technologie en Afrique francophone**
+<div align="center">
 
 ![SyncHub Logo](./public/images/shlogo.png)
 
-## 🌟 Présentation du Projet
+**La plateforme sociale nouvelle génération pour les passionnés de technologie en Afrique francophone**
 
-SyncHub est une plateforme sociale pensée pour créer un espace authentique où les passionnés de technologie, qu'ils soient développeurs, designers, experts en cybersécurité ou créateurs du digital, peuvent se rencontrer, échanger et collaborer.
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
+[![Prisma](https://img.shields.io/badge/Prisma-5.0-2D3748?style=for-the-badge&logo=prisma)](https://prisma.io)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
 
-Ici, il ne s'agit pas seulement de publier des posts : les utilisateurs rejoignent de vraies communautés, participent à des discussions constructives, partagent leurs projets et trouvent des partenaires pour donner vie à leurs idées.
+[🌐 Demo Live](https://synchub.vercel.app) • [📖 Documentation](./docs) • [🐛 Issues](https://github.com/m3dev4/synchub/issues) • [💬 Discussions](https://github.com/m3dev4/synchub/discussions)
 
-### 🎯 Mode de Fonctionnement
+</div>
 
-L'expérience repose sur l'interaction directe, la co-création et l'entraide. Chaque membre peut :
+---
 
-- **🏘️ Rejoindre ou créer** une communauté thématique
-- **💡 Publier** ses idées, projets ou besoins de collaboration
-- **🤝 Découvrir et échanger** avec des personnes partageant les mêmes centres d'intérêt
-- **🚀 Participer** à des projets collectifs, allant de la conception à la réalisation
+## 🌟 À propos de SyncHub
 
-### 🔮 Vision
+SyncHub révolutionne la façon dont les talents tech africains se connectent et collaborent. Plus qu'un simple réseau social, c'est un écosystème complet où l'innovation rencontre la communauté.
 
-SyncHub aspire à devenir le carrefour numérique de l'Afrique francophone, où les passionnés de technologie se découvrent, apprennent et construisent ensemble.
+### 🎯 Notre Mission
 
-Notre ambition est de sortir des réseaux sociaux classiques basés sur les hashtags et la superficialité pour offrir un lieu d'authenticité, d'innovation et de collaboration réelle.
+Créer un espace authentique où les développeurs, designers, experts en cybersécurité et créateurs du digital peuvent :
 
-**En un mot, SyncHub veut être la plateforme où les talents se rencontrent pour façonner le futur du digital en Afrique et au-delà.**
+- **🤝 Se connecter** avec des talents partageant leur passion
+- **💡 Partager** leurs projets et idées innovantes  
+- **🚀 Collaborer** sur des projets qui façonnent l'avenir
+- **📚 Apprendre** ensemble et grandir professionnellement
+
+### 🔮 Notre Vision
+
+Devenir le carrefour numérique de référence pour la tech africaine francophone, où chaque interaction génère de la valeur et où chaque projet peut trouver son équipe idéale.
 
 ## 🛠️ Stack Technique
 
@@ -40,17 +47,18 @@ Notre ambition est de sortir des réseaux sociaux classiques basés sur les hash
 - **Icons**: Lucide React + React Icons
 
 ### Backend & Database
-- **Database**: PostgreSQL (Supabase)
-- **ORM**: [Prisma](https://prisma.io)
-- **Authentication**: [Better Auth](https://better-auth.com)
-- **Email Service**: [Resend](https://resend.com)
-- **API**: Next.js API Routes
+- **Database**: PostgreSQL avec [Prisma ORM](https://prisma.io)
+- **Authentication**: Système custom avec sessions sécurisées
+- **Email Service**: [Resend](https://resend.com) pour notifications
+- **Real-time**: Socket.IO + Polling pour notifications temps réel
+- **API**: Next.js API Routes avec validation Zod
 
-### DevTools & Quality
-- **Package Manager**: pnpm
-- **Linting**: ESLint
-- **Formatting**: Prettier
-- **Type Checking**: TypeScript strict mode
+### DevTools & Qualité
+- **Package Manager**: pnpm pour performance optimale
+- **Linting**: ESLint avec règles strictes
+- **Formatting**: Prettier pour cohérence du code
+- **Type Safety**: TypeScript en mode strict
+- **Database**: Prisma Studio pour gestion visuelle
 
 ## 🚀 Installation et Configuration
 
@@ -147,60 +155,87 @@ synchub/
 └── templates/                   # Templates d'emails
 ```
 
-## 🔐 Fonctionnalités Implémentées
+## ✨ Fonctionnalités Implémentées
 
-### ✅ Authentification
-- **Inscription** avec validation email
-- **Connexion** avec gestion d'erreurs
-- **Vérification email** avec tokens
-- **Réinitialisation mot de passe**
-- **OAuth** (GitHub, Google)
-- **Sessions** persistantes
+### 🔐 Système d'Authentification Complet
+- **✅ Inscription sécurisée** avec validation email obligatoire
+- **✅ Connexion robuste** avec gestion d'erreurs détaillée
+- **✅ Vérification email** avec tokens temporaires
+- **✅ Réinitialisation mot de passe** via email
+- **✅ Sessions persistantes** avec middleware de protection
+- **✅ Onboarding personnalisé** avec collecte de données utilisateur
 
-### ✅ Gestion Utilisateur
-- **Profils utilisateur** complets
-- **Rôles** (USER, ADMIN)
-- **Onboarding** personnalisé
-- **Gestion des sessions**
+### 👥 Gestion Utilisateur Avancée
+- **✅ Profils utilisateur complets** (expériences, éducations, compétences)
+- **✅ Système de rôles** (USER, ADMIN) avec permissions
+- **✅ Gestion des nationalités** avec drapeaux
+- **✅ Upload d'avatars** et photos de couverture
+- **✅ Liens sociaux** et sites web personnels
 
-### ✅ Interface Utilisateur
-- **Design responsive** avec Tailwind CSS
-- **Mode sombre/clair** avec next-themes
-- **Composants UI** modernes (Radix UI)
-- **Animations** fluides
-- **Gestion d'erreurs** visuelle
+### 📱 Système de Posts & Feed Social
+- **✅ Création de posts** avec niveaux de visibilité (Public, Followers, Privé)
+- **✅ Feed personnalisé** basé sur les abonnements
+- **✅ Pagination infinie** avec curseurs optimisés
+- **✅ Suppression de posts** (auteur uniquement)
+- **✅ Métadonnées complètes** (auteur, date, visibilité)
 
-## 🎨 Design System
+### 🔔 Notifications Temps Réel
+- **✅ Système de notifications** pour follows et nouveaux posts
+- **✅ Notifications temps réel** via polling intelligent (5s)
+- **✅ Son de notification** avec fallback synthétique
+- **✅ Toast notifications** avec Sonner
+- **✅ Badge de compteur** non lues en temps réel
+- **✅ Gestion complète** (marquer lu, supprimer, tout marquer)
 
-Le projet utilise un design system basé sur :
-- **Couleurs** : Palette personnalisée avec support du mode sombre
-- **Typographie** : Playfair Display pour les titres
-- **Composants** : Bibliothèque shadcn/ui
-- **Icônes** : Lucide React pour la cohérence
-- **Animations** : Transitions CSS et Framer Motion
+### 🤝 Système de Follow
+- **✅ Follow/Unfollow utilisateurs** avec notifications automatiques
+- **✅ Compteurs followers/following** en temps réel
+- **✅ Feed basé sur les follows** avec posts des abonnements
+- **✅ Indicateurs visuels** de statut de follow
 
-## 📧 Système d'Emails
+### 🎨 Interface Utilisateur Moderne
+- **✅ Design system cohérent** avec Tailwind CSS + shadcn/ui
+- **✅ Mode sombre/clair** avec persistance
+- **✅ Responsive design** mobile-first
+- **✅ Animations fluides** et micro-interactions
+- **✅ Navigation intuitive** avec sidebar et top navigation
+- **✅ Gestion d'états** (loading, erreurs, succès)
 
-Intégration complète avec Resend pour :
-- **Vérification d'email** lors de l'inscription
-- **Réinitialisation de mot de passe**
-- **Templates HTML** personnalisés
-- **Gestion d'erreurs** robuste
+## 🎨 Architecture & Design
 
-## 🔒 Sécurité
+### 🏗️ Architecture Technique
+- **Architecture modulaire** avec séparation claire des responsabilités
+- **API Routes** RESTful avec validation Zod
+- **Middleware** de protection des routes avec redirection intelligente
+- **State Management** avec Zustand et persistance
+- **Real-time** via polling optimisé (5 secondes)
 
-- **Hachage des mots de passe** avec bcryptjs
-- **Validation des données** avec Zod
-- **Protection CSRF** intégrée
-- **Sessions sécurisées** avec Better Auth
-- **Variables d'environnement** pour les secrets
+### 🎨 Design System
+- **Palette de couleurs** moderne avec support mode sombre/clair
+- **Typographie** élégante avec Playfair Display
+- **Composants UI** cohérents via shadcn/ui + Radix UI
+- **Icônes** uniformes avec Lucide React
+- **Animations** fluides avec Framer Motion et CSS
 
-## 📱 Responsive Design
+### 📧 Système d'Emails
+- **Templates HTML** responsive et modernes
+- **Vérification email** obligatoire avec tokens sécurisés
+- **Réinitialisation mot de passe** avec liens temporaires
+- **Service Resend** pour délivrabilité optimale
 
-L'application est entièrement responsive et optimisée pour :
-- **Desktop** (1024px+)
-- **Tablet** (768px - 1023px)
-- **Mobile** (320px - 767px)
+### 🔒 Sécurité & Performance
+- **Hachage bcryptjs** pour mots de passe
+- **Validation Zod** sur toutes les entrées
+- **Sessions sécurisées** avec tokens et expiration
+- **Middleware de protection** des routes sensibles
+- **Variables d'environnement** pour tous les secrets
+- **Optimisation Prisma** avec requêtes efficaces
+
+### 📱 Responsive & Accessibilité
+- **Mobile-first** design avec breakpoints optimisés
+- **Desktop** (1024px+) avec sidebar navigation
+- **Tablet** (768px-1023px) avec interface adaptée
+- **Mobile** (320px-767px) avec navigation bottom sheet
 
 ## 🚀 Scripts Disponibles
 

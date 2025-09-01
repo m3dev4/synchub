@@ -2,6 +2,7 @@
 
 import { PrismaClient } from "@/lib/prisma-client-js";
 import bcrypt from "bcryptjs";
+import { tokenSchema, passwordSchema } from "@/lib/security";
 
 const prisma = new PrismaClient();
 
@@ -10,13 +11,14 @@ export const resetPassword = async (token: string, newPassword: string) => {
     if (!token || !newPassword) {
       throw new Error("Token or new password is required");
     }
-    if (newPassword.length < 8) {
-      throw new Error("Password must be at least 8 characters long");
-    }
+
+    // Validation sécurisée du token et du mot de passe
+    const validatedToken = tokenSchema.parse(token);
+    const validatedPassword = passwordSchema.parse(newPassword);
 
     const user = await prisma.user.findFirst({
       where: {
-        resetPasswordToken: token,
+        resetPasswordToken: validatedToken,
       },
     });
     if (!user) {
@@ -31,7 +33,7 @@ export const resetPassword = async (token: string, newPassword: string) => {
     }
 
     const salt = 12;
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    const hashedPassword = await bcrypt.hash(validatedPassword, salt);
 
     const updateUser = await prisma.user.update({
       where: { id: user.id },

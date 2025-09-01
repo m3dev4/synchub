@@ -15,7 +15,7 @@ export const useOnboarding = () => {
         body: JSON.stringify(data),
       });
       const result = await response.json();
-      if (response.ok || !result.success) {
+      if (!response.ok || !result.success) {
         throw new Error(result.message || "Erreur onboarding");
       }
       return result;
