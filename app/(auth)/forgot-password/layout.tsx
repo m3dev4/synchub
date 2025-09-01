@@ -4,12 +4,10 @@ export const metadata: Metadata = {
   title: "SyncHub - Forgot Password",
 };
 
-export const forgotPasswordLayout = ({
+export default function ForgotPasswordLayout({
   children,
 }: {
   children: React.ReactNode;
-}) => {
+}) {
   return children;
-};
-
-export default forgotPasswordLayout;
+}

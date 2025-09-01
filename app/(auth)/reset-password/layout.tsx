@@ -4,12 +4,10 @@ export const metadata: Metadata = {
   title: "SyncHub - Reset Password",
 };
 
-export const resetPasswordLayout = ({
+export default function ResetPasswordLayout({
   children,
 }: {
   children: React.ReactNode;
-}) => {
+}) {
   return children;
-};
-
-export default resetPasswordLayout;
+}

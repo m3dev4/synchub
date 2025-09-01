@@ -18,7 +18,7 @@ import { useAuthStore } from "@/stores/auth/authState";
 
 const UserProfilePage = () => {
   const params = useParams();
-  const userId = params.id as string;
+  const userId = params?.id as string;
   const { user: currentUser } = useAuthStore();
 
   const [user, setUser] = useState<User | null>(null);

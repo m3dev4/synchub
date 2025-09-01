@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
 import { FormField } from "./FormField";
-import { Education } from "@/types/educations";
+import { OnboardingEducation } from "@/types/onboarding";
 
 interface EducationFormProps {
-  educations: Education[];
-  onChange: (educations: Education[]) => void;
+  educations: OnboardingEducation[];
+  onChange: (educations: OnboardingEducation[]) => void;
   errors?: Record<string, string>;
 }
 
@@ -15,23 +15,21 @@ export const EducationForm = ({
   errors,
 }: EducationFormProps) => {
   const addEducation = () => {
-    const newEducation: Education = {
+    const newEducation: OnboardingEducation = {
       id: crypto.randomUUID(),
       title: "",
       school: "",
-      startDate: undefined,
-      endDate: undefined,
+      description: "",
+      startDate: new Date(),
+      endDate: new Date(),
       current: false,
-      userId: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
     };
     onChange([...educations, newEducation]);
   };
 
   const updateEducation = (
     index: number,
-    field: keyof Education,
+    field: keyof OnboardingEducation,
     value: any,
   ) => {
     const updated = educations.map((edu, i) =>
@@ -96,7 +94,7 @@ export const EducationForm = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
               label="Diplôme/Formation"
-              value={education.title}
+              value={education.title || ""}
               onChange={(value) => updateEducation(index, "title", value)}
               placeholder="Ex: Master en Informatique"
               required

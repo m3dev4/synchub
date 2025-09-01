@@ -19,9 +19,11 @@ export interface OnboardingExperience {
 export interface OnboardingEducation {
   id: string;
   title?: string;
+  school?: string;
   description?: string;
   startDate: Date;
   endDate: Date;
+  current?: boolean;
 }
 
 export interface UserOnboarding {

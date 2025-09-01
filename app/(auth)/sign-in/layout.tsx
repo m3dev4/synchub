@@ -4,8 +4,10 @@ export const metadata: Metadata = {
   title: "SyncHub - Sign-In",
 };
 
-export const signInLayout = ({ children }: { children: React.ReactNode }) => {
+export default function SignInLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return children;
-};
-
-export default signInLayout;
+}

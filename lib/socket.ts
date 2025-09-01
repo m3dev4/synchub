@@ -1,5 +1,4 @@
 import { Server as NetServer } from "http";
-import { NextApiRequest } from "next";
 import { Server as ServerIO } from "socket.io";
 
 export type NextApiResponseServerIO = {
@@ -14,6 +13,7 @@ let io: ServerIO;
 
 export const initSocket = (server: NetServer) => {
   if (!io) {
+    console.log("🚀 Initializing Socket.IO server...");
     io = new ServerIO(server, {
       path: "/api/socket/io",
       addTrailingSlash: false,
@@ -67,10 +67,11 @@ export interface NotificationEvent {
     | "FOLLOW_REQUEST"
     | "LIKE"
     | "COMMENT"
-    | "MESSAGE";
+    | "MESSAGE"
+    | "POST";
   title: string;
   message: string;
-  data?: any;
+  data?: unknown;
   createdAt: Date;
 }
 
@@ -80,7 +81,16 @@ export const emitNotification = (
   notification: NotificationEvent,
 ) => {
   if (io) {
+    console.log(`📤 Attempting to emit notification to user-${userId}`);
+    console.log(`📤 Notification data:`, notification);
+    console.log(
+      `📤 Connected sockets in room user-${userId}:`,
+      io.sockets.adapter.rooms.get(`user-${userId}`)?.size || 0,
+    );
+
     io.to(`user-${userId}`).emit("notification", notification);
-    console.log(`Notification sent to user-${userId}:`, notification);
+    console.log(`✅ Notification emitted to user-${userId}`);
+  } else {
+    console.error("❌ Socket.IO not initialized, cannot emit notification");
   }
 };

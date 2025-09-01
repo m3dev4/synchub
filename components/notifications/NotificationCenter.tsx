@@ -16,6 +16,7 @@ import {
   MessageCircle,
   UserPlus,
   X,
+  FileText,
 } from "lucide-react";
 import { useNotifications } from "@/contexts/NotificationContext";
 import { formatDistanceToNow } from "date-fns";
@@ -54,6 +55,8 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
         return <MessageCircle className="w-4 h-4 text-green-500" />;
       case "MESSAGE":
         return <MessageCircle className="w-4 h-4 text-purple-500" />;
+      case "POST":
+        return <FileText className="w-4 h-4 text-orange-500" />;
       default:
         return <Bell className="w-4 h-4 text-gray-500" />;
     }
@@ -89,6 +92,8 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
     // Navigation basée sur le type de notification
     if (notification.type === "FOLLOW" && notification.data?.followerId) {
       window.location.href = `/profile/${notification.data.followerId}`;
+    } else if (notification.type === "POST" && notification.data?.postId) {
+      window.location.href = `/feeds`;
     }
   };
 

@@ -1,17 +1,26 @@
 "use client";
 
-import { useAuthStore } from "@/stores/auth/authState";
-import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { logout } from "@/hooks/auth/useAuth";
+import { CreatePost } from "@/components/posts/CreatePost";
+import { FeedList } from "@/components/posts/FeedList";
 
 const Feeds = () => {
-  const { user, isAuthenticated, hydrated, logout } = useAuthStore();
-  const router = useRouter();
-
   return (
-    <div>
-      <h1>Feeds</h1>
+    <div className="min-h-screen bg-background py-6">
+      <div className="max-w-2xl mx-auto px-4 space-y-6">
+        {/* Header */}
+        <div className="text-center space-y-2">
+          <h1 className="text-2xl font-bold">Feed</h1>
+          <p className="text-muted-foreground text-sm">
+            Découvrez les derniers posts de vos abonnements
+          </p>
+        </div>
+
+        {/* Créer un post */}
+        <CreatePost />
+
+        {/* Feed des posts */}
+        <FeedList />
+      </div>
     </div>
   );
 };

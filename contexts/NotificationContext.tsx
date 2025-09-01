@@ -21,7 +21,8 @@ interface Notification {
     | "FOLLOW_REQUEST"
     | "LIKE"
     | "COMMENT"
-    | "MESSAGE";
+    | "MESSAGE"
+    | "POST";
   title: string;
   message: string;
   data?: any;
@@ -38,7 +39,8 @@ interface NotificationEvent {
     | "FOLLOW_REQUEST"
     | "LIKE"
     | "COMMENT"
-    | "MESSAGE";
+    | "MESSAGE"
+    | "POST";
   title: string;
   message: string;
   data?: any;
@@ -88,31 +90,40 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
     try {
       // Utiliser le son existant dans public/sounds/
       const audio = new Audio("/sounds/notification.mp3");
-      audio.volume = 0.5;
+      audio.volume = 0.3; // Volume plus bas pour éviter d'être trop fort
       audio.play().catch(() => {
-        // Fallback: créer un son synthétique si le fichier n'existe pas
-        const audioContext = new (window.AudioContext ||
-          (window as any).webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
+        // Fallback avec son synthétique simple
+        try {
+          const audioContext = new (window.AudioContext ||
+            (window as any).webkitAudioContext)();
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
 
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
 
-        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-        oscillator.frequency.setValueAtTime(
-          600,
-          audioContext.currentTime + 0.1,
-        );
+          // Son de notification simple (2 bips)
+          oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+          oscillator.frequency.setValueAtTime(
+            600,
+            audioContext.currentTime + 0.1,
+          );
+          oscillator.frequency.setValueAtTime(
+            800,
+            audioContext.currentTime + 0.2,
+          );
 
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(
-          0.01,
-          audioContext.currentTime + 0.3,
-        );
+          gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(
+            0.01,
+            audioContext.currentTime + 0.3,
+          );
 
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.3);
+          oscillator.start(audioContext.currentTime);
+          oscillator.stop(audioContext.currentTime + 0.3);
+        } catch (fallbackError) {
+          console.log("Audio not available");
+        }
       });
     } catch (error) {
       console.error("Error playing notification sound:", error);
@@ -133,24 +144,40 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
     );
 
     socketInstance.on("connect", () => {
-      console.log("Connected to socket server");
+      console.log(
+        "✅ Connected to socket server, socket ID:",
+        socketInstance.id,
+      );
       socketInstance.emit("join-user-room", user.id);
+      console.log("📡 Joined user room:", `user-${user.id}`);
     });
 
     socketInstance.on("notification", (notification: NotificationEvent) => {
-      console.log("Received notification:", notification);
+      console.log("🔔 Received notification:", notification);
+      console.log(
+        "📊 Current notifications count before:",
+        notifications.length,
+      );
 
       // Ajouter la notification à la liste
-      setNotifications((prev) => [
-        {
-          ...notification,
-          read: false,
-        },
-        ...prev,
-      ]);
+      setNotifications((prev) => {
+        const newNotifications = [
+          {
+            ...notification,
+            read: false,
+          },
+          ...prev,
+        ];
+        console.log("📊 New notifications count:", newNotifications.length);
+        return newNotifications;
+      });
 
       // Incrémenter le compteur non lu
-      setUnreadCount((prev) => prev + 1);
+      setUnreadCount((prev) => {
+        const newCount = prev + 1;
+        console.log("🔢 Unread count updated:", prev, "→", newCount);
+        return newCount;
+      });
 
       // Jouer le son
       playNotificationSound();
@@ -162,8 +189,12 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
       });
     });
 
-    socketInstance.on("disconnect", () => {
-      console.log("Disconnected from socket server");
+    socketInstance.on("connect_error", (error) => {
+      console.error("❌ Socket connection error:", error);
+    });
+
+    socketInstance.on("disconnect", (reason) => {
+      console.log("❌ Disconnected from socket server:", reason);
     });
 
     setSocket(socketInstance);
@@ -181,7 +212,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
     async (page = 1, limit = 20) => {
       if (!user?.id) return;
 
-      setLoading(true);
+      setLoading(page === 1);
       try {
         const response = await fetch(
           `/api/notifications?page=${page}&limit=${limit}`,
@@ -195,21 +226,54 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
         const result = await response.json();
 
         if (response.ok && result.success) {
+          const newNotifications = result.notifications;
+
           if (page === 1) {
-            setNotifications(result.notifications);
+            // Vérifier s'il y a de nouvelles notifications
+            const hasNewNotifications = newNotifications.some(
+              (newNotif: any) =>
+                !notifications.find((n) => n.id === newNotif.id),
+            );
+
+            if (hasNewNotifications && notifications.length > 0) {
+              // Jouer le son et afficher toast pour nouvelles notifications
+              const newOnes = newNotifications.filter(
+                (newNotif: any) =>
+                  !notifications.find((n) => n.id === newNotif.id),
+              );
+
+              // Jouer le son une seule fois pour toutes les nouvelles notifications
+              const unreadNewOnes = newOnes.filter((notif: any) => !notif.read);
+
+              if (unreadNewOnes.length > 0) {
+                playNotificationSound();
+
+                // Afficher un toast pour chaque nouvelle notification
+                unreadNewOnes.forEach((notif: any) => {
+                  toast.success(notif.title, {
+                    description: notif.message,
+                    duration: 3000,
+                  });
+                });
+              }
+            }
+
+            setNotifications(newNotifications);
           } else {
-            setNotifications((prev) => [...prev, ...result.notifications]);
+            setNotifications((prev) => [...prev, ...newNotifications]);
           }
           setUnreadCount(result.unreadCount);
         }
       } catch (error) {
         console.error("Error fetching notifications:", error);
-        toast.error("Erreur lors du chargement des notifications");
+        if (page === 1) {
+          toast.error("Erreur lors du chargement des notifications");
+        }
       } finally {
         setLoading(false);
       }
     },
-    [user?.id],
+    [user?.id, notifications, playNotificationSound],
   );
 
   // Marquer comme lu
@@ -303,10 +367,17 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
     [user?.id, notifications],
   );
 
-  // Charger les notifications au montage
+  // Charger les notifications au montage et polling
   useEffect(() => {
     if (user?.id) {
       fetchNotifications();
+
+      // Polling toutes les 5 secondes pour les nouvelles notifications
+      const interval = setInterval(() => {
+        fetchNotifications();
+      }, 5000);
+
+      return () => clearInterval(interval);
     }
   }, [user?.id, fetchNotifications]);
 

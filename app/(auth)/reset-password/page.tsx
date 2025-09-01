@@ -37,7 +37,7 @@ const page = () => {
   });
 
   const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  const token = searchParams?.get("token");
 
   const resetPasswordApi = resetPassword();
 
