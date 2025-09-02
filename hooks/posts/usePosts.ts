@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 import { CreatePostDto, Post, FeedResponse } from "@/types/posts";
 import { toast } from "sonner";
 
@@ -86,6 +91,31 @@ export const useDeletePost = () => {
 };
 
 // Hook pour récupérer le feed avec pagination infinie
+export const useInfiniteFeed = () => {
+  return useInfiniteQuery({
+    queryKey: ["feed"],
+    queryFn: async ({ pageParam }): Promise<FeedResponse> => {
+      const url = pageParam
+        ? `/api/feed?cursor=${pageParam}&limit=10`
+        : "/api/feed?limit=10";
+
+      const response = await fetch(url);
+      const result = await response.json();
+      if (!response.ok)
+        throw new Error(
+          result.error || "Erreur lors de la récupération du feed",
+        );
+      return result;
+    },
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) =>
+      lastPage.hasMore ? lastPage.nextCursor : undefined,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnWindowFocus: true,
+  });
+};
+
+// Hook pour récupérer le feed (version legacy)
 export const useFeed = () => {
   return useQuery({
     queryKey: ["feed"],

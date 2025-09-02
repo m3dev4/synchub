@@ -1,20 +1,35 @@
 "use client";
 
-import { useFeed, useLoadMorePosts } from "@/hooks/posts/usePosts";
+import { useInfiniteFeed } from "@/hooks/posts/usePosts";
 import { PostCard } from "./PostCard";
+import { PostSkeleton, FeedSkeleton } from "./PostSkeleton";
 import { Button } from "@/components/ui/button";
 import { Loader2, RefreshCw } from "lucide-react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 export const FeedList = () => {
-  const { data: feedData, isLoading, error, refetch } = useFeed();
-  const loadMoreMutation = useLoadMorePosts();
+  const {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useInfiniteFeed();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const handleLoadMore = async () => {
-    if (!feedData?.nextCursor) return;
-    await loadMoreMutation.mutateAsync(feedData.nextCursor);
-  };
+  const { loadMoreRef } = useInfiniteScroll({
+    hasNextPage: !!hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  });
+
+  // Flatten all posts from all pages
+  const allPosts = useMemo(() => {
+    return data?.pages.flatMap((page) => page.posts) ?? [];
+  }, [data]);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -23,14 +38,7 @@ export const FeedList = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-12">
-        <Loader2 className="w-6 h-6 animate-spin" />
-        <span className="ml-2 text-muted-foreground">
-          Chargement du feed...
-        </span>
-      </div>
-    );
+    return <FeedSkeleton count={5} />;
   }
 
   if (error) {
@@ -45,7 +53,7 @@ export const FeedList = () => {
     );
   }
 
-  if (!feedData?.posts || feedData.posts.length === 0) {
+  if (!allPosts || allPosts.length === 0) {
     return (
       <div className="text-center py-12">
         <div className="space-y-4">
@@ -86,29 +94,29 @@ export const FeedList = () => {
       </div>
 
       {/* Liste des posts */}
-      <div className="space-y-4">
-        {feedData.posts.map((post) => (
+      <div className="space-y-6">
+        {allPosts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
       </div>
 
-      {/* Bouton charger plus */}
-      {feedData.hasMore && (
-        <div className="flex justify-center pt-6">
-          <Button
-            onClick={handleLoadMore}
-            disabled={loadMoreMutation.isPending}
-            variant="outline"
-          >
-            {loadMoreMutation.isPending ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Chargement...
-              </>
-            ) : (
-              "Charger plus de posts"
-            )}
-          </Button>
+      {/* Trigger pour le scroll infini */}
+      {hasNextPage && (
+        <div ref={loadMoreRef} className="flex justify-center pt-6">
+          {isFetchingNextPage ? (
+            <FeedSkeleton count={2} />
+          ) : (
+            <div className="h-4" /> // Invisible trigger
+          )}
+        </div>
+      )}
+
+      {/* Indicateur de fin */}
+      {!hasNextPage && allPosts.length > 0 && (
+        <div className="text-center py-8 text-muted-foreground">
+          <div className="text-2xl mb-2">🎉</div>
+          <p className="text-sm font-medium">Vous avez vu tous les posts !</p>
+          <p className="text-xs">Revenez plus tard pour de nouveaux contenus</p>
         </div>
       )}
     </div>

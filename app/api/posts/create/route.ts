@@ -53,25 +53,88 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Créer le post
-    const post = await prisma.post.create({
-      data: {
-        content: data.content.trim(),
-        visibility: data.visibility || "PUBLIC",
-        media: data.media,
-        authorId: session.user.id,
-      },
-      include: {
-        author: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            username: true,
-            avatarPicture: true,
+    // Créer le post avec transaction pour gérer les médias et collaborateurs
+    const post = await prisma.$transaction(async (tx) => {
+      // Créer le post principal
+      const newPost = await tx.post.create({
+        data: {
+          authorId: session.user.id,
+          content: data.content.trim(),
+          contentType: data.contentType || "TEXT",
+          visibility: data.visibility || "PUBLIC",
+          isCollaborative: data.isCollaborative || false,
+        },
+      });
+
+      // Ajouter les médias si présents
+      if (data.media && data.media.length > 0) {
+        await tx.postMedia.createMany({
+          data: data.media.map((media) => ({
+            postId: newPost.id,
+            type: media.type,
+            url: media.url,
+            publicId: media.publicId,
+            filename: media.filename,
+            size: media.size,
+            duration: media.duration,
+          })),
+        });
+      }
+
+      // Ajouter les collaborateurs si c'est un post collaboratif
+      if (
+        data.isCollaborative &&
+        data.collaboratorIds &&
+        data.collaboratorIds.length > 0
+      ) {
+        // Ajouter l'auteur comme propriétaire
+        await tx.postCollaborator.create({
+          data: {
+            postId: newPost.id,
+            userId: session.user.id,
+            role: "OWNER",
+          },
+        });
+
+        // Ajouter les autres collaborateurs
+        await tx.postCollaborator.createMany({
+          data: data.collaboratorIds.map((userId) => ({
+            postId: newPost.id,
+            userId,
+            role: "CONTRIBUTOR",
+          })),
+        });
+      }
+
+      // Récupérer le post complet avec toutes les relations
+      return await tx.post.findUnique({
+        where: { id: newPost.id },
+        include: {
+          author: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              username: true,
+              avatarPicture: true,
+            },
+          },
+          media: true,
+          collaborators: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  firstName: true,
+                  lastName: true,
+                  username: true,
+                  avatarPicture: true,
+                },
+              },
+            },
           },
         },
-      },
+      });
     });
 
     // Récupérer tous les followers pour les notifications
@@ -115,11 +178,14 @@ export async function POST(request: NextRequest) {
     // Fermer la connexion Prisma
     await prisma.$disconnect();
 
-    return NextResponse.json({
-      success: true,
-      post,
-      notificationsSent: notifications.length,
-    });
+    if (!post) {
+      return NextResponse.json(
+        { error: "Erreur lors de la création du post" },
+        { status: 500 },
+      );
+    }
+
+    return NextResponse.json(post, { status: 201 });
   } catch (error) {
     console.error("Erreur lors de la création du post:", error);
     return NextResponse.json(

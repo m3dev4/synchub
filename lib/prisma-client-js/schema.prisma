@@ -44,21 +44,21 @@ model User {
   nationalityId String?
 
   //  Relations
-  nationality Nationality? @relation(fields: [nationalityId], references: [id])
-  experiences Experience[]
-  educations  Education[]
-  degrees     Degree[]
-  session     Session[]
-  userSkills  UserSkill[]
-  accounts    Account[]
-
-  // Relations pour les follows
-  followers Follow[] @relation("UserFollowing")
-  following Follow[] @relation("UserFollowers")
-  posts     Post[]
-
-  // Relations pour les notifications
-  notifications Notification[]
+  nationality        Nationality?       @relation(fields: [nationalityId], references: [id])
+  experiences        Experience[]
+  educations         Education[]
+  follows            Follow[]           @relation("UserFollowers")
+  following          Follow[]           @relation("UserFollowing")
+  sessions           Session[]
+  degrees            Degree[]
+  userSkills         UserSkill[]
+  posts              Post[]
+  notifications      Notification[]
+  accounts           Account[]
+  postCollaborations PostCollaborator[]
+  postReactions      PostReaction[]
+  comments           Comment[]
+  mentions           Mention[]
 }
 
 model Nationality {
@@ -145,6 +145,8 @@ enum NotificationType {
   COMMENT
   MESSAGE
   POST
+  REACTION
+  MENTION
 }
 
 model sousSkill {
@@ -251,18 +253,123 @@ model Verification {
 }
 
 model Post {
-  id         String     @id() @default(cuid())
-  author     User       @relation(fields: [authorId], references: [id])
-  authorId   String
-  content    String
-  visibility Visibility @default(PUBLIC)
-  media      String?
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id              String             @id() @default(cuid())
+  author          User               @relation(fields: [authorId], references: [id])
+  authorId        String
+  content         String
+  contentType     ContentType        @default(TEXT)
+  visibility      Visibility         @default(PUBLIC)
+  media           PostMedia[]
+  isCollaborative Boolean            @default(false)
+  collaborators   PostCollaborator[]
+  reactions       PostReaction[]
+  comments        Comment[]
+  mentions        Mention[]
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+}
+
+model PostMedia {
+  id        String    @id() @default(cuid())
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  type      MediaType
+  url       String
+  publicId  String? // Cloudinary public_id pour suppression
+  filename  String?
+  size      Int? // Taille en bytes
+  duration  Int? // Durée pour vidéos/audio en secondes
+  createdAt DateTime  @default(now())
+}
+
+model PostCollaborator {
+  id      String           @id() @default(cuid())
+  post    Post             @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId  String
+  user    User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+  role    CollaboratorRole @default(CONTRIBUTOR)
+  addedAt DateTime         @default(now())
+
+  @@unique([postId, userId])
 }
 
 enum Visibility {
   PUBLIC
   PRIVATE
   FOLLOWERS_ONLY
+}
+
+enum ContentType {
+  TEXT
+  MARKDOWN
+  RICH_TEXT
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  AUDIO
+  DOCUMENT
+}
+
+enum CollaboratorRole {
+  OWNER
+  EDITOR
+  CONTRIBUTOR
+  VIEWER
+}
+
+// Modèle pour les réactions sur les posts
+model PostReaction {
+  id        String       @id() @default(cuid())
+  post      Post         @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  type      ReactionType
+  createdAt DateTime     @default(now())
+
+  @@unique([postId, userId, type])
+}
+
+// Modèle pour les commentaires hiérarchiques
+model Comment {
+  id        String    @id() @default(cuid())
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  content   String
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  parentId  String?
+  replies   Comment[] @relation("CommentReplies")
+  mentions  Mention[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([postId, createdAt])
+}
+
+// Modèle pour les mentions (@username)
+model Mention {
+  id        String   @id() @default(cuid())
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String?
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  commentId String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String // Utilisateur mentionné
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+enum ReactionType {
+  LIKE // 👍
+  LOVE // ❤️
+  LAUGH // 😂
+  WOW // 😮
+  SAD // 😢
+  ANGRY // 😠
 }

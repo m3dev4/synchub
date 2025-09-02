@@ -23,7 +23,7 @@ export const signIn = async (
         email: validatedEmail,
       },
       include: {
-        session: true,
+        sessions: true,
       },
     });
 
@@ -79,7 +79,7 @@ export const signIn = async (
 
     const {
       password,
-      session: userSessions,
+      sessions: userSessions,
       ...userWithoutPassword
     } = existingUser;
     return userWithoutPassword as unknown as AuthenticatedUser;
