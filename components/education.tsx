@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Timeline, TimelineItem } from "./timeline";
-import {
-  Briefcase,
-  Calendar,
-  School2Icon,
-  GraduationCap,
-  BookOpen,
-} from "lucide-react";
-import { Education } from "@/types/educations";
 import { useEducation } from "@/hooks/education/useEducation";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Education } from "@/types/educations";
+import { Badge, GraduationCap, School, Calendar, Loader2 } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
-const GetEducation = () => {
+const Educations = () => {
   const [AllEducations, setAllEducations] = useState<Education[]>([]);
 
   const { educations, isLoading, error } = useEducation();
@@ -23,99 +20,148 @@ const GetEducation = () => {
     }
   }, [educations]);
 
-  // Transformer les expériences en items de timeline
-  const timelineItems: TimelineItem[] = AllEducations.map((education) => {
-    const formatDate = (date: Date | string | undefined) => {
-      if (!date) return "";
-      const d = typeof date === "string" ? new Date(date) : date;
-      return d.toLocaleDateString("fr-FR", { month: "short", year: "numeric" });
-    };
+  if (isLoading) {
+    return (
+      <div className="h-screen flex items-center justify-center gap-2">
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+        <p className="text-lg font-semibold">Chargement des formations...</p>
+      </div>
+    );
+  }
 
-    const startDate = formatDate(education.startDate);
-    const endDate = education.current
-      ? "Présent"
-      : formatDate(education.endDate);
-    const period = startDate && endDate ? `${startDate} - ${endDate}` : "";
-
-    return {
-      id: education.id,
-      title: education.title,
-      description: `${education.school}${period ? ` • ${period}` : ""}`,
-      timestamp: education.startDate,
-      status: education.current ? "active" : "completed",
-      icon: <Briefcase className="h-3 w-3" />,
-      //   content: education.description ? (
-      //     <div className="rounded-md bg-muted/30 p-2 text-xs">
-      //       <p className="text-muted-foreground line-clamp-2">{education.description}</p>
-      //     </div>
-      //   ) : undefined,
-    };
-  });
-
-  if (isLoading) return <div>Chargement...</div>;
-  if (error) return <div className="text-red-500">Erreur: {error.message}</div>;
+  const formatDate = (date: Date | string | undefined) => {
+    if (!date) return "";
+    const d = typeof date === "string" ? new Date(date) : date;
+    return d.toLocaleDateString("fr-FR", {
+      month: "short",
+      year: "numeric",
+    });
+  };
 
   return (
-    <div className="space-y-4">
+    <div className="w-full space-y-6">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
+          <GraduationCap className="w-6 h-6 text-green-600 dark:text-green-400" />
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold text-foreground">
+            Formation & Éducation
+          </h2>
+          <p className="text-muted-foreground">
+            {AllEducations.length} formation
+            {AllEducations.length > 1 ? "s" : ""}
+          </p>
+        </div>
+      </div>
+
       {AllEducations && AllEducations.length > 0 ? (
-        AllEducations.map((education) => {
-          const formatDate = (date: Date | string | undefined) => {
-            if (!date) return "";
-            const d = typeof date === "string" ? new Date(date) : date;
-            return d.toLocaleDateString("fr-FR", {
-              month: "short",
-              year: "numeric",
-            });
-          };
+        <Accordion type="single" collapsible className="space-y-4">
+          {AllEducations.map((education, index) => {
+            const startDate = formatDate(education.startDate);
+            const endDate = education.current
+              ? "En cours"
+              : formatDate(education.endDate);
+            const period =
+              startDate && endDate ? `${startDate} - ${endDate}` : "";
 
-          const startDate = formatDate(education.startDate);
-          const endDate = education.current
-            ? "En cours"
-            : formatDate(education.endDate);
-          const period =
-            startDate && endDate ? `${startDate} - ${endDate}` : "";
-
-          return (
-            <Card
-              key={education.id}
-              className="transition-all duration-200 hover:shadow-md"
-            >
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-foreground mb-1">
-                      {education.title}
-                    </h4>
-                    <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                      <BookOpen className="w-4 h-4" />
-                      <span className="font-medium">{education.school}</span>
+            return (
+              <AccordionItem
+                key={education.id}
+                value={`education-${education.id}`}
+                className="border rounded-lg bg-card shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex items-start gap-4 text-left">
+                      <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg mt-1">
+                        <School className="w-5 h-5 text-green-600 dark:text-green-400" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-1">
+                          <h3 className="text-lg font-semibold text-foreground">
+                            {education.title}
+                          </h3>
+                          {education.current && (
+                            <Badge className="text-xs bg-blue-100 text-blue-800 hover:bg-blue-100">
+                              En cours
+                            </Badge>
+                          )}
+                        </div>
+                        <p className="text-green-600 dark:text-green-400 font-medium mb-1">
+                          {education.school}
+                        </p>
+                        {period && (
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Calendar className="w-4 h-4" />
+                            <span>{period}</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    {period && (
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Calendar className="w-4 h-4" />
+                  </div>
+                </AccordionTrigger>
+
+                <AccordionContent className="px-6 pb-6">
+                  <div className="pl-14 space-y-4">
+                    <div className="bg-green-50 dark:bg-green-950/20 rounded-lg p-4 border-l-4 border-green-200 dark:border-green-800">
+                      <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
+                        <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                        Détails de la formation
+                      </h4>
+                      <p className="text-muted-foreground leading-relaxed">
+                        Formation en{" "}
+                        <span className="font-medium text-foreground">
+                          {education.title}
+                        </span>{" "}
+                        dispensée par{" "}
+                        <span className="font-medium text-green-600 dark:text-green-400">
+                          {education.school}
+                        </span>
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Calendar className="w-4 h-4 text-green-600 dark:text-green-400" />
+                        <span className="font-medium">Période:</span>
                         <span>{period}</span>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <School className="w-4 h-4 text-green-600 dark:text-green-400" />
+                        <span className="font-medium">Établissement:</span>
+                        <span>{education.school}</span>
+                      </div>
+                    </div>
+
+                    {education.current && (
+                      <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-3 border border-blue-200 dark:border-blue-800">
+                        <div className="flex items-center gap-2 text-blue-700 dark:text-blue-300">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                          <span className="text-sm font-medium">
+                            Formation actuellement en cours
+                          </span>
+                        </div>
                       </div>
                     )}
                   </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <GraduationCap className="w-5 h-5 text-primary" />
-                    {education.current && (
-                      <Badge variant="secondary" className="text-xs">
-                        En cours
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })
+                </AccordionContent>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
       ) : (
-        <div className="text-center py-8">
-          <GraduationCap className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-          <h3 className="text-lg font-semibold mb-2">Aucune formation</h3>
-          <p className="text-muted-foreground text-sm">
-            Les formations et études seront affichées ici.
+        <div className="text-center py-12 bg-green-50/50 dark:bg-green-950/10 rounded-lg border-2 border-dashed border-green-200 dark:border-green-800">
+          <div className="p-4 bg-green-100 dark:bg-green-900/30 rounded-full w-fit mx-auto mb-4">
+            <GraduationCap className="w-12 h-12 text-green-600 dark:text-green-400" />
+          </div>
+          <h3 className="text-xl font-semibold mb-2 text-foreground">
+            Aucune formation
+          </h3>
+          <p className="text-muted-foreground max-w-md mx-auto">
+            Les formations et diplômes seront affichés ici une fois ajoutés au
+            profil.
           </p>
         </div>
       )}
@@ -123,4 +169,4 @@ const GetEducation = () => {
   );
 };
 
-export default GetEducation;
+export default Educations;

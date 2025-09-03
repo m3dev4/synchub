@@ -14921,6 +14921,9 @@ export namespace Prisma {
   export type TechnologyMinAggregateOutputType = {
     id: string | null;
     title: string | null;
+    icon: string | null;
+    color: string | null;
+    category: string | null;
     sousSkillTechId: string | null;
     createdAt: Date | null;
     updatedAt: Date | null;
@@ -14929,6 +14932,9 @@ export namespace Prisma {
   export type TechnologyMaxAggregateOutputType = {
     id: string | null;
     title: string | null;
+    icon: string | null;
+    color: string | null;
+    category: string | null;
     sousSkillTechId: string | null;
     createdAt: Date | null;
     updatedAt: Date | null;
@@ -14937,6 +14943,9 @@ export namespace Prisma {
   export type TechnologyCountAggregateOutputType = {
     id: number;
     title: number;
+    icon: number;
+    color: number;
+    category: number;
     sousSkillTechId: number;
     createdAt: number;
     updatedAt: number;
@@ -14946,6 +14955,9 @@ export namespace Prisma {
   export type TechnologyMinAggregateInputType = {
     id?: true;
     title?: true;
+    icon?: true;
+    color?: true;
+    category?: true;
     sousSkillTechId?: true;
     createdAt?: true;
     updatedAt?: true;
@@ -14954,6 +14966,9 @@ export namespace Prisma {
   export type TechnologyMaxAggregateInputType = {
     id?: true;
     title?: true;
+    icon?: true;
+    color?: true;
+    category?: true;
     sousSkillTechId?: true;
     createdAt?: true;
     updatedAt?: true;
@@ -14962,6 +14977,9 @@ export namespace Prisma {
   export type TechnologyCountAggregateInputType = {
     id?: true;
     title?: true;
+    icon?: true;
+    color?: true;
+    category?: true;
     sousSkillTechId?: true;
     createdAt?: true;
     updatedAt?: true;
@@ -15048,6 +15066,9 @@ export namespace Prisma {
   export type TechnologyGroupByOutputType = {
     id: string;
     title: string;
+    icon: string | null;
+    color: string | null;
+    category: string | null;
     sousSkillTechId: string;
     createdAt: Date;
     updatedAt: Date;
@@ -15075,6 +15096,9 @@ export namespace Prisma {
     {
       id?: boolean;
       title?: boolean;
+      icon?: boolean;
+      color?: boolean;
+      category?: boolean;
       sousSkillTechId?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
@@ -15089,6 +15113,9 @@ export namespace Prisma {
     {
       id?: boolean;
       title?: boolean;
+      icon?: boolean;
+      color?: boolean;
+      category?: boolean;
       sousSkillTechId?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
@@ -15103,6 +15130,9 @@ export namespace Prisma {
     {
       id?: boolean;
       title?: boolean;
+      icon?: boolean;
+      color?: boolean;
+      category?: boolean;
       sousSkillTechId?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
@@ -15114,6 +15144,9 @@ export namespace Prisma {
   export type TechnologySelectScalar = {
     id?: boolean;
     title?: boolean;
+    icon?: boolean;
+    color?: boolean;
+    category?: boolean;
     sousSkillTechId?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
@@ -15122,7 +15155,14 @@ export namespace Prisma {
   export type TechnologyOmit<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = $Extensions.GetOmit<
-    "id" | "title" | "sousSkillTechId" | "createdAt" | "updatedAt",
+    | "id"
+    | "title"
+    | "icon"
+    | "color"
+    | "category"
+    | "sousSkillTechId"
+    | "createdAt"
+    | "updatedAt",
     ExtArgs["result"]["technology"]
   >;
   export type TechnologyInclude<
@@ -15152,6 +15192,9 @@ export namespace Prisma {
       {
         id: string;
         title: string;
+        icon: string | null;
+        color: string | null;
+        category: string | null;
         sousSkillTechId: string;
         createdAt: Date;
         updatedAt: Date;
@@ -15761,6 +15804,9 @@ export namespace Prisma {
   interface TechnologyFieldRefs {
     readonly id: FieldRef<"Technology", "String">;
     readonly title: FieldRef<"Technology", "String">;
+    readonly icon: FieldRef<"Technology", "String">;
+    readonly color: FieldRef<"Technology", "String">;
+    readonly category: FieldRef<"Technology", "String">;
     readonly sousSkillTechId: FieldRef<"Technology", "String">;
     readonly createdAt: FieldRef<"Technology", "DateTime">;
     readonly updatedAt: FieldRef<"Technology", "DateTime">;
@@ -31569,6 +31615,9 @@ export namespace Prisma {
   export const TechnologyScalarFieldEnum: {
     id: "id";
     title: "title";
+    icon: "icon";
+    color: "color";
+    category: "category";
     sousSkillTechId: "sousSkillTechId";
     createdAt: "createdAt";
     updatedAt: "updatedAt";
@@ -32780,6 +32829,9 @@ export namespace Prisma {
     NOT?: TechnologyWhereInput | TechnologyWhereInput[];
     id?: StringFilter<"Technology"> | string;
     title?: StringFilter<"Technology"> | string;
+    icon?: StringNullableFilter<"Technology"> | string | null;
+    color?: StringNullableFilter<"Technology"> | string | null;
+    category?: StringNullableFilter<"Technology"> | string | null;
     sousSkillTechId?: StringFilter<"Technology"> | string;
     createdAt?: DateTimeFilter<"Technology"> | Date | string;
     updatedAt?: DateTimeFilter<"Technology"> | Date | string;
@@ -32789,6 +32841,9 @@ export namespace Prisma {
   export type TechnologyOrderByWithRelationInput = {
     id?: SortOrder;
     title?: SortOrder;
+    icon?: SortOrderInput | SortOrder;
+    color?: SortOrderInput | SortOrder;
+    category?: SortOrderInput | SortOrder;
     sousSkillTechId?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -32802,6 +32857,9 @@ export namespace Prisma {
       OR?: TechnologyWhereInput[];
       NOT?: TechnologyWhereInput | TechnologyWhereInput[];
       title?: StringFilter<"Technology"> | string;
+      icon?: StringNullableFilter<"Technology"> | string | null;
+      color?: StringNullableFilter<"Technology"> | string | null;
+      category?: StringNullableFilter<"Technology"> | string | null;
       sousSkillTechId?: StringFilter<"Technology"> | string;
       createdAt?: DateTimeFilter<"Technology"> | Date | string;
       updatedAt?: DateTimeFilter<"Technology"> | Date | string;
@@ -32813,6 +32871,9 @@ export namespace Prisma {
   export type TechnologyOrderByWithAggregationInput = {
     id?: SortOrder;
     title?: SortOrder;
+    icon?: SortOrderInput | SortOrder;
+    color?: SortOrderInput | SortOrder;
+    category?: SortOrderInput | SortOrder;
     sousSkillTechId?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -32831,6 +32892,9 @@ export namespace Prisma {
       | TechnologyScalarWhereWithAggregatesInput[];
     id?: StringWithAggregatesFilter<"Technology"> | string;
     title?: StringWithAggregatesFilter<"Technology"> | string;
+    icon?: StringNullableWithAggregatesFilter<"Technology"> | string | null;
+    color?: StringNullableWithAggregatesFilter<"Technology"> | string | null;
+    category?: StringNullableWithAggregatesFilter<"Technology"> | string | null;
     sousSkillTechId?: StringWithAggregatesFilter<"Technology"> | string;
     createdAt?: DateTimeWithAggregatesFilter<"Technology"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"Technology"> | Date | string;
@@ -34625,6 +34689,9 @@ export namespace Prisma {
   export type TechnologyCreateInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     sousSkillTech: sousSkillCreateNestedOneWithoutTechnologyInput;
@@ -34633,6 +34700,9 @@ export namespace Prisma {
   export type TechnologyUncheckedCreateInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     sousSkillTechId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -34641,6 +34711,9 @@ export namespace Prisma {
   export type TechnologyUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     sousSkillTech?: sousSkillUpdateOneRequiredWithoutTechnologyNestedInput;
@@ -34649,6 +34722,9 @@ export namespace Prisma {
   export type TechnologyUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     sousSkillTechId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -34657,6 +34733,9 @@ export namespace Prisma {
   export type TechnologyCreateManyInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     sousSkillTechId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -34665,6 +34744,9 @@ export namespace Prisma {
   export type TechnologyUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -34672,6 +34754,9 @@ export namespace Prisma {
   export type TechnologyUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     sousSkillTechId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -36287,6 +36372,9 @@ export namespace Prisma {
   export type TechnologyCountOrderByAggregateInput = {
     id?: SortOrder;
     title?: SortOrder;
+    icon?: SortOrder;
+    color?: SortOrder;
+    category?: SortOrder;
     sousSkillTechId?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -36295,6 +36383,9 @@ export namespace Prisma {
   export type TechnologyMaxOrderByAggregateInput = {
     id?: SortOrder;
     title?: SortOrder;
+    icon?: SortOrder;
+    color?: SortOrder;
+    category?: SortOrder;
     sousSkillTechId?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -36303,6 +36394,9 @@ export namespace Prisma {
   export type TechnologyMinOrderByAggregateInput = {
     id?: SortOrder;
     title?: SortOrder;
+    icon?: SortOrder;
+    color?: SortOrder;
+    category?: SortOrder;
     sousSkillTechId?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -42865,6 +42959,9 @@ export namespace Prisma {
   export type TechnologyCreateWithoutSousSkillTechInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -42872,6 +42969,9 @@ export namespace Prisma {
   export type TechnologyUncheckedCreateWithoutSousSkillTechInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -42961,6 +43061,9 @@ export namespace Prisma {
     NOT?: TechnologyScalarWhereInput | TechnologyScalarWhereInput[];
     id?: StringFilter<"Technology"> | string;
     title?: StringFilter<"Technology"> | string;
+    icon?: StringNullableFilter<"Technology"> | string | null;
+    color?: StringNullableFilter<"Technology"> | string | null;
+    category?: StringNullableFilter<"Technology"> | string | null;
     sousSkillTechId?: StringFilter<"Technology"> | string;
     createdAt?: DateTimeFilter<"Technology"> | Date | string;
     updatedAt?: DateTimeFilter<"Technology"> | Date | string;
@@ -47250,6 +47353,9 @@ export namespace Prisma {
   export type TechnologyCreateManySousSkillTechInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -47257,6 +47363,9 @@ export namespace Prisma {
   export type TechnologyUpdateWithoutSousSkillTechInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -47264,6 +47373,9 @@ export namespace Prisma {
   export type TechnologyUncheckedUpdateWithoutSousSkillTechInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -47271,6 +47383,9 @@ export namespace Prisma {
   export type TechnologyUncheckedUpdateManyWithoutSousSkillTechInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };

@@ -72,6 +72,9 @@ export const seedSkills = async () => {
               await prisma.technology.create({
                 data: {
                   title: technologyData.title,
+                  icon: technologyData.icon,
+                  color: technologyData.color,
+                  category: technologyData.category,
                   sousSkillTechId: createdSousSkill.id,
                   createdAt: new Date(),
                   updatedAt: new Date(),

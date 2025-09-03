@@ -195,42 +195,16 @@ const page = () => {
                 </div>
 
                 {/* Experience & Education Grid */}
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-6 h-auto">
                   {/* Experience Section */}
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-2xl p-6 border border-border/50">
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                        <Briefcase className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-foreground">
-                          Expérience professionnelle
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          Mon parcours professionnel
-                        </p>
-                      </div>
-                    </div>
+                  <div className=" rounded-2xl p-6 border border-border/50">
                     <ScrollArea className="h-[500px] pr-4">
                       <GetExperience />
                     </ScrollArea>
                   </div>
 
                   {/* Education Section */}
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 rounded-2xl p-6 border border-border/50">
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                        <GraduationCap className="w-5 h-5 text-green-600 dark:text-green-400" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-foreground">
-                          Formation académique
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          Mon parcours éducatif
-                        </p>
-                      </div>
-                    </div>
+                  <div className=" rounded-2xl p-6 border border-border/50">
                     <ScrollArea className="h-[400px] pr-4">
                       <GetEducation />
                     </ScrollArea>

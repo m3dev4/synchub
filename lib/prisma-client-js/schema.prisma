@@ -163,6 +163,9 @@ model sousSkill {
 model Technology {
   id              String    @id() @default(cuid())
   title           String
+  icon            String? // URL ou nom d'icône
+  color           String? // Couleur hex (#FF5733)
+  category        String? // "language", "framework", "tool", "platform"
   sousSkillTech   sousSkill @relation(fields: [sousSkillTechId], references: [id])
   sousSkillTechId String
   createdAt       DateTime  @default(now())
