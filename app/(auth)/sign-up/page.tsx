@@ -63,7 +63,9 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen w-full bg-background">
-      <Toaster />
+      <Toaster 
+       position="top-right"
+      />
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen w-full gap-4 lg:gap-10 p-4">
         <div className="w-full hidden lg:block lg:w-1/2 relative order-2 lg:order-1">
           <Image

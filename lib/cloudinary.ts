@@ -45,10 +45,7 @@ export const uploadToCloudinary = async (
     );
   }
 
-  console.log("🔧 Configuration Cloudinary:");
-  console.log("Cloud Name:", cloudName);
-  console.log("API Key:", apiKey?.substring(0, 8) + "...");
-  console.log("API Secret:", apiSecret ? "Défini" : "Manquant");
+ 
 
   return new Promise((resolve, reject) => {
     // Configuration selon le type de média et dossier

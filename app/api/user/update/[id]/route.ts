@@ -11,7 +11,6 @@ export async function PUT(
     const sessionToken = sessionTokenMatch ? sessionTokenMatch[1] : null;
 
     if (!sessionToken) {
-      console.log("❌ No sessionToken found");
       return NextResponse.json(
         { success: false, message: "Unauthorized - No session token" },
         { status: 401 },

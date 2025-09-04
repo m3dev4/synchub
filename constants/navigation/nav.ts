@@ -39,7 +39,7 @@ export const navLinks = [
   },
 ];
 
-export const navFooterLinks = (id: string) => [
+export const navFooterLinks = (id: string, firstName: string, lastName: string) => [
   {
     id: 1,
     title: "Paramètres",
@@ -49,7 +49,7 @@ export const navFooterLinks = (id: string) => [
   {
     id: 2,
     title: "Profil",
-    href: "/profile",
+    href: `/profile/${firstName}/${lastName}`,
     icon: User2Icon,
   },
 ];

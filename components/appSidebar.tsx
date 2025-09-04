@@ -85,7 +85,7 @@ export function AppSidebar() {
       <SidebarFooter className="-ml-2">
         <SidebarGroup>
           <SidebarMenu>
-            {navFooterLinks(user?.id || "").map((link) => (
+            {navFooterLinks(user?.id || "", user?.firstName || "", user?.lastName || "").map((link) => (
               <SidebarMenuItem key={link.id}>
                 <SidebarMenuButton
                   asChild

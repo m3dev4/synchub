@@ -144,12 +144,9 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
     );
 
     socketInstance.on("connect", () => {
-      console.log(
-        "✅ Connected to socket server, socket ID:",
-        socketInstance.id,
-      );
+  
       socketInstance.emit("join-user-room", user.id);
-      console.log("📡 Joined user room:", `user-${user.id}`);
+      
     });
 
     socketInstance.on("notification", (notification: NotificationEvent) => {
@@ -175,7 +172,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
       // Incrémenter le compteur non lu
       setUnreadCount((prev) => {
         const newCount = prev + 1;
-        console.log("🔢 Unread count updated:", prev, "→", newCount);
+       
         return newCount;
       });
 
@@ -194,7 +191,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
     });
 
     socketInstance.on("disconnect", (reason) => {
-      console.log("❌ Disconnected from socket server:", reason);
+  
     });
 
     setSocket(socketInstance);

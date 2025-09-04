@@ -40,7 +40,6 @@ const SignIn = () => {
       await login.mutateAsync(data);
       setLoading(false);
       toast.success("Connexion réussie");
-      setSuccessMessage("Connexion réussie, redirection en cours...");
     } catch (error: any) {
       setLoading(false);
       const errorMsg = error?.message || "Échec de la connexion";
@@ -65,7 +64,9 @@ const SignIn = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <Toaster />
+      <Toaster
+        position="top-right"
+      />
       <form
         className="w-full max-w-md space-y-4"
         onSubmit={handleSubmit(onSubmit)}

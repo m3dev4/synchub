@@ -170,10 +170,8 @@ const page = () => {
         skills: formData.skills || [],
       };
 
-      console.log("Submitting data:", submissionData);
       await onboardingMutation.mutateAsync(submissionData);
     } catch (error: any) {
-      console.error("Submission error:", error);
       toast.error(`Erreur: ${error.message}`);
     }
   };
