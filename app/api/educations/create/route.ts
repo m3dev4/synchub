@@ -108,6 +108,7 @@ export async function POST(request: NextRequest) {
         ? sanitizeInput(validatedData.description)
         : undefined,
       userId: session.user.id,
+      current: !validatedData.endDate,
     };
 
     const education = await createEducation(sanitizedData);

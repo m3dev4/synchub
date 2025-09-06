@@ -1,18 +1,8 @@
-export interface Skill {
-  id: string;
-  title: string;
-  createdAt: Date;
-  updatedAt: Date;
-  sousSkill: SousSkill[];
-}
-
-export interface SousSkill {
-  id: string;
-  title: string;
-  skillId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  Technology: Technology[];
+export enum SkillLevel {
+  BEGINNER = "BEGINNER",
+  INTERMEDIATE = "INTERMEDIATE",
+  ADVANCED = "ADVANCED",
+  EXPERT = "EXPERT",
 }
 
 export interface Technology {
@@ -24,6 +14,25 @@ export interface Technology {
   sousSkillTechId: string;
   createdAt: Date;
   updatedAt: Date;
+  sousSkill: SousSkill;
+}
+
+export interface SousSkill {
+  id: string;
+  title: string;
+  skillId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  skill: Skill;
+  Technology?: Technology[];
+}
+
+export interface Skill {
+  id: string;
+  title: string;
+  createdAt: Date;
+  updatedAt: Date;
+  sousSkill?: SousSkill[];
 }
 
 export interface UserSkill {
@@ -36,19 +45,27 @@ export interface UserSkill {
   skill: Skill;
 }
 
-export enum SkillLevel {
-  BEGINNER = "BEGINNER",
-  INTERMEDIATE = "INTERMEDIATE",
-  ADVANCED = "ADVANCED",
-  EXPERT = "EXPERT",
+export interface UserTechnology {
+  id: string;
+  userId: string;
+  technologyId: string;
+  level: SkillLevel;
+  createdAt: Date;
+  updatedAt: Date;
+  technology: Technology;
 }
 
 export interface SkillsResponse {
-  success: boolean;
   data: Skill[];
+  message: string;
 }
 
 export interface UserSkillsResponse {
-  success: boolean;
   data: UserSkill[];
+  message: string;
+}
+
+export interface UserTechnologiesResponse {
+  data: UserTechnology[];
+  message: string;
 }

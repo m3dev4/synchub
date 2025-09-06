@@ -7,4 +7,5 @@ export interface Session {
   lastActivityAt: Date;
   isOnline: boolean;
   expiresAt: Date;
+  createdAt: Date;
 }

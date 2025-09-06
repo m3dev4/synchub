@@ -19,7 +19,7 @@ export async function PUT(request: NextRequest) {
       NextResponse.json({
         message: "Method 1 Failed",
         error,
-        status: 500
+        status: 500,
       });
     }
 
@@ -40,7 +40,7 @@ export async function PUT(request: NextRequest) {
           message: "❌ Method 2 failed",
           error,
           status: 500,
-          success: false
+          success: false,
         });
       }
     }
@@ -80,7 +80,6 @@ export async function PUT(request: NextRequest) {
               message: "❌ Session expire or not found on the database",
               session,
               status: 500,
-  
             });
           }
 

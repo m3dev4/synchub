@@ -6,6 +6,9 @@ import {
   useUserSkills,
   useAddUserSkill,
   useRemoveUserSkill,
+  useUserTechnologies,
+  useAddUserTechnology,
+  useRemoveUserTechnology,
 } from "@/hooks/skills/useSkills";
 import { SkillLevel } from "@/types/skills";
 import { Button } from "@/components/ui/button";
@@ -29,6 +32,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus, X, Search } from "lucide-react";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const Skills = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -40,21 +44,38 @@ const Skills = () => {
   const { data: skillsData, isLoading: skillsLoading } = useSkills();
   const { data: userSkillsData, isLoading: userSkillsLoading } =
     useUserSkills();
+  const { data: userTechnologiesData, isLoading: userTechnologiesLoading } =
+    useUserTechnologies();
   const addSkillMutation = useAddUserSkill();
   const removeSkillMutation = useRemoveUserSkill();
+  const addTechnologyMutation = useAddUserTechnology();
+  const removeTechnologyMutation = useRemoveUserTechnology();
 
   const skills = skillsData?.data || [];
   const userSkills = userSkillsData?.data || [];
+  const userTechnologies = userTechnologiesData?.data || [];
 
   // Get user skill IDs for filtering
   const userSkillIds = userSkills.map((us) => us.skillId);
 
-  // Filter available skills (not already added by user)
-  const availableSkills = skills.filter(
-    (skill) =>
-      !userSkillIds.includes(skill.id) &&
-      skill.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  // Filter available skills
+  const availableSkills = skills.filter((skill) => {
+    if (!searchTerm) return true;
+
+    const searchLower = searchTerm.toLowerCase();
+
+    // Search in skill title
+    if (skill.title.toLowerCase().includes(searchLower)) return true;
+
+    // Search in technologies
+    return (
+      skill.sousSkill?.some((sousSkill) =>
+        sousSkill.Technology?.some((tech) =>
+          tech.title.toLowerCase().includes(searchLower),
+        ),
+      ) || false
+    );
+  });
 
   const handleAddSkill = async (skillId: string) => {
     try {
@@ -65,6 +86,18 @@ const Skills = () => {
       setSelectedLevel(SkillLevel.BEGINNER);
     } catch (error) {
       toast.error("Erreur lors de l'ajout de la compétence");
+    }
+  };
+
+  const handleAddTechnology = async (technologyId: string, skillId: string) => {
+    try {
+      await addTechnologyMutation.mutateAsync({
+        technologyId,
+        level: selectedLevel,
+      });
+      toast.success("Technologie ajoutée avec succès!");
+    } catch (error) {
+      toast.error("Erreur lors de l'ajout de la technologie");
     }
   };
 
@@ -107,7 +140,7 @@ const Skills = () => {
     }
   };
 
-  if (skillsLoading || userSkillsLoading) {
+  if (skillsLoading || userSkillsLoading || userTechnologiesLoading) {
     return (
       <Card>
         <CardHeader>
@@ -173,25 +206,64 @@ const Skills = () => {
               </div>
 
               <ScrollArea className="h-96">
-                <div className="space-y-2">
+                <div className="space-y-4">
                   {availableSkills.map((skill) => (
-                    <div
-                      key={skill.id}
-                      className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50"
-                    >
-                      <div>
-                        <h4 className="font-medium">{skill.title}</h4>
-                        <p className="text-sm text-gray-500">
-                          {skill.sousSkill?.length || 0} sous-compétences
-                        </p>
+                    <div key={skill.id} className="border rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <h4 className="font-semibold text-lg">{skill.title}</h4>
+                        <Badge variant="outline">
+                          {skill.sousSkill?.length || 0} catégories
+                        </Badge>
                       </div>
-                      <Button
-                        size="sm"
-                        onClick={() => handleAddSkill(skill.id)}
-                        disabled={addSkillMutation.isPending}
-                      >
-                        Ajouter
-                      </Button>
+
+                      {skill.sousSkill?.map((sousSkill) => (
+                        <div key={sousSkill.id} className="mb-4 last:mb-0">
+                          <h5 className="font-medium text-sm text-gray-700 mb-2">
+                            {sousSkill.title}
+                          </h5>
+                          <div className="grid grid-cols-2 gap-2">
+                            {sousSkill.Technology?.map((tech) => (
+                              <div
+                                key={tech.id}
+                                className="flex items-center justify-between p-2 border rounded hover:bg-gray-50"
+                              >
+                                <div className="flex items-center gap-2">
+                                  {tech.icon &&
+                                  (tech.icon.startsWith("http://") ||
+                                    tech.icon.startsWith("https://")) ? (
+                                    <Image
+                                      src={tech.icon}
+                                      alt={tech.title}
+                                      width={24}
+                                      height={24}
+                                      className="object-contain"
+                                    />
+                                  ) : (
+                                    <span className="text-lg">{tech.icon}</span>
+                                  )}
+                                  <span className="text-sm font-medium">
+                                    {tech.title}
+                                  </span>
+                                </div>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() =>
+                                    handleAddTechnology(
+                                      tech.id,
+                                      sousSkill.skillId,
+                                    )
+                                  }
+                                  disabled={addSkillMutation.isPending}
+                                  className="h-6 px-2 text-xs"
+                                >
+                                  +
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   ))}
                   {availableSkills.length === 0 && searchTerm && (
@@ -206,41 +278,79 @@ const Skills = () => {
         </Dialog>
       </CardHeader>
       <CardContent>
-        {userSkills.length === 0 ? (
+        {userTechnologies.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
-            <p>Aucune compétence ajoutée pour le moment.</p>
+            <p>Aucune technologie ajoutée pour le moment.</p>
             <p className="text-sm mt-2">
               Cliquez sur "Ajouter" pour commencer.
             </p>
           </div>
         ) : (
           <div className="space-y-4">
-            {userSkills.map((userSkill) => (
-              <div
-                key={userSkill.id}
-                className="flex items-center justify-between p-4 border rounded-lg"
-              >
-                <div className="flex-1">
-                  <div className="flex items-center gap-3">
-                    <h4 className="font-medium">{userSkill.skill.title}</h4>
-                    <Badge className={getLevelColor(userSkill.level)}>
-                      {getLevelLabel(userSkill.level)}
-                    </Badge>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">
-                    {userSkill.skill.sousSkill?.length || 0} sous-compétences
-                    disponibles
-                  </p>
+            {/* Group technologies by skill */}
+            {Object.entries(
+              userTechnologies.reduce(
+                (acc, userTech) => {
+                  const skillTitle = userTech.technology.sousSkill.skill.title;
+                  if (!acc[skillTitle]) acc[skillTitle] = [];
+                  acc[skillTitle].push(userTech);
+                  return acc;
+                },
+                {} as Record<string, typeof userTechnologies>,
+              ),
+            ).map(([skillTitle, techs]) => (
+              <div key={skillTitle} className="border rounded-lg p-4">
+                <h4 className="font-semibold text-lg mb-3">{skillTitle}</h4>
+                <div className="grid grid-cols-2 gap-3">
+                  {techs.map((userTech) => (
+                    <div
+                      key={userTech.id}
+                      className="flex items-center justify-between p-3 border rounded hover:bg-gray-50"
+                    >
+                      <div className="flex items-center gap-2">
+                        {userTech.technology.icon &&
+                        (userTech.technology.icon.startsWith("http://") ||
+                          userTech.technology.icon.startsWith("https://")) ? (
+                          <Image
+                            src={userTech.technology.icon}
+                            alt={userTech.technology.title}
+                            width={24}
+                            height={24}
+                            className="object-contain"
+                          />
+                        ) : (
+                          <span className="text-lg">
+                            {userTech.technology.icon}
+                          </span>
+                        )}
+                        <div>
+                          <span className="font-medium text-sm">
+                            {userTech.technology.title}
+                          </span>
+                          <Badge
+                            className={`ml-2 ${getLevelColor(userTech.level)}`}
+                            size="sm"
+                          >
+                            {getLevelLabel(userTech.level)}
+                          </Badge>
+                        </div>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() =>
+                          removeTechnologyMutation.mutateAsync(
+                            userTech.technologyId,
+                          )
+                        }
+                        disabled={removeTechnologyMutation.isPending}
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50 h-6 w-6 p-0"
+                      >
+                        <X className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  ))}
                 </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleRemoveSkill(userSkill.skillId)}
-                  disabled={removeSkillMutation.isPending}
-                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
               </div>
             ))}
           </div>

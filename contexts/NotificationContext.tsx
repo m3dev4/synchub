@@ -144,9 +144,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
     );
 
     socketInstance.on("connect", () => {
-  
       socketInstance.emit("join-user-room", user.id);
-      
     });
 
     socketInstance.on("notification", (notification: NotificationEvent) => {
@@ -172,7 +170,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
       // Incrémenter le compteur non lu
       setUnreadCount((prev) => {
         const newCount = prev + 1;
-       
+
         return newCount;
       });
 
@@ -190,9 +188,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
       console.error("❌ Socket connection error:", error);
     });
 
-    socketInstance.on("disconnect", (reason) => {
-  
-    });
+    socketInstance.on("disconnect", (reason) => {});
 
     setSocket(socketInstance);
 

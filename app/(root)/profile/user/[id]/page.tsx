@@ -202,7 +202,7 @@ const UserProfilePage = () => {
                 <div className="space-y-6">
                   <Card>
                     <CardContent className="p-0">
-                      <UserExperience experiences={user.experiences || []} />
+                      <UserExperience experiences={user.experience || []} />
                     </CardContent>
                   </Card>
                 </div>
@@ -210,7 +210,7 @@ const UserProfilePage = () => {
                 <div className="space-y-6">
                   <Card>
                     <CardContent className="p-0">
-                      <UserEducation educations={user.educations || []} />
+                      <UserEducation educations={user.education || []} />
                     </CardContent>
                   </Card>
                 </div>

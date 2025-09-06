@@ -5,14 +5,6 @@ const cloudName = process.env.CLOUDINARY_NAME;
 const apiKey = process.env.CLOUDINARY_API_KEY;
 const apiSecret = process.env.CLOUDINARY_API_SECRET;
 
-if (!cloudName || !apiKey || !apiSecret) {
-  console.error("❌ Variables d'environnement Cloudinary manquantes:");
-  console.error("CLOUDINARY_NAME:", cloudName ? "✅" : "❌");
-  console.error("CLOUDINARY_API_KEY:", apiKey ? "✅" : "❌");
-  console.error("CLOUDINARY_API_SECRET:", apiSecret ? "✅" : "❌");
-  console.error("Créez un fichier .env.local avec vos clés Cloudinary");
-}
-
 cloudinary.config({
   cloud_name: cloudName,
   api_key: apiKey,
@@ -44,8 +36,6 @@ export const uploadToCloudinary = async (
       "Configuration Cloudinary manquante. Vérifiez votre fichier .env.local",
     );
   }
-
- 
 
   return new Promise((resolve, reject) => {
     // Configuration selon le type de média et dossier

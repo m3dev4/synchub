@@ -106,17 +106,21 @@ const SkillsSelection: React.FC<SkillsSelectionProps> = ({
   };
 
   const toggleTechnologySelection = (
-    skill: Skill,
+    skill: Skill | undefined,
     sousSkill: SousSkill,
     technology: Technology,
   ) => {
-    const isSelected = isSkillSelected(skill.id, sousSkill.id, technology.id);
+    const isSelected = isSkillSelected(
+      skill?.id || "",
+      sousSkill.id,
+      technology.id,
+    );
 
     if (isSelected) {
       const updatedSkills = selectedSkills.filter(
         (s) =>
           !(
-            s.skillId === skill.id &&
+            s.skillId === skill?.id &&
             s.sousSkillId === sousSkill.id &&
             s.technologyId === technology.id
           ),
@@ -124,8 +128,8 @@ const SkillsSelection: React.FC<SkillsSelectionProps> = ({
       onSkillsChange(updatedSkills);
     } else {
       const newSkill: SelectedSkill = {
-        skillId: skill.id,
-        skillTitle: skill.title,
+        skillId: skill?.id || "",
+        skillTitle: skill?.title || "",
         sousSkillId: sousSkill.id,
         sousSkillTitle: sousSkill.title,
         technologyId: technology.id,
@@ -332,7 +336,7 @@ const SkillsSelection: React.FC<SkillsSelectionProps> = ({
                 (ss: SousSkill) => ss.id === selectedSubcategory,
               )!;
               const isSelected = isSkillSelected(
-                skill.id,
+                skill?.id || "",
                 sousSkill.id,
                 technology.id,
               );

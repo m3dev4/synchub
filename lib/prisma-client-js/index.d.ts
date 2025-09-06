@@ -63,6 +63,12 @@ export type Technology = $Result.DefaultSelection<Prisma.$TechnologyPayload>;
  */
 export type UserSkill = $Result.DefaultSelection<Prisma.$UserSkillPayload>;
 /**
+ * Model UserTechnology
+ *
+ */
+export type UserTechnology =
+  $Result.DefaultSelection<Prisma.$UserTechnologyPayload>;
+/**
  * Model Degree
  *
  */
@@ -488,6 +494,16 @@ export class PrismaClient<
    * ```
    */
   get userSkill(): Prisma.UserSkillDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userTechnology`: Exposes CRUD operations for the **UserTechnology** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more UserTechnologies
+   * const userTechnologies = await prisma.userTechnology.findMany()
+   * ```
+   */
+  get userTechnology(): Prisma.UserTechnologyDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.degree`: Exposes CRUD operations for the **Degree** model.
@@ -1059,6 +1075,7 @@ export namespace Prisma {
     sousSkill: "sousSkill";
     Technology: "Technology";
     UserSkill: "UserSkill";
+    UserTechnology: "UserTechnology";
     Degree: "Degree";
     Session: "Session";
     Account: "Account";
@@ -1107,6 +1124,7 @@ export namespace Prisma {
         | "sousSkill"
         | "technology"
         | "userSkill"
+        | "userTechnology"
         | "degree"
         | "session"
         | "account"
@@ -1865,6 +1883,82 @@ export namespace Prisma {
           count: {
             args: Prisma.UserSkillCountArgs<ExtArgs>;
             result: $Utils.Optional<UserSkillCountAggregateOutputType> | number;
+          };
+        };
+      };
+      UserTechnology: {
+        payload: Prisma.$UserTechnologyPayload<ExtArgs>;
+        fields: Prisma.UserTechnologyFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.UserTechnologyFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.UserTechnologyFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          findFirst: {
+            args: Prisma.UserTechnologyFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.UserTechnologyFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          findMany: {
+            args: Prisma.UserTechnologyFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>[];
+          };
+          create: {
+            args: Prisma.UserTechnologyCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          createMany: {
+            args: Prisma.UserTechnologyCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.UserTechnologyCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>[];
+          };
+          delete: {
+            args: Prisma.UserTechnologyDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          update: {
+            args: Prisma.UserTechnologyUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          deleteMany: {
+            args: Prisma.UserTechnologyDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.UserTechnologyUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateManyAndReturn: {
+            args: Prisma.UserTechnologyUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>[];
+          };
+          upsert: {
+            args: Prisma.UserTechnologyUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          aggregate: {
+            args: Prisma.UserTechnologyAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateUserTechnology>;
+          };
+          groupBy: {
+            args: Prisma.UserTechnologyGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<UserTechnologyGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.UserTechnologyCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<UserTechnologyCountAggregateOutputType>
+              | number;
           };
         };
       };
@@ -2720,6 +2814,7 @@ export namespace Prisma {
     sousSkill?: sousSkillOmit;
     technology?: TechnologyOmit;
     userSkill?: UserSkillOmit;
+    userTechnology?: UserTechnologyOmit;
     degree?: DegreeOmit;
     session?: SessionOmit;
     account?: AccountOmit;
@@ -2819,6 +2914,7 @@ export namespace Prisma {
     sessions: number;
     degrees: number;
     userSkills: number;
+    userTechnologies: number;
     posts: number;
     notifications: number;
     accounts: number;
@@ -2838,6 +2934,7 @@ export namespace Prisma {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs;
     degrees?: boolean | UserCountOutputTypeCountDegreesArgs;
     userSkills?: boolean | UserCountOutputTypeCountUserSkillsArgs;
+    userTechnologies?: boolean | UserCountOutputTypeCountUserTechnologiesArgs;
     posts?: boolean | UserCountOutputTypeCountPostsArgs;
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs;
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs;
@@ -2923,6 +3020,15 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: UserSkillWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUserTechnologiesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: UserTechnologyWhereInput;
   };
 
   /**
@@ -3105,6 +3211,44 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: TechnologyWhereInput;
+  };
+
+  /**
+   * Count Type TechnologyCountOutputType
+   */
+
+  export type TechnologyCountOutputType = {
+    userTechnologies: number;
+  };
+
+  export type TechnologyCountOutputTypeSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    userTechnologies?:
+      | boolean
+      | TechnologyCountOutputTypeCountUserTechnologiesArgs;
+  };
+
+  // Custom InputTypes
+  /**
+   * TechnologyCountOutputType without action
+   */
+  export type TechnologyCountOutputTypeDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TechnologyCountOutputType
+     */
+    select?: TechnologyCountOutputTypeSelect<ExtArgs> | null;
+  };
+
+  /**
+   * TechnologyCountOutputType without action
+   */
+  export type TechnologyCountOutputTypeCountUserTechnologiesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: UserTechnologyWhereInput;
   };
 
   /**
@@ -3605,6 +3749,7 @@ export namespace Prisma {
       sessions?: boolean | User$sessionsArgs<ExtArgs>;
       degrees?: boolean | User$degreesArgs<ExtArgs>;
       userSkills?: boolean | User$userSkillsArgs<ExtArgs>;
+      userTechnologies?: boolean | User$userTechnologiesArgs<ExtArgs>;
       posts?: boolean | User$postsArgs<ExtArgs>;
       notifications?: boolean | User$notificationsArgs<ExtArgs>;
       accounts?: boolean | User$accountsArgs<ExtArgs>;
@@ -3770,6 +3915,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>;
     degrees?: boolean | User$degreesArgs<ExtArgs>;
     userSkills?: boolean | User$userSkillsArgs<ExtArgs>;
+    userTechnologies?: boolean | User$userTechnologiesArgs<ExtArgs>;
     posts?: boolean | User$postsArgs<ExtArgs>;
     notifications?: boolean | User$notificationsArgs<ExtArgs>;
     accounts?: boolean | User$accountsArgs<ExtArgs>;
@@ -3803,6 +3949,7 @@ export namespace Prisma {
       sessions: Prisma.$SessionPayload<ExtArgs>[];
       degrees: Prisma.$DegreePayload<ExtArgs>[];
       userSkills: Prisma.$UserSkillPayload<ExtArgs>[];
+      userTechnologies: Prisma.$UserTechnologyPayload<ExtArgs>[];
       posts: Prisma.$PostPayload<ExtArgs>[];
       notifications: Prisma.$NotificationPayload<ExtArgs>[];
       accounts: Prisma.$AccountPayload<ExtArgs>[];
@@ -4471,6 +4618,17 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$UserSkillPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    userTechnologies<T extends User$userTechnologiesArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$userTechnologiesArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$UserTechnologyPayload<ExtArgs>,
           T,
           "findMany",
           GlobalOmitOptions
@@ -5257,6 +5415,34 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     distinct?: UserSkillScalarFieldEnum | UserSkillScalarFieldEnum[];
+  };
+
+  /**
+   * User.userTechnologies
+   */
+  export type User$userTechnologiesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    where?: UserTechnologyWhereInput;
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    cursor?: UserTechnologyWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: UserTechnologyScalarFieldEnum | UserTechnologyScalarFieldEnum[];
   };
 
   /**
@@ -15102,7 +15288,9 @@ export namespace Prisma {
       sousSkillTechId?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
-      sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+      sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
+      userTechnologies?: boolean | Technology$userTechnologiesArgs<ExtArgs>;
+      _count?: boolean | TechnologyCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["technology"]
   >;
@@ -15119,7 +15307,7 @@ export namespace Prisma {
       sousSkillTechId?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
-      sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+      sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["technology"]
   >;
@@ -15136,7 +15324,7 @@ export namespace Prisma {
       sousSkillTechId?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
-      sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+      sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["technology"]
   >;
@@ -15168,17 +15356,19 @@ export namespace Prisma {
   export type TechnologyInclude<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
-    sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+    sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
+    userTechnologies?: boolean | Technology$userTechnologiesArgs<ExtArgs>;
+    _count?: boolean | TechnologyCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type TechnologyIncludeCreateManyAndReturn<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
-    sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+    sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
   };
   export type TechnologyIncludeUpdateManyAndReturn<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
-    sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+    sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
   };
 
   export type $TechnologyPayload<
@@ -15186,7 +15376,8 @@ export namespace Prisma {
   > = {
     name: "Technology";
     objects: {
-      sousSkillTech: Prisma.$sousSkillPayload<ExtArgs>;
+      sousSkill: Prisma.$sousSkillPayload<ExtArgs>;
+      userTechnologies: Prisma.$UserTechnologyPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -15748,7 +15939,7 @@ export namespace Prisma {
     GlobalOmitOptions = {},
   > extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    sousSkillTech<T extends sousSkillDefaultArgs<ExtArgs> = {}>(
+    sousSkill<T extends sousSkillDefaultArgs<ExtArgs> = {}>(
       args?: Subset<T, sousSkillDefaultArgs<ExtArgs>>,
     ): Prisma__sousSkillClient<
       | $Result.GetResult<
@@ -15761,6 +15952,17 @@ export namespace Prisma {
       Null,
       ExtArgs,
       GlobalOmitOptions
+    >;
+    userTechnologies<T extends Technology$userTechnologiesArgs<ExtArgs> = {}>(
+      args?: Subset<T, Technology$userTechnologiesArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$UserTechnologyPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
     >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -16242,6 +16444,34 @@ export namespace Prisma {
      * Limit how many Technologies to delete.
      */
     limit?: number;
+  };
+
+  /**
+   * Technology.userTechnologies
+   */
+  export type Technology$userTechnologiesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    where?: UserTechnologyWhereInput;
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    cursor?: UserTechnologyWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: UserTechnologyScalarFieldEnum | UserTechnologyScalarFieldEnum[];
   };
 
   /**
@@ -17606,6 +17836,1353 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserSkillInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model UserTechnology
+   */
+
+  export type AggregateUserTechnology = {
+    _count: UserTechnologyCountAggregateOutputType | null;
+    _min: UserTechnologyMinAggregateOutputType | null;
+    _max: UserTechnologyMaxAggregateOutputType | null;
+  };
+
+  export type UserTechnologyMinAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    technologyId: string | null;
+    level: $Enums.SkillLevel | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type UserTechnologyMaxAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    technologyId: string | null;
+    level: $Enums.SkillLevel | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type UserTechnologyCountAggregateOutputType = {
+    id: number;
+    userId: number;
+    technologyId: number;
+    level: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+  };
+
+  export type UserTechnologyMinAggregateInputType = {
+    id?: true;
+    userId?: true;
+    technologyId?: true;
+    level?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type UserTechnologyMaxAggregateInputType = {
+    id?: true;
+    userId?: true;
+    technologyId?: true;
+    level?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type UserTechnologyCountAggregateInputType = {
+    id?: true;
+    userId?: true;
+    technologyId?: true;
+    level?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+  };
+
+  export type UserTechnologyAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which UserTechnology to aggregate.
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserTechnologies to fetch.
+     */
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: UserTechnologyWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserTechnologies from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserTechnologies.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned UserTechnologies
+     **/
+    _count?: true | UserTechnologyCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: UserTechnologyMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: UserTechnologyMaxAggregateInputType;
+  };
+
+  export type GetUserTechnologyAggregateType<
+    T extends UserTechnologyAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateUserTechnology]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserTechnology[P]>
+      : GetScalarType<T[P], AggregateUserTechnology[P]>;
+  };
+
+  export type UserTechnologyGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: UserTechnologyWhereInput;
+    orderBy?:
+      | UserTechnologyOrderByWithAggregationInput
+      | UserTechnologyOrderByWithAggregationInput[];
+    by: UserTechnologyScalarFieldEnum[] | UserTechnologyScalarFieldEnum;
+    having?: UserTechnologyScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: UserTechnologyCountAggregateInputType | true;
+    _min?: UserTechnologyMinAggregateInputType;
+    _max?: UserTechnologyMaxAggregateInputType;
+  };
+
+  export type UserTechnologyGroupByOutputType = {
+    id: string;
+    userId: string;
+    technologyId: string;
+    level: $Enums.SkillLevel;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: UserTechnologyCountAggregateOutputType | null;
+    _min: UserTechnologyMinAggregateOutputType | null;
+    _max: UserTechnologyMaxAggregateOutputType | null;
+  };
+
+  type GetUserTechnologyGroupByPayload<T extends UserTechnologyGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<UserTechnologyGroupByOutputType, T["by"]> & {
+          [P in keyof T &
+            keyof UserTechnologyGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserTechnologyGroupByOutputType[P]>
+            : GetScalarType<T[P], UserTechnologyGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type UserTechnologySelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      technologyId?: boolean;
+      level?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["userTechnology"]
+  >;
+
+  export type UserTechnologySelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      technologyId?: boolean;
+      level?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["userTechnology"]
+  >;
+
+  export type UserTechnologySelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      technologyId?: boolean;
+      level?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["userTechnology"]
+  >;
+
+  export type UserTechnologySelectScalar = {
+    id?: boolean;
+    userId?: boolean;
+    technologyId?: boolean;
+    level?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+  };
+
+  export type UserTechnologyOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    "id" | "userId" | "technologyId" | "level" | "createdAt" | "updatedAt",
+    ExtArgs["result"]["userTechnology"]
+  >;
+  export type UserTechnologyInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+  };
+  export type UserTechnologyIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+  };
+  export type UserTechnologyIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+  };
+
+  export type $UserTechnologyPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "UserTechnology";
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>;
+      technology: Prisma.$TechnologyPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        userId: string;
+        technologyId: string;
+        level: $Enums.SkillLevel;
+        createdAt: Date;
+        updatedAt: Date;
+      },
+      ExtArgs["result"]["userTechnology"]
+    >;
+    composites: {};
+  };
+
+  type UserTechnologyGetPayload<
+    S extends boolean | null | undefined | UserTechnologyDefaultArgs,
+  > = $Result.GetResult<Prisma.$UserTechnologyPayload, S>;
+
+  type UserTechnologyCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    UserTechnologyFindManyArgs,
+    "select" | "include" | "distinct" | "omit"
+  > & {
+    select?: UserTechnologyCountAggregateInputType | true;
+  };
+
+  export interface UserTechnologyDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["UserTechnology"];
+      meta: { name: "UserTechnology" };
+    };
+    /**
+     * Find zero or one UserTechnology that matches the filter.
+     * @param {UserTechnologyFindUniqueArgs} args - Arguments to find a UserTechnology
+     * @example
+     * // Get one UserTechnology
+     * const userTechnology = await prisma.userTechnology.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserTechnologyFindUniqueArgs>(
+      args: SelectSubset<T, UserTechnologyFindUniqueArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one UserTechnology that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserTechnologyFindUniqueOrThrowArgs} args - Arguments to find a UserTechnology
+     * @example
+     * // Get one UserTechnology
+     * const userTechnology = await prisma.userTechnology.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserTechnologyFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, UserTechnologyFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first UserTechnology that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyFindFirstArgs} args - Arguments to find a UserTechnology
+     * @example
+     * // Get one UserTechnology
+     * const userTechnology = await prisma.userTechnology.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserTechnologyFindFirstArgs>(
+      args?: SelectSubset<T, UserTechnologyFindFirstArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first UserTechnology that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyFindFirstOrThrowArgs} args - Arguments to find a UserTechnology
+     * @example
+     * // Get one UserTechnology
+     * const userTechnology = await prisma.userTechnology.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserTechnologyFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, UserTechnologyFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more UserTechnologies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserTechnologies
+     * const userTechnologies = await prisma.userTechnology.findMany()
+     *
+     * // Get first 10 UserTechnologies
+     * const userTechnologies = await prisma.userTechnology.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const userTechnologyWithIdOnly = await prisma.userTechnology.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends UserTechnologyFindManyArgs>(
+      args?: SelectSubset<T, UserTechnologyFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a UserTechnology.
+     * @param {UserTechnologyCreateArgs} args - Arguments to create a UserTechnology.
+     * @example
+     * // Create one UserTechnology
+     * const UserTechnology = await prisma.userTechnology.create({
+     *   data: {
+     *     // ... data to create a UserTechnology
+     *   }
+     * })
+     *
+     */
+    create<T extends UserTechnologyCreateArgs>(
+      args: SelectSubset<T, UserTechnologyCreateArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many UserTechnologies.
+     * @param {UserTechnologyCreateManyArgs} args - Arguments to create many UserTechnologies.
+     * @example
+     * // Create many UserTechnologies
+     * const userTechnology = await prisma.userTechnology.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends UserTechnologyCreateManyArgs>(
+      args?: SelectSubset<T, UserTechnologyCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many UserTechnologies and returns the data saved in the database.
+     * @param {UserTechnologyCreateManyAndReturnArgs} args - Arguments to create many UserTechnologies.
+     * @example
+     * // Create many UserTechnologies
+     * const userTechnology = await prisma.userTechnology.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many UserTechnologies and only return the `id`
+     * const userTechnologyWithIdOnly = await prisma.userTechnology.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends UserTechnologyCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, UserTechnologyCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Delete a UserTechnology.
+     * @param {UserTechnologyDeleteArgs} args - Arguments to delete one UserTechnology.
+     * @example
+     * // Delete one UserTechnology
+     * const UserTechnology = await prisma.userTechnology.delete({
+     *   where: {
+     *     // ... filter to delete one UserTechnology
+     *   }
+     * })
+     *
+     */
+    delete<T extends UserTechnologyDeleteArgs>(
+      args: SelectSubset<T, UserTechnologyDeleteArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one UserTechnology.
+     * @param {UserTechnologyUpdateArgs} args - Arguments to update one UserTechnology.
+     * @example
+     * // Update one UserTechnology
+     * const userTechnology = await prisma.userTechnology.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends UserTechnologyUpdateArgs>(
+      args: SelectSubset<T, UserTechnologyUpdateArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more UserTechnologies.
+     * @param {UserTechnologyDeleteManyArgs} args - Arguments to filter UserTechnologies to delete.
+     * @example
+     * // Delete a few UserTechnologies
+     * const { count } = await prisma.userTechnology.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends UserTechnologyDeleteManyArgs>(
+      args?: SelectSubset<T, UserTechnologyDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more UserTechnologies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserTechnologies
+     * const userTechnology = await prisma.userTechnology.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends UserTechnologyUpdateManyArgs>(
+      args: SelectSubset<T, UserTechnologyUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more UserTechnologies and returns the data updated in the database.
+     * @param {UserTechnologyUpdateManyAndReturnArgs} args - Arguments to update many UserTechnologies.
+     * @example
+     * // Update many UserTechnologies
+     * const userTechnology = await prisma.userTechnology.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more UserTechnologies and only return the `id`
+     * const userTechnologyWithIdOnly = await prisma.userTechnology.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends UserTechnologyUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, UserTechnologyUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create or update one UserTechnology.
+     * @param {UserTechnologyUpsertArgs} args - Arguments to update or create a UserTechnology.
+     * @example
+     * // Update or create a UserTechnology
+     * const userTechnology = await prisma.userTechnology.upsert({
+     *   create: {
+     *     // ... data to create a UserTechnology
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserTechnology we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserTechnologyUpsertArgs>(
+      args: SelectSubset<T, UserTechnologyUpsertArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Count the number of UserTechnologies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyCountArgs} args - Arguments to filter UserTechnologies to count.
+     * @example
+     * // Count the number of UserTechnologies
+     * const count = await prisma.userTechnology.count({
+     *   where: {
+     *     // ... the filter for the UserTechnologies we want to count
+     *   }
+     * })
+     **/
+    count<T extends UserTechnologyCountArgs>(
+      args?: Subset<T, UserTechnologyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], UserTechnologyCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a UserTechnology.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends UserTechnologyAggregateArgs>(
+      args: Subset<T, UserTechnologyAggregateArgs>,
+    ): Prisma.PrismaPromise<GetUserTechnologyAggregateType<T>>;
+
+    /**
+     * Group by UserTechnology.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends UserTechnologyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserTechnologyGroupByArgs["orderBy"] }
+        : { orderBy?: UserTechnologyGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, UserTechnologyGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetUserTechnologyGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the UserTechnology model
+     */
+    readonly fields: UserTechnologyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserTechnology.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserTechnologyClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    technology<T extends TechnologyDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, TechnologyDefaultArgs<ExtArgs>>,
+    ): Prisma__TechnologyClient<
+      | $Result.GetResult<
+          Prisma.$TechnologyPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the UserTechnology model
+   */
+  interface UserTechnologyFieldRefs {
+    readonly id: FieldRef<"UserTechnology", "String">;
+    readonly userId: FieldRef<"UserTechnology", "String">;
+    readonly technologyId: FieldRef<"UserTechnology", "String">;
+    readonly level: FieldRef<"UserTechnology", "SkillLevel">;
+    readonly createdAt: FieldRef<"UserTechnology", "DateTime">;
+    readonly updatedAt: FieldRef<"UserTechnology", "DateTime">;
+  }
+
+  // Custom InputTypes
+  /**
+   * UserTechnology findUnique
+   */
+  export type UserTechnologyFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserTechnology to fetch.
+     */
+    where: UserTechnologyWhereUniqueInput;
+  };
+
+  /**
+   * UserTechnology findUniqueOrThrow
+   */
+  export type UserTechnologyFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserTechnology to fetch.
+     */
+    where: UserTechnologyWhereUniqueInput;
+  };
+
+  /**
+   * UserTechnology findFirst
+   */
+  export type UserTechnologyFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserTechnology to fetch.
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserTechnologies to fetch.
+     */
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for UserTechnologies.
+     */
+    cursor?: UserTechnologyWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserTechnologies from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserTechnologies.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of UserTechnologies.
+     */
+    distinct?: UserTechnologyScalarFieldEnum | UserTechnologyScalarFieldEnum[];
+  };
+
+  /**
+   * UserTechnology findFirstOrThrow
+   */
+  export type UserTechnologyFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserTechnology to fetch.
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserTechnologies to fetch.
+     */
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for UserTechnologies.
+     */
+    cursor?: UserTechnologyWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserTechnologies from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserTechnologies.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of UserTechnologies.
+     */
+    distinct?: UserTechnologyScalarFieldEnum | UserTechnologyScalarFieldEnum[];
+  };
+
+  /**
+   * UserTechnology findMany
+   */
+  export type UserTechnologyFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserTechnologies to fetch.
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserTechnologies to fetch.
+     */
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing UserTechnologies.
+     */
+    cursor?: UserTechnologyWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserTechnologies from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserTechnologies.
+     */
+    skip?: number;
+    distinct?: UserTechnologyScalarFieldEnum | UserTechnologyScalarFieldEnum[];
+  };
+
+  /**
+   * UserTechnology create
+   */
+  export type UserTechnologyCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a UserTechnology.
+     */
+    data: XOR<UserTechnologyCreateInput, UserTechnologyUncheckedCreateInput>;
+  };
+
+  /**
+   * UserTechnology createMany
+   */
+  export type UserTechnologyCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many UserTechnologies.
+     */
+    data: UserTechnologyCreateManyInput | UserTechnologyCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * UserTechnology createManyAndReturn
+   */
+  export type UserTechnologyCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * The data used to create many UserTechnologies.
+     */
+    data: UserTechnologyCreateManyInput | UserTechnologyCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * UserTechnology update
+   */
+  export type UserTechnologyUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a UserTechnology.
+     */
+    data: XOR<UserTechnologyUpdateInput, UserTechnologyUncheckedUpdateInput>;
+    /**
+     * Choose, which UserTechnology to update.
+     */
+    where: UserTechnologyWhereUniqueInput;
+  };
+
+  /**
+   * UserTechnology updateMany
+   */
+  export type UserTechnologyUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update UserTechnologies.
+     */
+    data: XOR<
+      UserTechnologyUpdateManyMutationInput,
+      UserTechnologyUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which UserTechnologies to update
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * Limit how many UserTechnologies to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * UserTechnology updateManyAndReturn
+   */
+  export type UserTechnologyUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * The data used to update UserTechnologies.
+     */
+    data: XOR<
+      UserTechnologyUpdateManyMutationInput,
+      UserTechnologyUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which UserTechnologies to update
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * Limit how many UserTechnologies to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * UserTechnology upsert
+   */
+  export type UserTechnologyUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the UserTechnology to update in case it exists.
+     */
+    where: UserTechnologyWhereUniqueInput;
+    /**
+     * In case the UserTechnology found by the `where` argument doesn't exist, create a new UserTechnology with this data.
+     */
+    create: XOR<UserTechnologyCreateInput, UserTechnologyUncheckedCreateInput>;
+    /**
+     * In case the UserTechnology was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserTechnologyUpdateInput, UserTechnologyUncheckedUpdateInput>;
+  };
+
+  /**
+   * UserTechnology delete
+   */
+  export type UserTechnologyDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter which UserTechnology to delete.
+     */
+    where: UserTechnologyWhereUniqueInput;
+  };
+
+  /**
+   * UserTechnology deleteMany
+   */
+  export type UserTechnologyDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which UserTechnologies to delete
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * Limit how many UserTechnologies to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * UserTechnology without action
+   */
+  export type UserTechnologyDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
   };
 
   /**
@@ -31638,6 +33215,18 @@ export namespace Prisma {
   export type UserSkillScalarFieldEnum =
     (typeof UserSkillScalarFieldEnum)[keyof typeof UserSkillScalarFieldEnum];
 
+  export const UserTechnologyScalarFieldEnum: {
+    id: "id";
+    userId: "userId";
+    technologyId: "technologyId";
+    level: "level";
+    createdAt: "createdAt";
+    updatedAt: "updatedAt";
+  };
+
+  export type UserTechnologyScalarFieldEnum =
+    (typeof UserTechnologyScalarFieldEnum)[keyof typeof UserTechnologyScalarFieldEnum];
+
   export const DegreeScalarFieldEnum: {
     id: "id";
     title: "title";
@@ -32079,6 +33668,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter;
     degrees?: DegreeListRelationFilter;
     userSkills?: UserSkillListRelationFilter;
+    userTechnologies?: UserTechnologyListRelationFilter;
     posts?: PostListRelationFilter;
     notifications?: NotificationListRelationFilter;
     accounts?: AccountListRelationFilter;
@@ -32126,6 +33716,7 @@ export namespace Prisma {
     sessions?: SessionOrderByRelationAggregateInput;
     degrees?: DegreeOrderByRelationAggregateInput;
     userSkills?: UserSkillOrderByRelationAggregateInput;
+    userTechnologies?: UserTechnologyOrderByRelationAggregateInput;
     posts?: PostOrderByRelationAggregateInput;
     notifications?: NotificationOrderByRelationAggregateInput;
     accounts?: AccountOrderByRelationAggregateInput;
@@ -32195,6 +33786,7 @@ export namespace Prisma {
       sessions?: SessionListRelationFilter;
       degrees?: DegreeListRelationFilter;
       userSkills?: UserSkillListRelationFilter;
+      userTechnologies?: UserTechnologyListRelationFilter;
       posts?: PostListRelationFilter;
       notifications?: NotificationListRelationFilter;
       accounts?: AccountListRelationFilter;
@@ -32835,7 +34427,8 @@ export namespace Prisma {
     sousSkillTechId?: StringFilter<"Technology"> | string;
     createdAt?: DateTimeFilter<"Technology"> | Date | string;
     updatedAt?: DateTimeFilter<"Technology"> | Date | string;
-    sousSkillTech?: XOR<SousSkillScalarRelationFilter, sousSkillWhereInput>;
+    sousSkill?: XOR<SousSkillScalarRelationFilter, sousSkillWhereInput>;
+    userTechnologies?: UserTechnologyListRelationFilter;
   };
 
   export type TechnologyOrderByWithRelationInput = {
@@ -32847,7 +34440,8 @@ export namespace Prisma {
     sousSkillTechId?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
-    sousSkillTech?: sousSkillOrderByWithRelationInput;
+    sousSkill?: sousSkillOrderByWithRelationInput;
+    userTechnologies?: UserTechnologyOrderByRelationAggregateInput;
   };
 
   export type TechnologyWhereUniqueInput = Prisma.AtLeast<
@@ -32863,7 +34457,8 @@ export namespace Prisma {
       sousSkillTechId?: StringFilter<"Technology"> | string;
       createdAt?: DateTimeFilter<"Technology"> | Date | string;
       updatedAt?: DateTimeFilter<"Technology"> | Date | string;
-      sousSkillTech?: XOR<SousSkillScalarRelationFilter, sousSkillWhereInput>;
+      sousSkill?: XOR<SousSkillScalarRelationFilter, sousSkillWhereInput>;
+      userTechnologies?: UserTechnologyListRelationFilter;
     },
     "id"
   >;
@@ -32969,6 +34564,79 @@ export namespace Prisma {
     level?: EnumSkillLevelWithAggregatesFilter<"UserSkill"> | $Enums.SkillLevel;
     createdAt?: DateTimeWithAggregatesFilter<"UserSkill"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"UserSkill"> | Date | string;
+  };
+
+  export type UserTechnologyWhereInput = {
+    AND?: UserTechnologyWhereInput | UserTechnologyWhereInput[];
+    OR?: UserTechnologyWhereInput[];
+    NOT?: UserTechnologyWhereInput | UserTechnologyWhereInput[];
+    id?: StringFilter<"UserTechnology"> | string;
+    userId?: StringFilter<"UserTechnology"> | string;
+    technologyId?: StringFilter<"UserTechnology"> | string;
+    level?: EnumSkillLevelFilter<"UserTechnology"> | $Enums.SkillLevel;
+    createdAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+    updatedAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    technology?: XOR<TechnologyScalarRelationFilter, TechnologyWhereInput>;
+  };
+
+  export type UserTechnologyOrderByWithRelationInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    technologyId?: SortOrder;
+    level?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    user?: UserOrderByWithRelationInput;
+    technology?: TechnologyOrderByWithRelationInput;
+  };
+
+  export type UserTechnologyWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      userId_technologyId?: UserTechnologyUserIdTechnologyIdCompoundUniqueInput;
+      AND?: UserTechnologyWhereInput | UserTechnologyWhereInput[];
+      OR?: UserTechnologyWhereInput[];
+      NOT?: UserTechnologyWhereInput | UserTechnologyWhereInput[];
+      userId?: StringFilter<"UserTechnology"> | string;
+      technologyId?: StringFilter<"UserTechnology"> | string;
+      level?: EnumSkillLevelFilter<"UserTechnology"> | $Enums.SkillLevel;
+      createdAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+      updatedAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+      user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+      technology?: XOR<TechnologyScalarRelationFilter, TechnologyWhereInput>;
+    },
+    "id" | "userId_technologyId"
+  >;
+
+  export type UserTechnologyOrderByWithAggregationInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    technologyId?: SortOrder;
+    level?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    _count?: UserTechnologyCountOrderByAggregateInput;
+    _max?: UserTechnologyMaxOrderByAggregateInput;
+    _min?: UserTechnologyMinOrderByAggregateInput;
+  };
+
+  export type UserTechnologyScalarWhereWithAggregatesInput = {
+    AND?:
+      | UserTechnologyScalarWhereWithAggregatesInput
+      | UserTechnologyScalarWhereWithAggregatesInput[];
+    OR?: UserTechnologyScalarWhereWithAggregatesInput[];
+    NOT?:
+      | UserTechnologyScalarWhereWithAggregatesInput
+      | UserTechnologyScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"UserTechnology"> | string;
+    userId?: StringWithAggregatesFilter<"UserTechnology"> | string;
+    technologyId?: StringWithAggregatesFilter<"UserTechnology"> | string;
+    level?:
+      | EnumSkillLevelWithAggregatesFilter<"UserTechnology">
+      | $Enums.SkillLevel;
+    createdAt?: DateTimeWithAggregatesFilter<"UserTechnology"> | Date | string;
+    updatedAt?: DateTimeWithAggregatesFilter<"UserTechnology"> | Date | string;
   };
 
   export type DegreeWhereInput = {
@@ -33841,6 +35509,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -33887,6 +35556,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -33954,6 +35624,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -34021,6 +35692,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -34633,7 +36305,7 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     skill: SkillCreateNestedOneWithoutSousSkillInput;
-    Technology?: TechnologyCreateNestedManyWithoutSousSkillTechInput;
+    Technology?: TechnologyCreateNestedManyWithoutSousSkillInput;
   };
 
   export type sousSkillUncheckedCreateInput = {
@@ -34642,7 +36314,7 @@ export namespace Prisma {
     skillId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    Technology?: TechnologyUncheckedCreateNestedManyWithoutSousSkillTechInput;
+    Technology?: TechnologyUncheckedCreateNestedManyWithoutSousSkillInput;
   };
 
   export type sousSkillUpdateInput = {
@@ -34651,7 +36323,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     skill?: SkillUpdateOneRequiredWithoutSousSkillNestedInput;
-    Technology?: TechnologyUpdateManyWithoutSousSkillTechNestedInput;
+    Technology?: TechnologyUpdateManyWithoutSousSkillNestedInput;
   };
 
   export type sousSkillUncheckedUpdateInput = {
@@ -34660,7 +36332,7 @@ export namespace Prisma {
     skillId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    Technology?: TechnologyUncheckedUpdateManyWithoutSousSkillTechNestedInput;
+    Technology?: TechnologyUncheckedUpdateManyWithoutSousSkillNestedInput;
   };
 
   export type sousSkillCreateManyInput = {
@@ -34694,7 +36366,8 @@ export namespace Prisma {
     category?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    sousSkillTech: sousSkillCreateNestedOneWithoutTechnologyInput;
+    sousSkill: sousSkillCreateNestedOneWithoutTechnologyInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutTechnologyInput;
   };
 
   export type TechnologyUncheckedCreateInput = {
@@ -34706,6 +36379,7 @@ export namespace Prisma {
     sousSkillTechId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutTechnologyInput;
   };
 
   export type TechnologyUpdateInput = {
@@ -34716,7 +36390,8 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    sousSkillTech?: sousSkillUpdateOneRequiredWithoutTechnologyNestedInput;
+    sousSkill?: sousSkillUpdateOneRequiredWithoutTechnologyNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutTechnologyNestedInput;
   };
 
   export type TechnologyUncheckedUpdateInput = {
@@ -34728,6 +36403,7 @@ export namespace Prisma {
     sousSkillTechId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutTechnologyNestedInput;
   };
 
   export type TechnologyCreateManyInput = {
@@ -34818,6 +36494,67 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: StringFieldUpdateOperationsInput | string;
     skillId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserTechnologyCreateInput = {
+    id?: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutUserTechnologiesInput;
+    technology: TechnologyCreateNestedOneWithoutUserTechnologiesInput;
+  };
+
+  export type UserTechnologyUncheckedCreateInput = {
+    id?: string;
+    userId: string;
+    technologyId: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type UserTechnologyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutUserTechnologiesNestedInput;
+    technology?: TechnologyUpdateOneRequiredWithoutUserTechnologiesNestedInput;
+  };
+
+  export type UserTechnologyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    technologyId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserTechnologyCreateManyInput = {
+    id?: string;
+    userId: string;
+    technologyId: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type UserTechnologyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserTechnologyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    technologyId?: StringFieldUpdateOperationsInput | string;
     level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -35724,6 +37461,12 @@ export namespace Prisma {
     none?: UserSkillWhereInput;
   };
 
+  export type UserTechnologyListRelationFilter = {
+    every?: UserTechnologyWhereInput;
+    some?: UserTechnologyWhereInput;
+    none?: UserTechnologyWhereInput;
+  };
+
   export type PostListRelationFilter = {
     every?: PostWhereInput;
     some?: PostWhereInput;
@@ -35792,6 +37535,10 @@ export namespace Prisma {
   };
 
   export type UserSkillOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type UserTechnologyOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -36453,6 +38200,43 @@ export namespace Prisma {
     _max?: NestedEnumSkillLevelFilter<$PrismaModel>;
   };
 
+  export type TechnologyScalarRelationFilter = {
+    is?: TechnologyWhereInput;
+    isNot?: TechnologyWhereInput;
+  };
+
+  export type UserTechnologyUserIdTechnologyIdCompoundUniqueInput = {
+    userId: string;
+    technologyId: string;
+  };
+
+  export type UserTechnologyCountOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    technologyId?: SortOrder;
+    level?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type UserTechnologyMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    technologyId?: SortOrder;
+    level?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type UserTechnologyMinOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    technologyId?: SortOrder;
+    level?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
   export type DegreeCountOrderByAggregateInput = {
     id?: SortOrder;
     title?: SortOrder;
@@ -37083,6 +38867,21 @@ export namespace Prisma {
     connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
   };
 
+  export type UserTechnologyCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutUserInput,
+          UserTechnologyUncheckedCreateWithoutUserInput
+        >
+      | UserTechnologyCreateWithoutUserInput[]
+      | UserTechnologyUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutUserInput
+      | UserTechnologyCreateOrConnectWithoutUserInput[];
+    createMany?: UserTechnologyCreateManyUserInputEnvelope;
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+  };
+
   export type PostCreateNestedManyWithoutAuthorInput = {
     create?:
       | XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput>
@@ -37287,6 +39086,21 @@ export namespace Prisma {
       | UserSkillCreateOrConnectWithoutUserInput[];
     createMany?: UserSkillCreateManyUserInputEnvelope;
     connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
+  };
+
+  export type UserTechnologyUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutUserInput,
+          UserTechnologyUncheckedCreateWithoutUserInput
+        >
+      | UserTechnologyCreateWithoutUserInput[]
+      | UserTechnologyUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutUserInput
+      | UserTechnologyCreateOrConnectWithoutUserInput[];
+    createMany?: UserTechnologyCreateManyUserInputEnvelope;
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
   };
 
   export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
@@ -37627,6 +39441,38 @@ export namespace Prisma {
       | UserSkillUpdateManyWithWhereWithoutUserInput
       | UserSkillUpdateManyWithWhereWithoutUserInput[];
     deleteMany?: UserSkillScalarWhereInput | UserSkillScalarWhereInput[];
+  };
+
+  export type UserTechnologyUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutUserInput,
+          UserTechnologyUncheckedCreateWithoutUserInput
+        >
+      | UserTechnologyCreateWithoutUserInput[]
+      | UserTechnologyUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutUserInput
+      | UserTechnologyCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | UserTechnologyUpsertWithWhereUniqueWithoutUserInput
+      | UserTechnologyUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: UserTechnologyCreateManyUserInputEnvelope;
+    set?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    disconnect?:
+      | UserTechnologyWhereUniqueInput
+      | UserTechnologyWhereUniqueInput[];
+    delete?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    update?:
+      | UserTechnologyUpdateWithWhereUniqueWithoutUserInput
+      | UserTechnologyUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | UserTechnologyUpdateManyWithWhereWithoutUserInput
+      | UserTechnologyUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?:
+      | UserTechnologyScalarWhereInput
+      | UserTechnologyScalarWhereInput[];
   };
 
   export type PostUpdateManyWithoutAuthorNestedInput = {
@@ -38021,6 +39867,38 @@ export namespace Prisma {
       | UserSkillUpdateManyWithWhereWithoutUserInput
       | UserSkillUpdateManyWithWhereWithoutUserInput[];
     deleteMany?: UserSkillScalarWhereInput | UserSkillScalarWhereInput[];
+  };
+
+  export type UserTechnologyUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutUserInput,
+          UserTechnologyUncheckedCreateWithoutUserInput
+        >
+      | UserTechnologyCreateWithoutUserInput[]
+      | UserTechnologyUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutUserInput
+      | UserTechnologyCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | UserTechnologyUpsertWithWhereUniqueWithoutUserInput
+      | UserTechnologyUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: UserTechnologyCreateManyUserInputEnvelope;
+    set?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    disconnect?:
+      | UserTechnologyWhereUniqueInput
+      | UserTechnologyWhereUniqueInput[];
+    delete?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    update?:
+      | UserTechnologyUpdateWithWhereUniqueWithoutUserInput
+      | UserTechnologyUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | UserTechnologyUpdateManyWithWhereWithoutUserInput
+      | UserTechnologyUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?:
+      | UserTechnologyScalarWhereInput
+      | UserTechnologyScalarWhereInput[];
   };
 
   export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
@@ -38625,33 +40503,33 @@ export namespace Prisma {
     connect?: SkillWhereUniqueInput;
   };
 
-  export type TechnologyCreateNestedManyWithoutSousSkillTechInput = {
+  export type TechnologyCreateNestedManyWithoutSousSkillInput = {
     create?:
       | XOR<
-          TechnologyCreateWithoutSousSkillTechInput,
-          TechnologyUncheckedCreateWithoutSousSkillTechInput
+          TechnologyCreateWithoutSousSkillInput,
+          TechnologyUncheckedCreateWithoutSousSkillInput
         >
-      | TechnologyCreateWithoutSousSkillTechInput[]
-      | TechnologyUncheckedCreateWithoutSousSkillTechInput[];
+      | TechnologyCreateWithoutSousSkillInput[]
+      | TechnologyUncheckedCreateWithoutSousSkillInput[];
     connectOrCreate?:
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput[];
-    createMany?: TechnologyCreateManySousSkillTechInputEnvelope;
+      | TechnologyCreateOrConnectWithoutSousSkillInput
+      | TechnologyCreateOrConnectWithoutSousSkillInput[];
+    createMany?: TechnologyCreateManySousSkillInputEnvelope;
     connect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
   };
 
-  export type TechnologyUncheckedCreateNestedManyWithoutSousSkillTechInput = {
+  export type TechnologyUncheckedCreateNestedManyWithoutSousSkillInput = {
     create?:
       | XOR<
-          TechnologyCreateWithoutSousSkillTechInput,
-          TechnologyUncheckedCreateWithoutSousSkillTechInput
+          TechnologyCreateWithoutSousSkillInput,
+          TechnologyUncheckedCreateWithoutSousSkillInput
         >
-      | TechnologyCreateWithoutSousSkillTechInput[]
-      | TechnologyUncheckedCreateWithoutSousSkillTechInput[];
+      | TechnologyCreateWithoutSousSkillInput[]
+      | TechnologyUncheckedCreateWithoutSousSkillInput[];
     connectOrCreate?:
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput[];
-    createMany?: TechnologyCreateManySousSkillTechInputEnvelope;
+      | TechnologyCreateOrConnectWithoutSousSkillInput
+      | TechnologyCreateOrConnectWithoutSousSkillInput[];
+    createMany?: TechnologyCreateManySousSkillInputEnvelope;
     connect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
   };
 
@@ -38672,59 +40550,59 @@ export namespace Prisma {
     >;
   };
 
-  export type TechnologyUpdateManyWithoutSousSkillTechNestedInput = {
+  export type TechnologyUpdateManyWithoutSousSkillNestedInput = {
     create?:
       | XOR<
-          TechnologyCreateWithoutSousSkillTechInput,
-          TechnologyUncheckedCreateWithoutSousSkillTechInput
+          TechnologyCreateWithoutSousSkillInput,
+          TechnologyUncheckedCreateWithoutSousSkillInput
         >
-      | TechnologyCreateWithoutSousSkillTechInput[]
-      | TechnologyUncheckedCreateWithoutSousSkillTechInput[];
+      | TechnologyCreateWithoutSousSkillInput[]
+      | TechnologyUncheckedCreateWithoutSousSkillInput[];
     connectOrCreate?:
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput[];
+      | TechnologyCreateOrConnectWithoutSousSkillInput
+      | TechnologyCreateOrConnectWithoutSousSkillInput[];
     upsert?:
-      | TechnologyUpsertWithWhereUniqueWithoutSousSkillTechInput
-      | TechnologyUpsertWithWhereUniqueWithoutSousSkillTechInput[];
-    createMany?: TechnologyCreateManySousSkillTechInputEnvelope;
+      | TechnologyUpsertWithWhereUniqueWithoutSousSkillInput
+      | TechnologyUpsertWithWhereUniqueWithoutSousSkillInput[];
+    createMany?: TechnologyCreateManySousSkillInputEnvelope;
     set?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     disconnect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     delete?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     connect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     update?:
-      | TechnologyUpdateWithWhereUniqueWithoutSousSkillTechInput
-      | TechnologyUpdateWithWhereUniqueWithoutSousSkillTechInput[];
+      | TechnologyUpdateWithWhereUniqueWithoutSousSkillInput
+      | TechnologyUpdateWithWhereUniqueWithoutSousSkillInput[];
     updateMany?:
-      | TechnologyUpdateManyWithWhereWithoutSousSkillTechInput
-      | TechnologyUpdateManyWithWhereWithoutSousSkillTechInput[];
+      | TechnologyUpdateManyWithWhereWithoutSousSkillInput
+      | TechnologyUpdateManyWithWhereWithoutSousSkillInput[];
     deleteMany?: TechnologyScalarWhereInput | TechnologyScalarWhereInput[];
   };
 
-  export type TechnologyUncheckedUpdateManyWithoutSousSkillTechNestedInput = {
+  export type TechnologyUncheckedUpdateManyWithoutSousSkillNestedInput = {
     create?:
       | XOR<
-          TechnologyCreateWithoutSousSkillTechInput,
-          TechnologyUncheckedCreateWithoutSousSkillTechInput
+          TechnologyCreateWithoutSousSkillInput,
+          TechnologyUncheckedCreateWithoutSousSkillInput
         >
-      | TechnologyCreateWithoutSousSkillTechInput[]
-      | TechnologyUncheckedCreateWithoutSousSkillTechInput[];
+      | TechnologyCreateWithoutSousSkillInput[]
+      | TechnologyUncheckedCreateWithoutSousSkillInput[];
     connectOrCreate?:
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput[];
+      | TechnologyCreateOrConnectWithoutSousSkillInput
+      | TechnologyCreateOrConnectWithoutSousSkillInput[];
     upsert?:
-      | TechnologyUpsertWithWhereUniqueWithoutSousSkillTechInput
-      | TechnologyUpsertWithWhereUniqueWithoutSousSkillTechInput[];
-    createMany?: TechnologyCreateManySousSkillTechInputEnvelope;
+      | TechnologyUpsertWithWhereUniqueWithoutSousSkillInput
+      | TechnologyUpsertWithWhereUniqueWithoutSousSkillInput[];
+    createMany?: TechnologyCreateManySousSkillInputEnvelope;
     set?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     disconnect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     delete?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     connect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     update?:
-      | TechnologyUpdateWithWhereUniqueWithoutSousSkillTechInput
-      | TechnologyUpdateWithWhereUniqueWithoutSousSkillTechInput[];
+      | TechnologyUpdateWithWhereUniqueWithoutSousSkillInput
+      | TechnologyUpdateWithWhereUniqueWithoutSousSkillInput[];
     updateMany?:
-      | TechnologyUpdateManyWithWhereWithoutSousSkillTechInput
-      | TechnologyUpdateManyWithWhereWithoutSousSkillTechInput[];
+      | TechnologyUpdateManyWithWhereWithoutSousSkillInput
+      | TechnologyUpdateManyWithWhereWithoutSousSkillInput[];
     deleteMany?: TechnologyScalarWhereInput | TechnologyScalarWhereInput[];
   };
 
@@ -38735,6 +40613,36 @@ export namespace Prisma {
     >;
     connectOrCreate?: sousSkillCreateOrConnectWithoutTechnologyInput;
     connect?: sousSkillWhereUniqueInput;
+  };
+
+  export type UserTechnologyCreateNestedManyWithoutTechnologyInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutTechnologyInput,
+          UserTechnologyUncheckedCreateWithoutTechnologyInput
+        >
+      | UserTechnologyCreateWithoutTechnologyInput[]
+      | UserTechnologyUncheckedCreateWithoutTechnologyInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput[];
+    createMany?: UserTechnologyCreateManyTechnologyInputEnvelope;
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+  };
+
+  export type UserTechnologyUncheckedCreateNestedManyWithoutTechnologyInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutTechnologyInput,
+          UserTechnologyUncheckedCreateWithoutTechnologyInput
+        >
+      | UserTechnologyCreateWithoutTechnologyInput[]
+      | UserTechnologyUncheckedCreateWithoutTechnologyInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput[];
+    createMany?: UserTechnologyCreateManyTechnologyInputEnvelope;
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
   };
 
   export type sousSkillUpdateOneRequiredWithoutTechnologyNestedInput = {
@@ -38752,6 +40660,70 @@ export namespace Prisma {
       >,
       sousSkillUncheckedUpdateWithoutTechnologyInput
     >;
+  };
+
+  export type UserTechnologyUpdateManyWithoutTechnologyNestedInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutTechnologyInput,
+          UserTechnologyUncheckedCreateWithoutTechnologyInput
+        >
+      | UserTechnologyCreateWithoutTechnologyInput[]
+      | UserTechnologyUncheckedCreateWithoutTechnologyInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput[];
+    upsert?:
+      | UserTechnologyUpsertWithWhereUniqueWithoutTechnologyInput
+      | UserTechnologyUpsertWithWhereUniqueWithoutTechnologyInput[];
+    createMany?: UserTechnologyCreateManyTechnologyInputEnvelope;
+    set?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    disconnect?:
+      | UserTechnologyWhereUniqueInput
+      | UserTechnologyWhereUniqueInput[];
+    delete?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    update?:
+      | UserTechnologyUpdateWithWhereUniqueWithoutTechnologyInput
+      | UserTechnologyUpdateWithWhereUniqueWithoutTechnologyInput[];
+    updateMany?:
+      | UserTechnologyUpdateManyWithWhereWithoutTechnologyInput
+      | UserTechnologyUpdateManyWithWhereWithoutTechnologyInput[];
+    deleteMany?:
+      | UserTechnologyScalarWhereInput
+      | UserTechnologyScalarWhereInput[];
+  };
+
+  export type UserTechnologyUncheckedUpdateManyWithoutTechnologyNestedInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutTechnologyInput,
+          UserTechnologyUncheckedCreateWithoutTechnologyInput
+        >
+      | UserTechnologyCreateWithoutTechnologyInput[]
+      | UserTechnologyUncheckedCreateWithoutTechnologyInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput[];
+    upsert?:
+      | UserTechnologyUpsertWithWhereUniqueWithoutTechnologyInput
+      | UserTechnologyUpsertWithWhereUniqueWithoutTechnologyInput[];
+    createMany?: UserTechnologyCreateManyTechnologyInputEnvelope;
+    set?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    disconnect?:
+      | UserTechnologyWhereUniqueInput
+      | UserTechnologyWhereUniqueInput[];
+    delete?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    update?:
+      | UserTechnologyUpdateWithWhereUniqueWithoutTechnologyInput
+      | UserTechnologyUpdateWithWhereUniqueWithoutTechnologyInput[];
+    updateMany?:
+      | UserTechnologyUpdateManyWithWhereWithoutTechnologyInput
+      | UserTechnologyUpdateManyWithWhereWithoutTechnologyInput[];
+    deleteMany?:
+      | UserTechnologyScalarWhereInput
+      | UserTechnologyScalarWhereInput[];
   };
 
   export type UserCreateNestedOneWithoutUserSkillsInput = {
@@ -38807,6 +40779,58 @@ export namespace Prisma {
         SkillUpdateWithoutUserSkillsInput
       >,
       SkillUncheckedUpdateWithoutUserSkillsInput
+    >;
+  };
+
+  export type UserCreateNestedOneWithoutUserTechnologiesInput = {
+    create?: XOR<
+      UserCreateWithoutUserTechnologiesInput,
+      UserUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutUserTechnologiesInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type TechnologyCreateNestedOneWithoutUserTechnologiesInput = {
+    create?: XOR<
+      TechnologyCreateWithoutUserTechnologiesInput,
+      TechnologyUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    connectOrCreate?: TechnologyCreateOrConnectWithoutUserTechnologiesInput;
+    connect?: TechnologyWhereUniqueInput;
+  };
+
+  export type UserUpdateOneRequiredWithoutUserTechnologiesNestedInput = {
+    create?: XOR<
+      UserCreateWithoutUserTechnologiesInput,
+      UserUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutUserTechnologiesInput;
+    upsert?: UserUpsertWithoutUserTechnologiesInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutUserTechnologiesInput,
+        UserUpdateWithoutUserTechnologiesInput
+      >,
+      UserUncheckedUpdateWithoutUserTechnologiesInput
+    >;
+  };
+
+  export type TechnologyUpdateOneRequiredWithoutUserTechnologiesNestedInput = {
+    create?: XOR<
+      TechnologyCreateWithoutUserTechnologiesInput,
+      TechnologyUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    connectOrCreate?: TechnologyCreateOrConnectWithoutUserTechnologiesInput;
+    upsert?: TechnologyUpsertWithoutUserTechnologiesInput;
+    connect?: TechnologyWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        TechnologyUpdateToOneWithWhereWithoutUserTechnologiesInput,
+        TechnologyUpdateWithoutUserTechnologiesInput
+      >,
+      TechnologyUncheckedUpdateWithoutUserTechnologiesInput
     >;
   };
 
@@ -40526,6 +42550,37 @@ export namespace Prisma {
     skipDuplicates?: boolean;
   };
 
+  export type UserTechnologyCreateWithoutUserInput = {
+    id?: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    technology: TechnologyCreateNestedOneWithoutUserTechnologiesInput;
+  };
+
+  export type UserTechnologyUncheckedCreateWithoutUserInput = {
+    id?: string;
+    technologyId: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type UserTechnologyCreateOrConnectWithoutUserInput = {
+    where: UserTechnologyWhereUniqueInput;
+    create: XOR<
+      UserTechnologyCreateWithoutUserInput,
+      UserTechnologyUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type UserTechnologyCreateManyUserInputEnvelope = {
+    data:
+      | UserTechnologyCreateManyUserInput
+      | UserTechnologyCreateManyUserInput[];
+    skipDuplicates?: boolean;
+  };
+
   export type PostCreateWithoutAuthorInput = {
     id?: string;
     content: string;
@@ -41079,6 +43134,46 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UserSkill"> | Date | string;
   };
 
+  export type UserTechnologyUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserTechnologyWhereUniqueInput;
+    update: XOR<
+      UserTechnologyUpdateWithoutUserInput,
+      UserTechnologyUncheckedUpdateWithoutUserInput
+    >;
+    create: XOR<
+      UserTechnologyCreateWithoutUserInput,
+      UserTechnologyUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type UserTechnologyUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserTechnologyWhereUniqueInput;
+    data: XOR<
+      UserTechnologyUpdateWithoutUserInput,
+      UserTechnologyUncheckedUpdateWithoutUserInput
+    >;
+  };
+
+  export type UserTechnologyUpdateManyWithWhereWithoutUserInput = {
+    where: UserTechnologyScalarWhereInput;
+    data: XOR<
+      UserTechnologyUpdateManyMutationInput,
+      UserTechnologyUncheckedUpdateManyWithoutUserInput
+    >;
+  };
+
+  export type UserTechnologyScalarWhereInput = {
+    AND?: UserTechnologyScalarWhereInput | UserTechnologyScalarWhereInput[];
+    OR?: UserTechnologyScalarWhereInput[];
+    NOT?: UserTechnologyScalarWhereInput | UserTechnologyScalarWhereInput[];
+    id?: StringFilter<"UserTechnology"> | string;
+    userId?: StringFilter<"UserTechnology"> | string;
+    technologyId?: StringFilter<"UserTechnology"> | string;
+    level?: EnumSkillLevelFilter<"UserTechnology"> | $Enums.SkillLevel;
+    createdAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+    updatedAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+  };
+
   export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
     where: PostWhereUniqueInput;
     update: XOR<
@@ -41415,6 +43510,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -41460,6 +43556,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -41593,6 +43690,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -41638,6 +43736,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -41732,6 +43831,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -41798,6 +43898,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -41843,6 +43944,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -41888,6 +43990,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -41982,6 +44085,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -42048,6 +44152,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -42062,7 +44167,7 @@ export namespace Prisma {
     title: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    Technology?: TechnologyCreateNestedManyWithoutSousSkillTechInput;
+    Technology?: TechnologyCreateNestedManyWithoutSousSkillInput;
   };
 
   export type sousSkillUncheckedCreateWithoutSkillInput = {
@@ -42070,7 +44175,7 @@ export namespace Prisma {
     title: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    Technology?: TechnologyUncheckedCreateNestedManyWithoutSousSkillTechInput;
+    Technology?: TechnologyUncheckedCreateNestedManyWithoutSousSkillInput;
   };
 
   export type sousSkillCreateOrConnectWithoutSkillInput = {
@@ -42218,6 +44323,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -42263,6 +44369,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -42316,6 +44423,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -42361,6 +44469,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -42455,6 +44564,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -42521,6 +44631,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -42607,6 +44718,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -42673,6 +44785,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -42719,6 +44832,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
     postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
@@ -42764,6 +44878,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
     postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
@@ -42858,6 +44973,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
     postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
@@ -42924,6 +45040,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
     postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
@@ -42956,7 +45073,7 @@ export namespace Prisma {
     >;
   };
 
-  export type TechnologyCreateWithoutSousSkillTechInput = {
+  export type TechnologyCreateWithoutSousSkillInput = {
     id?: string;
     title: string;
     icon?: string | null;
@@ -42964,9 +45081,10 @@ export namespace Prisma {
     category?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutTechnologyInput;
   };
 
-  export type TechnologyUncheckedCreateWithoutSousSkillTechInput = {
+  export type TechnologyUncheckedCreateWithoutSousSkillInput = {
     id?: string;
     title: string;
     icon?: string | null;
@@ -42974,20 +45092,21 @@ export namespace Prisma {
     category?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutTechnologyInput;
   };
 
-  export type TechnologyCreateOrConnectWithoutSousSkillTechInput = {
+  export type TechnologyCreateOrConnectWithoutSousSkillInput = {
     where: TechnologyWhereUniqueInput;
     create: XOR<
-      TechnologyCreateWithoutSousSkillTechInput,
-      TechnologyUncheckedCreateWithoutSousSkillTechInput
+      TechnologyCreateWithoutSousSkillInput,
+      TechnologyUncheckedCreateWithoutSousSkillInput
     >;
   };
 
-  export type TechnologyCreateManySousSkillTechInputEnvelope = {
+  export type TechnologyCreateManySousSkillInputEnvelope = {
     data:
-      | TechnologyCreateManySousSkillTechInput
-      | TechnologyCreateManySousSkillTechInput[];
+      | TechnologyCreateManySousSkillInput
+      | TechnologyCreateManySousSkillInput[];
     skipDuplicates?: boolean;
   };
 
@@ -43027,31 +45146,31 @@ export namespace Prisma {
     userSkills?: UserSkillUncheckedUpdateManyWithoutSkillNestedInput;
   };
 
-  export type TechnologyUpsertWithWhereUniqueWithoutSousSkillTechInput = {
+  export type TechnologyUpsertWithWhereUniqueWithoutSousSkillInput = {
     where: TechnologyWhereUniqueInput;
     update: XOR<
-      TechnologyUpdateWithoutSousSkillTechInput,
-      TechnologyUncheckedUpdateWithoutSousSkillTechInput
+      TechnologyUpdateWithoutSousSkillInput,
+      TechnologyUncheckedUpdateWithoutSousSkillInput
     >;
     create: XOR<
-      TechnologyCreateWithoutSousSkillTechInput,
-      TechnologyUncheckedCreateWithoutSousSkillTechInput
+      TechnologyCreateWithoutSousSkillInput,
+      TechnologyUncheckedCreateWithoutSousSkillInput
     >;
   };
 
-  export type TechnologyUpdateWithWhereUniqueWithoutSousSkillTechInput = {
+  export type TechnologyUpdateWithWhereUniqueWithoutSousSkillInput = {
     where: TechnologyWhereUniqueInput;
     data: XOR<
-      TechnologyUpdateWithoutSousSkillTechInput,
-      TechnologyUncheckedUpdateWithoutSousSkillTechInput
+      TechnologyUpdateWithoutSousSkillInput,
+      TechnologyUncheckedUpdateWithoutSousSkillInput
     >;
   };
 
-  export type TechnologyUpdateManyWithWhereWithoutSousSkillTechInput = {
+  export type TechnologyUpdateManyWithWhereWithoutSousSkillInput = {
     where: TechnologyScalarWhereInput;
     data: XOR<
       TechnologyUpdateManyMutationInput,
-      TechnologyUncheckedUpdateManyWithoutSousSkillTechInput
+      TechnologyUncheckedUpdateManyWithoutSousSkillInput
     >;
   };
 
@@ -43093,6 +45212,37 @@ export namespace Prisma {
     >;
   };
 
+  export type UserTechnologyCreateWithoutTechnologyInput = {
+    id?: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutUserTechnologiesInput;
+  };
+
+  export type UserTechnologyUncheckedCreateWithoutTechnologyInput = {
+    id?: string;
+    userId: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type UserTechnologyCreateOrConnectWithoutTechnologyInput = {
+    where: UserTechnologyWhereUniqueInput;
+    create: XOR<
+      UserTechnologyCreateWithoutTechnologyInput,
+      UserTechnologyUncheckedCreateWithoutTechnologyInput
+    >;
+  };
+
+  export type UserTechnologyCreateManyTechnologyInputEnvelope = {
+    data:
+      | UserTechnologyCreateManyTechnologyInput
+      | UserTechnologyCreateManyTechnologyInput[];
+    skipDuplicates?: boolean;
+  };
+
   export type sousSkillUpsertWithoutTechnologyInput = {
     update: XOR<
       sousSkillUpdateWithoutTechnologyInput,
@@ -43127,6 +45277,34 @@ export namespace Prisma {
     skillId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserTechnologyUpsertWithWhereUniqueWithoutTechnologyInput = {
+    where: UserTechnologyWhereUniqueInput;
+    update: XOR<
+      UserTechnologyUpdateWithoutTechnologyInput,
+      UserTechnologyUncheckedUpdateWithoutTechnologyInput
+    >;
+    create: XOR<
+      UserTechnologyCreateWithoutTechnologyInput,
+      UserTechnologyUncheckedCreateWithoutTechnologyInput
+    >;
+  };
+
+  export type UserTechnologyUpdateWithWhereUniqueWithoutTechnologyInput = {
+    where: UserTechnologyWhereUniqueInput;
+    data: XOR<
+      UserTechnologyUpdateWithoutTechnologyInput,
+      UserTechnologyUncheckedUpdateWithoutTechnologyInput
+    >;
+  };
+
+  export type UserTechnologyUpdateManyWithWhereWithoutTechnologyInput = {
+    where: UserTechnologyScalarWhereInput;
+    data: XOR<
+      UserTechnologyUpdateManyMutationInput,
+      UserTechnologyUncheckedUpdateManyWithoutTechnologyInput
+    >;
   };
 
   export type UserCreateWithoutUserSkillsInput = {
@@ -43165,6 +45343,7 @@ export namespace Prisma {
     following?: FollowCreateNestedManyWithoutFollowingInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -43210,6 +45389,7 @@ export namespace Prisma {
     following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -43328,6 +45508,7 @@ export namespace Prisma {
     following?: FollowUpdateManyWithoutFollowingNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -43394,6 +45575,7 @@ export namespace Prisma {
     following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -43439,6 +45621,332 @@ export namespace Prisma {
     sousSkill?: sousSkillUncheckedUpdateManyWithoutSkillNestedInput;
   };
 
+  export type UserCreateWithoutUserTechnologiesInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationality?: NationalityCreateNestedOneWithoutUserInput;
+    experiences?: ExperienceCreateNestedManyWithoutUserInput;
+    educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    degrees?: DegreeCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    posts?: PostCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutUserTechnologiesInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationalityId?: string | null;
+    experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
+    educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutUserTechnologiesInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutUserTechnologiesInput,
+      UserUncheckedCreateWithoutUserTechnologiesInput
+    >;
+  };
+
+  export type TechnologyCreateWithoutUserTechnologiesInput = {
+    id?: string;
+    title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sousSkill: sousSkillCreateNestedOneWithoutTechnologyInput;
+  };
+
+  export type TechnologyUncheckedCreateWithoutUserTechnologiesInput = {
+    id?: string;
+    title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
+    sousSkillTechId: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type TechnologyCreateOrConnectWithoutUserTechnologiesInput = {
+    where: TechnologyWhereUniqueInput;
+    create: XOR<
+      TechnologyCreateWithoutUserTechnologiesInput,
+      TechnologyUncheckedCreateWithoutUserTechnologiesInput
+    >;
+  };
+
+  export type UserUpsertWithoutUserTechnologiesInput = {
+    update: XOR<
+      UserUpdateWithoutUserTechnologiesInput,
+      UserUncheckedUpdateWithoutUserTechnologiesInput
+    >;
+    create: XOR<
+      UserCreateWithoutUserTechnologiesInput,
+      UserUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutUserTechnologiesInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutUserTechnologiesInput,
+      UserUncheckedUpdateWithoutUserTechnologiesInput
+    >;
+  };
+
+  export type UserUpdateWithoutUserTechnologiesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationality?: NationalityUpdateOneWithoutUserNestedInput;
+    experiences?: ExperienceUpdateManyWithoutUserNestedInput;
+    educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    posts?: PostUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutUserTechnologiesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
+    experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
+    educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type TechnologyUpsertWithoutUserTechnologiesInput = {
+    update: XOR<
+      TechnologyUpdateWithoutUserTechnologiesInput,
+      TechnologyUncheckedUpdateWithoutUserTechnologiesInput
+    >;
+    create: XOR<
+      TechnologyCreateWithoutUserTechnologiesInput,
+      TechnologyUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    where?: TechnologyWhereInput;
+  };
+
+  export type TechnologyUpdateToOneWithWhereWithoutUserTechnologiesInput = {
+    where?: TechnologyWhereInput;
+    data: XOR<
+      TechnologyUpdateWithoutUserTechnologiesInput,
+      TechnologyUncheckedUpdateWithoutUserTechnologiesInput
+    >;
+  };
+
+  export type TechnologyUpdateWithoutUserTechnologiesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    sousSkill?: sousSkillUpdateOneRequiredWithoutTechnologyNestedInput;
+  };
+
+  export type TechnologyUncheckedUpdateWithoutUserTechnologiesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
+    sousSkillTechId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
   export type UserCreateWithoutDegreesInput = {
     id?: string;
     firstName: string;
@@ -43475,6 +45983,7 @@ export namespace Prisma {
     following?: FollowCreateNestedManyWithoutFollowingInput;
     sessions?: SessionCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -43520,6 +46029,7 @@ export namespace Prisma {
     following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -43614,6 +46124,7 @@ export namespace Prisma {
     following?: FollowUpdateManyWithoutFollowingNestedInput;
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -43680,6 +46191,7 @@ export namespace Prisma {
     following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -43725,6 +46237,7 @@ export namespace Prisma {
     following?: FollowCreateNestedManyWithoutFollowingInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -43770,6 +46283,7 @@ export namespace Prisma {
     following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -43864,6 +46378,7 @@ export namespace Prisma {
     following?: FollowUpdateManyWithoutFollowingNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -43930,6 +46445,7 @@ export namespace Prisma {
     following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -43976,6 +46492,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
@@ -44021,6 +46538,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
@@ -44115,6 +46633,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
@@ -44181,6 +46700,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
@@ -44226,6 +46746,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
     postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
@@ -44271,6 +46792,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
     postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
@@ -44518,6 +47040,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
     postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
@@ -44584,6 +47107,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
     postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
@@ -44914,6 +47438,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -44959,6 +47484,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -45107,6 +47633,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -45173,6 +47700,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -45256,6 +47784,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -45301,6 +47830,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -45449,6 +47979,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -45515,6 +48046,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -45598,6 +48130,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -45643,6 +48176,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -45883,6 +48417,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -45949,6 +48484,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -46160,6 +48696,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
     accounts?: AccountCreateNestedManyWithoutUserInput;
@@ -46205,6 +48742,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
@@ -46395,6 +48933,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -46461,6 +49000,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -46529,6 +49069,14 @@ export namespace Prisma {
   export type UserSkillCreateManyUserInput = {
     id?: string;
     skillId: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type UserTechnologyCreateManyUserInput = {
+    id?: string;
+    technologyId: string;
     level?: $Enums.SkillLevel;
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -46814,6 +49362,30 @@ export namespace Prisma {
   export type UserSkillUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     skillId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserTechnologyUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    technology?: TechnologyUpdateOneRequiredWithoutUserTechnologiesNestedInput;
+  };
+
+  export type UserTechnologyUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    technologyId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserTechnologyUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    technologyId?: StringFieldUpdateOperationsInput | string;
     level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -47161,6 +49733,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
     accounts?: AccountUpdateManyWithoutUserNestedInput;
@@ -47227,6 +49800,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
@@ -47308,7 +49882,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    Technology?: TechnologyUpdateManyWithoutSousSkillTechNestedInput;
+    Technology?: TechnologyUpdateManyWithoutSousSkillNestedInput;
   };
 
   export type sousSkillUncheckedUpdateWithoutSkillInput = {
@@ -47316,7 +49890,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    Technology?: TechnologyUncheckedUpdateManyWithoutSousSkillTechNestedInput;
+    Technology?: TechnologyUncheckedUpdateManyWithoutSousSkillNestedInput;
   };
 
   export type sousSkillUncheckedUpdateManyWithoutSkillInput = {
@@ -47350,7 +49924,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type TechnologyCreateManySousSkillTechInput = {
+  export type TechnologyCreateManySousSkillInput = {
     id?: string;
     title: string;
     icon?: string | null;
@@ -47360,7 +49934,29 @@ export namespace Prisma {
     updatedAt?: Date | string;
   };
 
-  export type TechnologyUpdateWithoutSousSkillTechInput = {
+  export type TechnologyUpdateWithoutSousSkillInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    userTechnologies?: UserTechnologyUpdateManyWithoutTechnologyNestedInput;
+  };
+
+  export type TechnologyUncheckedUpdateWithoutSousSkillInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutTechnologyNestedInput;
+  };
+
+  export type TechnologyUncheckedUpdateManyWithoutSousSkillInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
     icon?: NullableStringFieldUpdateOperationsInput | string | null;
@@ -47370,22 +49966,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type TechnologyUncheckedUpdateWithoutSousSkillTechInput = {
+  export type UserTechnologyCreateManyTechnologyInput = {
+    id?: string;
+    userId: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type UserTechnologyUpdateWithoutTechnologyInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    title?: StringFieldUpdateOperationsInput | string;
-    icon?: NullableStringFieldUpdateOperationsInput | string | null;
-    color?: NullableStringFieldUpdateOperationsInput | string | null;
-    category?: NullableStringFieldUpdateOperationsInput | string | null;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutUserTechnologiesNestedInput;
+  };
+
+  export type UserTechnologyUncheckedUpdateWithoutTechnologyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type TechnologyUncheckedUpdateManyWithoutSousSkillTechInput = {
+  export type UserTechnologyUncheckedUpdateManyWithoutTechnologyInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    title?: StringFieldUpdateOperationsInput | string;
-    icon?: NullableStringFieldUpdateOperationsInput | string | null;
-    color?: NullableStringFieldUpdateOperationsInput | string | null;
-    category?: NullableStringFieldUpdateOperationsInput | string | null;
+    userId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };

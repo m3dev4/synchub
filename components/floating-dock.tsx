@@ -9,15 +9,18 @@ import {
   IconSearch,
   IconLanguage,
   IconBell,
+  IconMenu2,
 } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
 import { useNotifications } from "@/contexts/NotificationContext";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { Badge } from "@/components/ui/badge";
+import { useSidebar } from "@/components/ui/sidebar";
 
 export default function FloatingDockDemo() {
   const { theme, setTheme } = useTheme();
   const { unreadCount } = useNotifications();
+  const { isMobile, setOpenMobile } = useSidebar();
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentLanguage, setCurrentLanguage] = useState("EN");
@@ -76,7 +79,23 @@ export default function FloatingDockDemo() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [searchOpen]);
 
+  const toggleSidebar = () => {
+    setOpenMobile(true);
+  };
+
   const links = [
+    ...(isMobile
+      ? [
+          {
+            title: "Menu",
+            icon: (
+              <IconMenu2 className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+            ),
+            href: "#",
+            onClick: toggleSidebar,
+          },
+        ]
+      : []),
     {
       title: "Search",
       icon: (
@@ -132,10 +151,10 @@ export default function FloatingDockDemo() {
   ];
 
   return (
-    <div className="flex items-center justify-end fixed top-0 z-50 backdrop-blur-2xl w-full">
+    <div className="flex items-center justify-end fixed top-0 z-50 backdrop-blur-2xl w-full ">
       {searchOpen && (
         <div
-          className={`absolute top-20 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-out ${
+          className={`absolute top-20 bg-amber-500 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-out ${
             isAnimating
               ? "opacity-100 translate-y-0 scale-100"
               : "opacity-0 -translate-y-4 scale-95"

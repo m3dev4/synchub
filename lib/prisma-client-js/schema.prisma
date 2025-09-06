@@ -52,6 +52,7 @@ model User {
   sessions           Session[]
   degrees            Degree[]
   userSkills         UserSkill[]
+  userTechnologies   UserTechnology[]
   posts              Post[]
   notifications      Notification[]
   accounts           Account[]
@@ -161,15 +162,16 @@ model sousSkill {
 }
 
 model Technology {
-  id              String    @id() @default(cuid())
-  title           String
-  icon            String? // URL ou nom d'icône
-  color           String? // Couleur hex (#FF5733)
-  category        String? // "language", "framework", "tool", "platform"
-  sousSkillTech   sousSkill @relation(fields: [sousSkillTechId], references: [id])
-  sousSkillTechId String
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id               String           @id() @default(cuid())
+  title            String
+  icon             String? // URL ou nom d'icône
+  color            String? // Couleur hexadécimale pour l'UI
+  category         String? // Catégorie (language, framework, tool, etc.)
+  sousSkillTechId  String
+  sousSkill        sousSkill        @relation(fields: [sousSkillTechId], references: [id])
+  userTechnologies UserTechnology[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
 }
 
 model UserSkill {
@@ -183,6 +185,19 @@ model UserSkill {
   updatedAt DateTime   @updatedAt
 
   @@unique([userId, skillId])
+}
+
+model UserTechnology {
+  id           String     @id() @default(cuid())
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String
+  technology   Technology @relation(fields: [technologyId], references: [id])
+  technologyId String
+  level        SkillLevel @default(BEGINNER)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([userId, technologyId])
 }
 
 enum SkillLevel {

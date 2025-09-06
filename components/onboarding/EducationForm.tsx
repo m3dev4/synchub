@@ -102,7 +102,7 @@ export const EducationForm = ({
 
             <FormField
               label="École/Université"
-              value={education.school}
+              value={education.school || ""}
               onChange={(value) => updateEducation(index, "school", value)}
               placeholder="Ex: Université de Paris"
               required

@@ -55,7 +55,7 @@ const page = () => {
     },
   });
 
-  const updateUserMutation = updateUser();
+  const updateUserMutation = updateUser(user?.id || "");
 
   const onSubmit = async (data: userUpdateSchemaType) => {
     setIsSubmitting(true);
@@ -63,6 +63,7 @@ const page = () => {
 
     try {
       await updateUserMutation.mutateAsync(data);
+
       toast.success("Mise à jour effectuer avec succées");
       setSubmitStatus({
         type: "success",

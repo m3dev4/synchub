@@ -17,7 +17,7 @@ export const skills = [
           {
             id: "html",
             title: "HTML",
-            icon: "🌐",
+            icon: "https://img.icons8.com/?size=100&id=20909&format=png&color=000000",
             color: "#E34F26",
             category: "language",
             createdAt: new Date(),
@@ -26,7 +26,7 @@ export const skills = [
           {
             id: "css",
             title: "CSS",
-            icon: "🎨",
+            icon: "https://img.icons8.com/?size=100&id=21278&format=png&color=000000",
             color: "#1572B6",
             category: "language",
             createdAt: new Date(),
@@ -35,7 +35,7 @@ export const skills = [
           {
             id: "javascript",
             title: "JavaScript",
-            icon: "⚡",
+            icon: "https://img.icons8.com/?size=100&id=108784&format=png&color=000000",
             color: "#F7DF1E",
             category: "language",
             createdAt: new Date(),
@@ -44,7 +44,7 @@ export const skills = [
           {
             id: "typescript",
             title: "TypeScript",
-            icon: "📘",
+            icon: "https://img.icons8.com/?size=100&id=uJM6fQYqDaZK&format=png&color=000000",
             color: "#3178C6",
             category: "language",
             createdAt: new Date(),
@@ -53,7 +53,7 @@ export const skills = [
           {
             id: "react",
             title: "React",
-            icon: "⚛️",
+            icon: "https://img.icons8.com/?size=100&id=asWSSTBrDlTW&format=png&color=000000",
             color: "#61DAFB",
             category: "framework",
             createdAt: new Date(),
@@ -62,7 +62,7 @@ export const skills = [
           {
             id: "vue",
             title: "Vue.js",
-            icon: "💚",
+            icon: "https://img.icons8.com/?size=100&id=rY6agKizO9eb&format=png&color=000000",
             color: "#4FC08D",
             category: "framework",
             createdAt: new Date(),
@@ -71,7 +71,7 @@ export const skills = [
           {
             id: "angular",
             title: "Angular",
-            icon: "🅰️",
+            icon: "https://img.icons8.com/?size=100&id=71257&format=png&color=000000",
             color: "#DD0031",
             category: "framework",
             createdAt: new Date(),
@@ -80,7 +80,7 @@ export const skills = [
           {
             id: "svelte",
             title: "Svelte",
-            icon: "🔥",
+            icon: "https://img.icons8.com/?size=100&id=Mm35TzLKahiF&format=png&color=000000",
             color: "#FF3E00",
             category: "framework",
             createdAt: new Date(),
@@ -89,7 +89,7 @@ export const skills = [
           {
             id: "nextjs",
             title: "Next.js",
-            icon: "▲",
+            icon: "https://img.icons8.com/?size=100&id=yUdJlcKanVbh&format=png&color=000000",
             color: "#000000",
             category: "framework",
             createdAt: new Date(),
@@ -98,7 +98,7 @@ export const skills = [
           {
             id: "nuxtjs",
             title: "Nuxt.js",
-            icon: "💚",
+            icon: "https://img.icons8.com/?size=100&id=nvrsJYs7j9Vb&format=png&color=000000",
             color: "#00DC82",
             category: "framework",
             createdAt: new Date(),
@@ -107,7 +107,7 @@ export const skills = [
           {
             id: "gatsby",
             title: "Gatsby",
-            icon: "🚀",
+            icon: "https://img.icons8.com/?size=100&id=9ZCwMt6fg4MT&format=png&color=000000",
             color: "#663399",
             category: "framework",
             createdAt: new Date(),
@@ -124,7 +124,7 @@ export const skills = [
           {
             id: "nodejs",
             title: "Node.js",
-            icon: "🟢",
+            icon: "https://img.icons8.com/?size=100&id=54087&format=png&color=000000",
             color: "#339933",
             category: "platform",
             createdAt: new Date(),
@@ -133,7 +133,7 @@ export const skills = [
           {
             id: "python",
             title: "Python",
-            icon: "🐍",
+            icon: "https://img.icons8.com/?size=100&id=13441&format=png&color=000000",
             color: "#3776AB",
             category: "language",
             createdAt: new Date(),
@@ -142,7 +142,7 @@ export const skills = [
           {
             id: "java",
             title: "Java",
-            icon: "☕",
+            icon: "https://img.icons8.com/?size=100&id=Pd2x9GWu9ovX&format=png&color=000000",
             color: "#ED8B00",
             category: "language",
             createdAt: new Date(),
@@ -151,7 +151,7 @@ export const skills = [
           {
             id: "csharp",
             title: "C#",
-            icon: "#️⃣",
+            icon: "https://img.icons8.com/?size=100&id=45490&format=png&color=000000",
             color: "#239120",
             category: "language",
             createdAt: new Date(),
@@ -160,7 +160,7 @@ export const skills = [
           {
             id: "php",
             title: "PHP",
-            icon: "🐘",
+            icon: "https://img.icons8.com/?size=100&id=f0R4xVI4Sc8O&format=png&color=000000",
             color: "#777BB4",
             category: "language",
             createdAt: new Date(),
@@ -169,7 +169,7 @@ export const skills = [
           {
             id: "ruby",
             title: "Ruby",
-            icon: "💎",
+            icon: "https://img.icons8.com/?size=100&id=22189&format=png&color=000000",
             color: "#CC342D",
             category: "language",
             createdAt: new Date(),
@@ -187,7 +187,25 @@ export const skills = [
           {
             id: "rust",
             title: "Rust",
-            icon: "🦀",
+            icon: "https://img.icons8.com/?size=100&id=AeV543ttZrcT&format=png&color=000000",
+            color: "#000000",
+            category: "language",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+          {
+            id: "C",
+            title: "C",
+            icon: "https://img.icons8.com/?size=100&id=40670&format=png&color=000000",
+            color: "#000000",
+            category: "language",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+          {
+            id: "C++",
+            title: "C++",
+            icon: "https://img.icons8.com/?size=100&id=TpULddJc4gTh&format=png&color=000000",
             color: "#000000",
             category: "language",
             createdAt: new Date(),
@@ -204,7 +222,7 @@ export const skills = [
           {
             id: "swift",
             title: "Swift",
-            icon: "🍎",
+            icon: "https://img.icons8.com/?size=100&id=XH8DlMsSOmWT&format=png&color=000000",
             color: "#FA7343",
             category: "language",
             createdAt: new Date(),
@@ -213,7 +231,7 @@ export const skills = [
           {
             id: "kotlin",
             title: "Kotlin",
-            icon: "🤖",
+            icon: "https://img.icons8.com/?size=100&id=ZoxjA0jZDdFZ&format=png&color=000000",
             color: "#0095D5",
             category: "language",
             createdAt: new Date(),
@@ -222,7 +240,7 @@ export const skills = [
           {
             id: "react-native",
             title: "React Native",
-            icon: "📱",
+            icon: "https://img.icons8.com/?size=100&id=123603&format=png&color=000000",
             color: "#61DAFB",
             category: "framework",
             createdAt: new Date(),
@@ -231,7 +249,7 @@ export const skills = [
           {
             id: "flutter",
             title: "Flutter",
-            icon: "🦋",
+            icon: "https://img.icons8.com/?size=100&id=7I3BjCqe9rjG&format=png&color=000000",
             color: "#02569B",
             category: "framework",
             createdAt: new Date(),
@@ -248,7 +266,7 @@ export const skills = [
           {
             id: "docker",
             title: "Docker",
-            icon: "🐳",
+            icon: "https://img.icons8.com/?size=100&id=22813&format=png&color=000000",
             color: "#2496ED",
             category: "tool",
             createdAt: new Date(),
@@ -257,7 +275,7 @@ export const skills = [
           {
             id: "kubernetes",
             title: "Kubernetes",
-            icon: "☸️",
+            icon: "https://img.icons8.com/?size=100&id=cvzmaEA4kC0o&format=png&color=000000",
             color: "#326CE5",
             category: "platform",
             createdAt: new Date(),
@@ -266,7 +284,7 @@ export const skills = [
           {
             id: "jenkins",
             title: "Jenkins",
-            icon: "🔧",
+            icon: "https://img.icons8.com/?size=100&id=39292&format=png&color=000000",
             color: "#D33833",
             category: "tool",
             createdAt: new Date(),
@@ -275,7 +293,7 @@ export const skills = [
           {
             id: "git",
             title: "Git",
-            icon: "📝",
+            icon: "https://img.icons8.com/?size=100&id=20906&format=png&color=000000",
             color: "#F05032",
             category: "tool",
             createdAt: new Date(),
@@ -284,7 +302,7 @@ export const skills = [
           {
             id: "github-actions",
             title: "GitHub Actions",
-            icon: "🚀",
+            icon: "https://img.icons8.com/?size=100&id=62856&format=png&color=000000",
             color: "#2088FF",
             category: "platform",
             createdAt: new Date(),
@@ -293,7 +311,7 @@ export const skills = [
           {
             id: "terraform",
             title: "Terraform",
-            icon: "🏗️",
+            icon: "https://img.icons8.com/?size=100&id=WncR8Bcg5nE9&format=png&color=000000",
             color: "#623CE4",
             category: "tool",
             createdAt: new Date(),
@@ -302,7 +320,7 @@ export const skills = [
           {
             id: "ansible",
             title: "Ansible",
-            icon: "🔴",
+            icon: "https://img.icons8.com/?size=100&id=SJNUZD3A4el4&format=png&color=000000",
             color: "#EE0000",
             category: "tool",
             createdAt: new Date(),
@@ -327,7 +345,7 @@ export const skills = [
           {
             id: "mysql",
             title: "MySQL",
-            icon: "🐬",
+            icon: "https://img.icons8.com/?size=100&id=T3OGfb1OU0RD&format=png&color=000000",
             color: "#4479A1",
             category: "database",
             createdAt: new Date(),
@@ -336,7 +354,7 @@ export const skills = [
           {
             id: "postgresql",
             title: "PostgreSQL",
-            icon: "🐘",
+            icon: "https://img.icons8.com/?size=100&id=Pv4IGT0TSpt8&format=png&color=000000",
             color: "#336791",
             category: "database",
             createdAt: new Date(),
@@ -345,7 +363,7 @@ export const skills = [
           {
             id: "sqlite",
             title: "SQLite",
-            icon: "💾",
+            icon: "https://img.icons8.com/?size=100&id=VMRAbKfEzssG&format=png&color=000000",
             color: "#003B57",
             category: "database",
             createdAt: new Date(),
@@ -354,7 +372,7 @@ export const skills = [
           {
             id: "oracle",
             title: "Oracle",
-            icon: "🔴",
+            icon: "https://img.icons8.com/?size=100&id=39913&format=png&color=000000",
             color: "#F80000",
             category: "database",
             createdAt: new Date(),
@@ -371,7 +389,7 @@ export const skills = [
           {
             id: "mongodb",
             title: "MongoDB",
-            icon: "🍃",
+            icon: "https://img.icons8.com/?size=100&id=tBBf3P8HL0vR&format=png&color=000000",
             color: "#47A248",
             category: "database",
             createdAt: new Date(),
@@ -380,7 +398,7 @@ export const skills = [
           {
             id: "redis",
             title: "Redis",
-            icon: "🔴",
+            icon: "https://img.icons8.com/?size=100&id=pHS3eRpynIRQ&format=png&color=000000",
             color: "#DC382D",
             category: "database",
             createdAt: new Date(),
@@ -389,7 +407,7 @@ export const skills = [
           {
             id: "cassandra",
             title: "Cassandra",
-            icon: "⚡",
+            icon: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Apache-cassandra-icon.png?20110626213050",
             color: "#1287B1",
             category: "database",
             createdAt: new Date(),
@@ -406,7 +424,7 @@ export const skills = [
           {
             id: "prisma",
             title: "Prisma",
-            icon: "🔷",
+            icon: "https://img.icons8.com/?size=100&id=YKKmRFS8Utmm&format=png&color=000000",
             color: "#2D3748",
             category: "tool",
             createdAt: new Date(),
@@ -458,7 +476,7 @@ export const skills = [
           {
             id: "numpy",
             title: "NumPy",
-            icon: "🔢",
+            icon: "https://img.icons8.com/?size=100&id=aR9CXyMagKIS&format=png&color=000000",
             color: "#013243",
             category: "tool",
             createdAt: new Date(),
@@ -476,7 +494,7 @@ export const skills = [
           {
             id: "sql",
             title: "SQL",
-            icon: "🗃️",
+            icon: "https://img.icons8.com/?size=100&id=Ign0QG33bZzq&format=png&color=000000",
             color: "#336791",
             category: "language",
             createdAt: new Date(),
@@ -502,7 +520,7 @@ export const skills = [
           {
             id: "powerbi",
             title: "Power BI",
-            icon: "📈",
+            icon: "https://img.icons8.com/?size=100&id=QMTbsd0FVhHS&format=png&color=000000",
             color: "#F2C811",
             category: "tool",
             createdAt: new Date(),
@@ -511,7 +529,7 @@ export const skills = [
           {
             id: "matplotlib",
             title: "Matplotlib",
-            icon: "📉",
+            icon: "https://img.icons8.com/?size=100&id=TkX1totjFmAD&format=png&color=000000",
             color: "#11557C",
             category: "tool",
             createdAt: new Date(),
@@ -536,7 +554,7 @@ export const skills = [
           {
             id: "tensorflow",
             title: "TensorFlow",
-            icon: "🧠",
+            icon: "https://img.icons8.com/?size=100&id=n3QRpDA7KZ7P&format=png&color=000000",
             color: "#FF6F00",
             category: "framework",
             createdAt: new Date(),
@@ -545,7 +563,7 @@ export const skills = [
           {
             id: "pytorch",
             title: "PyTorch",
-            icon: "🔥",
+            icon: "https://img.icons8.com/?size=100&id=jH4BpkMnRrU5&format=png&color=000000",
             color: "#EE4C2C",
             category: "framework",
             createdAt: new Date(),
@@ -554,7 +572,7 @@ export const skills = [
           {
             id: "scikit-learn",
             title: "Scikit-learn",
-            icon: "🤖",
+            icon: "https://img.icons8.com/?size=100&id=M4btD4MSsZNI&format=png&color=000000",
             color: "#F7931E",
             category: "tool",
             createdAt: new Date(),
@@ -563,7 +581,7 @@ export const skills = [
           {
             id: "keras",
             title: "Keras",
-            icon: "🧠",
+            icon: "https://img.icons8.com/?size=100&id=z2pN6mJXIC4u&format=png&color=000000",
             color: "#D00000",
             category: "framework",
             createdAt: new Date(),
@@ -580,7 +598,7 @@ export const skills = [
           {
             id: "huggingface",
             title: "Hugging Face",
-            icon: "🤗",
+            icon: "https://img.icons8.com/?size=100&id=sop9ROXku5bb&format=png&color=000000",
             color: "#FFD21E",
             category: "platform",
             createdAt: new Date(),
@@ -589,7 +607,7 @@ export const skills = [
           {
             id: "openai",
             title: "OpenAI",
-            icon: "🤖",
+            icon: "https://img.icons8.com/?size=100&id=FBO05Dys9QCg&format=png&color=000000",
             color: "#412991",
             category: "platform",
             createdAt: new Date(),
@@ -614,7 +632,7 @@ export const skills = [
           {
             id: "metasploit",
             title: "Metasploit",
-            icon: "🎯",
+            icon: "https://img.icons8.com/?size=100&id=97AFS4JiW8vx&format=png&color=000000",
             color: "#1976D2",
             category: "tool",
             createdAt: new Date(),
@@ -623,7 +641,7 @@ export const skills = [
           {
             id: "nmap",
             title: "Nmap",
-            icon: "🔍",
+            icon: "https://img.icons8.com/?size=100&id=9b5wowKIlo9d&format=png&color=000000",
             color: "#4CAF50",
             category: "tool",
             createdAt: new Date(),
@@ -632,7 +650,7 @@ export const skills = [
           {
             id: "wireshark",
             title: "Wireshark",
-            icon: "🦈",
+            icon: "https://img.icons8.com/?size=100&id=rOHcpTUtCTjr&format=png&color=000000",
             color: "#1976D2",
             category: "tool",
             createdAt: new Date(),
@@ -641,7 +659,7 @@ export const skills = [
           {
             id: "burp-suite",
             title: "Burp Suite",
-            icon: "🔐",
+            icon: "https://img.icons8.com/?size=100&id=cVUr1WGmhrbq&format=png&color=000000",
             color: "#FF5722",
             category: "tool",
             createdAt: new Date(),
@@ -701,7 +719,7 @@ export const skills = [
           {
             id: "figma",
             title: "Figma",
-            icon: "🎨",
+            icon: "https://img.icons8.com/?size=100&id=zfHRZ6i1Wg0U&format=png&color=000000",
             color: "#F24E1E",
             category: "tool",
             createdAt: new Date(),
@@ -710,7 +728,7 @@ export const skills = [
           {
             id: "adobe-xd",
             title: "Adobe XD",
-            icon: "🔷",
+            icon: "https://icons8.com/icon/4VVL78edhbW9/adobe-xd",
             color: "#FF61F6",
             category: "tool",
             createdAt: new Date(),
@@ -719,7 +737,7 @@ export const skills = [
           {
             id: "sketch",
             title: "Sketch",
-            icon: "💎",
+            icon: "https://icons8.com/icon/9G868KxEhqEq/sketch",
             color: "#F7B500",
             category: "tool",
             createdAt: new Date(),
@@ -728,7 +746,7 @@ export const skills = [
           {
             id: "photoshop",
             title: "Photoshop",
-            icon: "🖼️",
+            icon: "https://img.icons8.com/?size=100&id=13677&format=png&color=000000",
             color: "#31A8FF",
             category: "tool",
             createdAt: new Date(),
@@ -737,7 +755,7 @@ export const skills = [
           {
             id: "illustrator",
             title: "Illustrator",
-            icon: "✏️",
+            icon: "https://img.icons8.com/?size=100&id=13631&format=png&color=000000",
             color: "#FF9A00",
             category: "tool",
             createdAt: new Date(),
@@ -754,7 +772,7 @@ export const skills = [
           {
             id: "invision",
             title: "InVision",
-            icon: "🔗",
+            icon: "https://img.icons8.com/?size=100&id=cRGU9_-pgw3i&format=png&color=000000",
             color: "#FF3366",
             category: "platform",
             createdAt: new Date(),
@@ -763,7 +781,7 @@ export const skills = [
           {
             id: "maze",
             title: "Maze",
-            icon: "🧪",
+            icon: "https://img.icons8.com/?size=100&id=69209&format=png&color=000000",
             color: "#09CF83",
             category: "platform",
             createdAt: new Date(),
@@ -797,7 +815,7 @@ export const skills = [
           {
             id: "ec2",
             title: "EC2",
-            icon: "☁️",
+            icon: "https://img.icons8.com/?size=100&id=e6uRfPIDgoXi&format=png&color=000000",
             color: "#FF9900",
             category: "platform",
             createdAt: new Date(),
@@ -806,7 +824,7 @@ export const skills = [
           {
             id: "s3",
             title: "S3",
-            icon: "🪣",
+            icon: "https://img.icons8.com/?size=100&id=106501&format=png&color=000000",
             color: "#569A31",
             category: "platform",
             createdAt: new Date(),
@@ -815,7 +833,7 @@ export const skills = [
           {
             id: "lambda",
             title: "Lambda",
-            icon: "⚡",
+            icon: "https://img.icons8.com/?size=100&id=Y9Kxy8Xl1id8&format=png&color=000000",
             color: "#FF9900",
             category: "platform",
             createdAt: new Date(),
@@ -841,7 +859,7 @@ export const skills = [
           {
             id: "azure-app-service",
             title: "App Service",
-            icon: "🌐",
+            icon: "https://img.icons8.com/?size=100&id=VLKafOkk3sBX&format=png&color=000000",
             color: "#0078D4",
             category: "platform",
             createdAt: new Date(),
@@ -867,7 +885,7 @@ export const skills = [
           {
             id: "gce",
             title: "Compute Engine",
-            icon: "⚙️",
+            icon: "https://img.icons8.com/?size=100&id=20776&format=png&color=000000",
             color: "#4285F4",
             category: "platform",
             createdAt: new Date(),
@@ -876,7 +894,7 @@ export const skills = [
           {
             id: "cloud-functions",
             title: "Cloud Functions",
-            icon: "⚡",
+            icon: "https://img.icons8.com/?size=100&id=3FDJsdSpK6cv&format=png&color=000000",
             color: "#4285F4",
             category: "platform",
             createdAt: new Date(),

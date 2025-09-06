@@ -7,7 +7,13 @@ const nextConfig: NextConfig = {
   },
   output: "standalone",
   images: {
-    domains: ["via.placeholder.com", "res.cloudinary.com"],
+    domains: [
+      "via.placeholder.com",
+      "res.cloudinary.com",
+      "icons8.com",
+      "img.icons8.com",
+      "upload.wikimedia.org",
+    ],
   },
 };
 

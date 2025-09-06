@@ -5,6 +5,8 @@ import {
   SkillLevel,
   SkillsResponse,
   UserSkillsResponse,
+  UserTechnology,
+  UserTechnologiesResponse,
 } from "@/types/skills";
 
 // Fetch all available skills
@@ -93,6 +95,82 @@ export const useRemoveUserSkill = () => {
     onSuccess: () => {
       // Invalidate and refetch user skills
       queryClient.invalidateQueries({ queryKey: ["userSkills"] });
+    },
+  });
+};
+
+// Fetch user's technologies
+export const useUserTechnologies = () => {
+  return useQuery<UserTechnologiesResponse>({
+    queryKey: ["userTechnologies"],
+    queryFn: async () => {
+      const response = await fetch("/api/user/technologies");
+      if (!response.ok) {
+        throw new Error("Failed to fetch user technologies");
+      }
+      return response.json();
+    },
+  });
+};
+
+// Add or update user technology
+export const useAddUserTechnology = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      technologyId,
+      level,
+    }: {
+      technologyId: string;
+      level: SkillLevel;
+    }) => {
+      const response = await fetch("/api/user/technologies", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ technologyId, level }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Failed to add technology");
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      // Invalidate and refetch user technologies
+      queryClient.invalidateQueries({ queryKey: ["userTechnologies"] });
+    },
+  });
+};
+
+// Remove user technology
+export const useRemoveUserTechnology = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (technologyId: string) => {
+      const response = await fetch("/api/user/technologies", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ technologyId }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Failed to remove technology");
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      // Invalidate and refetch user technologies
+      queryClient.invalidateQueries({ queryKey: ["userTechnologies"] });
     },
   });
 };

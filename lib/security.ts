@@ -109,7 +109,6 @@ export function validateOrigin(request: Request): boolean {
 
   // Debug logs pour diagnostiquer le problème
 
-
   if (origin && allowedOrigins.includes(origin)) {
     return true;
   }

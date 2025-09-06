@@ -39,7 +39,11 @@ export const navLinks = [
   },
 ];
 
-export const navFooterLinks = (id: string, firstName: string, lastName: string) => [
+export const navFooterLinks = (
+  id: string,
+  firstName: string,
+  lastName: string,
+) => [
   {
     id: 1,
     title: "Paramètres",

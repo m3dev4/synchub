@@ -150,7 +150,7 @@ export async function GET(
         userReaction = await prisma.postReaction.findFirst({
           where: {
             postId,
-            userId: session.user.id,
+            userId: session.userId,
           },
         });
       }

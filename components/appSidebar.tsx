@@ -29,7 +29,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { user } = useAuthStore();
   return (
-    <Sidebar className="bg-stone-800" collapsible="icon">
+    <Sidebar className="bg-stone-800" collapsible="offcanvas">
       <SidebarHeader>
         <div className="flex items-center justify-between p-2">
           <div className="flex items-center gap-2 pointer-events-none">
@@ -85,7 +85,11 @@ export function AppSidebar() {
       <SidebarFooter className="-ml-2">
         <SidebarGroup>
           <SidebarMenu>
-            {navFooterLinks(user?.id || "", user?.firstName || "", user?.lastName || "").map((link) => (
+            {navFooterLinks(
+              user?.id || "",
+              user?.firstName || "",
+              user?.lastName || "",
+            ).map((link) => (
               <SidebarMenuItem key={link.id}>
                 <SidebarMenuButton
                   asChild

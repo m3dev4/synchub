@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
             title: "Nouveau post",
             message: `${session.user.firstName} ${session.user.lastName} a publié un nouveau post`,
             data: JSON.stringify({
-              postId: post.id,
+              postId: post?.id,
               authorId: session.user.id,
               authorName: `${session.user.firstName} ${session.user.lastName}`,
             }),

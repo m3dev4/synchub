@@ -64,9 +64,7 @@ const SignIn = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <Toaster
-        position="top-right"
-      />
+      <Toaster position="top-right" />
       <form
         className="w-full max-w-md space-y-4"
         onSubmit={handleSubmit(onSubmit)}

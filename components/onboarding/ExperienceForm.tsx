@@ -95,7 +95,7 @@ export const ExperienceForm = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
               label="Titre du poste"
-              value={experience.title}
+              value={experience.title || ""}
               onChange={(value) => updateExperience(index, "title", value)}
               placeholder="Ex: Développeur Full Stack"
               required
@@ -103,9 +103,9 @@ export const ExperienceForm = ({
 
             <FormField
               label="Entreprise"
-              value={experience.company}
-              onChange={(value) => updateExperience(index, "company", value)}
+              value={experience.company || ""}
               placeholder="Ex: Google"
+              onChange={(value) => updateExperience(index, "company", value)}
               required
             />
           </div>
