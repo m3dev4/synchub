@@ -9,6 +9,8 @@ import {
 } from "@/lib/security";
 import { createUserSchema } from "@/validations/auth/authValidation";
 import { NextRequest, NextResponse } from "next/server";
+import { ZodError } from "zod";
+import { getErrorMessage } from "@/utils/errorMessage";
 
 export async function POST(request: NextRequest) {
   try {
@@ -46,11 +48,11 @@ export async function POST(request: NextRequest) {
       message: "User created successfully",
       status: 200,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating user:", error);
 
     // Ne pas exposer les détails d'erreur en production
-    if (error.name === "ZodError") {
+    if (error instanceof ZodError) {
       return NextResponse.json(
         { error: "Invalid input data" },
         { status: 400 },
@@ -58,7 +60,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: getErrorMessage(error) },
       { status: 500 },
     );
   }

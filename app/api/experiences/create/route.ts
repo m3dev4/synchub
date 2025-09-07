@@ -8,7 +8,8 @@ import {
   sanitizeInput,
 } from "@/lib/security";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
+import { z, ZodError } from "zod";
+import { getErrorMessage } from "@/utils/errorMessage";
 
 // Schema de validation pour les données d'expérience
 const experienceSchema = z.object({
@@ -122,10 +123,10 @@ export async function POST(request: NextRequest) {
       experience: experience,
       status: 200,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Experience creation error:", error);
 
-    if (error.name === "ZodError") {
+    if (error instanceof ZodError) {
       return NextResponse.json(
         { error: "Invalid input data" },
         { status: 400 },
@@ -133,7 +134,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: getErrorMessage(error) },
       { status: 500 },
     );
   }

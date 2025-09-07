@@ -102,7 +102,7 @@ export function validateOrigin(request: Request): boolean {
   const referer = request.headers.get("referer");
 
   const allowedOrigins = [
-    process.env.NEXT_PUBLIC_CLIENT_URL || "http://localhost:3000",
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
     "http://localhost:3000",
     "https://localhost:3000",
   ];

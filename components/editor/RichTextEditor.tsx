@@ -43,7 +43,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const insertMarkdown = useCallback(
     (before: string, after: string = "") => {
       const textarea = document.querySelector(
-        'textarea[data-editor="true"]',
+        "textarea[data-editor='true']",
       ) as HTMLTextAreaElement;
       if (!textarea) return;
 
@@ -101,15 +101,15 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       .replace(/\*(.*)\*/gim, "<em>$1</em>")
       .replace(
         /`(.*?)`/gim,
-        '<code class="bg-gray-100 px-1 py-0.5 rounded text-sm">$1</code>',
+        "<code class='bg-gray-100 px-1 py-0.5 rounded text-sm'>$1</code>",
       )
       .replace(
         /\[([^\]]+)\]\(([^)]+)\)/gim,
-        '<a href="$2" class="text-blue-600 hover:underline">$1</a>',
+        "<a href='$2' class='text-blue-600 hover:underline'>$1</a>",
       )
       .replace(
         /^> (.*$)/gim,
-        '<blockquote class="border-l-4 border-gray-300 pl-4 italic">$1</blockquote>',
+        "<blockquote class='border-l-4 border-gray-300 pl-4 italic'>$1</blockquote>",
       )
       .replace(/^- (.*$)/gim, "<li>$1</li>")
       .replace(/^1\. (.*$)/gim, "<li>$1</li>")
@@ -205,7 +205,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
         <span>{value.length} caractères</span>
         {contentType === "MARKDOWN" && (
           <span className="text-blue-600">
-            Markdown activé - Utilisez la barre d'outils pour formater
+            Markdown activé - Utilisez la barre d&apos;outils pour formater
           </span>
         )}
       </div>

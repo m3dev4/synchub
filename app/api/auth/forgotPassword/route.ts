@@ -1,6 +1,7 @@
 "use server";
 
 import { forgotPassword } from "@/server/auth/forgotPassword";
+import { getErrorMessage } from "@/utils/errorMessage";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -15,8 +16,11 @@ export async function POST(request: NextRequest) {
         status: 200,
       });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating user:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: getErrorMessage(error) },
+      { status: 500 },
+    );
   }
 }

@@ -9,6 +9,8 @@ import {
   passwordSchema,
 } from "@/lib/security";
 import { NextRequest, NextResponse } from "next/server";
+import { getErrorMessage } from "@/utils/errorMessage";
+import { ZodError } from "zod";
 
 export async function POST(request: NextRequest) {
   try {
@@ -61,10 +63,10 @@ export async function POST(request: NextRequest) {
         status: 200,
       });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error reseting password:", error);
 
-    if (error.name === "ZodError") {
+    if (error instanceof ZodError) {
       return NextResponse.json(
         { error: "Invalid input data" },
         { status: 400 },
@@ -72,7 +74,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: getErrorMessage(error) },
       { status: 500 },
     );
   }

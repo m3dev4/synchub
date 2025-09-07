@@ -20,11 +20,26 @@ import { ArrowLeft, Loader, XCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-const page = () => {
+const getErrorMessage = (error: unknown): string => {
+  let message: string;
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (error && typeof error === "object" && "messsage" in error) {
+    message = String(error.messsage);
+  } else if (typeof error === "string") {
+    message = error;
+  } else {
+    message = "Une erreur est survenue";
+  }
+  return message;
+};
+
+// Extract the main component logic into a separate component
+const ResetPasswordContent = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -56,8 +71,8 @@ const page = () => {
         "Mot de passe modifié avec succès, redirection en cours...",
       );
     } catch (error) {
-      console.log("Error", error);
-      toast.error("Une erreur est survenue");
+      const errorMsg = getErrorMessage(error);
+      toast.error(errorMsg);
       setLoading(false);
     }
   };
@@ -116,7 +131,7 @@ const page = () => {
                 />
               </div>
               <h2 className="text-xl sm:text-2xl font-bold text-center">
-                Veuillez spécifier votre email ci-dessous
+                Nouveau mot de passe
               </h2>
             </CardHeader>
             <CardContent className="relative">
@@ -126,16 +141,39 @@ const page = () => {
                 placeholder="Nouveau mot de passe"
                 {...register("password")}
               />
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+              {errorMessage && (
+                <Alert className="mt-2 border-red-200 bg-red-50">
+                  <XCircle className="h-4 w-4 text-red-600" />
+                  <AlertDescription className="text-red-700">
+                    {errorMessage}
+                  </AlertDescription>
+                </Alert>
+              )}
+              {successMessage && (
+                <Alert className="mt-2 border-green-200 bg-green-50">
+                  <AlertDescription className="text-green-700">
+                    {successMessage}
+                  </AlertDescription>
+                </Alert>
+              )}
             </CardContent>
             <CardFooter>
               <Button
                 className="w-full"
                 variant="outline"
                 type="submit"
-                disabled={resetPasswordApi.isPending}
+                disabled={resetPasswordApi.isPending || loading}
               >
-                {resetPasswordApi.isPending ? (
-                  <Loader className="animate-spin h-4 w-4" />
+                {resetPasswordApi.isPending || loading ? (
+                  <>
+                    <Loader className="animate-spin h-4 w-4 mr-2" />
+                    Modification en cours...
+                  </>
                 ) : (
                   "Modifier le mot de passe"
                 )}
@@ -148,4 +186,22 @@ const page = () => {
   );
 };
 
-export default page;
+// Main component with Suspense wrapper
+const ResetPasswordPage = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="flex items-center space-x-2">
+            <Loader className="h-6 w-6 animate-spin" />
+            <span>Chargement...</span>
+          </div>
+        </div>
+      }
+    >
+      <ResetPasswordContent />
+    </Suspense>
+  );
+};
+
+export default ResetPasswordPage;

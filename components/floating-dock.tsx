@@ -194,11 +194,10 @@ export default function FloatingDockDemo() {
             >
               <div className="pt-3 border-t border-gray-200/50 dark:border-neutral-700/50">
                 <p className="text-sm text-neutral-500 dark:text-neutral-400 animate-in fade-in duration-200">
-                  Searching for: "
+                  Searching for:
                   <span className="text-blue-500 dark:text-blue-400 font-medium">
                     {searchQuery}
                   </span>
-                  "
                 </p>
               </div>
             </div>

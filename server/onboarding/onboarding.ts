@@ -24,7 +24,7 @@ export const onboarding = async (data: UserOnboarding, userId: string) => {
           nationality: true,
           experiences: true,
           educations: true,
-          session: true,
+          sessions: true,
           userSkills: {
             include: {
               skill: true,
@@ -60,7 +60,7 @@ export const onboarding = async (data: UserOnboarding, userId: string) => {
         nationality: true,
         experiences: true,
         educations: true,
-        session: true,
+        sessions: true,
         userSkills: {
           include: {
             skill: true,

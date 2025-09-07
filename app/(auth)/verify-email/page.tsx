@@ -18,7 +18,22 @@ import { useAuthStore } from "@/stores/auth/authState";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
 
-const VerifyEmail = () => {
+const getErrorMessage = (error: unknown): string => {
+  let message: string;
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (error && typeof error === "object" && "messsage" in error) {
+    message = String(error.messsage);
+  } else if (typeof error === "string") {
+    message = error;
+  } else {
+    message = "Une erreur est survenue";
+  }
+  return message;
+};
+
+// Extract the main component logic into a separate component
+const VerifyEmailContent = () => {
   const [verificationCode, setVerificationCode] = useState([
     "",
     "",
@@ -86,8 +101,8 @@ const VerifyEmail = () => {
     try {
       await verifyEmailMutation.mutateAsync(code);
       toast.success("Email vérifié avec succès!");
-    } catch (error: any) {
-      toast.error(error.message || "Code de vérification invalide ou expiré");
+    } catch (error) {
+      toast.error(getErrorMessage(error));
     }
   };
 
@@ -105,8 +120,8 @@ const VerifyEmail = () => {
       if (inputRefs.current[0]) {
         inputRefs.current[0].focus();
       }
-    } catch (error: any) {
-      toast.error(error.message || "Erreur lors du renvoi du code");
+    } catch (error) {
+      toast.error(getErrorMessage(error));
     } finally {
       setIsResending(false);
     }
@@ -115,114 +130,131 @@ const VerifyEmail = () => {
   const isCodeComplete = verificationCode.every((digit) => digit !== "");
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="min-h-screen flex items-center justify-center ">
-        <Toaster />
-        <div className="w-full max-w-md">
-          <Card
-            className="shadow-2xl rounded-2xl backdrop-blur-xl"
-            style={{
-              boxShadow: `
-                0 2px 4px rgba(22, 70, 3, 0.1),
-                0 4px 8px rgba(22, 70, 3, 0.15),
-                0 8px 16px rgba(22, 70, 3, 0.2),
-                0 16px 32px rgba(22, 70, 3, 0.25),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1)
-              `,
-            }}
-          >
-            <CardHeader className="space-y-4 pb-4 text-center">
-              <div className="flex items-center justify-center backdrop-blur-sm rounded-full mx-auto w-16 h-16">
-                <Image
-                  src="/images/shlogo.png"
-                  alt="logo syncHub"
-                  width={50}
-                  height={50}
-                  className="object-contain"
-                />
+    <div className="min-h-screen flex items-center justify-center ">
+      <Toaster />
+      <div className="w-full max-w-md">
+        <Card
+          className="shadow-2xl rounded-2xl backdrop-blur-xl"
+          style={{
+            boxShadow: `
+              0 2px 4px rgba(22, 70, 3, 0.1),
+              0 4px 8px rgba(22, 70, 3, 0.15),
+              0 8px 16px rgba(22, 70, 3, 0.2),
+              0 16px 32px rgba(22, 70, 3, 0.25),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1)
+            `,
+          }}
+        >
+          <CardHeader className="space-y-4 pb-4 text-center">
+            <div className="flex items-center justify-center backdrop-blur-sm rounded-full mx-auto w-16 h-16">
+              <Image
+                src="/images/shlogo.png"
+                alt="logo syncHub"
+                width={50}
+                height={50}
+                className="object-contain"
+              />
+            </div>
+            <div>
+              <CardTitle className="text-2xl tracking-tight mb-2">
+                Vérifiez votre <span className="font-semibold">email</span>
+              </CardTitle>
+              <CardDescription className="text-gray-500 mt-2 text-sm">
+                Nous avons envoyé un code de vérification à{" "}
+                <span className="font-medium text-blue-300">
+                  {email || "votre adresse email"}{" "}
+                </span>
+              </CardDescription>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-4">
+              <Label className="text-sm font-medium text-gray-300">
+                Code de vérification
+              </Label>
+              <div className="flex gap-3 justify-center">
+                {verificationCode.map((digit, index) => (
+                  <Input
+                    key={index}
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={1}
+                    value={digit}
+                    onChange={(e) =>
+                      handleInputChange(
+                        index,
+                        e.target.value.replace(/\D/g, ""),
+                      )
+                    }
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    onPaste={handlePaste}
+                    className="animate-input w-12 h-12 text-center text-lg font-semibold  focus:border-blue-500 focus:ring-blue-800/30 rounded-xl transition-all duration-300 hover:border-gray-600 "
+                    disabled={verifyEmailMutation.isPending || isResending}
+                  />
+                ))}
               </div>
-              <div>
-                <CardTitle className="text-2xl tracking-tight mb-2">
-                  Vérifiez votre <span className="font-semibold">email</span>
-                </CardTitle>
-                <CardDescription className="text-gray-500 mt-2 text-sm">
-                  Nous avons envoyé un code de vérification à{" "}
-                  <span className="font-medium text-blue-300">
-                    {email || "votre adresse email"}{" "}
-                  </span>
-                </CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-4">
-                <Label className="text-sm font-medium text-gray-300">
-                  Code de vérification
-                </Label>
-                <div className="flex gap-3 justify-center">
-                  {verificationCode.map((digit, index) => (
-                    <Input
-                      key={index}
-                      type="text"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      maxLength={1}
-                      onChange={(e) =>
-                        handleInputChange(
-                          index,
-                          e.target.value.replace(/\D/g, ""),
-                        )
-                      }
-                      onKeyDown={(e) => handleKeyDown(index, e)}
-                      onPaste={handlePaste}
-                      className="animate-input w-12 h-12 text-center text-lg font-semibold  focus:border-blue-500 focus:ring-blue-800/30 rounded-xl transition-all duration-300 hover:border-gray-600 "
-                      disabled={verifyEmailMutation.isPending || isResending}
-                    />
-                  ))}
-                </div>
-              </div>
+            </div>
+            <Button
+              className="submit-button w-full h-11 font-medium rounded-xl shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={handleVerify}
+              disabled={!isCodeComplete || verifyEmailMutation.isPending}
+            >
+              {verifyEmailMutation.isPending ? (
+                <>
+                  <Loader className="mr-2 h-4 w-4 animate-spin" />
+                  Vérification...
+                </>
+              ) : (
+                <>
+                  <CheckCircle className="mr-2 h-4 w-4" />
+                  Vérifier le code
+                </>
+              )}
+            </Button>
+          </CardContent>
+          <CardFooter>
+            <div className="text-center space-y-4 flex justify-center items-center">
+              <p className="text-sm text-gray-400">
+                Vous n&apos;avez pas reçu le code ?
+              </p>
               <Button
-                className="submit-button w-full h-11 font-medium rounded-xl shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                onClick={handleVerify}
-                disabled={!isCodeComplete || verifyEmailMutation.isPending}
+                variant="ghost"
+                onClick={handleResendCode}
+                disabled={isResending || resendCodeMutation.isPending}
+                className="text-blue-400 hover:text-blue-600 font-medium transition-colors duration-200 rounded-lg"
               >
-                {verifyEmailMutation.isPending ? (
+                {isResending || resendCodeMutation.isPending ? (
                   <>
-                    <Loader className="mr-2 h-4 w-4 animate-spin" />
-                    Vérification...
+                    <Loader className="w-4 h-4 mr-2 animate-spin" />
+                    Re-envoi en cours...
                   </>
                 ) : (
-                  <>
-                    <CheckCircle className="mr-2 h-4 w-4" />
-                    Vérifier le code
-                  </>
+                  "Re-envoyer le code"
                 )}
               </Button>
-            </CardContent>
-            <CardFooter>
-              <div className="text-center space-y-4 flex justify-center items-center">
-                <p className="text-sm text-gray-400">
-                  Vous n'avez pas reçu le code ?
-                </p>
-                <Button
-                  variant="ghost"
-                  onClick={handleResendCode}
-                  disabled={isResending || resendCodeMutation.isPending}
-                  className="text-blue-400 hover:text-blue-600 font-medium transition-colors duration-200 rounded-lg"
-                >
-                  {isResending || resendCodeMutation.isPending ? (
-                    <>
-                      <Loader className="w-4 h-4 mr-2 animate-spin" />
-                      Re-envoi en cours...
-                    </>
-                  ) : (
-                    "Re-envoyer le code"
-                  )}
-                </Button>
-              </div>
-            </CardFooter>
-          </Card>
-        </div>
+            </div>
+          </CardFooter>
+        </Card>
       </div>
+    </div>
+  );
+};
+
+// Main component with Suspense wrapper
+const VerifyEmail = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="flex items-center space-x-2">
+            <Loader className="h-6 w-6 animate-spin" />
+            <span>Chargement...</span>
+          </div>
+        </div>
+      }
+    >
+      <VerifyEmailContent />
     </Suspense>
   );
 };

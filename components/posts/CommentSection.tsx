@@ -73,7 +73,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
   const processContent = (content: string) => {
     return content.replace(
       /@(\w+)/g,
-      '<span class="text-primary font-semibold bg-primary/10 px-1 py-0.5 rounded">@$1</span>',
+      "<span class='text-primary font-semibold bg-primary/10 px-1 py-0.5 rounded'>@$1</span>",
     );
   };
 

@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     // Ignorer les erreurs ESLint pendant le build
     ignoreDuringBuilds: true,
   },
-  output: "standalone",
   images: {
     domains: [
       "via.placeholder.com",
@@ -14,6 +13,11 @@ const nextConfig: NextConfig = {
       "img.icons8.com",
       "upload.wikimedia.org",
     ],
+  },
+  // Disable webpack symlinks for Windows compatibility
+  webpack: (config, { isServer }) => {
+    config.resolve.symlinks = false;
+    return config;
   },
 };
 

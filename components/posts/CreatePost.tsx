@@ -10,7 +10,11 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useAuthStore } from "@/stores/auth/authState";
 import { useCreatePost } from "@/hooks/posts/usePosts";
-import type { CreatePostDto, Visibility } from "@/types/posts";
+import type {
+  CreatePostDto,
+  Visibility,
+  CollaboratorRole,
+} from "@/types/posts";
 import {
   Select,
   SelectContent,
@@ -32,7 +36,7 @@ import {
 } from "lucide-react";
 import { toast, Toaster } from "sonner";
 import { CollaboratorSelector } from "@/components/editor/CollaboratorSelector";
-import type { CollaboratorRole } from "@/types/posts";
+
 import { Badge } from "@/components/ui/badge";
 
 export const CreatePost = () => {

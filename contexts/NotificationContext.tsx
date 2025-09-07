@@ -136,7 +136,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
 
     const socketInstance = io(
       process.env.NODE_ENV === "production"
-        ? process.env.NEXT_PUBLIC_SITE_URL || ""
+        ? process.env.NEXT_PUBLIC_BASE_URL || ""
         : "http://localhost:3000",
       {
         path: "/api/socket/io",

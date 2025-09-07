@@ -1,6 +1,7 @@
 import { onboarding } from "@/server/onboarding/onboarding";
 import { auth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
+import { getErrorMessage } from "@/utils/errorMessage";
 
 export async function PUT(request: NextRequest) {
   try {
@@ -35,7 +36,7 @@ export async function PUT(request: NextRequest) {
           status: 200,
           success: true,
         });
-      } catch (error: any) {
+      } catch (error) {
         NextResponse.json({
           message: "❌ Method 2 failed",
           error,
@@ -117,8 +118,11 @@ export async function PUT(request: NextRequest) {
     } else {
       return NextResponse.json(result, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Onboarding error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: getErrorMessage(error) },
+      { status: 500 },
+    );
   }
 }

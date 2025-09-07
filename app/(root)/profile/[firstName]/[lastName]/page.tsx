@@ -29,7 +29,7 @@ import Skills from "@/components/skills";
 import { AvatarUpload } from "@/components/ui/avatar-upload";
 import { CoverUpload } from "@/components/ui/cover-upload";
 
-const page = () => {
+const ProfilePage = () => {
   const { user } = useAuthStore();
   const [countryName, setCountryName] = useState<string>("Chargement...");
 
@@ -317,4 +317,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProfilePage;

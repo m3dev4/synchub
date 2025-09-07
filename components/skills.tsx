@@ -268,7 +268,8 @@ const Skills = () => {
                   ))}
                   {availableSkills.length === 0 && searchTerm && (
                     <div className="text-center py-8 text-gray-500">
-                      Aucune compétence trouvée pour "{searchTerm}"
+                      Aucune compétence trouvée pour{" "}
+                      <strong>{searchTerm}</strong>
                     </div>
                   )}
                 </div>
@@ -282,7 +283,7 @@ const Skills = () => {
           <div className="text-center py-8 text-gray-500">
             <p>Aucune technologie ajoutée pour le moment.</p>
             <p className="text-sm mt-2">
-              Cliquez sur "Ajouter" pour commencer.
+              Cliquez sur <strong>Ajouter</strong> pour commencer.
             </p>
           </div>
         ) : (
@@ -329,7 +330,6 @@ const Skills = () => {
                           </span>
                           <Badge
                             className={`ml-2 ${getLevelColor(userTech.level)}`}
-                            size="sm"
                           >
                             {getLevelLabel(userTech.level)}
                           </Badge>

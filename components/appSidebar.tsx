@@ -120,7 +120,7 @@ export function AppSidebar() {
             <SidebarMenuButton asChild size="sm">
               <Link href="/privacy-terms">
                 <span className="text-xs font-semibold text-cyan-500">
-                  Conditions d'utilisation
+                  Conditions d&apos;utilisation
                 </span>
               </Link>
             </SidebarMenuButton>

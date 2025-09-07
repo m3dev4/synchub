@@ -92,7 +92,7 @@ export const MediaUploader: React.FC<MediaUploaderProps> = ({
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Erreur d'upload");
+        throw new Error(error.error || "Erreur d&apos;upload");
       }
 
       const result = await response.json();
@@ -161,7 +161,7 @@ export const MediaUploader: React.FC<MediaUploaderProps> = ({
 
         toast.success(`${validFiles.length} fichier(s) uploadé(s)`);
       } catch (error) {
-        toast.error("Erreur lors de l'upload");
+        toast.error("Erreur lors de l&apos;upload");
         // Supprimer les fichiers en erreur
         setMediaFiles((prev) =>
           prev.filter(

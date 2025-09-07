@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,6 @@ import type {
   ReactionSummary,
   ReactionType,
 } from "@/types/posts";
-import { useEffect } from "react";
 import { useDeletePost } from "@/hooks/posts/usePosts";
 import { useAuthStore } from "@/stores/auth/authState";
 import { formatDistanceToNow } from "date-fns";
