@@ -12,7 +12,7 @@ export const me = async (userId: string) => {
         experiences: true,
         educations: true,
         degrees: true,
-        session: true,
+        sessions: true,
         userSkills: {
           include: {
             skill: true,

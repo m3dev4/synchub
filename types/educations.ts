@@ -9,3 +9,12 @@ export interface Education {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface CreateEducationData {
+  title: string;
+  school: string;
+  startDate?: string;
+  endDate?: string;
+  current: boolean;
+  userId: string;
+}

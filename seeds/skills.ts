@@ -28,6 +28,46 @@ export const seedSkills = async () => {
       (skill) => !existingTitles.includes(skill.title),
     );
 
+    // Update existing technologies with new icons
+    console.log("🔄 Mise à jour des icônes des technologies existantes...");
+    let updatedCount = 0;
+
+    for (const skillData of skills) {
+      if (skillData.sousSkills && skillData.sousSkills.length > 0) {
+        for (const sousSkillData of skillData.sousSkills) {
+          if (
+            sousSkillData.technologies &&
+            sousSkillData.technologies.length > 0
+          ) {
+            for (const technologyData of sousSkillData.technologies) {
+              const existingTech = await prisma.technology.findFirst({
+                where: { title: technologyData.title },
+              });
+
+              if (existingTech && existingTech.icon !== technologyData.icon) {
+                await prisma.technology.update({
+                  where: { id: existingTech.id },
+                  data: {
+                    icon: technologyData.icon,
+                    color: technologyData.color,
+                    updatedAt: new Date(),
+                  },
+                });
+                updatedCount++;
+                console.log(
+                  `  ✅ Mis à jour l'icône de ${technologyData.title}`,
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+
+    console.log(
+      `🎯 ${updatedCount} technologies mises à jour avec de nouvelles icônes.`,
+    );
+
     if (newSkills.length === 0) {
       console.log("✅ Tous les skills existent déjà dans la base de données.");
       return;
@@ -72,6 +112,9 @@ export const seedSkills = async () => {
               await prisma.technology.create({
                 data: {
                   title: technologyData.title,
+                  icon: technologyData.icon,
+                  color: technologyData.color,
+                  category: technologyData.category,
                   sousSkillTechId: createdSousSkill.id,
                   createdAt: new Date(),
                   updatedAt: new Date(),

@@ -26,8 +26,9 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { getErrorMessage } from "@/utils/errorMessage";
 
-const page = () => {
+const ProfileSettings = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     type: "success" | "error" | null;
@@ -55,7 +56,7 @@ const page = () => {
     },
   });
 
-  const updateUserMutation = updateUser();
+  const updateUserMutation = updateUser(user?.id || "");
 
   const onSubmit = async (data: userUpdateSchemaType) => {
     setIsSubmitting(true);
@@ -63,15 +64,16 @@ const page = () => {
 
     try {
       await updateUserMutation.mutateAsync(data);
+
       toast.success("Mise à jour effectuer avec succées");
       setSubmitStatus({
         type: "success",
         message: "Profil mis à jour avec succès !",
       });
-    } catch (error: any) {
+    } catch (error) {
       setSubmitStatus({
         type: "error",
-        message: error.message || "Erreur lors de la mise à jour",
+        message: getErrorMessage(error),
       });
     } finally {
       setIsSubmitting(false);
@@ -169,7 +171,7 @@ const page = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="username" className="text-sm font-medium">
-                  Nom d'utilisateur
+                  Nom d&apos;utilisateur
                 </Label>
                 <Input
                   id="username"
@@ -345,4 +347,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProfileSettings;

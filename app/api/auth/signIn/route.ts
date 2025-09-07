@@ -19,16 +19,16 @@ export async function POST(request: NextRequest) {
     }
 
     // Rate limiting plus strict pour les tentatives de connexion
-    const clientIP =
-      request.headers.get("x-forwarded-for") ||
-      request.headers.get("x-real-ip") ||
-      "unknown";
-    if (!checkRateLimit(`signin:${clientIP}`, 5, 15 * 60 * 1000)) {
-      return NextResponse.json(
-        { error: "Too many login attempts" },
-        { status: 429 },
-      );
-    }
+    // const clientIP =
+    //   request.headers.get("x-forwarded-for") ||
+    //   request.headers.get("x-real-ip") ||
+    //   "unknown";
+    // if (!checkRateLimit(`signin:${clientIP}`, 5, 15 * 60 * 1000)) {
+    //   return NextResponse.json(
+    //     { error: "Too many login attempts" },
+    //     { status: 429 },
+    //   );
+    // }
 
     const body = await request.json();
     const { email, password } = body;

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 
-const page = () => {
+const HomePage = () => {
   const ROBOT_SCENE_URL =
     "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
   return (
@@ -70,4 +70,4 @@ bg-stone-800 text-xl font-bold text-white overflow-hidden py-0.5 sm:py-1 md:py-2
   );
 };
 
-export default page;
+export default HomePage;

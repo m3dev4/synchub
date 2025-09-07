@@ -93,7 +93,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
     if (notification.type === "FOLLOW" && notification.data?.followerId) {
       window.location.href = `/profile/${notification.data.followerId}`;
     } else if (notification.type === "POST" && notification.data?.postId) {
-      window.location.href = `/feeds`;
+      window.location.href = "/feeds";
     }
   };
 

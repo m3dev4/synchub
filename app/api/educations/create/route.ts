@@ -7,7 +7,7 @@ import {
   sanitizeInput,
 } from "@/lib/security";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 
 // Schema de validation pour les données d'éducation
 const educationSchema = z.object({
@@ -108,6 +108,7 @@ export async function POST(request: NextRequest) {
         ? sanitizeInput(validatedData.description)
         : undefined,
       userId: session.user.id,
+      current: !validatedData.endDate,
     };
 
     const education = await createEducation(sanitizedData);
@@ -117,10 +118,10 @@ export async function POST(request: NextRequest) {
       education: education,
       status: 200,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating education:", error);
 
-    if (error.name === "ZodError") {
+    if (error instanceof ZodError) {
       return NextResponse.json(
         { error: "Invalid input data" },
         { status: 400 },

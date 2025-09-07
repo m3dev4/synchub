@@ -1,11 +1,11 @@
 "use server";
 
 import { PrismaClient } from "@/lib/prisma-client-js";
-import { Education } from "@/types/educations";
+import { CreateEducationData } from "@/types/educations";
 
 const prisma = new PrismaClient();
 
-export const createEducation = async (data: Education) => {
+export const createEducation = async (data: CreateEducationData) => {
   try {
     const startDate = data.startDate ? new Date(data.startDate) : undefined;
     const endDate = data.endDate ? new Date(data.endDate) : undefined;

@@ -60,7 +60,11 @@ export const EducationForm = ({
       {educations.length === 0 && (
         <div className="text-center py-8 text-gray-400">
           <p>Aucune formation ajoutée</p>
-          <p className="text-sm">Cliquez sur "Ajouter" pour commencer</p>
+          <p className="text-sm">
+            Cliquez sur{" "}
+            <span className="font-semibold text-purple-300">Ajouter</span> pour
+            commencer
+          </p>
         </div>
       )}
 
@@ -102,7 +106,7 @@ export const EducationForm = ({
 
             <FormField
               label="École/Université"
-              value={education.school}
+              value={education.school || ""}
               onChange={(value) => updateEducation(index, "school", value)}
               placeholder="Ex: Université de Paris"
               required

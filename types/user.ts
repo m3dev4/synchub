@@ -69,7 +69,6 @@ export interface Session extends User {
 }
 
 export interface userUpdateDto {
-  id: string;
   firstName?: string;
   lastName?: string;
   username?: string;

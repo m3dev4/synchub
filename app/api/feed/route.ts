@@ -68,6 +68,39 @@ export async function GET(request: NextRequest) {
             avatarPicture: true,
           },
         },
+        media: true,
+        collaborators: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                username: true,
+                avatarPicture: true,
+              },
+            },
+          },
+        },
+        reactions: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                username: true,
+                avatarPicture: true,
+              },
+            },
+          },
+        },
+        _count: {
+          select: {
+            comments: true,
+            reactions: true,
+          },
+        },
       },
       orderBy: { createdAt: "desc" },
       take: limit + 1, // +1 pour savoir s'il y a plus de posts

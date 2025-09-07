@@ -1,4 +1,5 @@
 import { me } from "@/server/user/me";
+import { getErrorMessage } from "@/utils/errorMessage";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -55,8 +56,11 @@ export async function GET(request: NextRequest) {
       await prisma.$disconnect();
       return NextResponse.json({ error: "Database error" }, { status: 500 });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error getting user:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: getErrorMessage(error) },
+      { status: 500 },
+    );
   }
 }

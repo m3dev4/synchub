@@ -63,6 +63,12 @@ export type Technology = $Result.DefaultSelection<Prisma.$TechnologyPayload>;
  */
 export type UserSkill = $Result.DefaultSelection<Prisma.$UserSkillPayload>;
 /**
+ * Model UserTechnology
+ *
+ */
+export type UserTechnology =
+  $Result.DefaultSelection<Prisma.$UserTechnologyPayload>;
+/**
  * Model Degree
  *
  */
@@ -88,6 +94,33 @@ export type Verification =
  *
  */
 export type Post = $Result.DefaultSelection<Prisma.$PostPayload>;
+/**
+ * Model PostMedia
+ *
+ */
+export type PostMedia = $Result.DefaultSelection<Prisma.$PostMediaPayload>;
+/**
+ * Model PostCollaborator
+ *
+ */
+export type PostCollaborator =
+  $Result.DefaultSelection<Prisma.$PostCollaboratorPayload>;
+/**
+ * Model PostReaction
+ *
+ */
+export type PostReaction =
+  $Result.DefaultSelection<Prisma.$PostReactionPayload>;
+/**
+ * Model Comment
+ *
+ */
+export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>;
+/**
+ * Model Mention
+ *
+ */
+export type Mention = $Result.DefaultSelection<Prisma.$MentionPayload>;
 
 /**
  * Enums
@@ -101,6 +134,8 @@ export namespace $Enums {
     COMMENT: "COMMENT";
     MESSAGE: "MESSAGE";
     POST: "POST";
+    REACTION: "REACTION";
+    MENTION: "MENTION";
   };
 
   export type NotificationType =
@@ -129,6 +164,44 @@ export namespace $Enums {
   };
 
   export type Visibility = (typeof Visibility)[keyof typeof Visibility];
+
+  export const ContentType: {
+    TEXT: "TEXT";
+    MARKDOWN: "MARKDOWN";
+    RICH_TEXT: "RICH_TEXT";
+  };
+
+  export type ContentType = (typeof ContentType)[keyof typeof ContentType];
+
+  export const MediaType: {
+    IMAGE: "IMAGE";
+    VIDEO: "VIDEO";
+    AUDIO: "AUDIO";
+    DOCUMENT: "DOCUMENT";
+  };
+
+  export type MediaType = (typeof MediaType)[keyof typeof MediaType];
+
+  export const CollaboratorRole: {
+    OWNER: "OWNER";
+    EDITOR: "EDITOR";
+    CONTRIBUTOR: "CONTRIBUTOR";
+    VIEWER: "VIEWER";
+  };
+
+  export type CollaboratorRole =
+    (typeof CollaboratorRole)[keyof typeof CollaboratorRole];
+
+  export const ReactionType: {
+    LIKE: "LIKE";
+    LOVE: "LOVE";
+    LAUGH: "LAUGH";
+    WOW: "WOW";
+    SAD: "SAD";
+    ANGRY: "ANGRY";
+  };
+
+  export type ReactionType = (typeof ReactionType)[keyof typeof ReactionType];
 }
 
 export type NotificationType = $Enums.NotificationType;
@@ -146,6 +219,22 @@ export const userRole: typeof $Enums.userRole;
 export type Visibility = $Enums.Visibility;
 
 export const Visibility: typeof $Enums.Visibility;
+
+export type ContentType = $Enums.ContentType;
+
+export const ContentType: typeof $Enums.ContentType;
+
+export type MediaType = $Enums.MediaType;
+
+export const MediaType: typeof $Enums.MediaType;
+
+export type CollaboratorRole = $Enums.CollaboratorRole;
+
+export const CollaboratorRole: typeof $Enums.CollaboratorRole;
+
+export type ReactionType = $Enums.ReactionType;
+
+export const ReactionType: typeof $Enums.ReactionType;
 
 /**
  * ##  Prisma Client ʲˢ
@@ -407,6 +496,16 @@ export class PrismaClient<
   get userSkill(): Prisma.UserSkillDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.userTechnology`: Exposes CRUD operations for the **UserTechnology** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more UserTechnologies
+   * const userTechnologies = await prisma.userTechnology.findMany()
+   * ```
+   */
+  get userTechnology(): Prisma.UserTechnologyDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.degree`: Exposes CRUD operations for the **Degree** model.
    * Example usage:
    * ```ts
@@ -455,6 +554,59 @@ export class PrismaClient<
    * ```
    */
   get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.postMedia`: Exposes CRUD operations for the **PostMedia** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more PostMedias
+   * const postMedias = await prisma.postMedia.findMany()
+   * ```
+   */
+  get postMedia(): Prisma.PostMediaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.postCollaborator`: Exposes CRUD operations for the **PostCollaborator** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more PostCollaborators
+   * const postCollaborators = await prisma.postCollaborator.findMany()
+   * ```
+   */
+  get postCollaborator(): Prisma.PostCollaboratorDelegate<
+    ExtArgs,
+    ClientOptions
+  >;
+
+  /**
+   * `prisma.postReaction`: Exposes CRUD operations for the **PostReaction** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more PostReactions
+   * const postReactions = await prisma.postReaction.findMany()
+   * ```
+   */
+  get postReaction(): Prisma.PostReactionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Comments
+   * const comments = await prisma.comment.findMany()
+   * ```
+   */
+  get comment(): Prisma.CommentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.mention`: Exposes CRUD operations for the **Mention** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Mentions
+   * const mentions = await prisma.mention.findMany()
+   * ```
+   */
+  get mention(): Prisma.MentionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -511,8 +663,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact;
 
   /**
-   * Prisma Client JS version: 6.14.0
-   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
+   * Prisma Client JS version: 6.15.0
+   * Query Engine version: 85179d7826409ee107a6ba334b5e305ae3fba9fb
    */
   export type PrismaVersion = {
     client: string;
@@ -923,11 +1075,17 @@ export namespace Prisma {
     sousSkill: "sousSkill";
     Technology: "Technology";
     UserSkill: "UserSkill";
+    UserTechnology: "UserTechnology";
     Degree: "Degree";
     Session: "Session";
     Account: "Account";
     Verification: "Verification";
     Post: "Post";
+    PostMedia: "PostMedia";
+    PostCollaborator: "PostCollaborator";
+    PostReaction: "PostReaction";
+    Comment: "Comment";
+    Mention: "Mention";
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -966,11 +1124,17 @@ export namespace Prisma {
         | "sousSkill"
         | "technology"
         | "userSkill"
+        | "userTechnology"
         | "degree"
         | "session"
         | "account"
         | "verification"
-        | "post";
+        | "post"
+        | "postMedia"
+        | "postCollaborator"
+        | "postReaction"
+        | "comment"
+        | "mention";
       txIsolationLevel: Prisma.TransactionIsolationLevel;
     };
     model: {
@@ -1722,6 +1886,82 @@ export namespace Prisma {
           };
         };
       };
+      UserTechnology: {
+        payload: Prisma.$UserTechnologyPayload<ExtArgs>;
+        fields: Prisma.UserTechnologyFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.UserTechnologyFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.UserTechnologyFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          findFirst: {
+            args: Prisma.UserTechnologyFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.UserTechnologyFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          findMany: {
+            args: Prisma.UserTechnologyFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>[];
+          };
+          create: {
+            args: Prisma.UserTechnologyCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          createMany: {
+            args: Prisma.UserTechnologyCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.UserTechnologyCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>[];
+          };
+          delete: {
+            args: Prisma.UserTechnologyDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          update: {
+            args: Prisma.UserTechnologyUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          deleteMany: {
+            args: Prisma.UserTechnologyDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.UserTechnologyUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateManyAndReturn: {
+            args: Prisma.UserTechnologyUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>[];
+          };
+          upsert: {
+            args: Prisma.UserTechnologyUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserTechnologyPayload>;
+          };
+          aggregate: {
+            args: Prisma.UserTechnologyAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateUserTechnology>;
+          };
+          groupBy: {
+            args: Prisma.UserTechnologyGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<UserTechnologyGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.UserTechnologyCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<UserTechnologyCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
       Degree: {
         payload: Prisma.$DegreePayload<ExtArgs>;
         fields: Prisma.DegreeFieldRefs;
@@ -2094,6 +2334,380 @@ export namespace Prisma {
           };
         };
       };
+      PostMedia: {
+        payload: Prisma.$PostMediaPayload<ExtArgs>;
+        fields: Prisma.PostMediaFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.PostMediaFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostMediaPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.PostMediaFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostMediaPayload>;
+          };
+          findFirst: {
+            args: Prisma.PostMediaFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostMediaPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.PostMediaFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostMediaPayload>;
+          };
+          findMany: {
+            args: Prisma.PostMediaFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostMediaPayload>[];
+          };
+          create: {
+            args: Prisma.PostMediaCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostMediaPayload>;
+          };
+          createMany: {
+            args: Prisma.PostMediaCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.PostMediaCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostMediaPayload>[];
+          };
+          delete: {
+            args: Prisma.PostMediaDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostMediaPayload>;
+          };
+          update: {
+            args: Prisma.PostMediaUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostMediaPayload>;
+          };
+          deleteMany: {
+            args: Prisma.PostMediaDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.PostMediaUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateManyAndReturn: {
+            args: Prisma.PostMediaUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostMediaPayload>[];
+          };
+          upsert: {
+            args: Prisma.PostMediaUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostMediaPayload>;
+          };
+          aggregate: {
+            args: Prisma.PostMediaAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregatePostMedia>;
+          };
+          groupBy: {
+            args: Prisma.PostMediaGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<PostMediaGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.PostMediaCountArgs<ExtArgs>;
+            result: $Utils.Optional<PostMediaCountAggregateOutputType> | number;
+          };
+        };
+      };
+      PostCollaborator: {
+        payload: Prisma.$PostCollaboratorPayload<ExtArgs>;
+        fields: Prisma.PostCollaboratorFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.PostCollaboratorFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostCollaboratorPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.PostCollaboratorFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostCollaboratorPayload>;
+          };
+          findFirst: {
+            args: Prisma.PostCollaboratorFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostCollaboratorPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.PostCollaboratorFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostCollaboratorPayload>;
+          };
+          findMany: {
+            args: Prisma.PostCollaboratorFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostCollaboratorPayload>[];
+          };
+          create: {
+            args: Prisma.PostCollaboratorCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostCollaboratorPayload>;
+          };
+          createMany: {
+            args: Prisma.PostCollaboratorCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.PostCollaboratorCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostCollaboratorPayload>[];
+          };
+          delete: {
+            args: Prisma.PostCollaboratorDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostCollaboratorPayload>;
+          };
+          update: {
+            args: Prisma.PostCollaboratorUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostCollaboratorPayload>;
+          };
+          deleteMany: {
+            args: Prisma.PostCollaboratorDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.PostCollaboratorUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateManyAndReturn: {
+            args: Prisma.PostCollaboratorUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostCollaboratorPayload>[];
+          };
+          upsert: {
+            args: Prisma.PostCollaboratorUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostCollaboratorPayload>;
+          };
+          aggregate: {
+            args: Prisma.PostCollaboratorAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregatePostCollaborator>;
+          };
+          groupBy: {
+            args: Prisma.PostCollaboratorGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<PostCollaboratorGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.PostCollaboratorCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<PostCollaboratorCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
+      PostReaction: {
+        payload: Prisma.$PostReactionPayload<ExtArgs>;
+        fields: Prisma.PostReactionFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.PostReactionFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostReactionPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.PostReactionFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostReactionPayload>;
+          };
+          findFirst: {
+            args: Prisma.PostReactionFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostReactionPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.PostReactionFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostReactionPayload>;
+          };
+          findMany: {
+            args: Prisma.PostReactionFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostReactionPayload>[];
+          };
+          create: {
+            args: Prisma.PostReactionCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostReactionPayload>;
+          };
+          createMany: {
+            args: Prisma.PostReactionCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.PostReactionCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostReactionPayload>[];
+          };
+          delete: {
+            args: Prisma.PostReactionDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostReactionPayload>;
+          };
+          update: {
+            args: Prisma.PostReactionUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostReactionPayload>;
+          };
+          deleteMany: {
+            args: Prisma.PostReactionDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.PostReactionUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateManyAndReturn: {
+            args: Prisma.PostReactionUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostReactionPayload>[];
+          };
+          upsert: {
+            args: Prisma.PostReactionUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$PostReactionPayload>;
+          };
+          aggregate: {
+            args: Prisma.PostReactionAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregatePostReaction>;
+          };
+          groupBy: {
+            args: Prisma.PostReactionGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<PostReactionGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.PostReactionCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<PostReactionCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
+      Comment: {
+        payload: Prisma.$CommentPayload<ExtArgs>;
+        fields: Prisma.CommentFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.CommentFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.CommentFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>;
+          };
+          findFirst: {
+            args: Prisma.CommentFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.CommentFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>;
+          };
+          findMany: {
+            args: Prisma.CommentFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[];
+          };
+          create: {
+            args: Prisma.CommentCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>;
+          };
+          createMany: {
+            args: Prisma.CommentCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.CommentCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[];
+          };
+          delete: {
+            args: Prisma.CommentDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>;
+          };
+          update: {
+            args: Prisma.CommentUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>;
+          };
+          deleteMany: {
+            args: Prisma.CommentDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.CommentUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateManyAndReturn: {
+            args: Prisma.CommentUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[];
+          };
+          upsert: {
+            args: Prisma.CommentUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>;
+          };
+          aggregate: {
+            args: Prisma.CommentAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateComment>;
+          };
+          groupBy: {
+            args: Prisma.CommentGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<CommentGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.CommentCountArgs<ExtArgs>;
+            result: $Utils.Optional<CommentCountAggregateOutputType> | number;
+          };
+        };
+      };
+      Mention: {
+        payload: Prisma.$MentionPayload<ExtArgs>;
+        fields: Prisma.MentionFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.MentionFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$MentionPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.MentionFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$MentionPayload>;
+          };
+          findFirst: {
+            args: Prisma.MentionFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$MentionPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.MentionFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$MentionPayload>;
+          };
+          findMany: {
+            args: Prisma.MentionFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$MentionPayload>[];
+          };
+          create: {
+            args: Prisma.MentionCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$MentionPayload>;
+          };
+          createMany: {
+            args: Prisma.MentionCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          createManyAndReturn: {
+            args: Prisma.MentionCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$MentionPayload>[];
+          };
+          delete: {
+            args: Prisma.MentionDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$MentionPayload>;
+          };
+          update: {
+            args: Prisma.MentionUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$MentionPayload>;
+          };
+          deleteMany: {
+            args: Prisma.MentionDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.MentionUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateManyAndReturn: {
+            args: Prisma.MentionUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$MentionPayload>[];
+          };
+          upsert: {
+            args: Prisma.MentionUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$MentionPayload>;
+          };
+          aggregate: {
+            args: Prisma.MentionAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateMention>;
+          };
+          groupBy: {
+            args: Prisma.MentionGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<MentionGroupByOutputType>[];
+          };
+          count: {
+            args: Prisma.MentionCountArgs<ExtArgs>;
+            result: $Utils.Optional<MentionCountAggregateOutputType> | number;
+          };
+        };
+      };
     };
   } & {
     other: {
@@ -2200,11 +2814,17 @@ export namespace Prisma {
     sousSkill?: sousSkillOmit;
     technology?: TechnologyOmit;
     userSkill?: UserSkillOmit;
+    userTechnology?: UserTechnologyOmit;
     degree?: DegreeOmit;
     session?: SessionOmit;
     account?: AccountOmit;
     verification?: VerificationOmit;
     post?: PostOmit;
+    postMedia?: PostMediaOmit;
+    postCollaborator?: PostCollaboratorOmit;
+    postReaction?: PostReactionOmit;
+    comment?: CommentOmit;
+    mention?: MentionOmit;
   };
 
   /* Types for Logging */
@@ -2289,14 +2909,19 @@ export namespace Prisma {
   export type UserCountOutputType = {
     experiences: number;
     educations: number;
-    degrees: number;
-    session: number;
-    userSkills: number;
-    accounts: number;
-    followers: number;
+    follows: number;
     following: number;
+    sessions: number;
+    degrees: number;
+    userSkills: number;
+    userTechnologies: number;
     posts: number;
     notifications: number;
+    accounts: number;
+    postCollaborations: number;
+    postReactions: number;
+    comments: number;
+    mentions: number;
   };
 
   export type UserCountOutputTypeSelect<
@@ -2304,14 +2929,21 @@ export namespace Prisma {
   > = {
     experiences?: boolean | UserCountOutputTypeCountExperiencesArgs;
     educations?: boolean | UserCountOutputTypeCountEducationsArgs;
-    degrees?: boolean | UserCountOutputTypeCountDegreesArgs;
-    session?: boolean | UserCountOutputTypeCountSessionArgs;
-    userSkills?: boolean | UserCountOutputTypeCountUserSkillsArgs;
-    accounts?: boolean | UserCountOutputTypeCountAccountsArgs;
-    followers?: boolean | UserCountOutputTypeCountFollowersArgs;
+    follows?: boolean | UserCountOutputTypeCountFollowsArgs;
     following?: boolean | UserCountOutputTypeCountFollowingArgs;
+    sessions?: boolean | UserCountOutputTypeCountSessionsArgs;
+    degrees?: boolean | UserCountOutputTypeCountDegreesArgs;
+    userSkills?: boolean | UserCountOutputTypeCountUserSkillsArgs;
+    userTechnologies?: boolean | UserCountOutputTypeCountUserTechnologiesArgs;
     posts?: boolean | UserCountOutputTypeCountPostsArgs;
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs;
+    accounts?: boolean | UserCountOutputTypeCountAccountsArgs;
+    postCollaborations?:
+      | boolean
+      | UserCountOutputTypeCountPostCollaborationsArgs;
+    postReactions?: boolean | UserCountOutputTypeCountPostReactionsArgs;
+    comments?: boolean | UserCountOutputTypeCountCommentsArgs;
+    mentions?: boolean | UserCountOutputTypeCountMentionsArgs;
   };
 
   // Custom InputTypes
@@ -2348,19 +2980,37 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountDegreesArgs<
+  export type UserCountOutputTypeCountFollowsArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
-    where?: DegreeWhereInput;
+    where?: FollowWhereInput;
   };
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountSessionArgs<
+  export type UserCountOutputTypeCountFollowingArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: FollowWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSessionsArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: SessionWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDegreesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: DegreeWhereInput;
   };
 
   /**
@@ -2375,28 +3025,10 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountAccountsArgs<
+  export type UserCountOutputTypeCountUserTechnologiesArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
-    where?: AccountWhereInput;
-  };
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountFollowersArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    where?: FollowWhereInput;
-  };
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountFollowingArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    where?: FollowWhereInput;
+    where?: UserTechnologyWhereInput;
   };
 
   /**
@@ -2415,6 +3047,51 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: NotificationWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAccountsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: AccountWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPostCollaborationsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PostCollaboratorWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPostReactionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PostReactionWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommentsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CommentWhereInput;
+  };
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMentionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: MentionWhereInput;
   };
 
   /**
@@ -2534,6 +3211,171 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: TechnologyWhereInput;
+  };
+
+  /**
+   * Count Type TechnologyCountOutputType
+   */
+
+  export type TechnologyCountOutputType = {
+    userTechnologies: number;
+  };
+
+  export type TechnologyCountOutputTypeSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    userTechnologies?:
+      | boolean
+      | TechnologyCountOutputTypeCountUserTechnologiesArgs;
+  };
+
+  // Custom InputTypes
+  /**
+   * TechnologyCountOutputType without action
+   */
+  export type TechnologyCountOutputTypeDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the TechnologyCountOutputType
+     */
+    select?: TechnologyCountOutputTypeSelect<ExtArgs> | null;
+  };
+
+  /**
+   * TechnologyCountOutputType without action
+   */
+  export type TechnologyCountOutputTypeCountUserTechnologiesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: UserTechnologyWhereInput;
+  };
+
+  /**
+   * Count Type PostCountOutputType
+   */
+
+  export type PostCountOutputType = {
+    media: number;
+    collaborators: number;
+    reactions: number;
+    comments: number;
+    mentions: number;
+  };
+
+  export type PostCountOutputTypeSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    media?: boolean | PostCountOutputTypeCountMediaArgs;
+    collaborators?: boolean | PostCountOutputTypeCountCollaboratorsArgs;
+    reactions?: boolean | PostCountOutputTypeCountReactionsArgs;
+    comments?: boolean | PostCountOutputTypeCountCommentsArgs;
+    mentions?: boolean | PostCountOutputTypeCountMentionsArgs;
+  };
+
+  // Custom InputTypes
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCountOutputType
+     */
+    select?: PostCountOutputTypeSelect<ExtArgs> | null;
+  };
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountMediaArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PostMediaWhereInput;
+  };
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountCollaboratorsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PostCollaboratorWhereInput;
+  };
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountReactionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PostReactionWhereInput;
+  };
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountCommentsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CommentWhereInput;
+  };
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountMentionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: MentionWhereInput;
+  };
+
+  /**
+   * Count Type CommentCountOutputType
+   */
+
+  export type CommentCountOutputType = {
+    replies: number;
+    mentions: number;
+  };
+
+  export type CommentCountOutputTypeSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    replies?: boolean | CommentCountOutputTypeCountRepliesArgs;
+    mentions?: boolean | CommentCountOutputTypeCountMentionsArgs;
+  };
+
+  // Custom InputTypes
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CommentCountOutputType
+     */
+    select?: CommentCountOutputTypeSelect<ExtArgs> | null;
+  };
+
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeCountRepliesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CommentWhereInput;
+  };
+
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeCountMentionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: MentionWhereInput;
   };
 
   /**
@@ -2902,14 +3744,19 @@ export namespace Prisma {
       nationality?: boolean | User$nationalityArgs<ExtArgs>;
       experiences?: boolean | User$experiencesArgs<ExtArgs>;
       educations?: boolean | User$educationsArgs<ExtArgs>;
-      degrees?: boolean | User$degreesArgs<ExtArgs>;
-      session?: boolean | User$sessionArgs<ExtArgs>;
-      userSkills?: boolean | User$userSkillsArgs<ExtArgs>;
-      accounts?: boolean | User$accountsArgs<ExtArgs>;
-      followers?: boolean | User$followersArgs<ExtArgs>;
+      follows?: boolean | User$followsArgs<ExtArgs>;
       following?: boolean | User$followingArgs<ExtArgs>;
+      sessions?: boolean | User$sessionsArgs<ExtArgs>;
+      degrees?: boolean | User$degreesArgs<ExtArgs>;
+      userSkills?: boolean | User$userSkillsArgs<ExtArgs>;
+      userTechnologies?: boolean | User$userTechnologiesArgs<ExtArgs>;
       posts?: boolean | User$postsArgs<ExtArgs>;
       notifications?: boolean | User$notificationsArgs<ExtArgs>;
+      accounts?: boolean | User$accountsArgs<ExtArgs>;
+      postCollaborations?: boolean | User$postCollaborationsArgs<ExtArgs>;
+      postReactions?: boolean | User$postReactionsArgs<ExtArgs>;
+      comments?: boolean | User$commentsArgs<ExtArgs>;
+      mentions?: boolean | User$mentionsArgs<ExtArgs>;
       _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["user"]
@@ -3063,14 +3910,19 @@ export namespace Prisma {
     nationality?: boolean | User$nationalityArgs<ExtArgs>;
     experiences?: boolean | User$experiencesArgs<ExtArgs>;
     educations?: boolean | User$educationsArgs<ExtArgs>;
-    degrees?: boolean | User$degreesArgs<ExtArgs>;
-    session?: boolean | User$sessionArgs<ExtArgs>;
-    userSkills?: boolean | User$userSkillsArgs<ExtArgs>;
-    accounts?: boolean | User$accountsArgs<ExtArgs>;
-    followers?: boolean | User$followersArgs<ExtArgs>;
+    follows?: boolean | User$followsArgs<ExtArgs>;
     following?: boolean | User$followingArgs<ExtArgs>;
+    sessions?: boolean | User$sessionsArgs<ExtArgs>;
+    degrees?: boolean | User$degreesArgs<ExtArgs>;
+    userSkills?: boolean | User$userSkillsArgs<ExtArgs>;
+    userTechnologies?: boolean | User$userTechnologiesArgs<ExtArgs>;
     posts?: boolean | User$postsArgs<ExtArgs>;
     notifications?: boolean | User$notificationsArgs<ExtArgs>;
+    accounts?: boolean | User$accountsArgs<ExtArgs>;
+    postCollaborations?: boolean | User$postCollaborationsArgs<ExtArgs>;
+    postReactions?: boolean | User$postReactionsArgs<ExtArgs>;
+    comments?: boolean | User$commentsArgs<ExtArgs>;
+    mentions?: boolean | User$mentionsArgs<ExtArgs>;
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type UserIncludeCreateManyAndReturn<
@@ -3092,14 +3944,19 @@ export namespace Prisma {
       nationality: Prisma.$NationalityPayload<ExtArgs> | null;
       experiences: Prisma.$ExperiencePayload<ExtArgs>[];
       educations: Prisma.$EducationPayload<ExtArgs>[];
-      degrees: Prisma.$DegreePayload<ExtArgs>[];
-      session: Prisma.$SessionPayload<ExtArgs>[];
-      userSkills: Prisma.$UserSkillPayload<ExtArgs>[];
-      accounts: Prisma.$AccountPayload<ExtArgs>[];
-      followers: Prisma.$FollowPayload<ExtArgs>[];
+      follows: Prisma.$FollowPayload<ExtArgs>[];
       following: Prisma.$FollowPayload<ExtArgs>[];
+      sessions: Prisma.$SessionPayload<ExtArgs>[];
+      degrees: Prisma.$DegreePayload<ExtArgs>[];
+      userSkills: Prisma.$UserSkillPayload<ExtArgs>[];
+      userTechnologies: Prisma.$UserTechnologyPayload<ExtArgs>[];
       posts: Prisma.$PostPayload<ExtArgs>[];
       notifications: Prisma.$NotificationPayload<ExtArgs>[];
+      accounts: Prisma.$AccountPayload<ExtArgs>[];
+      postCollaborations: Prisma.$PostCollaboratorPayload<ExtArgs>[];
+      postReactions: Prisma.$PostReactionPayload<ExtArgs>[];
+      comments: Prisma.$CommentPayload<ExtArgs>[];
+      mentions: Prisma.$MentionPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -3712,22 +4569,44 @@ export namespace Prisma {
         >
       | Null
     >;
-    degrees<T extends User$degreesArgs<ExtArgs> = {}>(
-      args?: Subset<T, User$degreesArgs<ExtArgs>>,
+    follows<T extends User$followsArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$followsArgs<ExtArgs>>,
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
-          Prisma.$DegreePayload<ExtArgs>,
+          Prisma.$FollowPayload<ExtArgs>,
           T,
           "findMany",
           GlobalOmitOptions
         >
       | Null
     >;
-    session<T extends User$sessionArgs<ExtArgs> = {}>(
-      args?: Subset<T, User$sessionArgs<ExtArgs>>,
+    following<T extends User$followingArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$followingArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$FollowPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    sessions<T extends User$sessionsArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$sessionsArgs<ExtArgs>>,
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$SessionPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    degrees<T extends User$degreesArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$degreesArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$DegreePayload<ExtArgs>,
           T,
           "findMany",
           GlobalOmitOptions
@@ -3745,33 +4624,11 @@ export namespace Prisma {
         >
       | Null
     >;
-    accounts<T extends User$accountsArgs<ExtArgs> = {}>(
-      args?: Subset<T, User$accountsArgs<ExtArgs>>,
+    userTechnologies<T extends User$userTechnologiesArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$userTechnologiesArgs<ExtArgs>>,
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
-          Prisma.$AccountPayload<ExtArgs>,
-          T,
-          "findMany",
-          GlobalOmitOptions
-        >
-      | Null
-    >;
-    followers<T extends User$followersArgs<ExtArgs> = {}>(
-      args?: Subset<T, User$followersArgs<ExtArgs>>,
-    ): Prisma.PrismaPromise<
-      | $Result.GetResult<
-          Prisma.$FollowPayload<ExtArgs>,
-          T,
-          "findMany",
-          GlobalOmitOptions
-        >
-      | Null
-    >;
-    following<T extends User$followingArgs<ExtArgs> = {}>(
-      args?: Subset<T, User$followingArgs<ExtArgs>>,
-    ): Prisma.PrismaPromise<
-      | $Result.GetResult<
-          Prisma.$FollowPayload<ExtArgs>,
+          Prisma.$UserTechnologyPayload<ExtArgs>,
           T,
           "findMany",
           GlobalOmitOptions
@@ -3794,6 +4651,61 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
           Prisma.$NotificationPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    accounts<T extends User$accountsArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$accountsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$AccountPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    postCollaborations<T extends User$postCollaborationsArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$postCollaborationsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$PostCollaboratorPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    postReactions<T extends User$postReactionsArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$postReactionsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$PostReactionPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    comments<T extends User$commentsArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$commentsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$CommentPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    mentions<T extends User$mentionsArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$mentionsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$MentionPayload<ExtArgs>,
           T,
           "findMany",
           GlobalOmitOptions
@@ -4372,119 +5284,9 @@ export namespace Prisma {
   };
 
   /**
-   * User.degrees
+   * User.follows
    */
-  export type User$degreesArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Degree
-     */
-    select?: DegreeSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Degree
-     */
-    omit?: DegreeOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DegreeInclude<ExtArgs> | null;
-    where?: DegreeWhereInput;
-    orderBy?: DegreeOrderByWithRelationInput | DegreeOrderByWithRelationInput[];
-    cursor?: DegreeWhereUniqueInput;
-    take?: number;
-    skip?: number;
-    distinct?: DegreeScalarFieldEnum | DegreeScalarFieldEnum[];
-  };
-
-  /**
-   * User.session
-   */
-  export type User$sessionArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null;
-    where?: SessionWhereInput;
-    orderBy?:
-      | SessionOrderByWithRelationInput
-      | SessionOrderByWithRelationInput[];
-    cursor?: SessionWhereUniqueInput;
-    take?: number;
-    skip?: number;
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[];
-  };
-
-  /**
-   * User.userSkills
-   */
-  export type User$userSkillsArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the UserSkill
-     */
-    select?: UserSkillSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the UserSkill
-     */
-    omit?: UserSkillOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserSkillInclude<ExtArgs> | null;
-    where?: UserSkillWhereInput;
-    orderBy?:
-      | UserSkillOrderByWithRelationInput
-      | UserSkillOrderByWithRelationInput[];
-    cursor?: UserSkillWhereUniqueInput;
-    take?: number;
-    skip?: number;
-    distinct?: UserSkillScalarFieldEnum | UserSkillScalarFieldEnum[];
-  };
-
-  /**
-   * User.accounts
-   */
-  export type User$accountsArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null;
-    where?: AccountWhereInput;
-    orderBy?:
-      | AccountOrderByWithRelationInput
-      | AccountOrderByWithRelationInput[];
-    cursor?: AccountWhereUniqueInput;
-    take?: number;
-    skip?: number;
-    distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[];
-  };
-
-  /**
-   * User.followers
-   */
-  export type User$followersArgs<
+  export type User$followsArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     /**
@@ -4531,6 +5333,116 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     distinct?: FollowScalarFieldEnum | FollowScalarFieldEnum[];
+  };
+
+  /**
+   * User.sessions
+   */
+  export type User$sessionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null;
+    where?: SessionWhereInput;
+    orderBy?:
+      | SessionOrderByWithRelationInput
+      | SessionOrderByWithRelationInput[];
+    cursor?: SessionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[];
+  };
+
+  /**
+   * User.degrees
+   */
+  export type User$degreesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Degree
+     */
+    select?: DegreeSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Degree
+     */
+    omit?: DegreeOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DegreeInclude<ExtArgs> | null;
+    where?: DegreeWhereInput;
+    orderBy?: DegreeOrderByWithRelationInput | DegreeOrderByWithRelationInput[];
+    cursor?: DegreeWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: DegreeScalarFieldEnum | DegreeScalarFieldEnum[];
+  };
+
+  /**
+   * User.userSkills
+   */
+  export type User$userSkillsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserSkill
+     */
+    select?: UserSkillSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserSkill
+     */
+    omit?: UserSkillOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSkillInclude<ExtArgs> | null;
+    where?: UserSkillWhereInput;
+    orderBy?:
+      | UserSkillOrderByWithRelationInput
+      | UserSkillOrderByWithRelationInput[];
+    cursor?: UserSkillWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: UserSkillScalarFieldEnum | UserSkillScalarFieldEnum[];
+  };
+
+  /**
+   * User.userTechnologies
+   */
+  export type User$userTechnologiesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    where?: UserTechnologyWhereInput;
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    cursor?: UserTechnologyWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: UserTechnologyScalarFieldEnum | UserTechnologyScalarFieldEnum[];
   };
 
   /**
@@ -4585,6 +5497,148 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[];
+  };
+
+  /**
+   * User.accounts
+   */
+  export type User$accountsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null;
+    where?: AccountWhereInput;
+    orderBy?:
+      | AccountOrderByWithRelationInput
+      | AccountOrderByWithRelationInput[];
+    cursor?: AccountWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[];
+  };
+
+  /**
+   * User.postCollaborations
+   */
+  export type User$postCollaborationsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+    where?: PostCollaboratorWhereInput;
+    orderBy?:
+      | PostCollaboratorOrderByWithRelationInput
+      | PostCollaboratorOrderByWithRelationInput[];
+    cursor?: PostCollaboratorWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | PostCollaboratorScalarFieldEnum
+      | PostCollaboratorScalarFieldEnum[];
+  };
+
+  /**
+   * User.postReactions
+   */
+  export type User$postReactionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+    where?: PostReactionWhereInput;
+    orderBy?:
+      | PostReactionOrderByWithRelationInput
+      | PostReactionOrderByWithRelationInput[];
+    cursor?: PostReactionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: PostReactionScalarFieldEnum | PostReactionScalarFieldEnum[];
+  };
+
+  /**
+   * User.comments
+   */
+  export type User$commentsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    where?: CommentWhereInput;
+    orderBy?:
+      | CommentOrderByWithRelationInput
+      | CommentOrderByWithRelationInput[];
+    cursor?: CommentWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[];
+  };
+
+  /**
+   * User.mentions
+   */
+  export type User$mentionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    where?: MentionWhereInput;
+    orderBy?:
+      | MentionOrderByWithRelationInput
+      | MentionOrderByWithRelationInput[];
+    cursor?: MentionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: MentionScalarFieldEnum | MentionScalarFieldEnum[];
   };
 
   /**
@@ -14053,6 +15107,9 @@ export namespace Prisma {
   export type TechnologyMinAggregateOutputType = {
     id: string | null;
     title: string | null;
+    icon: string | null;
+    color: string | null;
+    category: string | null;
     sousSkillTechId: string | null;
     createdAt: Date | null;
     updatedAt: Date | null;
@@ -14061,6 +15118,9 @@ export namespace Prisma {
   export type TechnologyMaxAggregateOutputType = {
     id: string | null;
     title: string | null;
+    icon: string | null;
+    color: string | null;
+    category: string | null;
     sousSkillTechId: string | null;
     createdAt: Date | null;
     updatedAt: Date | null;
@@ -14069,6 +15129,9 @@ export namespace Prisma {
   export type TechnologyCountAggregateOutputType = {
     id: number;
     title: number;
+    icon: number;
+    color: number;
+    category: number;
     sousSkillTechId: number;
     createdAt: number;
     updatedAt: number;
@@ -14078,6 +15141,9 @@ export namespace Prisma {
   export type TechnologyMinAggregateInputType = {
     id?: true;
     title?: true;
+    icon?: true;
+    color?: true;
+    category?: true;
     sousSkillTechId?: true;
     createdAt?: true;
     updatedAt?: true;
@@ -14086,6 +15152,9 @@ export namespace Prisma {
   export type TechnologyMaxAggregateInputType = {
     id?: true;
     title?: true;
+    icon?: true;
+    color?: true;
+    category?: true;
     sousSkillTechId?: true;
     createdAt?: true;
     updatedAt?: true;
@@ -14094,6 +15163,9 @@ export namespace Prisma {
   export type TechnologyCountAggregateInputType = {
     id?: true;
     title?: true;
+    icon?: true;
+    color?: true;
+    category?: true;
     sousSkillTechId?: true;
     createdAt?: true;
     updatedAt?: true;
@@ -14180,6 +15252,9 @@ export namespace Prisma {
   export type TechnologyGroupByOutputType = {
     id: string;
     title: string;
+    icon: string | null;
+    color: string | null;
+    category: string | null;
     sousSkillTechId: string;
     createdAt: Date;
     updatedAt: Date;
@@ -14207,10 +15282,15 @@ export namespace Prisma {
     {
       id?: boolean;
       title?: boolean;
+      icon?: boolean;
+      color?: boolean;
+      category?: boolean;
       sousSkillTechId?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
-      sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+      sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
+      userTechnologies?: boolean | Technology$userTechnologiesArgs<ExtArgs>;
+      _count?: boolean | TechnologyCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["technology"]
   >;
@@ -14221,10 +15301,13 @@ export namespace Prisma {
     {
       id?: boolean;
       title?: boolean;
+      icon?: boolean;
+      color?: boolean;
+      category?: boolean;
       sousSkillTechId?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
-      sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+      sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["technology"]
   >;
@@ -14235,10 +15318,13 @@ export namespace Prisma {
     {
       id?: boolean;
       title?: boolean;
+      icon?: boolean;
+      color?: boolean;
+      category?: boolean;
       sousSkillTechId?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
-      sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+      sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["technology"]
   >;
@@ -14246,6 +15332,9 @@ export namespace Prisma {
   export type TechnologySelectScalar = {
     id?: boolean;
     title?: boolean;
+    icon?: boolean;
+    color?: boolean;
+    category?: boolean;
     sousSkillTechId?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
@@ -14254,23 +15343,32 @@ export namespace Prisma {
   export type TechnologyOmit<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = $Extensions.GetOmit<
-    "id" | "title" | "sousSkillTechId" | "createdAt" | "updatedAt",
+    | "id"
+    | "title"
+    | "icon"
+    | "color"
+    | "category"
+    | "sousSkillTechId"
+    | "createdAt"
+    | "updatedAt",
     ExtArgs["result"]["technology"]
   >;
   export type TechnologyInclude<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
-    sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+    sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
+    userTechnologies?: boolean | Technology$userTechnologiesArgs<ExtArgs>;
+    _count?: boolean | TechnologyCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type TechnologyIncludeCreateManyAndReturn<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
-    sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+    sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
   };
   export type TechnologyIncludeUpdateManyAndReturn<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
-    sousSkillTech?: boolean | sousSkillDefaultArgs<ExtArgs>;
+    sousSkill?: boolean | sousSkillDefaultArgs<ExtArgs>;
   };
 
   export type $TechnologyPayload<
@@ -14278,12 +15376,16 @@ export namespace Prisma {
   > = {
     name: "Technology";
     objects: {
-      sousSkillTech: Prisma.$sousSkillPayload<ExtArgs>;
+      sousSkill: Prisma.$sousSkillPayload<ExtArgs>;
+      userTechnologies: Prisma.$UserTechnologyPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
         id: string;
         title: string;
+        icon: string | null;
+        color: string | null;
+        category: string | null;
         sousSkillTechId: string;
         createdAt: Date;
         updatedAt: Date;
@@ -14837,7 +15939,7 @@ export namespace Prisma {
     GlobalOmitOptions = {},
   > extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    sousSkillTech<T extends sousSkillDefaultArgs<ExtArgs> = {}>(
+    sousSkill<T extends sousSkillDefaultArgs<ExtArgs> = {}>(
       args?: Subset<T, sousSkillDefaultArgs<ExtArgs>>,
     ): Prisma__sousSkillClient<
       | $Result.GetResult<
@@ -14850,6 +15952,17 @@ export namespace Prisma {
       Null,
       ExtArgs,
       GlobalOmitOptions
+    >;
+    userTechnologies<T extends Technology$userTechnologiesArgs<ExtArgs> = {}>(
+      args?: Subset<T, Technology$userTechnologiesArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$UserTechnologyPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
     >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -14893,6 +16006,9 @@ export namespace Prisma {
   interface TechnologyFieldRefs {
     readonly id: FieldRef<"Technology", "String">;
     readonly title: FieldRef<"Technology", "String">;
+    readonly icon: FieldRef<"Technology", "String">;
+    readonly color: FieldRef<"Technology", "String">;
+    readonly category: FieldRef<"Technology", "String">;
     readonly sousSkillTechId: FieldRef<"Technology", "String">;
     readonly createdAt: FieldRef<"Technology", "DateTime">;
     readonly updatedAt: FieldRef<"Technology", "DateTime">;
@@ -15328,6 +16444,34 @@ export namespace Prisma {
      * Limit how many Technologies to delete.
      */
     limit?: number;
+  };
+
+  /**
+   * Technology.userTechnologies
+   */
+  export type Technology$userTechnologiesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    where?: UserTechnologyWhereInput;
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    cursor?: UserTechnologyWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: UserTechnologyScalarFieldEnum | UserTechnologyScalarFieldEnum[];
   };
 
   /**
@@ -16692,6 +17836,1353 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserSkillInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model UserTechnology
+   */
+
+  export type AggregateUserTechnology = {
+    _count: UserTechnologyCountAggregateOutputType | null;
+    _min: UserTechnologyMinAggregateOutputType | null;
+    _max: UserTechnologyMaxAggregateOutputType | null;
+  };
+
+  export type UserTechnologyMinAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    technologyId: string | null;
+    level: $Enums.SkillLevel | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type UserTechnologyMaxAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    technologyId: string | null;
+    level: $Enums.SkillLevel | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type UserTechnologyCountAggregateOutputType = {
+    id: number;
+    userId: number;
+    technologyId: number;
+    level: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+  };
+
+  export type UserTechnologyMinAggregateInputType = {
+    id?: true;
+    userId?: true;
+    technologyId?: true;
+    level?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type UserTechnologyMaxAggregateInputType = {
+    id?: true;
+    userId?: true;
+    technologyId?: true;
+    level?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type UserTechnologyCountAggregateInputType = {
+    id?: true;
+    userId?: true;
+    technologyId?: true;
+    level?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+  };
+
+  export type UserTechnologyAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which UserTechnology to aggregate.
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserTechnologies to fetch.
+     */
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: UserTechnologyWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserTechnologies from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserTechnologies.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned UserTechnologies
+     **/
+    _count?: true | UserTechnologyCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: UserTechnologyMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: UserTechnologyMaxAggregateInputType;
+  };
+
+  export type GetUserTechnologyAggregateType<
+    T extends UserTechnologyAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateUserTechnology]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserTechnology[P]>
+      : GetScalarType<T[P], AggregateUserTechnology[P]>;
+  };
+
+  export type UserTechnologyGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: UserTechnologyWhereInput;
+    orderBy?:
+      | UserTechnologyOrderByWithAggregationInput
+      | UserTechnologyOrderByWithAggregationInput[];
+    by: UserTechnologyScalarFieldEnum[] | UserTechnologyScalarFieldEnum;
+    having?: UserTechnologyScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: UserTechnologyCountAggregateInputType | true;
+    _min?: UserTechnologyMinAggregateInputType;
+    _max?: UserTechnologyMaxAggregateInputType;
+  };
+
+  export type UserTechnologyGroupByOutputType = {
+    id: string;
+    userId: string;
+    technologyId: string;
+    level: $Enums.SkillLevel;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: UserTechnologyCountAggregateOutputType | null;
+    _min: UserTechnologyMinAggregateOutputType | null;
+    _max: UserTechnologyMaxAggregateOutputType | null;
+  };
+
+  type GetUserTechnologyGroupByPayload<T extends UserTechnologyGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<UserTechnologyGroupByOutputType, T["by"]> & {
+          [P in keyof T &
+            keyof UserTechnologyGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserTechnologyGroupByOutputType[P]>
+            : GetScalarType<T[P], UserTechnologyGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type UserTechnologySelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      technologyId?: boolean;
+      level?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["userTechnology"]
+  >;
+
+  export type UserTechnologySelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      technologyId?: boolean;
+      level?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["userTechnology"]
+  >;
+
+  export type UserTechnologySelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      userId?: boolean;
+      technologyId?: boolean;
+      level?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["userTechnology"]
+  >;
+
+  export type UserTechnologySelectScalar = {
+    id?: boolean;
+    userId?: boolean;
+    technologyId?: boolean;
+    level?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+  };
+
+  export type UserTechnologyOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    "id" | "userId" | "technologyId" | "level" | "createdAt" | "updatedAt",
+    ExtArgs["result"]["userTechnology"]
+  >;
+  export type UserTechnologyInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+  };
+  export type UserTechnologyIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+  };
+  export type UserTechnologyIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    technology?: boolean | TechnologyDefaultArgs<ExtArgs>;
+  };
+
+  export type $UserTechnologyPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "UserTechnology";
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>;
+      technology: Prisma.$TechnologyPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        userId: string;
+        technologyId: string;
+        level: $Enums.SkillLevel;
+        createdAt: Date;
+        updatedAt: Date;
+      },
+      ExtArgs["result"]["userTechnology"]
+    >;
+    composites: {};
+  };
+
+  type UserTechnologyGetPayload<
+    S extends boolean | null | undefined | UserTechnologyDefaultArgs,
+  > = $Result.GetResult<Prisma.$UserTechnologyPayload, S>;
+
+  type UserTechnologyCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    UserTechnologyFindManyArgs,
+    "select" | "include" | "distinct" | "omit"
+  > & {
+    select?: UserTechnologyCountAggregateInputType | true;
+  };
+
+  export interface UserTechnologyDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["UserTechnology"];
+      meta: { name: "UserTechnology" };
+    };
+    /**
+     * Find zero or one UserTechnology that matches the filter.
+     * @param {UserTechnologyFindUniqueArgs} args - Arguments to find a UserTechnology
+     * @example
+     * // Get one UserTechnology
+     * const userTechnology = await prisma.userTechnology.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserTechnologyFindUniqueArgs>(
+      args: SelectSubset<T, UserTechnologyFindUniqueArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one UserTechnology that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserTechnologyFindUniqueOrThrowArgs} args - Arguments to find a UserTechnology
+     * @example
+     * // Get one UserTechnology
+     * const userTechnology = await prisma.userTechnology.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserTechnologyFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, UserTechnologyFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first UserTechnology that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyFindFirstArgs} args - Arguments to find a UserTechnology
+     * @example
+     * // Get one UserTechnology
+     * const userTechnology = await prisma.userTechnology.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserTechnologyFindFirstArgs>(
+      args?: SelectSubset<T, UserTechnologyFindFirstArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first UserTechnology that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyFindFirstOrThrowArgs} args - Arguments to find a UserTechnology
+     * @example
+     * // Get one UserTechnology
+     * const userTechnology = await prisma.userTechnology.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserTechnologyFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, UserTechnologyFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more UserTechnologies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserTechnologies
+     * const userTechnologies = await prisma.userTechnology.findMany()
+     *
+     * // Get first 10 UserTechnologies
+     * const userTechnologies = await prisma.userTechnology.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const userTechnologyWithIdOnly = await prisma.userTechnology.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends UserTechnologyFindManyArgs>(
+      args?: SelectSubset<T, UserTechnologyFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a UserTechnology.
+     * @param {UserTechnologyCreateArgs} args - Arguments to create a UserTechnology.
+     * @example
+     * // Create one UserTechnology
+     * const UserTechnology = await prisma.userTechnology.create({
+     *   data: {
+     *     // ... data to create a UserTechnology
+     *   }
+     * })
+     *
+     */
+    create<T extends UserTechnologyCreateArgs>(
+      args: SelectSubset<T, UserTechnologyCreateArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many UserTechnologies.
+     * @param {UserTechnologyCreateManyArgs} args - Arguments to create many UserTechnologies.
+     * @example
+     * // Create many UserTechnologies
+     * const userTechnology = await prisma.userTechnology.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends UserTechnologyCreateManyArgs>(
+      args?: SelectSubset<T, UserTechnologyCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many UserTechnologies and returns the data saved in the database.
+     * @param {UserTechnologyCreateManyAndReturnArgs} args - Arguments to create many UserTechnologies.
+     * @example
+     * // Create many UserTechnologies
+     * const userTechnology = await prisma.userTechnology.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many UserTechnologies and only return the `id`
+     * const userTechnologyWithIdOnly = await prisma.userTechnology.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends UserTechnologyCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, UserTechnologyCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Delete a UserTechnology.
+     * @param {UserTechnologyDeleteArgs} args - Arguments to delete one UserTechnology.
+     * @example
+     * // Delete one UserTechnology
+     * const UserTechnology = await prisma.userTechnology.delete({
+     *   where: {
+     *     // ... filter to delete one UserTechnology
+     *   }
+     * })
+     *
+     */
+    delete<T extends UserTechnologyDeleteArgs>(
+      args: SelectSubset<T, UserTechnologyDeleteArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one UserTechnology.
+     * @param {UserTechnologyUpdateArgs} args - Arguments to update one UserTechnology.
+     * @example
+     * // Update one UserTechnology
+     * const userTechnology = await prisma.userTechnology.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends UserTechnologyUpdateArgs>(
+      args: SelectSubset<T, UserTechnologyUpdateArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more UserTechnologies.
+     * @param {UserTechnologyDeleteManyArgs} args - Arguments to filter UserTechnologies to delete.
+     * @example
+     * // Delete a few UserTechnologies
+     * const { count } = await prisma.userTechnology.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends UserTechnologyDeleteManyArgs>(
+      args?: SelectSubset<T, UserTechnologyDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more UserTechnologies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserTechnologies
+     * const userTechnology = await prisma.userTechnology.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends UserTechnologyUpdateManyArgs>(
+      args: SelectSubset<T, UserTechnologyUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more UserTechnologies and returns the data updated in the database.
+     * @param {UserTechnologyUpdateManyAndReturnArgs} args - Arguments to update many UserTechnologies.
+     * @example
+     * // Update many UserTechnologies
+     * const userTechnology = await prisma.userTechnology.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more UserTechnologies and only return the `id`
+     * const userTechnologyWithIdOnly = await prisma.userTechnology.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends UserTechnologyUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, UserTechnologyUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create or update one UserTechnology.
+     * @param {UserTechnologyUpsertArgs} args - Arguments to update or create a UserTechnology.
+     * @example
+     * // Update or create a UserTechnology
+     * const userTechnology = await prisma.userTechnology.upsert({
+     *   create: {
+     *     // ... data to create a UserTechnology
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserTechnology we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserTechnologyUpsertArgs>(
+      args: SelectSubset<T, UserTechnologyUpsertArgs<ExtArgs>>,
+    ): Prisma__UserTechnologyClient<
+      $Result.GetResult<
+        Prisma.$UserTechnologyPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Count the number of UserTechnologies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyCountArgs} args - Arguments to filter UserTechnologies to count.
+     * @example
+     * // Count the number of UserTechnologies
+     * const count = await prisma.userTechnology.count({
+     *   where: {
+     *     // ... the filter for the UserTechnologies we want to count
+     *   }
+     * })
+     **/
+    count<T extends UserTechnologyCountArgs>(
+      args?: Subset<T, UserTechnologyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], UserTechnologyCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a UserTechnology.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends UserTechnologyAggregateArgs>(
+      args: Subset<T, UserTechnologyAggregateArgs>,
+    ): Prisma.PrismaPromise<GetUserTechnologyAggregateType<T>>;
+
+    /**
+     * Group by UserTechnology.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTechnologyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends UserTechnologyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserTechnologyGroupByArgs["orderBy"] }
+        : { orderBy?: UserTechnologyGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, UserTechnologyGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetUserTechnologyGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the UserTechnology model
+     */
+    readonly fields: UserTechnologyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserTechnology.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserTechnologyClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    technology<T extends TechnologyDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, TechnologyDefaultArgs<ExtArgs>>,
+    ): Prisma__TechnologyClient<
+      | $Result.GetResult<
+          Prisma.$TechnologyPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the UserTechnology model
+   */
+  interface UserTechnologyFieldRefs {
+    readonly id: FieldRef<"UserTechnology", "String">;
+    readonly userId: FieldRef<"UserTechnology", "String">;
+    readonly technologyId: FieldRef<"UserTechnology", "String">;
+    readonly level: FieldRef<"UserTechnology", "SkillLevel">;
+    readonly createdAt: FieldRef<"UserTechnology", "DateTime">;
+    readonly updatedAt: FieldRef<"UserTechnology", "DateTime">;
+  }
+
+  // Custom InputTypes
+  /**
+   * UserTechnology findUnique
+   */
+  export type UserTechnologyFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserTechnology to fetch.
+     */
+    where: UserTechnologyWhereUniqueInput;
+  };
+
+  /**
+   * UserTechnology findUniqueOrThrow
+   */
+  export type UserTechnologyFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserTechnology to fetch.
+     */
+    where: UserTechnologyWhereUniqueInput;
+  };
+
+  /**
+   * UserTechnology findFirst
+   */
+  export type UserTechnologyFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserTechnology to fetch.
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserTechnologies to fetch.
+     */
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for UserTechnologies.
+     */
+    cursor?: UserTechnologyWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserTechnologies from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserTechnologies.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of UserTechnologies.
+     */
+    distinct?: UserTechnologyScalarFieldEnum | UserTechnologyScalarFieldEnum[];
+  };
+
+  /**
+   * UserTechnology findFirstOrThrow
+   */
+  export type UserTechnologyFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserTechnology to fetch.
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserTechnologies to fetch.
+     */
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for UserTechnologies.
+     */
+    cursor?: UserTechnologyWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserTechnologies from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserTechnologies.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of UserTechnologies.
+     */
+    distinct?: UserTechnologyScalarFieldEnum | UserTechnologyScalarFieldEnum[];
+  };
+
+  /**
+   * UserTechnology findMany
+   */
+  export type UserTechnologyFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter, which UserTechnologies to fetch.
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of UserTechnologies to fetch.
+     */
+    orderBy?:
+      | UserTechnologyOrderByWithRelationInput
+      | UserTechnologyOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing UserTechnologies.
+     */
+    cursor?: UserTechnologyWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` UserTechnologies from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` UserTechnologies.
+     */
+    skip?: number;
+    distinct?: UserTechnologyScalarFieldEnum | UserTechnologyScalarFieldEnum[];
+  };
+
+  /**
+   * UserTechnology create
+   */
+  export type UserTechnologyCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a UserTechnology.
+     */
+    data: XOR<UserTechnologyCreateInput, UserTechnologyUncheckedCreateInput>;
+  };
+
+  /**
+   * UserTechnology createMany
+   */
+  export type UserTechnologyCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many UserTechnologies.
+     */
+    data: UserTechnologyCreateManyInput | UserTechnologyCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * UserTechnology createManyAndReturn
+   */
+  export type UserTechnologyCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * The data used to create many UserTechnologies.
+     */
+    data: UserTechnologyCreateManyInput | UserTechnologyCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * UserTechnology update
+   */
+  export type UserTechnologyUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a UserTechnology.
+     */
+    data: XOR<UserTechnologyUpdateInput, UserTechnologyUncheckedUpdateInput>;
+    /**
+     * Choose, which UserTechnology to update.
+     */
+    where: UserTechnologyWhereUniqueInput;
+  };
+
+  /**
+   * UserTechnology updateMany
+   */
+  export type UserTechnologyUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update UserTechnologies.
+     */
+    data: XOR<
+      UserTechnologyUpdateManyMutationInput,
+      UserTechnologyUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which UserTechnologies to update
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * Limit how many UserTechnologies to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * UserTechnology updateManyAndReturn
+   */
+  export type UserTechnologyUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * The data used to update UserTechnologies.
+     */
+    data: XOR<
+      UserTechnologyUpdateManyMutationInput,
+      UserTechnologyUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which UserTechnologies to update
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * Limit how many UserTechnologies to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * UserTechnology upsert
+   */
+  export type UserTechnologyUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the UserTechnology to update in case it exists.
+     */
+    where: UserTechnologyWhereUniqueInput;
+    /**
+     * In case the UserTechnology found by the `where` argument doesn't exist, create a new UserTechnology with this data.
+     */
+    create: XOR<UserTechnologyCreateInput, UserTechnologyUncheckedCreateInput>;
+    /**
+     * In case the UserTechnology was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserTechnologyUpdateInput, UserTechnologyUncheckedUpdateInput>;
+  };
+
+  /**
+   * UserTechnology delete
+   */
+  export type UserTechnologyDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
+    /**
+     * Filter which UserTechnology to delete.
+     */
+    where: UserTechnologyWhereUniqueInput;
+  };
+
+  /**
+   * UserTechnology deleteMany
+   */
+  export type UserTechnologyDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which UserTechnologies to delete
+     */
+    where?: UserTechnologyWhereInput;
+    /**
+     * Limit how many UserTechnologies to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * UserTechnology without action
+   */
+  export type UserTechnologyDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the UserTechnology
+     */
+    select?: UserTechnologySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserTechnology
+     */
+    omit?: UserTechnologyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTechnologyInclude<ExtArgs> | null;
   };
 
   /**
@@ -22066,8 +24557,9 @@ export namespace Prisma {
     id: string | null;
     authorId: string | null;
     content: string | null;
+    contentType: $Enums.ContentType | null;
     visibility: $Enums.Visibility | null;
-    media: string | null;
+    isCollaborative: boolean | null;
     createdAt: Date | null;
     updatedAt: Date | null;
   };
@@ -22076,8 +24568,9 @@ export namespace Prisma {
     id: string | null;
     authorId: string | null;
     content: string | null;
+    contentType: $Enums.ContentType | null;
     visibility: $Enums.Visibility | null;
-    media: string | null;
+    isCollaborative: boolean | null;
     createdAt: Date | null;
     updatedAt: Date | null;
   };
@@ -22086,8 +24579,9 @@ export namespace Prisma {
     id: number;
     authorId: number;
     content: number;
+    contentType: number;
     visibility: number;
-    media: number;
+    isCollaborative: number;
     createdAt: number;
     updatedAt: number;
     _all: number;
@@ -22097,8 +24591,9 @@ export namespace Prisma {
     id?: true;
     authorId?: true;
     content?: true;
+    contentType?: true;
     visibility?: true;
-    media?: true;
+    isCollaborative?: true;
     createdAt?: true;
     updatedAt?: true;
   };
@@ -22107,8 +24602,9 @@ export namespace Prisma {
     id?: true;
     authorId?: true;
     content?: true;
+    contentType?: true;
     visibility?: true;
-    media?: true;
+    isCollaborative?: true;
     createdAt?: true;
     updatedAt?: true;
   };
@@ -22117,8 +24613,9 @@ export namespace Prisma {
     id?: true;
     authorId?: true;
     content?: true;
+    contentType?: true;
     visibility?: true;
-    media?: true;
+    isCollaborative?: true;
     createdAt?: true;
     updatedAt?: true;
     _all?: true;
@@ -22203,8 +24700,9 @@ export namespace Prisma {
     id: string;
     authorId: string;
     content: string;
+    contentType: $Enums.ContentType;
     visibility: $Enums.Visibility;
-    media: string | null;
+    isCollaborative: boolean;
     createdAt: Date;
     updatedAt: Date;
     _count: PostCountAggregateOutputType | null;
@@ -22231,11 +24729,18 @@ export namespace Prisma {
       id?: boolean;
       authorId?: boolean;
       content?: boolean;
+      contentType?: boolean;
       visibility?: boolean;
-      media?: boolean;
+      isCollaborative?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       author?: boolean | UserDefaultArgs<ExtArgs>;
+      media?: boolean | Post$mediaArgs<ExtArgs>;
+      collaborators?: boolean | Post$collaboratorsArgs<ExtArgs>;
+      reactions?: boolean | Post$reactionsArgs<ExtArgs>;
+      comments?: boolean | Post$commentsArgs<ExtArgs>;
+      mentions?: boolean | Post$mentionsArgs<ExtArgs>;
+      _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs["result"]["post"]
   >;
@@ -22247,8 +24752,9 @@ export namespace Prisma {
       id?: boolean;
       authorId?: boolean;
       content?: boolean;
+      contentType?: boolean;
       visibility?: boolean;
-      media?: boolean;
+      isCollaborative?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       author?: boolean | UserDefaultArgs<ExtArgs>;
@@ -22263,8 +24769,9 @@ export namespace Prisma {
       id?: boolean;
       authorId?: boolean;
       content?: boolean;
+      contentType?: boolean;
       visibility?: boolean;
-      media?: boolean;
+      isCollaborative?: boolean;
       createdAt?: boolean;
       updatedAt?: boolean;
       author?: boolean | UserDefaultArgs<ExtArgs>;
@@ -22276,8 +24783,9 @@ export namespace Prisma {
     id?: boolean;
     authorId?: boolean;
     content?: boolean;
+    contentType?: boolean;
     visibility?: boolean;
-    media?: boolean;
+    isCollaborative?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
   };
@@ -22288,8 +24796,9 @@ export namespace Prisma {
     | "id"
     | "authorId"
     | "content"
+    | "contentType"
     | "visibility"
-    | "media"
+    | "isCollaborative"
     | "createdAt"
     | "updatedAt",
     ExtArgs["result"]["post"]
@@ -22298,6 +24807,12 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     author?: boolean | UserDefaultArgs<ExtArgs>;
+    media?: boolean | Post$mediaArgs<ExtArgs>;
+    collaborators?: boolean | Post$collaboratorsArgs<ExtArgs>;
+    reactions?: boolean | Post$reactionsArgs<ExtArgs>;
+    comments?: boolean | Post$commentsArgs<ExtArgs>;
+    mentions?: boolean | Post$mentionsArgs<ExtArgs>;
+    _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>;
   };
   export type PostIncludeCreateManyAndReturn<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
@@ -22316,14 +24831,20 @@ export namespace Prisma {
     name: "Post";
     objects: {
       author: Prisma.$UserPayload<ExtArgs>;
+      media: Prisma.$PostMediaPayload<ExtArgs>[];
+      collaborators: Prisma.$PostCollaboratorPayload<ExtArgs>[];
+      reactions: Prisma.$PostReactionPayload<ExtArgs>[];
+      comments: Prisma.$CommentPayload<ExtArgs>[];
+      mentions: Prisma.$MentionPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
         id: string;
         authorId: string;
         content: string;
+        contentType: $Enums.ContentType;
         visibility: $Enums.Visibility;
-        media: string | null;
+        isCollaborative: boolean;
         createdAt: Date;
         updatedAt: Date;
       },
@@ -22885,6 +25406,61 @@ export namespace Prisma {
       ExtArgs,
       GlobalOmitOptions
     >;
+    media<T extends Post$mediaArgs<ExtArgs> = {}>(
+      args?: Subset<T, Post$mediaArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$PostMediaPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    collaborators<T extends Post$collaboratorsArgs<ExtArgs> = {}>(
+      args?: Subset<T, Post$collaboratorsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$PostCollaboratorPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    reactions<T extends Post$reactionsArgs<ExtArgs> = {}>(
+      args?: Subset<T, Post$reactionsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$PostReactionPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    comments<T extends Post$commentsArgs<ExtArgs> = {}>(
+      args?: Subset<T, Post$commentsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$CommentPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    mentions<T extends Post$mentionsArgs<ExtArgs> = {}>(
+      args?: Subset<T, Post$mentionsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$MentionPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -22928,8 +25504,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Post", "String">;
     readonly authorId: FieldRef<"Post", "String">;
     readonly content: FieldRef<"Post", "String">;
+    readonly contentType: FieldRef<"Post", "ContentType">;
     readonly visibility: FieldRef<"Post", "Visibility">;
-    readonly media: FieldRef<"Post", "String">;
+    readonly isCollaborative: FieldRef<"Post", "Boolean">;
     readonly createdAt: FieldRef<"Post", "DateTime">;
     readonly updatedAt: FieldRef<"Post", "DateTime">;
   }
@@ -23355,6 +25932,148 @@ export namespace Prisma {
   };
 
   /**
+   * Post.media
+   */
+  export type Post$mediaArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaInclude<ExtArgs> | null;
+    where?: PostMediaWhereInput;
+    orderBy?:
+      | PostMediaOrderByWithRelationInput
+      | PostMediaOrderByWithRelationInput[];
+    cursor?: PostMediaWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: PostMediaScalarFieldEnum | PostMediaScalarFieldEnum[];
+  };
+
+  /**
+   * Post.collaborators
+   */
+  export type Post$collaboratorsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+    where?: PostCollaboratorWhereInput;
+    orderBy?:
+      | PostCollaboratorOrderByWithRelationInput
+      | PostCollaboratorOrderByWithRelationInput[];
+    cursor?: PostCollaboratorWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | PostCollaboratorScalarFieldEnum
+      | PostCollaboratorScalarFieldEnum[];
+  };
+
+  /**
+   * Post.reactions
+   */
+  export type Post$reactionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+    where?: PostReactionWhereInput;
+    orderBy?:
+      | PostReactionOrderByWithRelationInput
+      | PostReactionOrderByWithRelationInput[];
+    cursor?: PostReactionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: PostReactionScalarFieldEnum | PostReactionScalarFieldEnum[];
+  };
+
+  /**
+   * Post.comments
+   */
+  export type Post$commentsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    where?: CommentWhereInput;
+    orderBy?:
+      | CommentOrderByWithRelationInput
+      | CommentOrderByWithRelationInput[];
+    cursor?: CommentWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[];
+  };
+
+  /**
+   * Post.mentions
+   */
+  export type Post$mentionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    where?: MentionWhereInput;
+    orderBy?:
+      | MentionOrderByWithRelationInput
+      | MentionOrderByWithRelationInput[];
+    cursor?: MentionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: MentionScalarFieldEnum | MentionScalarFieldEnum[];
+  };
+
+  /**
    * Post without action
    */
   export type PostDefaultArgs<
@@ -23372,6 +26091,6965 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PostInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model PostMedia
+   */
+
+  export type AggregatePostMedia = {
+    _count: PostMediaCountAggregateOutputType | null;
+    _avg: PostMediaAvgAggregateOutputType | null;
+    _sum: PostMediaSumAggregateOutputType | null;
+    _min: PostMediaMinAggregateOutputType | null;
+    _max: PostMediaMaxAggregateOutputType | null;
+  };
+
+  export type PostMediaAvgAggregateOutputType = {
+    size: number | null;
+    duration: number | null;
+  };
+
+  export type PostMediaSumAggregateOutputType = {
+    size: number | null;
+    duration: number | null;
+  };
+
+  export type PostMediaMinAggregateOutputType = {
+    id: string | null;
+    postId: string | null;
+    type: $Enums.MediaType | null;
+    url: string | null;
+    publicId: string | null;
+    filename: string | null;
+    size: number | null;
+    duration: number | null;
+    createdAt: Date | null;
+  };
+
+  export type PostMediaMaxAggregateOutputType = {
+    id: string | null;
+    postId: string | null;
+    type: $Enums.MediaType | null;
+    url: string | null;
+    publicId: string | null;
+    filename: string | null;
+    size: number | null;
+    duration: number | null;
+    createdAt: Date | null;
+  };
+
+  export type PostMediaCountAggregateOutputType = {
+    id: number;
+    postId: number;
+    type: number;
+    url: number;
+    publicId: number;
+    filename: number;
+    size: number;
+    duration: number;
+    createdAt: number;
+    _all: number;
+  };
+
+  export type PostMediaAvgAggregateInputType = {
+    size?: true;
+    duration?: true;
+  };
+
+  export type PostMediaSumAggregateInputType = {
+    size?: true;
+    duration?: true;
+  };
+
+  export type PostMediaMinAggregateInputType = {
+    id?: true;
+    postId?: true;
+    type?: true;
+    url?: true;
+    publicId?: true;
+    filename?: true;
+    size?: true;
+    duration?: true;
+    createdAt?: true;
+  };
+
+  export type PostMediaMaxAggregateInputType = {
+    id?: true;
+    postId?: true;
+    type?: true;
+    url?: true;
+    publicId?: true;
+    filename?: true;
+    size?: true;
+    duration?: true;
+    createdAt?: true;
+  };
+
+  export type PostMediaCountAggregateInputType = {
+    id?: true;
+    postId?: true;
+    type?: true;
+    url?: true;
+    publicId?: true;
+    filename?: true;
+    size?: true;
+    duration?: true;
+    createdAt?: true;
+    _all?: true;
+  };
+
+  export type PostMediaAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which PostMedia to aggregate.
+     */
+    where?: PostMediaWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostMedias to fetch.
+     */
+    orderBy?:
+      | PostMediaOrderByWithRelationInput
+      | PostMediaOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: PostMediaWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostMedias from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostMedias.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned PostMedias
+     **/
+    _count?: true | PostMediaCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+     **/
+    _avg?: PostMediaAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+     **/
+    _sum?: PostMediaSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: PostMediaMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: PostMediaMaxAggregateInputType;
+  };
+
+  export type GetPostMediaAggregateType<T extends PostMediaAggregateArgs> = {
+    [P in keyof T & keyof AggregatePostMedia]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostMedia[P]>
+      : GetScalarType<T[P], AggregatePostMedia[P]>;
+  };
+
+  export type PostMediaGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PostMediaWhereInput;
+    orderBy?:
+      | PostMediaOrderByWithAggregationInput
+      | PostMediaOrderByWithAggregationInput[];
+    by: PostMediaScalarFieldEnum[] | PostMediaScalarFieldEnum;
+    having?: PostMediaScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: PostMediaCountAggregateInputType | true;
+    _avg?: PostMediaAvgAggregateInputType;
+    _sum?: PostMediaSumAggregateInputType;
+    _min?: PostMediaMinAggregateInputType;
+    _max?: PostMediaMaxAggregateInputType;
+  };
+
+  export type PostMediaGroupByOutputType = {
+    id: string;
+    postId: string;
+    type: $Enums.MediaType;
+    url: string;
+    publicId: string | null;
+    filename: string | null;
+    size: number | null;
+    duration: number | null;
+    createdAt: Date;
+    _count: PostMediaCountAggregateOutputType | null;
+    _avg: PostMediaAvgAggregateOutputType | null;
+    _sum: PostMediaSumAggregateOutputType | null;
+    _min: PostMediaMinAggregateOutputType | null;
+    _max: PostMediaMaxAggregateOutputType | null;
+  };
+
+  type GetPostMediaGroupByPayload<T extends PostMediaGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<PostMediaGroupByOutputType, T["by"]> & {
+          [P in keyof T & keyof PostMediaGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostMediaGroupByOutputType[P]>
+            : GetScalarType<T[P], PostMediaGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type PostMediaSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      type?: boolean;
+      url?: boolean;
+      publicId?: boolean;
+      filename?: boolean;
+      size?: boolean;
+      duration?: boolean;
+      createdAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["postMedia"]
+  >;
+
+  export type PostMediaSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      type?: boolean;
+      url?: boolean;
+      publicId?: boolean;
+      filename?: boolean;
+      size?: boolean;
+      duration?: boolean;
+      createdAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["postMedia"]
+  >;
+
+  export type PostMediaSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      type?: boolean;
+      url?: boolean;
+      publicId?: boolean;
+      filename?: boolean;
+      size?: boolean;
+      duration?: boolean;
+      createdAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["postMedia"]
+  >;
+
+  export type PostMediaSelectScalar = {
+    id?: boolean;
+    postId?: boolean;
+    type?: boolean;
+    url?: boolean;
+    publicId?: boolean;
+    filename?: boolean;
+    size?: boolean;
+    duration?: boolean;
+    createdAt?: boolean;
+  };
+
+  export type PostMediaOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    | "id"
+    | "postId"
+    | "type"
+    | "url"
+    | "publicId"
+    | "filename"
+    | "size"
+    | "duration"
+    | "createdAt",
+    ExtArgs["result"]["postMedia"]
+  >;
+  export type PostMediaInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+  };
+  export type PostMediaIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+  };
+  export type PostMediaIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+  };
+
+  export type $PostMediaPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "PostMedia";
+    objects: {
+      post: Prisma.$PostPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        postId: string;
+        type: $Enums.MediaType;
+        url: string;
+        publicId: string | null;
+        filename: string | null;
+        size: number | null;
+        duration: number | null;
+        createdAt: Date;
+      },
+      ExtArgs["result"]["postMedia"]
+    >;
+    composites: {};
+  };
+
+  type PostMediaGetPayload<
+    S extends boolean | null | undefined | PostMediaDefaultArgs,
+  > = $Result.GetResult<Prisma.$PostMediaPayload, S>;
+
+  type PostMediaCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    PostMediaFindManyArgs,
+    "select" | "include" | "distinct" | "omit"
+  > & {
+    select?: PostMediaCountAggregateInputType | true;
+  };
+
+  export interface PostMediaDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["PostMedia"];
+      meta: { name: "PostMedia" };
+    };
+    /**
+     * Find zero or one PostMedia that matches the filter.
+     * @param {PostMediaFindUniqueArgs} args - Arguments to find a PostMedia
+     * @example
+     * // Get one PostMedia
+     * const postMedia = await prisma.postMedia.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostMediaFindUniqueArgs>(
+      args: SelectSubset<T, PostMediaFindUniqueArgs<ExtArgs>>,
+    ): Prisma__PostMediaClient<
+      $Result.GetResult<
+        Prisma.$PostMediaPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one PostMedia that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PostMediaFindUniqueOrThrowArgs} args - Arguments to find a PostMedia
+     * @example
+     * // Get one PostMedia
+     * const postMedia = await prisma.postMedia.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostMediaFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, PostMediaFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__PostMediaClient<
+      $Result.GetResult<
+        Prisma.$PostMediaPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first PostMedia that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostMediaFindFirstArgs} args - Arguments to find a PostMedia
+     * @example
+     * // Get one PostMedia
+     * const postMedia = await prisma.postMedia.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostMediaFindFirstArgs>(
+      args?: SelectSubset<T, PostMediaFindFirstArgs<ExtArgs>>,
+    ): Prisma__PostMediaClient<
+      $Result.GetResult<
+        Prisma.$PostMediaPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first PostMedia that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostMediaFindFirstOrThrowArgs} args - Arguments to find a PostMedia
+     * @example
+     * // Get one PostMedia
+     * const postMedia = await prisma.postMedia.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostMediaFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, PostMediaFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__PostMediaClient<
+      $Result.GetResult<
+        Prisma.$PostMediaPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more PostMedias that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostMediaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostMedias
+     * const postMedias = await prisma.postMedia.findMany()
+     *
+     * // Get first 10 PostMedias
+     * const postMedias = await prisma.postMedia.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const postMediaWithIdOnly = await prisma.postMedia.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends PostMediaFindManyArgs>(
+      args?: SelectSubset<T, PostMediaFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PostMediaPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a PostMedia.
+     * @param {PostMediaCreateArgs} args - Arguments to create a PostMedia.
+     * @example
+     * // Create one PostMedia
+     * const PostMedia = await prisma.postMedia.create({
+     *   data: {
+     *     // ... data to create a PostMedia
+     *   }
+     * })
+     *
+     */
+    create<T extends PostMediaCreateArgs>(
+      args: SelectSubset<T, PostMediaCreateArgs<ExtArgs>>,
+    ): Prisma__PostMediaClient<
+      $Result.GetResult<
+        Prisma.$PostMediaPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many PostMedias.
+     * @param {PostMediaCreateManyArgs} args - Arguments to create many PostMedias.
+     * @example
+     * // Create many PostMedias
+     * const postMedia = await prisma.postMedia.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends PostMediaCreateManyArgs>(
+      args?: SelectSubset<T, PostMediaCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many PostMedias and returns the data saved in the database.
+     * @param {PostMediaCreateManyAndReturnArgs} args - Arguments to create many PostMedias.
+     * @example
+     * // Create many PostMedias
+     * const postMedia = await prisma.postMedia.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many PostMedias and only return the `id`
+     * const postMediaWithIdOnly = await prisma.postMedia.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends PostMediaCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, PostMediaCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PostMediaPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Delete a PostMedia.
+     * @param {PostMediaDeleteArgs} args - Arguments to delete one PostMedia.
+     * @example
+     * // Delete one PostMedia
+     * const PostMedia = await prisma.postMedia.delete({
+     *   where: {
+     *     // ... filter to delete one PostMedia
+     *   }
+     * })
+     *
+     */
+    delete<T extends PostMediaDeleteArgs>(
+      args: SelectSubset<T, PostMediaDeleteArgs<ExtArgs>>,
+    ): Prisma__PostMediaClient<
+      $Result.GetResult<
+        Prisma.$PostMediaPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one PostMedia.
+     * @param {PostMediaUpdateArgs} args - Arguments to update one PostMedia.
+     * @example
+     * // Update one PostMedia
+     * const postMedia = await prisma.postMedia.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends PostMediaUpdateArgs>(
+      args: SelectSubset<T, PostMediaUpdateArgs<ExtArgs>>,
+    ): Prisma__PostMediaClient<
+      $Result.GetResult<
+        Prisma.$PostMediaPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more PostMedias.
+     * @param {PostMediaDeleteManyArgs} args - Arguments to filter PostMedias to delete.
+     * @example
+     * // Delete a few PostMedias
+     * const { count } = await prisma.postMedia.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends PostMediaDeleteManyArgs>(
+      args?: SelectSubset<T, PostMediaDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more PostMedias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostMediaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostMedias
+     * const postMedia = await prisma.postMedia.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends PostMediaUpdateManyArgs>(
+      args: SelectSubset<T, PostMediaUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more PostMedias and returns the data updated in the database.
+     * @param {PostMediaUpdateManyAndReturnArgs} args - Arguments to update many PostMedias.
+     * @example
+     * // Update many PostMedias
+     * const postMedia = await prisma.postMedia.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more PostMedias and only return the `id`
+     * const postMediaWithIdOnly = await prisma.postMedia.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends PostMediaUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, PostMediaUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PostMediaPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create or update one PostMedia.
+     * @param {PostMediaUpsertArgs} args - Arguments to update or create a PostMedia.
+     * @example
+     * // Update or create a PostMedia
+     * const postMedia = await prisma.postMedia.upsert({
+     *   create: {
+     *     // ... data to create a PostMedia
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostMedia we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostMediaUpsertArgs>(
+      args: SelectSubset<T, PostMediaUpsertArgs<ExtArgs>>,
+    ): Prisma__PostMediaClient<
+      $Result.GetResult<
+        Prisma.$PostMediaPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Count the number of PostMedias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostMediaCountArgs} args - Arguments to filter PostMedias to count.
+     * @example
+     * // Count the number of PostMedias
+     * const count = await prisma.postMedia.count({
+     *   where: {
+     *     // ... the filter for the PostMedias we want to count
+     *   }
+     * })
+     **/
+    count<T extends PostMediaCountArgs>(
+      args?: Subset<T, PostMediaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], PostMediaCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a PostMedia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostMediaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends PostMediaAggregateArgs>(
+      args: Subset<T, PostMediaAggregateArgs>,
+    ): Prisma.PrismaPromise<GetPostMediaAggregateType<T>>;
+
+    /**
+     * Group by PostMedia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostMediaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends PostMediaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostMediaGroupByArgs["orderBy"] }
+        : { orderBy?: PostMediaGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, PostMediaGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetPostMediaGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the PostMedia model
+     */
+    readonly fields: PostMediaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostMedia.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostMediaClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, PostDefaultArgs<ExtArgs>>,
+    ): Prisma__PostClient<
+      | $Result.GetResult<
+          Prisma.$PostPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the PostMedia model
+   */
+  interface PostMediaFieldRefs {
+    readonly id: FieldRef<"PostMedia", "String">;
+    readonly postId: FieldRef<"PostMedia", "String">;
+    readonly type: FieldRef<"PostMedia", "MediaType">;
+    readonly url: FieldRef<"PostMedia", "String">;
+    readonly publicId: FieldRef<"PostMedia", "String">;
+    readonly filename: FieldRef<"PostMedia", "String">;
+    readonly size: FieldRef<"PostMedia", "Int">;
+    readonly duration: FieldRef<"PostMedia", "Int">;
+    readonly createdAt: FieldRef<"PostMedia", "DateTime">;
+  }
+
+  // Custom InputTypes
+  /**
+   * PostMedia findUnique
+   */
+  export type PostMediaFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostMedia to fetch.
+     */
+    where: PostMediaWhereUniqueInput;
+  };
+
+  /**
+   * PostMedia findUniqueOrThrow
+   */
+  export type PostMediaFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostMedia to fetch.
+     */
+    where: PostMediaWhereUniqueInput;
+  };
+
+  /**
+   * PostMedia findFirst
+   */
+  export type PostMediaFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostMedia to fetch.
+     */
+    where?: PostMediaWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostMedias to fetch.
+     */
+    orderBy?:
+      | PostMediaOrderByWithRelationInput
+      | PostMediaOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PostMedias.
+     */
+    cursor?: PostMediaWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostMedias from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostMedias.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PostMedias.
+     */
+    distinct?: PostMediaScalarFieldEnum | PostMediaScalarFieldEnum[];
+  };
+
+  /**
+   * PostMedia findFirstOrThrow
+   */
+  export type PostMediaFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostMedia to fetch.
+     */
+    where?: PostMediaWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostMedias to fetch.
+     */
+    orderBy?:
+      | PostMediaOrderByWithRelationInput
+      | PostMediaOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PostMedias.
+     */
+    cursor?: PostMediaWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostMedias from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostMedias.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PostMedias.
+     */
+    distinct?: PostMediaScalarFieldEnum | PostMediaScalarFieldEnum[];
+  };
+
+  /**
+   * PostMedia findMany
+   */
+  export type PostMediaFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostMedias to fetch.
+     */
+    where?: PostMediaWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostMedias to fetch.
+     */
+    orderBy?:
+      | PostMediaOrderByWithRelationInput
+      | PostMediaOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing PostMedias.
+     */
+    cursor?: PostMediaWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostMedias from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostMedias.
+     */
+    skip?: number;
+    distinct?: PostMediaScalarFieldEnum | PostMediaScalarFieldEnum[];
+  };
+
+  /**
+   * PostMedia create
+   */
+  export type PostMediaCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a PostMedia.
+     */
+    data: XOR<PostMediaCreateInput, PostMediaUncheckedCreateInput>;
+  };
+
+  /**
+   * PostMedia createMany
+   */
+  export type PostMediaCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many PostMedias.
+     */
+    data: PostMediaCreateManyInput | PostMediaCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * PostMedia createManyAndReturn
+   */
+  export type PostMediaCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * The data used to create many PostMedias.
+     */
+    data: PostMediaCreateManyInput | PostMediaCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * PostMedia update
+   */
+  export type PostMediaUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a PostMedia.
+     */
+    data: XOR<PostMediaUpdateInput, PostMediaUncheckedUpdateInput>;
+    /**
+     * Choose, which PostMedia to update.
+     */
+    where: PostMediaWhereUniqueInput;
+  };
+
+  /**
+   * PostMedia updateMany
+   */
+  export type PostMediaUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update PostMedias.
+     */
+    data: XOR<
+      PostMediaUpdateManyMutationInput,
+      PostMediaUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which PostMedias to update
+     */
+    where?: PostMediaWhereInput;
+    /**
+     * Limit how many PostMedias to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * PostMedia updateManyAndReturn
+   */
+  export type PostMediaUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * The data used to update PostMedias.
+     */
+    data: XOR<
+      PostMediaUpdateManyMutationInput,
+      PostMediaUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which PostMedias to update
+     */
+    where?: PostMediaWhereInput;
+    /**
+     * Limit how many PostMedias to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * PostMedia upsert
+   */
+  export type PostMediaUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the PostMedia to update in case it exists.
+     */
+    where: PostMediaWhereUniqueInput;
+    /**
+     * In case the PostMedia found by the `where` argument doesn't exist, create a new PostMedia with this data.
+     */
+    create: XOR<PostMediaCreateInput, PostMediaUncheckedCreateInput>;
+    /**
+     * In case the PostMedia was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostMediaUpdateInput, PostMediaUncheckedUpdateInput>;
+  };
+
+  /**
+   * PostMedia delete
+   */
+  export type PostMediaDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaInclude<ExtArgs> | null;
+    /**
+     * Filter which PostMedia to delete.
+     */
+    where: PostMediaWhereUniqueInput;
+  };
+
+  /**
+   * PostMedia deleteMany
+   */
+  export type PostMediaDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which PostMedias to delete
+     */
+    where?: PostMediaWhereInput;
+    /**
+     * Limit how many PostMedias to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * PostMedia without action
+   */
+  export type PostMediaDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostMedia
+     */
+    select?: PostMediaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostMedia
+     */
+    omit?: PostMediaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostMediaInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model PostCollaborator
+   */
+
+  export type AggregatePostCollaborator = {
+    _count: PostCollaboratorCountAggregateOutputType | null;
+    _min: PostCollaboratorMinAggregateOutputType | null;
+    _max: PostCollaboratorMaxAggregateOutputType | null;
+  };
+
+  export type PostCollaboratorMinAggregateOutputType = {
+    id: string | null;
+    postId: string | null;
+    userId: string | null;
+    role: $Enums.CollaboratorRole | null;
+    addedAt: Date | null;
+  };
+
+  export type PostCollaboratorMaxAggregateOutputType = {
+    id: string | null;
+    postId: string | null;
+    userId: string | null;
+    role: $Enums.CollaboratorRole | null;
+    addedAt: Date | null;
+  };
+
+  export type PostCollaboratorCountAggregateOutputType = {
+    id: number;
+    postId: number;
+    userId: number;
+    role: number;
+    addedAt: number;
+    _all: number;
+  };
+
+  export type PostCollaboratorMinAggregateInputType = {
+    id?: true;
+    postId?: true;
+    userId?: true;
+    role?: true;
+    addedAt?: true;
+  };
+
+  export type PostCollaboratorMaxAggregateInputType = {
+    id?: true;
+    postId?: true;
+    userId?: true;
+    role?: true;
+    addedAt?: true;
+  };
+
+  export type PostCollaboratorCountAggregateInputType = {
+    id?: true;
+    postId?: true;
+    userId?: true;
+    role?: true;
+    addedAt?: true;
+    _all?: true;
+  };
+
+  export type PostCollaboratorAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which PostCollaborator to aggregate.
+     */
+    where?: PostCollaboratorWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostCollaborators to fetch.
+     */
+    orderBy?:
+      | PostCollaboratorOrderByWithRelationInput
+      | PostCollaboratorOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: PostCollaboratorWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostCollaborators from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostCollaborators.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned PostCollaborators
+     **/
+    _count?: true | PostCollaboratorCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: PostCollaboratorMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: PostCollaboratorMaxAggregateInputType;
+  };
+
+  export type GetPostCollaboratorAggregateType<
+    T extends PostCollaboratorAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregatePostCollaborator]: P extends
+      | "_count"
+      | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostCollaborator[P]>
+      : GetScalarType<T[P], AggregatePostCollaborator[P]>;
+  };
+
+  export type PostCollaboratorGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PostCollaboratorWhereInput;
+    orderBy?:
+      | PostCollaboratorOrderByWithAggregationInput
+      | PostCollaboratorOrderByWithAggregationInput[];
+    by: PostCollaboratorScalarFieldEnum[] | PostCollaboratorScalarFieldEnum;
+    having?: PostCollaboratorScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: PostCollaboratorCountAggregateInputType | true;
+    _min?: PostCollaboratorMinAggregateInputType;
+    _max?: PostCollaboratorMaxAggregateInputType;
+  };
+
+  export type PostCollaboratorGroupByOutputType = {
+    id: string;
+    postId: string;
+    userId: string;
+    role: $Enums.CollaboratorRole;
+    addedAt: Date;
+    _count: PostCollaboratorCountAggregateOutputType | null;
+    _min: PostCollaboratorMinAggregateOutputType | null;
+    _max: PostCollaboratorMaxAggregateOutputType | null;
+  };
+
+  type GetPostCollaboratorGroupByPayload<
+    T extends PostCollaboratorGroupByArgs,
+  > = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PostCollaboratorGroupByOutputType, T["by"]> & {
+        [P in keyof T &
+          keyof PostCollaboratorGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
+            : GetScalarType<T[P], PostCollaboratorGroupByOutputType[P]>
+          : GetScalarType<T[P], PostCollaboratorGroupByOutputType[P]>;
+      }
+    >
+  >;
+
+  export type PostCollaboratorSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      userId?: boolean;
+      role?: boolean;
+      addedAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["postCollaborator"]
+  >;
+
+  export type PostCollaboratorSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      userId?: boolean;
+      role?: boolean;
+      addedAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["postCollaborator"]
+  >;
+
+  export type PostCollaboratorSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      userId?: boolean;
+      role?: boolean;
+      addedAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["postCollaborator"]
+  >;
+
+  export type PostCollaboratorSelectScalar = {
+    id?: boolean;
+    postId?: boolean;
+    userId?: boolean;
+    role?: boolean;
+    addedAt?: boolean;
+  };
+
+  export type PostCollaboratorOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    "id" | "postId" | "userId" | "role" | "addedAt",
+    ExtArgs["result"]["postCollaborator"]
+  >;
+  export type PostCollaboratorInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type PostCollaboratorIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type PostCollaboratorIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+
+  export type $PostCollaboratorPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "PostCollaborator";
+    objects: {
+      post: Prisma.$PostPayload<ExtArgs>;
+      user: Prisma.$UserPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        postId: string;
+        userId: string;
+        role: $Enums.CollaboratorRole;
+        addedAt: Date;
+      },
+      ExtArgs["result"]["postCollaborator"]
+    >;
+    composites: {};
+  };
+
+  type PostCollaboratorGetPayload<
+    S extends boolean | null | undefined | PostCollaboratorDefaultArgs,
+  > = $Result.GetResult<Prisma.$PostCollaboratorPayload, S>;
+
+  type PostCollaboratorCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    PostCollaboratorFindManyArgs,
+    "select" | "include" | "distinct" | "omit"
+  > & {
+    select?: PostCollaboratorCountAggregateInputType | true;
+  };
+
+  export interface PostCollaboratorDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["PostCollaborator"];
+      meta: { name: "PostCollaborator" };
+    };
+    /**
+     * Find zero or one PostCollaborator that matches the filter.
+     * @param {PostCollaboratorFindUniqueArgs} args - Arguments to find a PostCollaborator
+     * @example
+     * // Get one PostCollaborator
+     * const postCollaborator = await prisma.postCollaborator.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostCollaboratorFindUniqueArgs>(
+      args: SelectSubset<T, PostCollaboratorFindUniqueArgs<ExtArgs>>,
+    ): Prisma__PostCollaboratorClient<
+      $Result.GetResult<
+        Prisma.$PostCollaboratorPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one PostCollaborator that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PostCollaboratorFindUniqueOrThrowArgs} args - Arguments to find a PostCollaborator
+     * @example
+     * // Get one PostCollaborator
+     * const postCollaborator = await prisma.postCollaborator.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostCollaboratorFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, PostCollaboratorFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__PostCollaboratorClient<
+      $Result.GetResult<
+        Prisma.$PostCollaboratorPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first PostCollaborator that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCollaboratorFindFirstArgs} args - Arguments to find a PostCollaborator
+     * @example
+     * // Get one PostCollaborator
+     * const postCollaborator = await prisma.postCollaborator.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostCollaboratorFindFirstArgs>(
+      args?: SelectSubset<T, PostCollaboratorFindFirstArgs<ExtArgs>>,
+    ): Prisma__PostCollaboratorClient<
+      $Result.GetResult<
+        Prisma.$PostCollaboratorPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first PostCollaborator that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCollaboratorFindFirstOrThrowArgs} args - Arguments to find a PostCollaborator
+     * @example
+     * // Get one PostCollaborator
+     * const postCollaborator = await prisma.postCollaborator.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostCollaboratorFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, PostCollaboratorFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__PostCollaboratorClient<
+      $Result.GetResult<
+        Prisma.$PostCollaboratorPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more PostCollaborators that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCollaboratorFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostCollaborators
+     * const postCollaborators = await prisma.postCollaborator.findMany()
+     *
+     * // Get first 10 PostCollaborators
+     * const postCollaborators = await prisma.postCollaborator.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const postCollaboratorWithIdOnly = await prisma.postCollaborator.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends PostCollaboratorFindManyArgs>(
+      args?: SelectSubset<T, PostCollaboratorFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PostCollaboratorPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a PostCollaborator.
+     * @param {PostCollaboratorCreateArgs} args - Arguments to create a PostCollaborator.
+     * @example
+     * // Create one PostCollaborator
+     * const PostCollaborator = await prisma.postCollaborator.create({
+     *   data: {
+     *     // ... data to create a PostCollaborator
+     *   }
+     * })
+     *
+     */
+    create<T extends PostCollaboratorCreateArgs>(
+      args: SelectSubset<T, PostCollaboratorCreateArgs<ExtArgs>>,
+    ): Prisma__PostCollaboratorClient<
+      $Result.GetResult<
+        Prisma.$PostCollaboratorPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many PostCollaborators.
+     * @param {PostCollaboratorCreateManyArgs} args - Arguments to create many PostCollaborators.
+     * @example
+     * // Create many PostCollaborators
+     * const postCollaborator = await prisma.postCollaborator.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends PostCollaboratorCreateManyArgs>(
+      args?: SelectSubset<T, PostCollaboratorCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many PostCollaborators and returns the data saved in the database.
+     * @param {PostCollaboratorCreateManyAndReturnArgs} args - Arguments to create many PostCollaborators.
+     * @example
+     * // Create many PostCollaborators
+     * const postCollaborator = await prisma.postCollaborator.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many PostCollaborators and only return the `id`
+     * const postCollaboratorWithIdOnly = await prisma.postCollaborator.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends PostCollaboratorCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, PostCollaboratorCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PostCollaboratorPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Delete a PostCollaborator.
+     * @param {PostCollaboratorDeleteArgs} args - Arguments to delete one PostCollaborator.
+     * @example
+     * // Delete one PostCollaborator
+     * const PostCollaborator = await prisma.postCollaborator.delete({
+     *   where: {
+     *     // ... filter to delete one PostCollaborator
+     *   }
+     * })
+     *
+     */
+    delete<T extends PostCollaboratorDeleteArgs>(
+      args: SelectSubset<T, PostCollaboratorDeleteArgs<ExtArgs>>,
+    ): Prisma__PostCollaboratorClient<
+      $Result.GetResult<
+        Prisma.$PostCollaboratorPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one PostCollaborator.
+     * @param {PostCollaboratorUpdateArgs} args - Arguments to update one PostCollaborator.
+     * @example
+     * // Update one PostCollaborator
+     * const postCollaborator = await prisma.postCollaborator.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends PostCollaboratorUpdateArgs>(
+      args: SelectSubset<T, PostCollaboratorUpdateArgs<ExtArgs>>,
+    ): Prisma__PostCollaboratorClient<
+      $Result.GetResult<
+        Prisma.$PostCollaboratorPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more PostCollaborators.
+     * @param {PostCollaboratorDeleteManyArgs} args - Arguments to filter PostCollaborators to delete.
+     * @example
+     * // Delete a few PostCollaborators
+     * const { count } = await prisma.postCollaborator.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends PostCollaboratorDeleteManyArgs>(
+      args?: SelectSubset<T, PostCollaboratorDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more PostCollaborators.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCollaboratorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostCollaborators
+     * const postCollaborator = await prisma.postCollaborator.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends PostCollaboratorUpdateManyArgs>(
+      args: SelectSubset<T, PostCollaboratorUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more PostCollaborators and returns the data updated in the database.
+     * @param {PostCollaboratorUpdateManyAndReturnArgs} args - Arguments to update many PostCollaborators.
+     * @example
+     * // Update many PostCollaborators
+     * const postCollaborator = await prisma.postCollaborator.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more PostCollaborators and only return the `id`
+     * const postCollaboratorWithIdOnly = await prisma.postCollaborator.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends PostCollaboratorUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, PostCollaboratorUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PostCollaboratorPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create or update one PostCollaborator.
+     * @param {PostCollaboratorUpsertArgs} args - Arguments to update or create a PostCollaborator.
+     * @example
+     * // Update or create a PostCollaborator
+     * const postCollaborator = await prisma.postCollaborator.upsert({
+     *   create: {
+     *     // ... data to create a PostCollaborator
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostCollaborator we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostCollaboratorUpsertArgs>(
+      args: SelectSubset<T, PostCollaboratorUpsertArgs<ExtArgs>>,
+    ): Prisma__PostCollaboratorClient<
+      $Result.GetResult<
+        Prisma.$PostCollaboratorPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Count the number of PostCollaborators.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCollaboratorCountArgs} args - Arguments to filter PostCollaborators to count.
+     * @example
+     * // Count the number of PostCollaborators
+     * const count = await prisma.postCollaborator.count({
+     *   where: {
+     *     // ... the filter for the PostCollaborators we want to count
+     *   }
+     * })
+     **/
+    count<T extends PostCollaboratorCountArgs>(
+      args?: Subset<T, PostCollaboratorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], PostCollaboratorCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a PostCollaborator.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCollaboratorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends PostCollaboratorAggregateArgs>(
+      args: Subset<T, PostCollaboratorAggregateArgs>,
+    ): Prisma.PrismaPromise<GetPostCollaboratorAggregateType<T>>;
+
+    /**
+     * Group by PostCollaborator.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCollaboratorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends PostCollaboratorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostCollaboratorGroupByArgs["orderBy"] }
+        : { orderBy?: PostCollaboratorGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, PostCollaboratorGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetPostCollaboratorGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the PostCollaborator model
+     */
+    readonly fields: PostCollaboratorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostCollaborator.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostCollaboratorClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, PostDefaultArgs<ExtArgs>>,
+    ): Prisma__PostClient<
+      | $Result.GetResult<
+          Prisma.$PostPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the PostCollaborator model
+   */
+  interface PostCollaboratorFieldRefs {
+    readonly id: FieldRef<"PostCollaborator", "String">;
+    readonly postId: FieldRef<"PostCollaborator", "String">;
+    readonly userId: FieldRef<"PostCollaborator", "String">;
+    readonly role: FieldRef<"PostCollaborator", "CollaboratorRole">;
+    readonly addedAt: FieldRef<"PostCollaborator", "DateTime">;
+  }
+
+  // Custom InputTypes
+  /**
+   * PostCollaborator findUnique
+   */
+  export type PostCollaboratorFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostCollaborator to fetch.
+     */
+    where: PostCollaboratorWhereUniqueInput;
+  };
+
+  /**
+   * PostCollaborator findUniqueOrThrow
+   */
+  export type PostCollaboratorFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostCollaborator to fetch.
+     */
+    where: PostCollaboratorWhereUniqueInput;
+  };
+
+  /**
+   * PostCollaborator findFirst
+   */
+  export type PostCollaboratorFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostCollaborator to fetch.
+     */
+    where?: PostCollaboratorWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostCollaborators to fetch.
+     */
+    orderBy?:
+      | PostCollaboratorOrderByWithRelationInput
+      | PostCollaboratorOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PostCollaborators.
+     */
+    cursor?: PostCollaboratorWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostCollaborators from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostCollaborators.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PostCollaborators.
+     */
+    distinct?:
+      | PostCollaboratorScalarFieldEnum
+      | PostCollaboratorScalarFieldEnum[];
+  };
+
+  /**
+   * PostCollaborator findFirstOrThrow
+   */
+  export type PostCollaboratorFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostCollaborator to fetch.
+     */
+    where?: PostCollaboratorWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostCollaborators to fetch.
+     */
+    orderBy?:
+      | PostCollaboratorOrderByWithRelationInput
+      | PostCollaboratorOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PostCollaborators.
+     */
+    cursor?: PostCollaboratorWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostCollaborators from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostCollaborators.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PostCollaborators.
+     */
+    distinct?:
+      | PostCollaboratorScalarFieldEnum
+      | PostCollaboratorScalarFieldEnum[];
+  };
+
+  /**
+   * PostCollaborator findMany
+   */
+  export type PostCollaboratorFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostCollaborators to fetch.
+     */
+    where?: PostCollaboratorWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostCollaborators to fetch.
+     */
+    orderBy?:
+      | PostCollaboratorOrderByWithRelationInput
+      | PostCollaboratorOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing PostCollaborators.
+     */
+    cursor?: PostCollaboratorWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostCollaborators from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostCollaborators.
+     */
+    skip?: number;
+    distinct?:
+      | PostCollaboratorScalarFieldEnum
+      | PostCollaboratorScalarFieldEnum[];
+  };
+
+  /**
+   * PostCollaborator create
+   */
+  export type PostCollaboratorCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a PostCollaborator.
+     */
+    data: XOR<
+      PostCollaboratorCreateInput,
+      PostCollaboratorUncheckedCreateInput
+    >;
+  };
+
+  /**
+   * PostCollaborator createMany
+   */
+  export type PostCollaboratorCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many PostCollaborators.
+     */
+    data: PostCollaboratorCreateManyInput | PostCollaboratorCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * PostCollaborator createManyAndReturn
+   */
+  export type PostCollaboratorCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * The data used to create many PostCollaborators.
+     */
+    data: PostCollaboratorCreateManyInput | PostCollaboratorCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * PostCollaborator update
+   */
+  export type PostCollaboratorUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a PostCollaborator.
+     */
+    data: XOR<
+      PostCollaboratorUpdateInput,
+      PostCollaboratorUncheckedUpdateInput
+    >;
+    /**
+     * Choose, which PostCollaborator to update.
+     */
+    where: PostCollaboratorWhereUniqueInput;
+  };
+
+  /**
+   * PostCollaborator updateMany
+   */
+  export type PostCollaboratorUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update PostCollaborators.
+     */
+    data: XOR<
+      PostCollaboratorUpdateManyMutationInput,
+      PostCollaboratorUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which PostCollaborators to update
+     */
+    where?: PostCollaboratorWhereInput;
+    /**
+     * Limit how many PostCollaborators to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * PostCollaborator updateManyAndReturn
+   */
+  export type PostCollaboratorUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * The data used to update PostCollaborators.
+     */
+    data: XOR<
+      PostCollaboratorUpdateManyMutationInput,
+      PostCollaboratorUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which PostCollaborators to update
+     */
+    where?: PostCollaboratorWhereInput;
+    /**
+     * Limit how many PostCollaborators to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * PostCollaborator upsert
+   */
+  export type PostCollaboratorUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the PostCollaborator to update in case it exists.
+     */
+    where: PostCollaboratorWhereUniqueInput;
+    /**
+     * In case the PostCollaborator found by the `where` argument doesn't exist, create a new PostCollaborator with this data.
+     */
+    create: XOR<
+      PostCollaboratorCreateInput,
+      PostCollaboratorUncheckedCreateInput
+    >;
+    /**
+     * In case the PostCollaborator was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<
+      PostCollaboratorUpdateInput,
+      PostCollaboratorUncheckedUpdateInput
+    >;
+  };
+
+  /**
+   * PostCollaborator delete
+   */
+  export type PostCollaboratorDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+    /**
+     * Filter which PostCollaborator to delete.
+     */
+    where: PostCollaboratorWhereUniqueInput;
+  };
+
+  /**
+   * PostCollaborator deleteMany
+   */
+  export type PostCollaboratorDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which PostCollaborators to delete
+     */
+    where?: PostCollaboratorWhereInput;
+    /**
+     * Limit how many PostCollaborators to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * PostCollaborator without action
+   */
+  export type PostCollaboratorDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostCollaborator
+     */
+    select?: PostCollaboratorSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostCollaborator
+     */
+    omit?: PostCollaboratorOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostCollaboratorInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model PostReaction
+   */
+
+  export type AggregatePostReaction = {
+    _count: PostReactionCountAggregateOutputType | null;
+    _min: PostReactionMinAggregateOutputType | null;
+    _max: PostReactionMaxAggregateOutputType | null;
+  };
+
+  export type PostReactionMinAggregateOutputType = {
+    id: string | null;
+    postId: string | null;
+    userId: string | null;
+    type: $Enums.ReactionType | null;
+    createdAt: Date | null;
+  };
+
+  export type PostReactionMaxAggregateOutputType = {
+    id: string | null;
+    postId: string | null;
+    userId: string | null;
+    type: $Enums.ReactionType | null;
+    createdAt: Date | null;
+  };
+
+  export type PostReactionCountAggregateOutputType = {
+    id: number;
+    postId: number;
+    userId: number;
+    type: number;
+    createdAt: number;
+    _all: number;
+  };
+
+  export type PostReactionMinAggregateInputType = {
+    id?: true;
+    postId?: true;
+    userId?: true;
+    type?: true;
+    createdAt?: true;
+  };
+
+  export type PostReactionMaxAggregateInputType = {
+    id?: true;
+    postId?: true;
+    userId?: true;
+    type?: true;
+    createdAt?: true;
+  };
+
+  export type PostReactionCountAggregateInputType = {
+    id?: true;
+    postId?: true;
+    userId?: true;
+    type?: true;
+    createdAt?: true;
+    _all?: true;
+  };
+
+  export type PostReactionAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which PostReaction to aggregate.
+     */
+    where?: PostReactionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostReactions to fetch.
+     */
+    orderBy?:
+      | PostReactionOrderByWithRelationInput
+      | PostReactionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: PostReactionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostReactions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostReactions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned PostReactions
+     **/
+    _count?: true | PostReactionCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: PostReactionMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: PostReactionMaxAggregateInputType;
+  };
+
+  export type GetPostReactionAggregateType<
+    T extends PostReactionAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregatePostReaction]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostReaction[P]>
+      : GetScalarType<T[P], AggregatePostReaction[P]>;
+  };
+
+  export type PostReactionGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: PostReactionWhereInput;
+    orderBy?:
+      | PostReactionOrderByWithAggregationInput
+      | PostReactionOrderByWithAggregationInput[];
+    by: PostReactionScalarFieldEnum[] | PostReactionScalarFieldEnum;
+    having?: PostReactionScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: PostReactionCountAggregateInputType | true;
+    _min?: PostReactionMinAggregateInputType;
+    _max?: PostReactionMaxAggregateInputType;
+  };
+
+  export type PostReactionGroupByOutputType = {
+    id: string;
+    postId: string;
+    userId: string;
+    type: $Enums.ReactionType;
+    createdAt: Date;
+    _count: PostReactionCountAggregateOutputType | null;
+    _min: PostReactionMinAggregateOutputType | null;
+    _max: PostReactionMaxAggregateOutputType | null;
+  };
+
+  type GetPostReactionGroupByPayload<T extends PostReactionGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<PostReactionGroupByOutputType, T["by"]> & {
+          [P in keyof T &
+            keyof PostReactionGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostReactionGroupByOutputType[P]>
+            : GetScalarType<T[P], PostReactionGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type PostReactionSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      userId?: boolean;
+      type?: boolean;
+      createdAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["postReaction"]
+  >;
+
+  export type PostReactionSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      userId?: boolean;
+      type?: boolean;
+      createdAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["postReaction"]
+  >;
+
+  export type PostReactionSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      userId?: boolean;
+      type?: boolean;
+      createdAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["postReaction"]
+  >;
+
+  export type PostReactionSelectScalar = {
+    id?: boolean;
+    postId?: boolean;
+    userId?: boolean;
+    type?: boolean;
+    createdAt?: boolean;
+  };
+
+  export type PostReactionOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    "id" | "postId" | "userId" | "type" | "createdAt",
+    ExtArgs["result"]["postReaction"]
+  >;
+  export type PostReactionInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type PostReactionIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type PostReactionIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+
+  export type $PostReactionPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "PostReaction";
+    objects: {
+      post: Prisma.$PostPayload<ExtArgs>;
+      user: Prisma.$UserPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        postId: string;
+        userId: string;
+        type: $Enums.ReactionType;
+        createdAt: Date;
+      },
+      ExtArgs["result"]["postReaction"]
+    >;
+    composites: {};
+  };
+
+  type PostReactionGetPayload<
+    S extends boolean | null | undefined | PostReactionDefaultArgs,
+  > = $Result.GetResult<Prisma.$PostReactionPayload, S>;
+
+  type PostReactionCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    PostReactionFindManyArgs,
+    "select" | "include" | "distinct" | "omit"
+  > & {
+    select?: PostReactionCountAggregateInputType | true;
+  };
+
+  export interface PostReactionDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["PostReaction"];
+      meta: { name: "PostReaction" };
+    };
+    /**
+     * Find zero or one PostReaction that matches the filter.
+     * @param {PostReactionFindUniqueArgs} args - Arguments to find a PostReaction
+     * @example
+     * // Get one PostReaction
+     * const postReaction = await prisma.postReaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostReactionFindUniqueArgs>(
+      args: SelectSubset<T, PostReactionFindUniqueArgs<ExtArgs>>,
+    ): Prisma__PostReactionClient<
+      $Result.GetResult<
+        Prisma.$PostReactionPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one PostReaction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PostReactionFindUniqueOrThrowArgs} args - Arguments to find a PostReaction
+     * @example
+     * // Get one PostReaction
+     * const postReaction = await prisma.postReaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostReactionFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, PostReactionFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__PostReactionClient<
+      $Result.GetResult<
+        Prisma.$PostReactionPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first PostReaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostReactionFindFirstArgs} args - Arguments to find a PostReaction
+     * @example
+     * // Get one PostReaction
+     * const postReaction = await prisma.postReaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostReactionFindFirstArgs>(
+      args?: SelectSubset<T, PostReactionFindFirstArgs<ExtArgs>>,
+    ): Prisma__PostReactionClient<
+      $Result.GetResult<
+        Prisma.$PostReactionPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first PostReaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostReactionFindFirstOrThrowArgs} args - Arguments to find a PostReaction
+     * @example
+     * // Get one PostReaction
+     * const postReaction = await prisma.postReaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostReactionFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, PostReactionFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__PostReactionClient<
+      $Result.GetResult<
+        Prisma.$PostReactionPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more PostReactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostReactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostReactions
+     * const postReactions = await prisma.postReaction.findMany()
+     *
+     * // Get first 10 PostReactions
+     * const postReactions = await prisma.postReaction.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const postReactionWithIdOnly = await prisma.postReaction.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends PostReactionFindManyArgs>(
+      args?: SelectSubset<T, PostReactionFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PostReactionPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a PostReaction.
+     * @param {PostReactionCreateArgs} args - Arguments to create a PostReaction.
+     * @example
+     * // Create one PostReaction
+     * const PostReaction = await prisma.postReaction.create({
+     *   data: {
+     *     // ... data to create a PostReaction
+     *   }
+     * })
+     *
+     */
+    create<T extends PostReactionCreateArgs>(
+      args: SelectSubset<T, PostReactionCreateArgs<ExtArgs>>,
+    ): Prisma__PostReactionClient<
+      $Result.GetResult<
+        Prisma.$PostReactionPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many PostReactions.
+     * @param {PostReactionCreateManyArgs} args - Arguments to create many PostReactions.
+     * @example
+     * // Create many PostReactions
+     * const postReaction = await prisma.postReaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends PostReactionCreateManyArgs>(
+      args?: SelectSubset<T, PostReactionCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many PostReactions and returns the data saved in the database.
+     * @param {PostReactionCreateManyAndReturnArgs} args - Arguments to create many PostReactions.
+     * @example
+     * // Create many PostReactions
+     * const postReaction = await prisma.postReaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many PostReactions and only return the `id`
+     * const postReactionWithIdOnly = await prisma.postReaction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends PostReactionCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, PostReactionCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PostReactionPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Delete a PostReaction.
+     * @param {PostReactionDeleteArgs} args - Arguments to delete one PostReaction.
+     * @example
+     * // Delete one PostReaction
+     * const PostReaction = await prisma.postReaction.delete({
+     *   where: {
+     *     // ... filter to delete one PostReaction
+     *   }
+     * })
+     *
+     */
+    delete<T extends PostReactionDeleteArgs>(
+      args: SelectSubset<T, PostReactionDeleteArgs<ExtArgs>>,
+    ): Prisma__PostReactionClient<
+      $Result.GetResult<
+        Prisma.$PostReactionPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one PostReaction.
+     * @param {PostReactionUpdateArgs} args - Arguments to update one PostReaction.
+     * @example
+     * // Update one PostReaction
+     * const postReaction = await prisma.postReaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends PostReactionUpdateArgs>(
+      args: SelectSubset<T, PostReactionUpdateArgs<ExtArgs>>,
+    ): Prisma__PostReactionClient<
+      $Result.GetResult<
+        Prisma.$PostReactionPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more PostReactions.
+     * @param {PostReactionDeleteManyArgs} args - Arguments to filter PostReactions to delete.
+     * @example
+     * // Delete a few PostReactions
+     * const { count } = await prisma.postReaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends PostReactionDeleteManyArgs>(
+      args?: SelectSubset<T, PostReactionDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more PostReactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostReactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostReactions
+     * const postReaction = await prisma.postReaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends PostReactionUpdateManyArgs>(
+      args: SelectSubset<T, PostReactionUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more PostReactions and returns the data updated in the database.
+     * @param {PostReactionUpdateManyAndReturnArgs} args - Arguments to update many PostReactions.
+     * @example
+     * // Update many PostReactions
+     * const postReaction = await prisma.postReaction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more PostReactions and only return the `id`
+     * const postReactionWithIdOnly = await prisma.postReaction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends PostReactionUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, PostReactionUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$PostReactionPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create or update one PostReaction.
+     * @param {PostReactionUpsertArgs} args - Arguments to update or create a PostReaction.
+     * @example
+     * // Update or create a PostReaction
+     * const postReaction = await prisma.postReaction.upsert({
+     *   create: {
+     *     // ... data to create a PostReaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostReaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostReactionUpsertArgs>(
+      args: SelectSubset<T, PostReactionUpsertArgs<ExtArgs>>,
+    ): Prisma__PostReactionClient<
+      $Result.GetResult<
+        Prisma.$PostReactionPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Count the number of PostReactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostReactionCountArgs} args - Arguments to filter PostReactions to count.
+     * @example
+     * // Count the number of PostReactions
+     * const count = await prisma.postReaction.count({
+     *   where: {
+     *     // ... the filter for the PostReactions we want to count
+     *   }
+     * })
+     **/
+    count<T extends PostReactionCountArgs>(
+      args?: Subset<T, PostReactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], PostReactionCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a PostReaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostReactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends PostReactionAggregateArgs>(
+      args: Subset<T, PostReactionAggregateArgs>,
+    ): Prisma.PrismaPromise<GetPostReactionAggregateType<T>>;
+
+    /**
+     * Group by PostReaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostReactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends PostReactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostReactionGroupByArgs["orderBy"] }
+        : { orderBy?: PostReactionGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, PostReactionGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetPostReactionGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the PostReaction model
+     */
+    readonly fields: PostReactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostReaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostReactionClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, PostDefaultArgs<ExtArgs>>,
+    ): Prisma__PostClient<
+      | $Result.GetResult<
+          Prisma.$PostPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the PostReaction model
+   */
+  interface PostReactionFieldRefs {
+    readonly id: FieldRef<"PostReaction", "String">;
+    readonly postId: FieldRef<"PostReaction", "String">;
+    readonly userId: FieldRef<"PostReaction", "String">;
+    readonly type: FieldRef<"PostReaction", "ReactionType">;
+    readonly createdAt: FieldRef<"PostReaction", "DateTime">;
+  }
+
+  // Custom InputTypes
+  /**
+   * PostReaction findUnique
+   */
+  export type PostReactionFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostReaction to fetch.
+     */
+    where: PostReactionWhereUniqueInput;
+  };
+
+  /**
+   * PostReaction findUniqueOrThrow
+   */
+  export type PostReactionFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostReaction to fetch.
+     */
+    where: PostReactionWhereUniqueInput;
+  };
+
+  /**
+   * PostReaction findFirst
+   */
+  export type PostReactionFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostReaction to fetch.
+     */
+    where?: PostReactionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostReactions to fetch.
+     */
+    orderBy?:
+      | PostReactionOrderByWithRelationInput
+      | PostReactionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PostReactions.
+     */
+    cursor?: PostReactionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostReactions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostReactions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PostReactions.
+     */
+    distinct?: PostReactionScalarFieldEnum | PostReactionScalarFieldEnum[];
+  };
+
+  /**
+   * PostReaction findFirstOrThrow
+   */
+  export type PostReactionFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostReaction to fetch.
+     */
+    where?: PostReactionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostReactions to fetch.
+     */
+    orderBy?:
+      | PostReactionOrderByWithRelationInput
+      | PostReactionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PostReactions.
+     */
+    cursor?: PostReactionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostReactions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostReactions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PostReactions.
+     */
+    distinct?: PostReactionScalarFieldEnum | PostReactionScalarFieldEnum[];
+  };
+
+  /**
+   * PostReaction findMany
+   */
+  export type PostReactionFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+    /**
+     * Filter, which PostReactions to fetch.
+     */
+    where?: PostReactionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PostReactions to fetch.
+     */
+    orderBy?:
+      | PostReactionOrderByWithRelationInput
+      | PostReactionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing PostReactions.
+     */
+    cursor?: PostReactionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PostReactions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PostReactions.
+     */
+    skip?: number;
+    distinct?: PostReactionScalarFieldEnum | PostReactionScalarFieldEnum[];
+  };
+
+  /**
+   * PostReaction create
+   */
+  export type PostReactionCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a PostReaction.
+     */
+    data: XOR<PostReactionCreateInput, PostReactionUncheckedCreateInput>;
+  };
+
+  /**
+   * PostReaction createMany
+   */
+  export type PostReactionCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many PostReactions.
+     */
+    data: PostReactionCreateManyInput | PostReactionCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * PostReaction createManyAndReturn
+   */
+  export type PostReactionCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * The data used to create many PostReactions.
+     */
+    data: PostReactionCreateManyInput | PostReactionCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * PostReaction update
+   */
+  export type PostReactionUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a PostReaction.
+     */
+    data: XOR<PostReactionUpdateInput, PostReactionUncheckedUpdateInput>;
+    /**
+     * Choose, which PostReaction to update.
+     */
+    where: PostReactionWhereUniqueInput;
+  };
+
+  /**
+   * PostReaction updateMany
+   */
+  export type PostReactionUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update PostReactions.
+     */
+    data: XOR<
+      PostReactionUpdateManyMutationInput,
+      PostReactionUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which PostReactions to update
+     */
+    where?: PostReactionWhereInput;
+    /**
+     * Limit how many PostReactions to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * PostReaction updateManyAndReturn
+   */
+  export type PostReactionUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * The data used to update PostReactions.
+     */
+    data: XOR<
+      PostReactionUpdateManyMutationInput,
+      PostReactionUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which PostReactions to update
+     */
+    where?: PostReactionWhereInput;
+    /**
+     * Limit how many PostReactions to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * PostReaction upsert
+   */
+  export type PostReactionUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the PostReaction to update in case it exists.
+     */
+    where: PostReactionWhereUniqueInput;
+    /**
+     * In case the PostReaction found by the `where` argument doesn't exist, create a new PostReaction with this data.
+     */
+    create: XOR<PostReactionCreateInput, PostReactionUncheckedCreateInput>;
+    /**
+     * In case the PostReaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostReactionUpdateInput, PostReactionUncheckedUpdateInput>;
+  };
+
+  /**
+   * PostReaction delete
+   */
+  export type PostReactionDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+    /**
+     * Filter which PostReaction to delete.
+     */
+    where: PostReactionWhereUniqueInput;
+  };
+
+  /**
+   * PostReaction deleteMany
+   */
+  export type PostReactionDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which PostReactions to delete
+     */
+    where?: PostReactionWhereInput;
+    /**
+     * Limit how many PostReactions to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * PostReaction without action
+   */
+  export type PostReactionDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the PostReaction
+     */
+    select?: PostReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PostReaction
+     */
+    omit?: PostReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostReactionInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model Comment
+   */
+
+  export type AggregateComment = {
+    _count: CommentCountAggregateOutputType | null;
+    _min: CommentMinAggregateOutputType | null;
+    _max: CommentMaxAggregateOutputType | null;
+  };
+
+  export type CommentMinAggregateOutputType = {
+    id: string | null;
+    postId: string | null;
+    userId: string | null;
+    content: string | null;
+    parentId: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type CommentMaxAggregateOutputType = {
+    id: string | null;
+    postId: string | null;
+    userId: string | null;
+    content: string | null;
+    parentId: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+  };
+
+  export type CommentCountAggregateOutputType = {
+    id: number;
+    postId: number;
+    userId: number;
+    content: number;
+    parentId: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+  };
+
+  export type CommentMinAggregateInputType = {
+    id?: true;
+    postId?: true;
+    userId?: true;
+    content?: true;
+    parentId?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type CommentMaxAggregateInputType = {
+    id?: true;
+    postId?: true;
+    userId?: true;
+    content?: true;
+    parentId?: true;
+    createdAt?: true;
+    updatedAt?: true;
+  };
+
+  export type CommentCountAggregateInputType = {
+    id?: true;
+    postId?: true;
+    userId?: true;
+    content?: true;
+    parentId?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+  };
+
+  export type CommentAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Comment to aggregate.
+     */
+    where?: CommentWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?:
+      | CommentOrderByWithRelationInput
+      | CommentOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: CommentWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Comments.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned Comments
+     **/
+    _count?: true | CommentCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: CommentMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: CommentMaxAggregateInputType;
+  };
+
+  export type GetCommentAggregateType<T extends CommentAggregateArgs> = {
+    [P in keyof T & keyof AggregateComment]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateComment[P]>
+      : GetScalarType<T[P], AggregateComment[P]>;
+  };
+
+  export type CommentGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: CommentWhereInput;
+    orderBy?:
+      | CommentOrderByWithAggregationInput
+      | CommentOrderByWithAggregationInput[];
+    by: CommentScalarFieldEnum[] | CommentScalarFieldEnum;
+    having?: CommentScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: CommentCountAggregateInputType | true;
+    _min?: CommentMinAggregateInputType;
+    _max?: CommentMaxAggregateInputType;
+  };
+
+  export type CommentGroupByOutputType = {
+    id: string;
+    postId: string;
+    userId: string;
+    content: string;
+    parentId: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: CommentCountAggregateOutputType | null;
+    _min: CommentMinAggregateOutputType | null;
+    _max: CommentMaxAggregateOutputType | null;
+  };
+
+  type GetCommentGroupByPayload<T extends CommentGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<CommentGroupByOutputType, T["by"]> & {
+          [P in keyof T & keyof CommentGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommentGroupByOutputType[P]>
+            : GetScalarType<T[P], CommentGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type CommentSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      userId?: boolean;
+      content?: boolean;
+      parentId?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      parent?: boolean | Comment$parentArgs<ExtArgs>;
+      replies?: boolean | Comment$repliesArgs<ExtArgs>;
+      mentions?: boolean | Comment$mentionsArgs<ExtArgs>;
+      _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["comment"]
+  >;
+
+  export type CommentSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      userId?: boolean;
+      content?: boolean;
+      parentId?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      parent?: boolean | Comment$parentArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["comment"]
+  >;
+
+  export type CommentSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      userId?: boolean;
+      content?: boolean;
+      parentId?: boolean;
+      createdAt?: boolean;
+      updatedAt?: boolean;
+      post?: boolean | PostDefaultArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+      parent?: boolean | Comment$parentArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["comment"]
+  >;
+
+  export type CommentSelectScalar = {
+    id?: boolean;
+    postId?: boolean;
+    userId?: boolean;
+    content?: boolean;
+    parentId?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+  };
+
+  export type CommentOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    | "id"
+    | "postId"
+    | "userId"
+    | "content"
+    | "parentId"
+    | "createdAt"
+    | "updatedAt",
+    ExtArgs["result"]["comment"]
+  >;
+  export type CommentInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    parent?: boolean | Comment$parentArgs<ExtArgs>;
+    replies?: boolean | Comment$repliesArgs<ExtArgs>;
+    mentions?: boolean | Comment$mentionsArgs<ExtArgs>;
+    _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>;
+  };
+  export type CommentIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    parent?: boolean | Comment$parentArgs<ExtArgs>;
+  };
+  export type CommentIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | PostDefaultArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+    parent?: boolean | Comment$parentArgs<ExtArgs>;
+  };
+
+  export type $CommentPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "Comment";
+    objects: {
+      post: Prisma.$PostPayload<ExtArgs>;
+      user: Prisma.$UserPayload<ExtArgs>;
+      parent: Prisma.$CommentPayload<ExtArgs> | null;
+      replies: Prisma.$CommentPayload<ExtArgs>[];
+      mentions: Prisma.$MentionPayload<ExtArgs>[];
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        postId: string;
+        userId: string;
+        content: string;
+        parentId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+      },
+      ExtArgs["result"]["comment"]
+    >;
+    composites: {};
+  };
+
+  type CommentGetPayload<
+    S extends boolean | null | undefined | CommentDefaultArgs,
+  > = $Result.GetResult<Prisma.$CommentPayload, S>;
+
+  type CommentCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<CommentFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
+    select?: CommentCountAggregateInputType | true;
+  };
+
+  export interface CommentDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["Comment"];
+      meta: { name: "Comment" };
+    };
+    /**
+     * Find zero or one Comment that matches the filter.
+     * @param {CommentFindUniqueArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommentFindUniqueArgs>(
+      args: SelectSubset<T, CommentFindUniqueArgs<ExtArgs>>,
+    ): Prisma__CommentClient<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one Comment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommentFindUniqueOrThrowArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommentFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, CommentFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__CommentClient<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first Comment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindFirstArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommentFindFirstArgs>(
+      args?: SelectSubset<T, CommentFindFirstArgs<ExtArgs>>,
+    ): Prisma__CommentClient<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first Comment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindFirstOrThrowArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommentFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, CommentFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__CommentClient<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more Comments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Comments
+     * const comments = await prisma.comment.findMany()
+     *
+     * // Get first 10 Comments
+     * const comments = await prisma.comment.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const commentWithIdOnly = await prisma.comment.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends CommentFindManyArgs>(
+      args?: SelectSubset<T, CommentFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a Comment.
+     * @param {CommentCreateArgs} args - Arguments to create a Comment.
+     * @example
+     * // Create one Comment
+     * const Comment = await prisma.comment.create({
+     *   data: {
+     *     // ... data to create a Comment
+     *   }
+     * })
+     *
+     */
+    create<T extends CommentCreateArgs>(
+      args: SelectSubset<T, CommentCreateArgs<ExtArgs>>,
+    ): Prisma__CommentClient<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many Comments.
+     * @param {CommentCreateManyArgs} args - Arguments to create many Comments.
+     * @example
+     * // Create many Comments
+     * const comment = await prisma.comment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends CommentCreateManyArgs>(
+      args?: SelectSubset<T, CommentCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many Comments and returns the data saved in the database.
+     * @param {CommentCreateManyAndReturnArgs} args - Arguments to create many Comments.
+     * @example
+     * // Create many Comments
+     * const comment = await prisma.comment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Comments and only return the `id`
+     * const commentWithIdOnly = await prisma.comment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends CommentCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, CommentCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Delete a Comment.
+     * @param {CommentDeleteArgs} args - Arguments to delete one Comment.
+     * @example
+     * // Delete one Comment
+     * const Comment = await prisma.comment.delete({
+     *   where: {
+     *     // ... filter to delete one Comment
+     *   }
+     * })
+     *
+     */
+    delete<T extends CommentDeleteArgs>(
+      args: SelectSubset<T, CommentDeleteArgs<ExtArgs>>,
+    ): Prisma__CommentClient<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one Comment.
+     * @param {CommentUpdateArgs} args - Arguments to update one Comment.
+     * @example
+     * // Update one Comment
+     * const comment = await prisma.comment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends CommentUpdateArgs>(
+      args: SelectSubset<T, CommentUpdateArgs<ExtArgs>>,
+    ): Prisma__CommentClient<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more Comments.
+     * @param {CommentDeleteManyArgs} args - Arguments to filter Comments to delete.
+     * @example
+     * // Delete a few Comments
+     * const { count } = await prisma.comment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends CommentDeleteManyArgs>(
+      args?: SelectSubset<T, CommentDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Comments
+     * const comment = await prisma.comment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends CommentUpdateManyArgs>(
+      args: SelectSubset<T, CommentUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Comments and returns the data updated in the database.
+     * @param {CommentUpdateManyAndReturnArgs} args - Arguments to update many Comments.
+     * @example
+     * // Update many Comments
+     * const comment = await prisma.comment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Comments and only return the `id`
+     * const commentWithIdOnly = await prisma.comment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends CommentUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, CommentUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create or update one Comment.
+     * @param {CommentUpsertArgs} args - Arguments to update or create a Comment.
+     * @example
+     * // Update or create a Comment
+     * const comment = await prisma.comment.upsert({
+     *   create: {
+     *     // ... data to create a Comment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Comment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommentUpsertArgs>(
+      args: SelectSubset<T, CommentUpsertArgs<ExtArgs>>,
+    ): Prisma__CommentClient<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Count the number of Comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentCountArgs} args - Arguments to filter Comments to count.
+     * @example
+     * // Count the number of Comments
+     * const count = await prisma.comment.count({
+     *   where: {
+     *     // ... the filter for the Comments we want to count
+     *   }
+     * })
+     **/
+    count<T extends CommentCountArgs>(
+      args?: Subset<T, CommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], CommentCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a Comment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends CommentAggregateArgs>(
+      args: Subset<T, CommentAggregateArgs>,
+    ): Prisma.PrismaPromise<GetCommentAggregateType<T>>;
+
+    /**
+     * Group by Comment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends CommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommentGroupByArgs["orderBy"] }
+        : { orderBy?: CommentGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, CommentGroupByArgs, OrderByArg> & InputErrors,
+    ): {} extends InputErrors
+      ? GetCommentGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Comment model
+     */
+    readonly fields: CommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Comment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommentClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, PostDefaultArgs<ExtArgs>>,
+    ): Prisma__PostClient<
+      | $Result.GetResult<
+          Prisma.$PostPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    parent<T extends Comment$parentArgs<ExtArgs> = {}>(
+      args?: Subset<T, Comment$parentArgs<ExtArgs>>,
+    ): Prisma__CommentClient<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    replies<T extends Comment$repliesArgs<ExtArgs> = {}>(
+      args?: Subset<T, Comment$repliesArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$CommentPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    mentions<T extends Comment$mentionsArgs<ExtArgs> = {}>(
+      args?: Subset<T, Comment$mentionsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$MentionPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the Comment model
+   */
+  interface CommentFieldRefs {
+    readonly id: FieldRef<"Comment", "String">;
+    readonly postId: FieldRef<"Comment", "String">;
+    readonly userId: FieldRef<"Comment", "String">;
+    readonly content: FieldRef<"Comment", "String">;
+    readonly parentId: FieldRef<"Comment", "String">;
+    readonly createdAt: FieldRef<"Comment", "DateTime">;
+    readonly updatedAt: FieldRef<"Comment", "DateTime">;
+  }
+
+  // Custom InputTypes
+  /**
+   * Comment findUnique
+   */
+  export type CommentFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where: CommentWhereUniqueInput;
+  };
+
+  /**
+   * Comment findUniqueOrThrow
+   */
+  export type CommentFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where: CommentWhereUniqueInput;
+  };
+
+  /**
+   * Comment findFirst
+   */
+  export type CommentFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where?: CommentWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?:
+      | CommentOrderByWithRelationInput
+      | CommentOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Comments.
+     */
+    cursor?: CommentWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Comments.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Comments.
+     */
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[];
+  };
+
+  /**
+   * Comment findFirstOrThrow
+   */
+  export type CommentFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where?: CommentWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?:
+      | CommentOrderByWithRelationInput
+      | CommentOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Comments.
+     */
+    cursor?: CommentWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Comments.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Comments.
+     */
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[];
+  };
+
+  /**
+   * Comment findMany
+   */
+  export type CommentFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    /**
+     * Filter, which Comments to fetch.
+     */
+    where?: CommentWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?:
+      | CommentOrderByWithRelationInput
+      | CommentOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing Comments.
+     */
+    cursor?: CommentWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Comments.
+     */
+    skip?: number;
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[];
+  };
+
+  /**
+   * Comment create
+   */
+  export type CommentCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a Comment.
+     */
+    data: XOR<CommentCreateInput, CommentUncheckedCreateInput>;
+  };
+
+  /**
+   * Comment createMany
+   */
+  export type CommentCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many Comments.
+     */
+    data: CommentCreateManyInput | CommentCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * Comment createManyAndReturn
+   */
+  export type CommentCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * The data used to create many Comments.
+     */
+    data: CommentCreateManyInput | CommentCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * Comment update
+   */
+  export type CommentUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a Comment.
+     */
+    data: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>;
+    /**
+     * Choose, which Comment to update.
+     */
+    where: CommentWhereUniqueInput;
+  };
+
+  /**
+   * Comment updateMany
+   */
+  export type CommentUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update Comments.
+     */
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>;
+    /**
+     * Filter which Comments to update
+     */
+    where?: CommentWhereInput;
+    /**
+     * Limit how many Comments to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * Comment updateManyAndReturn
+   */
+  export type CommentUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * The data used to update Comments.
+     */
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>;
+    /**
+     * Filter which Comments to update
+     */
+    where?: CommentWhereInput;
+    /**
+     * Limit how many Comments to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * Comment upsert
+   */
+  export type CommentUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the Comment to update in case it exists.
+     */
+    where: CommentWhereUniqueInput;
+    /**
+     * In case the Comment found by the `where` argument doesn't exist, create a new Comment with this data.
+     */
+    create: XOR<CommentCreateInput, CommentUncheckedCreateInput>;
+    /**
+     * In case the Comment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>;
+  };
+
+  /**
+   * Comment delete
+   */
+  export type CommentDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    /**
+     * Filter which Comment to delete.
+     */
+    where: CommentWhereUniqueInput;
+  };
+
+  /**
+   * Comment deleteMany
+   */
+  export type CommentDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Comments to delete
+     */
+    where?: CommentWhereInput;
+    /**
+     * Limit how many Comments to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * Comment.parent
+   */
+  export type Comment$parentArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    where?: CommentWhereInput;
+  };
+
+  /**
+   * Comment.replies
+   */
+  export type Comment$repliesArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    where?: CommentWhereInput;
+    orderBy?:
+      | CommentOrderByWithRelationInput
+      | CommentOrderByWithRelationInput[];
+    cursor?: CommentWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[];
+  };
+
+  /**
+   * Comment.mentions
+   */
+  export type Comment$mentionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    where?: MentionWhereInput;
+    orderBy?:
+      | MentionOrderByWithRelationInput
+      | MentionOrderByWithRelationInput[];
+    cursor?: MentionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: MentionScalarFieldEnum | MentionScalarFieldEnum[];
+  };
+
+  /**
+   * Comment without action
+   */
+  export type CommentDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model Mention
+   */
+
+  export type AggregateMention = {
+    _count: MentionCountAggregateOutputType | null;
+    _min: MentionMinAggregateOutputType | null;
+    _max: MentionMaxAggregateOutputType | null;
+  };
+
+  export type MentionMinAggregateOutputType = {
+    id: string | null;
+    postId: string | null;
+    commentId: string | null;
+    userId: string | null;
+    createdAt: Date | null;
+  };
+
+  export type MentionMaxAggregateOutputType = {
+    id: string | null;
+    postId: string | null;
+    commentId: string | null;
+    userId: string | null;
+    createdAt: Date | null;
+  };
+
+  export type MentionCountAggregateOutputType = {
+    id: number;
+    postId: number;
+    commentId: number;
+    userId: number;
+    createdAt: number;
+    _all: number;
+  };
+
+  export type MentionMinAggregateInputType = {
+    id?: true;
+    postId?: true;
+    commentId?: true;
+    userId?: true;
+    createdAt?: true;
+  };
+
+  export type MentionMaxAggregateInputType = {
+    id?: true;
+    postId?: true;
+    commentId?: true;
+    userId?: true;
+    createdAt?: true;
+  };
+
+  export type MentionCountAggregateInputType = {
+    id?: true;
+    postId?: true;
+    commentId?: true;
+    userId?: true;
+    createdAt?: true;
+    _all?: true;
+  };
+
+  export type MentionAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Mention to aggregate.
+     */
+    where?: MentionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Mentions to fetch.
+     */
+    orderBy?:
+      | MentionOrderByWithRelationInput
+      | MentionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: MentionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Mentions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Mentions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned Mentions
+     **/
+    _count?: true | MentionCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: MentionMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: MentionMaxAggregateInputType;
+  };
+
+  export type GetMentionAggregateType<T extends MentionAggregateArgs> = {
+    [P in keyof T & keyof AggregateMention]: P extends "_count" | "count"
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMention[P]>
+      : GetScalarType<T[P], AggregateMention[P]>;
+  };
+
+  export type MentionGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: MentionWhereInput;
+    orderBy?:
+      | MentionOrderByWithAggregationInput
+      | MentionOrderByWithAggregationInput[];
+    by: MentionScalarFieldEnum[] | MentionScalarFieldEnum;
+    having?: MentionScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: MentionCountAggregateInputType | true;
+    _min?: MentionMinAggregateInputType;
+    _max?: MentionMaxAggregateInputType;
+  };
+
+  export type MentionGroupByOutputType = {
+    id: string;
+    postId: string | null;
+    commentId: string | null;
+    userId: string;
+    createdAt: Date;
+    _count: MentionCountAggregateOutputType | null;
+    _min: MentionMinAggregateOutputType | null;
+    _max: MentionMaxAggregateOutputType | null;
+  };
+
+  type GetMentionGroupByPayload<T extends MentionGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<MentionGroupByOutputType, T["by"]> & {
+          [P in keyof T & keyof MentionGroupByOutputType]: P extends "_count"
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MentionGroupByOutputType[P]>
+            : GetScalarType<T[P], MentionGroupByOutputType[P]>;
+        }
+      >
+    >;
+
+  export type MentionSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      commentId?: boolean;
+      userId?: boolean;
+      createdAt?: boolean;
+      post?: boolean | Mention$postArgs<ExtArgs>;
+      comment?: boolean | Mention$commentArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["mention"]
+  >;
+
+  export type MentionSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      commentId?: boolean;
+      userId?: boolean;
+      createdAt?: boolean;
+      post?: boolean | Mention$postArgs<ExtArgs>;
+      comment?: boolean | Mention$commentArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["mention"]
+  >;
+
+  export type MentionSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      postId?: boolean;
+      commentId?: boolean;
+      userId?: boolean;
+      createdAt?: boolean;
+      post?: boolean | Mention$postArgs<ExtArgs>;
+      comment?: boolean | Mention$commentArgs<ExtArgs>;
+      user?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["mention"]
+  >;
+
+  export type MentionSelectScalar = {
+    id?: boolean;
+    postId?: boolean;
+    commentId?: boolean;
+    userId?: boolean;
+    createdAt?: boolean;
+  };
+
+  export type MentionOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    "id" | "postId" | "commentId" | "userId" | "createdAt",
+    ExtArgs["result"]["mention"]
+  >;
+  export type MentionInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | Mention$postArgs<ExtArgs>;
+    comment?: boolean | Mention$commentArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type MentionIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | Mention$postArgs<ExtArgs>;
+    comment?: boolean | Mention$commentArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type MentionIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    post?: boolean | Mention$postArgs<ExtArgs>;
+    comment?: boolean | Mention$commentArgs<ExtArgs>;
+    user?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+
+  export type $MentionPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "Mention";
+    objects: {
+      post: Prisma.$PostPayload<ExtArgs> | null;
+      comment: Prisma.$CommentPayload<ExtArgs> | null;
+      user: Prisma.$UserPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        postId: string | null;
+        commentId: string | null;
+        userId: string;
+        createdAt: Date;
+      },
+      ExtArgs["result"]["mention"]
+    >;
+    composites: {};
+  };
+
+  type MentionGetPayload<
+    S extends boolean | null | undefined | MentionDefaultArgs,
+  > = $Result.GetResult<Prisma.$MentionPayload, S>;
+
+  type MentionCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<MentionFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
+    select?: MentionCountAggregateInputType | true;
+  };
+
+  export interface MentionDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["Mention"];
+      meta: { name: "Mention" };
+    };
+    /**
+     * Find zero or one Mention that matches the filter.
+     * @param {MentionFindUniqueArgs} args - Arguments to find a Mention
+     * @example
+     * // Get one Mention
+     * const mention = await prisma.mention.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MentionFindUniqueArgs>(
+      args: SelectSubset<T, MentionFindUniqueArgs<ExtArgs>>,
+    ): Prisma__MentionClient<
+      $Result.GetResult<
+        Prisma.$MentionPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one Mention that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MentionFindUniqueOrThrowArgs} args - Arguments to find a Mention
+     * @example
+     * // Get one Mention
+     * const mention = await prisma.mention.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MentionFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, MentionFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__MentionClient<
+      $Result.GetResult<
+        Prisma.$MentionPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first Mention that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentionFindFirstArgs} args - Arguments to find a Mention
+     * @example
+     * // Get one Mention
+     * const mention = await prisma.mention.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MentionFindFirstArgs>(
+      args?: SelectSubset<T, MentionFindFirstArgs<ExtArgs>>,
+    ): Prisma__MentionClient<
+      $Result.GetResult<
+        Prisma.$MentionPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first Mention that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentionFindFirstOrThrowArgs} args - Arguments to find a Mention
+     * @example
+     * // Get one Mention
+     * const mention = await prisma.mention.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MentionFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, MentionFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__MentionClient<
+      $Result.GetResult<
+        Prisma.$MentionPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more Mentions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Mentions
+     * const mentions = await prisma.mention.findMany()
+     *
+     * // Get first 10 Mentions
+     * const mentions = await prisma.mention.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const mentionWithIdOnly = await prisma.mention.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends MentionFindManyArgs>(
+      args?: SelectSubset<T, MentionFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$MentionPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a Mention.
+     * @param {MentionCreateArgs} args - Arguments to create a Mention.
+     * @example
+     * // Create one Mention
+     * const Mention = await prisma.mention.create({
+     *   data: {
+     *     // ... data to create a Mention
+     *   }
+     * })
+     *
+     */
+    create<T extends MentionCreateArgs>(
+      args: SelectSubset<T, MentionCreateArgs<ExtArgs>>,
+    ): Prisma__MentionClient<
+      $Result.GetResult<
+        Prisma.$MentionPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many Mentions.
+     * @param {MentionCreateManyArgs} args - Arguments to create many Mentions.
+     * @example
+     * // Create many Mentions
+     * const mention = await prisma.mention.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends MentionCreateManyArgs>(
+      args?: SelectSubset<T, MentionCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create many Mentions and returns the data saved in the database.
+     * @param {MentionCreateManyAndReturnArgs} args - Arguments to create many Mentions.
+     * @example
+     * // Create many Mentions
+     * const mention = await prisma.mention.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Mentions and only return the `id`
+     * const mentionWithIdOnly = await prisma.mention.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends MentionCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, MentionCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$MentionPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Delete a Mention.
+     * @param {MentionDeleteArgs} args - Arguments to delete one Mention.
+     * @example
+     * // Delete one Mention
+     * const Mention = await prisma.mention.delete({
+     *   where: {
+     *     // ... filter to delete one Mention
+     *   }
+     * })
+     *
+     */
+    delete<T extends MentionDeleteArgs>(
+      args: SelectSubset<T, MentionDeleteArgs<ExtArgs>>,
+    ): Prisma__MentionClient<
+      $Result.GetResult<
+        Prisma.$MentionPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one Mention.
+     * @param {MentionUpdateArgs} args - Arguments to update one Mention.
+     * @example
+     * // Update one Mention
+     * const mention = await prisma.mention.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends MentionUpdateArgs>(
+      args: SelectSubset<T, MentionUpdateArgs<ExtArgs>>,
+    ): Prisma__MentionClient<
+      $Result.GetResult<
+        Prisma.$MentionPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more Mentions.
+     * @param {MentionDeleteManyArgs} args - Arguments to filter Mentions to delete.
+     * @example
+     * // Delete a few Mentions
+     * const { count } = await prisma.mention.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends MentionDeleteManyArgs>(
+      args?: SelectSubset<T, MentionDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Mentions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Mentions
+     * const mention = await prisma.mention.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends MentionUpdateManyArgs>(
+      args: SelectSubset<T, MentionUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more Mentions and returns the data updated in the database.
+     * @param {MentionUpdateManyAndReturnArgs} args - Arguments to update many Mentions.
+     * @example
+     * // Update many Mentions
+     * const mention = await prisma.mention.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Mentions and only return the `id`
+     * const mentionWithIdOnly = await prisma.mention.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends MentionUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, MentionUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$MentionPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create or update one Mention.
+     * @param {MentionUpsertArgs} args - Arguments to update or create a Mention.
+     * @example
+     * // Update or create a Mention
+     * const mention = await prisma.mention.upsert({
+     *   create: {
+     *     // ... data to create a Mention
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Mention we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MentionUpsertArgs>(
+      args: SelectSubset<T, MentionUpsertArgs<ExtArgs>>,
+    ): Prisma__MentionClient<
+      $Result.GetResult<
+        Prisma.$MentionPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Count the number of Mentions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentionCountArgs} args - Arguments to filter Mentions to count.
+     * @example
+     * // Count the number of Mentions
+     * const count = await prisma.mention.count({
+     *   where: {
+     *     // ... the filter for the Mentions we want to count
+     *   }
+     * })
+     **/
+    count<T extends MentionCountArgs>(
+      args?: Subset<T, MentionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
+          ? number
+          : GetScalarType<T["select"], MentionCountAggregateOutputType>
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a Mention.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends MentionAggregateArgs>(
+      args: Subset<T, MentionAggregateArgs>,
+    ): Prisma.PrismaPromise<GetMentionAggregateType<T>>;
+
+    /**
+     * Group by Mention.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends MentionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MentionGroupByArgs["orderBy"] }
+        : { orderBy?: MentionGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T["having"]>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T["by"] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, MentionGroupByArgs, OrderByArg> & InputErrors,
+    ): {} extends InputErrors
+      ? GetMentionGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Mention model
+     */
+    readonly fields: MentionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Mention.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MentionClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    post<T extends Mention$postArgs<ExtArgs> = {}>(
+      args?: Subset<T, Mention$postArgs<ExtArgs>>,
+    ): Prisma__PostClient<
+      $Result.GetResult<
+        Prisma.$PostPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    comment<T extends Mention$commentArgs<ExtArgs> = {}>(
+      args?: Subset<T, Mention$commentArgs<ExtArgs>>,
+    ): Prisma__CommentClient<
+      $Result.GetResult<
+        Prisma.$CommentPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the Mention model
+   */
+  interface MentionFieldRefs {
+    readonly id: FieldRef<"Mention", "String">;
+    readonly postId: FieldRef<"Mention", "String">;
+    readonly commentId: FieldRef<"Mention", "String">;
+    readonly userId: FieldRef<"Mention", "String">;
+    readonly createdAt: FieldRef<"Mention", "DateTime">;
+  }
+
+  // Custom InputTypes
+  /**
+   * Mention findUnique
+   */
+  export type MentionFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    /**
+     * Filter, which Mention to fetch.
+     */
+    where: MentionWhereUniqueInput;
+  };
+
+  /**
+   * Mention findUniqueOrThrow
+   */
+  export type MentionFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    /**
+     * Filter, which Mention to fetch.
+     */
+    where: MentionWhereUniqueInput;
+  };
+
+  /**
+   * Mention findFirst
+   */
+  export type MentionFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    /**
+     * Filter, which Mention to fetch.
+     */
+    where?: MentionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Mentions to fetch.
+     */
+    orderBy?:
+      | MentionOrderByWithRelationInput
+      | MentionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Mentions.
+     */
+    cursor?: MentionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Mentions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Mentions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Mentions.
+     */
+    distinct?: MentionScalarFieldEnum | MentionScalarFieldEnum[];
+  };
+
+  /**
+   * Mention findFirstOrThrow
+   */
+  export type MentionFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    /**
+     * Filter, which Mention to fetch.
+     */
+    where?: MentionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Mentions to fetch.
+     */
+    orderBy?:
+      | MentionOrderByWithRelationInput
+      | MentionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Mentions.
+     */
+    cursor?: MentionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Mentions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Mentions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Mentions.
+     */
+    distinct?: MentionScalarFieldEnum | MentionScalarFieldEnum[];
+  };
+
+  /**
+   * Mention findMany
+   */
+  export type MentionFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    /**
+     * Filter, which Mentions to fetch.
+     */
+    where?: MentionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Mentions to fetch.
+     */
+    orderBy?:
+      | MentionOrderByWithRelationInput
+      | MentionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing Mentions.
+     */
+    cursor?: MentionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Mentions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Mentions.
+     */
+    skip?: number;
+    distinct?: MentionScalarFieldEnum | MentionScalarFieldEnum[];
+  };
+
+  /**
+   * Mention create
+   */
+  export type MentionCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a Mention.
+     */
+    data: XOR<MentionCreateInput, MentionUncheckedCreateInput>;
+  };
+
+  /**
+   * Mention createMany
+   */
+  export type MentionCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many Mentions.
+     */
+    data: MentionCreateManyInput | MentionCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
+
+  /**
+   * Mention createManyAndReturn
+   */
+  export type MentionCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * The data used to create many Mentions.
+     */
+    data: MentionCreateManyInput | MentionCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * Mention update
+   */
+  export type MentionUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a Mention.
+     */
+    data: XOR<MentionUpdateInput, MentionUncheckedUpdateInput>;
+    /**
+     * Choose, which Mention to update.
+     */
+    where: MentionWhereUniqueInput;
+  };
+
+  /**
+   * Mention updateMany
+   */
+  export type MentionUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update Mentions.
+     */
+    data: XOR<MentionUpdateManyMutationInput, MentionUncheckedUpdateManyInput>;
+    /**
+     * Filter which Mentions to update
+     */
+    where?: MentionWhereInput;
+    /**
+     * Limit how many Mentions to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * Mention updateManyAndReturn
+   */
+  export type MentionUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * The data used to update Mentions.
+     */
+    data: XOR<MentionUpdateManyMutationInput, MentionUncheckedUpdateManyInput>;
+    /**
+     * Filter which Mentions to update
+     */
+    where?: MentionWhereInput;
+    /**
+     * Limit how many Mentions to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
+
+  /**
+   * Mention upsert
+   */
+  export type MentionUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the Mention to update in case it exists.
+     */
+    where: MentionWhereUniqueInput;
+    /**
+     * In case the Mention found by the `where` argument doesn't exist, create a new Mention with this data.
+     */
+    create: XOR<MentionCreateInput, MentionUncheckedCreateInput>;
+    /**
+     * In case the Mention was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MentionUpdateInput, MentionUncheckedUpdateInput>;
+  };
+
+  /**
+   * Mention delete
+   */
+  export type MentionDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
+    /**
+     * Filter which Mention to delete.
+     */
+    where: MentionWhereUniqueInput;
+  };
+
+  /**
+   * Mention deleteMany
+   */
+  export type MentionDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which Mentions to delete
+     */
+    where?: MentionWhereInput;
+    /**
+     * Limit how many Mentions to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * Mention.post
+   */
+  export type Mention$postArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null;
+    where?: PostWhereInput;
+  };
+
+  /**
+   * Mention.comment
+   */
+  export type Mention$commentArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null;
+    where?: CommentWhereInput;
+  };
+
+  /**
+   * Mention without action
+   */
+  export type MentionDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the Mention
+     */
+    select?: MentionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Mention
+     */
+    omit?: MentionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentionInclude<ExtArgs> | null;
   };
 
   /**
@@ -23514,6 +33192,9 @@ export namespace Prisma {
   export const TechnologyScalarFieldEnum: {
     id: "id";
     title: "title";
+    icon: "icon";
+    color: "color";
+    category: "category";
     sousSkillTechId: "sousSkillTechId";
     createdAt: "createdAt";
     updatedAt: "updatedAt";
@@ -23533,6 +33214,18 @@ export namespace Prisma {
 
   export type UserSkillScalarFieldEnum =
     (typeof UserSkillScalarFieldEnum)[keyof typeof UserSkillScalarFieldEnum];
+
+  export const UserTechnologyScalarFieldEnum: {
+    id: "id";
+    userId: "userId";
+    technologyId: "technologyId";
+    level: "level";
+    createdAt: "createdAt";
+    updatedAt: "updatedAt";
+  };
+
+  export type UserTechnologyScalarFieldEnum =
+    (typeof UserTechnologyScalarFieldEnum)[keyof typeof UserTechnologyScalarFieldEnum];
 
   export const DegreeScalarFieldEnum: {
     id: "id";
@@ -23598,14 +33291,76 @@ export namespace Prisma {
     id: "id";
     authorId: "authorId";
     content: "content";
+    contentType: "contentType";
     visibility: "visibility";
-    media: "media";
+    isCollaborative: "isCollaborative";
     createdAt: "createdAt";
     updatedAt: "updatedAt";
   };
 
   export type PostScalarFieldEnum =
     (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum];
+
+  export const PostMediaScalarFieldEnum: {
+    id: "id";
+    postId: "postId";
+    type: "type";
+    url: "url";
+    publicId: "publicId";
+    filename: "filename";
+    size: "size";
+    duration: "duration";
+    createdAt: "createdAt";
+  };
+
+  export type PostMediaScalarFieldEnum =
+    (typeof PostMediaScalarFieldEnum)[keyof typeof PostMediaScalarFieldEnum];
+
+  export const PostCollaboratorScalarFieldEnum: {
+    id: "id";
+    postId: "postId";
+    userId: "userId";
+    role: "role";
+    addedAt: "addedAt";
+  };
+
+  export type PostCollaboratorScalarFieldEnum =
+    (typeof PostCollaboratorScalarFieldEnum)[keyof typeof PostCollaboratorScalarFieldEnum];
+
+  export const PostReactionScalarFieldEnum: {
+    id: "id";
+    postId: "postId";
+    userId: "userId";
+    type: "type";
+    createdAt: "createdAt";
+  };
+
+  export type PostReactionScalarFieldEnum =
+    (typeof PostReactionScalarFieldEnum)[keyof typeof PostReactionScalarFieldEnum];
+
+  export const CommentScalarFieldEnum: {
+    id: "id";
+    postId: "postId";
+    userId: "userId";
+    content: "content";
+    parentId: "parentId";
+    createdAt: "createdAt";
+    updatedAt: "updatedAt";
+  };
+
+  export type CommentScalarFieldEnum =
+    (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum];
+
+  export const MentionScalarFieldEnum: {
+    id: "id";
+    postId: "postId";
+    commentId: "commentId";
+    userId: "userId";
+    createdAt: "createdAt";
+  };
+
+  export type MentionScalarFieldEnum =
+    (typeof MentionScalarFieldEnum)[keyof typeof MentionScalarFieldEnum];
 
   export const SortOrder: {
     asc: "asc";
@@ -23750,6 +33505,20 @@ export namespace Prisma {
   >;
 
   /**
+   * Reference to a field of type 'ContentType'
+   */
+  export type EnumContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "ContentType"
+  >;
+
+  /**
+   * Reference to a field of type 'ContentType[]'
+   */
+  export type ListEnumContentTypeFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "ContentType[]">;
+
+  /**
    * Reference to a field of type 'Visibility'
    */
   export type EnumVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -23766,6 +33535,22 @@ export namespace Prisma {
   >;
 
   /**
+   * Reference to a field of type 'MediaType'
+   */
+  export type EnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "MediaType"
+  >;
+
+  /**
+   * Reference to a field of type 'MediaType[]'
+   */
+  export type ListEnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "MediaType[]"
+  >;
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -23779,6 +33564,48 @@ export namespace Prisma {
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<
     $PrismaModel,
     "Int[]"
+  >;
+
+  /**
+   * Reference to a field of type 'CollaboratorRole'
+   */
+  export type EnumCollaboratorRoleFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "CollaboratorRole">;
+
+  /**
+   * Reference to a field of type 'CollaboratorRole[]'
+   */
+  export type ListEnumCollaboratorRoleFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "CollaboratorRole[]">;
+
+  /**
+   * Reference to a field of type 'ReactionType'
+   */
+  export type EnumReactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "ReactionType"
+  >;
+
+  /**
+   * Reference to a field of type 'ReactionType[]'
+   */
+  export type ListEnumReactionTypeFieldRefInput<$PrismaModel> =
+    FieldRefInputType<$PrismaModel, "ReactionType[]">;
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Float"
+  >;
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Float[]"
   >;
 
   /**
@@ -23836,14 +33663,19 @@ export namespace Prisma {
     > | null;
     experiences?: ExperienceListRelationFilter;
     educations?: EducationListRelationFilter;
-    degrees?: DegreeListRelationFilter;
-    session?: SessionListRelationFilter;
-    userSkills?: UserSkillListRelationFilter;
-    accounts?: AccountListRelationFilter;
-    followers?: FollowListRelationFilter;
+    follows?: FollowListRelationFilter;
     following?: FollowListRelationFilter;
+    sessions?: SessionListRelationFilter;
+    degrees?: DegreeListRelationFilter;
+    userSkills?: UserSkillListRelationFilter;
+    userTechnologies?: UserTechnologyListRelationFilter;
     posts?: PostListRelationFilter;
     notifications?: NotificationListRelationFilter;
+    accounts?: AccountListRelationFilter;
+    postCollaborations?: PostCollaboratorListRelationFilter;
+    postReactions?: PostReactionListRelationFilter;
+    comments?: CommentListRelationFilter;
+    mentions?: MentionListRelationFilter;
   };
 
   export type UserOrderByWithRelationInput = {
@@ -23879,14 +33711,19 @@ export namespace Prisma {
     nationality?: NationalityOrderByWithRelationInput;
     experiences?: ExperienceOrderByRelationAggregateInput;
     educations?: EducationOrderByRelationAggregateInput;
-    degrees?: DegreeOrderByRelationAggregateInput;
-    session?: SessionOrderByRelationAggregateInput;
-    userSkills?: UserSkillOrderByRelationAggregateInput;
-    accounts?: AccountOrderByRelationAggregateInput;
-    followers?: FollowOrderByRelationAggregateInput;
+    follows?: FollowOrderByRelationAggregateInput;
     following?: FollowOrderByRelationAggregateInput;
+    sessions?: SessionOrderByRelationAggregateInput;
+    degrees?: DegreeOrderByRelationAggregateInput;
+    userSkills?: UserSkillOrderByRelationAggregateInput;
+    userTechnologies?: UserTechnologyOrderByRelationAggregateInput;
     posts?: PostOrderByRelationAggregateInput;
     notifications?: NotificationOrderByRelationAggregateInput;
+    accounts?: AccountOrderByRelationAggregateInput;
+    postCollaborations?: PostCollaboratorOrderByRelationAggregateInput;
+    postReactions?: PostReactionOrderByRelationAggregateInput;
+    comments?: CommentOrderByRelationAggregateInput;
+    mentions?: MentionOrderByRelationAggregateInput;
   };
 
   export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -23944,14 +33781,19 @@ export namespace Prisma {
       > | null;
       experiences?: ExperienceListRelationFilter;
       educations?: EducationListRelationFilter;
-      degrees?: DegreeListRelationFilter;
-      session?: SessionListRelationFilter;
-      userSkills?: UserSkillListRelationFilter;
-      accounts?: AccountListRelationFilter;
-      followers?: FollowListRelationFilter;
+      follows?: FollowListRelationFilter;
       following?: FollowListRelationFilter;
+      sessions?: SessionListRelationFilter;
+      degrees?: DegreeListRelationFilter;
+      userSkills?: UserSkillListRelationFilter;
+      userTechnologies?: UserTechnologyListRelationFilter;
       posts?: PostListRelationFilter;
       notifications?: NotificationListRelationFilter;
+      accounts?: AccountListRelationFilter;
+      postCollaborations?: PostCollaboratorListRelationFilter;
+      postReactions?: PostReactionListRelationFilter;
+      comments?: CommentListRelationFilter;
+      mentions?: MentionListRelationFilter;
     },
     "id" | "username" | "email"
   >;
@@ -24579,19 +34421,27 @@ export namespace Prisma {
     NOT?: TechnologyWhereInput | TechnologyWhereInput[];
     id?: StringFilter<"Technology"> | string;
     title?: StringFilter<"Technology"> | string;
+    icon?: StringNullableFilter<"Technology"> | string | null;
+    color?: StringNullableFilter<"Technology"> | string | null;
+    category?: StringNullableFilter<"Technology"> | string | null;
     sousSkillTechId?: StringFilter<"Technology"> | string;
     createdAt?: DateTimeFilter<"Technology"> | Date | string;
     updatedAt?: DateTimeFilter<"Technology"> | Date | string;
-    sousSkillTech?: XOR<SousSkillScalarRelationFilter, sousSkillWhereInput>;
+    sousSkill?: XOR<SousSkillScalarRelationFilter, sousSkillWhereInput>;
+    userTechnologies?: UserTechnologyListRelationFilter;
   };
 
   export type TechnologyOrderByWithRelationInput = {
     id?: SortOrder;
     title?: SortOrder;
+    icon?: SortOrderInput | SortOrder;
+    color?: SortOrderInput | SortOrder;
+    category?: SortOrderInput | SortOrder;
     sousSkillTechId?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
-    sousSkillTech?: sousSkillOrderByWithRelationInput;
+    sousSkill?: sousSkillOrderByWithRelationInput;
+    userTechnologies?: UserTechnologyOrderByRelationAggregateInput;
   };
 
   export type TechnologyWhereUniqueInput = Prisma.AtLeast<
@@ -24601,10 +34451,14 @@ export namespace Prisma {
       OR?: TechnologyWhereInput[];
       NOT?: TechnologyWhereInput | TechnologyWhereInput[];
       title?: StringFilter<"Technology"> | string;
+      icon?: StringNullableFilter<"Technology"> | string | null;
+      color?: StringNullableFilter<"Technology"> | string | null;
+      category?: StringNullableFilter<"Technology"> | string | null;
       sousSkillTechId?: StringFilter<"Technology"> | string;
       createdAt?: DateTimeFilter<"Technology"> | Date | string;
       updatedAt?: DateTimeFilter<"Technology"> | Date | string;
-      sousSkillTech?: XOR<SousSkillScalarRelationFilter, sousSkillWhereInput>;
+      sousSkill?: XOR<SousSkillScalarRelationFilter, sousSkillWhereInput>;
+      userTechnologies?: UserTechnologyListRelationFilter;
     },
     "id"
   >;
@@ -24612,6 +34466,9 @@ export namespace Prisma {
   export type TechnologyOrderByWithAggregationInput = {
     id?: SortOrder;
     title?: SortOrder;
+    icon?: SortOrderInput | SortOrder;
+    color?: SortOrderInput | SortOrder;
+    category?: SortOrderInput | SortOrder;
     sousSkillTechId?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -24630,6 +34487,9 @@ export namespace Prisma {
       | TechnologyScalarWhereWithAggregatesInput[];
     id?: StringWithAggregatesFilter<"Technology"> | string;
     title?: StringWithAggregatesFilter<"Technology"> | string;
+    icon?: StringNullableWithAggregatesFilter<"Technology"> | string | null;
+    color?: StringNullableWithAggregatesFilter<"Technology"> | string | null;
+    category?: StringNullableWithAggregatesFilter<"Technology"> | string | null;
     sousSkillTechId?: StringWithAggregatesFilter<"Technology"> | string;
     createdAt?: DateTimeWithAggregatesFilter<"Technology"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"Technology"> | Date | string;
@@ -24704,6 +34564,79 @@ export namespace Prisma {
     level?: EnumSkillLevelWithAggregatesFilter<"UserSkill"> | $Enums.SkillLevel;
     createdAt?: DateTimeWithAggregatesFilter<"UserSkill"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"UserSkill"> | Date | string;
+  };
+
+  export type UserTechnologyWhereInput = {
+    AND?: UserTechnologyWhereInput | UserTechnologyWhereInput[];
+    OR?: UserTechnologyWhereInput[];
+    NOT?: UserTechnologyWhereInput | UserTechnologyWhereInput[];
+    id?: StringFilter<"UserTechnology"> | string;
+    userId?: StringFilter<"UserTechnology"> | string;
+    technologyId?: StringFilter<"UserTechnology"> | string;
+    level?: EnumSkillLevelFilter<"UserTechnology"> | $Enums.SkillLevel;
+    createdAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+    updatedAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    technology?: XOR<TechnologyScalarRelationFilter, TechnologyWhereInput>;
+  };
+
+  export type UserTechnologyOrderByWithRelationInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    technologyId?: SortOrder;
+    level?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    user?: UserOrderByWithRelationInput;
+    technology?: TechnologyOrderByWithRelationInput;
+  };
+
+  export type UserTechnologyWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      userId_technologyId?: UserTechnologyUserIdTechnologyIdCompoundUniqueInput;
+      AND?: UserTechnologyWhereInput | UserTechnologyWhereInput[];
+      OR?: UserTechnologyWhereInput[];
+      NOT?: UserTechnologyWhereInput | UserTechnologyWhereInput[];
+      userId?: StringFilter<"UserTechnology"> | string;
+      technologyId?: StringFilter<"UserTechnology"> | string;
+      level?: EnumSkillLevelFilter<"UserTechnology"> | $Enums.SkillLevel;
+      createdAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+      updatedAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+      user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+      technology?: XOR<TechnologyScalarRelationFilter, TechnologyWhereInput>;
+    },
+    "id" | "userId_technologyId"
+  >;
+
+  export type UserTechnologyOrderByWithAggregationInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    technologyId?: SortOrder;
+    level?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    _count?: UserTechnologyCountOrderByAggregateInput;
+    _max?: UserTechnologyMaxOrderByAggregateInput;
+    _min?: UserTechnologyMinOrderByAggregateInput;
+  };
+
+  export type UserTechnologyScalarWhereWithAggregatesInput = {
+    AND?:
+      | UserTechnologyScalarWhereWithAggregatesInput
+      | UserTechnologyScalarWhereWithAggregatesInput[];
+    OR?: UserTechnologyScalarWhereWithAggregatesInput[];
+    NOT?:
+      | UserTechnologyScalarWhereWithAggregatesInput
+      | UserTechnologyScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"UserTechnology"> | string;
+    userId?: StringWithAggregatesFilter<"UserTechnology"> | string;
+    technologyId?: StringWithAggregatesFilter<"UserTechnology"> | string;
+    level?:
+      | EnumSkillLevelWithAggregatesFilter<"UserTechnology">
+      | $Enums.SkillLevel;
+    createdAt?: DateTimeWithAggregatesFilter<"UserTechnology"> | Date | string;
+    updatedAt?: DateTimeWithAggregatesFilter<"UserTechnology"> | Date | string;
   };
 
   export type DegreeWhereInput = {
@@ -25067,22 +35000,34 @@ export namespace Prisma {
     id?: StringFilter<"Post"> | string;
     authorId?: StringFilter<"Post"> | string;
     content?: StringFilter<"Post"> | string;
+    contentType?: EnumContentTypeFilter<"Post"> | $Enums.ContentType;
     visibility?: EnumVisibilityFilter<"Post"> | $Enums.Visibility;
-    media?: StringNullableFilter<"Post"> | string | null;
+    isCollaborative?: BoolFilter<"Post"> | boolean;
     createdAt?: DateTimeFilter<"Post"> | Date | string;
     updatedAt?: DateTimeFilter<"Post"> | Date | string;
     author?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    media?: PostMediaListRelationFilter;
+    collaborators?: PostCollaboratorListRelationFilter;
+    reactions?: PostReactionListRelationFilter;
+    comments?: CommentListRelationFilter;
+    mentions?: MentionListRelationFilter;
   };
 
   export type PostOrderByWithRelationInput = {
     id?: SortOrder;
     authorId?: SortOrder;
     content?: SortOrder;
+    contentType?: SortOrder;
     visibility?: SortOrder;
-    media?: SortOrderInput | SortOrder;
+    isCollaborative?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     author?: UserOrderByWithRelationInput;
+    media?: PostMediaOrderByRelationAggregateInput;
+    collaborators?: PostCollaboratorOrderByRelationAggregateInput;
+    reactions?: PostReactionOrderByRelationAggregateInput;
+    comments?: CommentOrderByRelationAggregateInput;
+    mentions?: MentionOrderByRelationAggregateInput;
   };
 
   export type PostWhereUniqueInput = Prisma.AtLeast<
@@ -25093,11 +35038,17 @@ export namespace Prisma {
       NOT?: PostWhereInput | PostWhereInput[];
       authorId?: StringFilter<"Post"> | string;
       content?: StringFilter<"Post"> | string;
+      contentType?: EnumContentTypeFilter<"Post"> | $Enums.ContentType;
       visibility?: EnumVisibilityFilter<"Post"> | $Enums.Visibility;
-      media?: StringNullableFilter<"Post"> | string | null;
+      isCollaborative?: BoolFilter<"Post"> | boolean;
       createdAt?: DateTimeFilter<"Post"> | Date | string;
       updatedAt?: DateTimeFilter<"Post"> | Date | string;
       author?: XOR<UserScalarRelationFilter, UserWhereInput>;
+      media?: PostMediaListRelationFilter;
+      collaborators?: PostCollaboratorListRelationFilter;
+      reactions?: PostReactionListRelationFilter;
+      comments?: CommentListRelationFilter;
+      mentions?: MentionListRelationFilter;
     },
     "id"
   >;
@@ -25106,8 +35057,9 @@ export namespace Prisma {
     id?: SortOrder;
     authorId?: SortOrder;
     content?: SortOrder;
+    contentType?: SortOrder;
     visibility?: SortOrder;
-    media?: SortOrderInput | SortOrder;
+    isCollaborative?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
     _count?: PostCountOrderByAggregateInput;
@@ -25126,10 +35078,398 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Post"> | string;
     authorId?: StringWithAggregatesFilter<"Post"> | string;
     content?: StringWithAggregatesFilter<"Post"> | string;
+    contentType?:
+      | EnumContentTypeWithAggregatesFilter<"Post">
+      | $Enums.ContentType;
     visibility?: EnumVisibilityWithAggregatesFilter<"Post"> | $Enums.Visibility;
-    media?: StringNullableWithAggregatesFilter<"Post"> | string | null;
+    isCollaborative?: BoolWithAggregatesFilter<"Post"> | boolean;
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string;
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string;
+  };
+
+  export type PostMediaWhereInput = {
+    AND?: PostMediaWhereInput | PostMediaWhereInput[];
+    OR?: PostMediaWhereInput[];
+    NOT?: PostMediaWhereInput | PostMediaWhereInput[];
+    id?: StringFilter<"PostMedia"> | string;
+    postId?: StringFilter<"PostMedia"> | string;
+    type?: EnumMediaTypeFilter<"PostMedia"> | $Enums.MediaType;
+    url?: StringFilter<"PostMedia"> | string;
+    publicId?: StringNullableFilter<"PostMedia"> | string | null;
+    filename?: StringNullableFilter<"PostMedia"> | string | null;
+    size?: IntNullableFilter<"PostMedia"> | number | null;
+    duration?: IntNullableFilter<"PostMedia"> | number | null;
+    createdAt?: DateTimeFilter<"PostMedia"> | Date | string;
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>;
+  };
+
+  export type PostMediaOrderByWithRelationInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    type?: SortOrder;
+    url?: SortOrder;
+    publicId?: SortOrderInput | SortOrder;
+    filename?: SortOrderInput | SortOrder;
+    size?: SortOrderInput | SortOrder;
+    duration?: SortOrderInput | SortOrder;
+    createdAt?: SortOrder;
+    post?: PostOrderByWithRelationInput;
+  };
+
+  export type PostMediaWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      AND?: PostMediaWhereInput | PostMediaWhereInput[];
+      OR?: PostMediaWhereInput[];
+      NOT?: PostMediaWhereInput | PostMediaWhereInput[];
+      postId?: StringFilter<"PostMedia"> | string;
+      type?: EnumMediaTypeFilter<"PostMedia"> | $Enums.MediaType;
+      url?: StringFilter<"PostMedia"> | string;
+      publicId?: StringNullableFilter<"PostMedia"> | string | null;
+      filename?: StringNullableFilter<"PostMedia"> | string | null;
+      size?: IntNullableFilter<"PostMedia"> | number | null;
+      duration?: IntNullableFilter<"PostMedia"> | number | null;
+      createdAt?: DateTimeFilter<"PostMedia"> | Date | string;
+      post?: XOR<PostScalarRelationFilter, PostWhereInput>;
+    },
+    "id"
+  >;
+
+  export type PostMediaOrderByWithAggregationInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    type?: SortOrder;
+    url?: SortOrder;
+    publicId?: SortOrderInput | SortOrder;
+    filename?: SortOrderInput | SortOrder;
+    size?: SortOrderInput | SortOrder;
+    duration?: SortOrderInput | SortOrder;
+    createdAt?: SortOrder;
+    _count?: PostMediaCountOrderByAggregateInput;
+    _avg?: PostMediaAvgOrderByAggregateInput;
+    _max?: PostMediaMaxOrderByAggregateInput;
+    _min?: PostMediaMinOrderByAggregateInput;
+    _sum?: PostMediaSumOrderByAggregateInput;
+  };
+
+  export type PostMediaScalarWhereWithAggregatesInput = {
+    AND?:
+      | PostMediaScalarWhereWithAggregatesInput
+      | PostMediaScalarWhereWithAggregatesInput[];
+    OR?: PostMediaScalarWhereWithAggregatesInput[];
+    NOT?:
+      | PostMediaScalarWhereWithAggregatesInput
+      | PostMediaScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"PostMedia"> | string;
+    postId?: StringWithAggregatesFilter<"PostMedia"> | string;
+    type?: EnumMediaTypeWithAggregatesFilter<"PostMedia"> | $Enums.MediaType;
+    url?: StringWithAggregatesFilter<"PostMedia"> | string;
+    publicId?: StringNullableWithAggregatesFilter<"PostMedia"> | string | null;
+    filename?: StringNullableWithAggregatesFilter<"PostMedia"> | string | null;
+    size?: IntNullableWithAggregatesFilter<"PostMedia"> | number | null;
+    duration?: IntNullableWithAggregatesFilter<"PostMedia"> | number | null;
+    createdAt?: DateTimeWithAggregatesFilter<"PostMedia"> | Date | string;
+  };
+
+  export type PostCollaboratorWhereInput = {
+    AND?: PostCollaboratorWhereInput | PostCollaboratorWhereInput[];
+    OR?: PostCollaboratorWhereInput[];
+    NOT?: PostCollaboratorWhereInput | PostCollaboratorWhereInput[];
+    id?: StringFilter<"PostCollaborator"> | string;
+    postId?: StringFilter<"PostCollaborator"> | string;
+    userId?: StringFilter<"PostCollaborator"> | string;
+    role?:
+      | EnumCollaboratorRoleFilter<"PostCollaborator">
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFilter<"PostCollaborator"> | Date | string;
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>;
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+  };
+
+  export type PostCollaboratorOrderByWithRelationInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    role?: SortOrder;
+    addedAt?: SortOrder;
+    post?: PostOrderByWithRelationInput;
+    user?: UserOrderByWithRelationInput;
+  };
+
+  export type PostCollaboratorWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      postId_userId?: PostCollaboratorPostIdUserIdCompoundUniqueInput;
+      AND?: PostCollaboratorWhereInput | PostCollaboratorWhereInput[];
+      OR?: PostCollaboratorWhereInput[];
+      NOT?: PostCollaboratorWhereInput | PostCollaboratorWhereInput[];
+      postId?: StringFilter<"PostCollaborator"> | string;
+      userId?: StringFilter<"PostCollaborator"> | string;
+      role?:
+        | EnumCollaboratorRoleFilter<"PostCollaborator">
+        | $Enums.CollaboratorRole;
+      addedAt?: DateTimeFilter<"PostCollaborator"> | Date | string;
+      post?: XOR<PostScalarRelationFilter, PostWhereInput>;
+      user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    },
+    "id" | "postId_userId"
+  >;
+
+  export type PostCollaboratorOrderByWithAggregationInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    role?: SortOrder;
+    addedAt?: SortOrder;
+    _count?: PostCollaboratorCountOrderByAggregateInput;
+    _max?: PostCollaboratorMaxOrderByAggregateInput;
+    _min?: PostCollaboratorMinOrderByAggregateInput;
+  };
+
+  export type PostCollaboratorScalarWhereWithAggregatesInput = {
+    AND?:
+      | PostCollaboratorScalarWhereWithAggregatesInput
+      | PostCollaboratorScalarWhereWithAggregatesInput[];
+    OR?: PostCollaboratorScalarWhereWithAggregatesInput[];
+    NOT?:
+      | PostCollaboratorScalarWhereWithAggregatesInput
+      | PostCollaboratorScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"PostCollaborator"> | string;
+    postId?: StringWithAggregatesFilter<"PostCollaborator"> | string;
+    userId?: StringWithAggregatesFilter<"PostCollaborator"> | string;
+    role?:
+      | EnumCollaboratorRoleWithAggregatesFilter<"PostCollaborator">
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeWithAggregatesFilter<"PostCollaborator"> | Date | string;
+  };
+
+  export type PostReactionWhereInput = {
+    AND?: PostReactionWhereInput | PostReactionWhereInput[];
+    OR?: PostReactionWhereInput[];
+    NOT?: PostReactionWhereInput | PostReactionWhereInput[];
+    id?: StringFilter<"PostReaction"> | string;
+    postId?: StringFilter<"PostReaction"> | string;
+    userId?: StringFilter<"PostReaction"> | string;
+    type?: EnumReactionTypeFilter<"PostReaction"> | $Enums.ReactionType;
+    createdAt?: DateTimeFilter<"PostReaction"> | Date | string;
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>;
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+  };
+
+  export type PostReactionOrderByWithRelationInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    type?: SortOrder;
+    createdAt?: SortOrder;
+    post?: PostOrderByWithRelationInput;
+    user?: UserOrderByWithRelationInput;
+  };
+
+  export type PostReactionWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      postId_userId_type?: PostReactionPostIdUserIdTypeCompoundUniqueInput;
+      AND?: PostReactionWhereInput | PostReactionWhereInput[];
+      OR?: PostReactionWhereInput[];
+      NOT?: PostReactionWhereInput | PostReactionWhereInput[];
+      postId?: StringFilter<"PostReaction"> | string;
+      userId?: StringFilter<"PostReaction"> | string;
+      type?: EnumReactionTypeFilter<"PostReaction"> | $Enums.ReactionType;
+      createdAt?: DateTimeFilter<"PostReaction"> | Date | string;
+      post?: XOR<PostScalarRelationFilter, PostWhereInput>;
+      user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    },
+    "id" | "postId_userId_type"
+  >;
+
+  export type PostReactionOrderByWithAggregationInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    type?: SortOrder;
+    createdAt?: SortOrder;
+    _count?: PostReactionCountOrderByAggregateInput;
+    _max?: PostReactionMaxOrderByAggregateInput;
+    _min?: PostReactionMinOrderByAggregateInput;
+  };
+
+  export type PostReactionScalarWhereWithAggregatesInput = {
+    AND?:
+      | PostReactionScalarWhereWithAggregatesInput
+      | PostReactionScalarWhereWithAggregatesInput[];
+    OR?: PostReactionScalarWhereWithAggregatesInput[];
+    NOT?:
+      | PostReactionScalarWhereWithAggregatesInput
+      | PostReactionScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"PostReaction"> | string;
+    postId?: StringWithAggregatesFilter<"PostReaction"> | string;
+    userId?: StringWithAggregatesFilter<"PostReaction"> | string;
+    type?:
+      | EnumReactionTypeWithAggregatesFilter<"PostReaction">
+      | $Enums.ReactionType;
+    createdAt?: DateTimeWithAggregatesFilter<"PostReaction"> | Date | string;
+  };
+
+  export type CommentWhereInput = {
+    AND?: CommentWhereInput | CommentWhereInput[];
+    OR?: CommentWhereInput[];
+    NOT?: CommentWhereInput | CommentWhereInput[];
+    id?: StringFilter<"Comment"> | string;
+    postId?: StringFilter<"Comment"> | string;
+    userId?: StringFilter<"Comment"> | string;
+    content?: StringFilter<"Comment"> | string;
+    parentId?: StringNullableFilter<"Comment"> | string | null;
+    createdAt?: DateTimeFilter<"Comment"> | Date | string;
+    updatedAt?: DateTimeFilter<"Comment"> | Date | string;
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>;
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    parent?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null;
+    replies?: CommentListRelationFilter;
+    mentions?: MentionListRelationFilter;
+  };
+
+  export type CommentOrderByWithRelationInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    content?: SortOrder;
+    parentId?: SortOrderInput | SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    post?: PostOrderByWithRelationInput;
+    user?: UserOrderByWithRelationInput;
+    parent?: CommentOrderByWithRelationInput;
+    replies?: CommentOrderByRelationAggregateInput;
+    mentions?: MentionOrderByRelationAggregateInput;
+  };
+
+  export type CommentWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      AND?: CommentWhereInput | CommentWhereInput[];
+      OR?: CommentWhereInput[];
+      NOT?: CommentWhereInput | CommentWhereInput[];
+      postId?: StringFilter<"Comment"> | string;
+      userId?: StringFilter<"Comment"> | string;
+      content?: StringFilter<"Comment"> | string;
+      parentId?: StringNullableFilter<"Comment"> | string | null;
+      createdAt?: DateTimeFilter<"Comment"> | Date | string;
+      updatedAt?: DateTimeFilter<"Comment"> | Date | string;
+      post?: XOR<PostScalarRelationFilter, PostWhereInput>;
+      user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+      parent?: XOR<
+        CommentNullableScalarRelationFilter,
+        CommentWhereInput
+      > | null;
+      replies?: CommentListRelationFilter;
+      mentions?: MentionListRelationFilter;
+    },
+    "id"
+  >;
+
+  export type CommentOrderByWithAggregationInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    content?: SortOrder;
+    parentId?: SortOrderInput | SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    _count?: CommentCountOrderByAggregateInput;
+    _max?: CommentMaxOrderByAggregateInput;
+    _min?: CommentMinOrderByAggregateInput;
+  };
+
+  export type CommentScalarWhereWithAggregatesInput = {
+    AND?:
+      | CommentScalarWhereWithAggregatesInput
+      | CommentScalarWhereWithAggregatesInput[];
+    OR?: CommentScalarWhereWithAggregatesInput[];
+    NOT?:
+      | CommentScalarWhereWithAggregatesInput
+      | CommentScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"Comment"> | string;
+    postId?: StringWithAggregatesFilter<"Comment"> | string;
+    userId?: StringWithAggregatesFilter<"Comment"> | string;
+    content?: StringWithAggregatesFilter<"Comment"> | string;
+    parentId?: StringNullableWithAggregatesFilter<"Comment"> | string | null;
+    createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string;
+    updatedAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string;
+  };
+
+  export type MentionWhereInput = {
+    AND?: MentionWhereInput | MentionWhereInput[];
+    OR?: MentionWhereInput[];
+    NOT?: MentionWhereInput | MentionWhereInput[];
+    id?: StringFilter<"Mention"> | string;
+    postId?: StringNullableFilter<"Mention"> | string | null;
+    commentId?: StringNullableFilter<"Mention"> | string | null;
+    userId?: StringFilter<"Mention"> | string;
+    createdAt?: DateTimeFilter<"Mention"> | Date | string;
+    post?: XOR<PostNullableScalarRelationFilter, PostWhereInput> | null;
+    comment?: XOR<
+      CommentNullableScalarRelationFilter,
+      CommentWhereInput
+    > | null;
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+  };
+
+  export type MentionOrderByWithRelationInput = {
+    id?: SortOrder;
+    postId?: SortOrderInput | SortOrder;
+    commentId?: SortOrderInput | SortOrder;
+    userId?: SortOrder;
+    createdAt?: SortOrder;
+    post?: PostOrderByWithRelationInput;
+    comment?: CommentOrderByWithRelationInput;
+    user?: UserOrderByWithRelationInput;
+  };
+
+  export type MentionWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      AND?: MentionWhereInput | MentionWhereInput[];
+      OR?: MentionWhereInput[];
+      NOT?: MentionWhereInput | MentionWhereInput[];
+      postId?: StringNullableFilter<"Mention"> | string | null;
+      commentId?: StringNullableFilter<"Mention"> | string | null;
+      userId?: StringFilter<"Mention"> | string;
+      createdAt?: DateTimeFilter<"Mention"> | Date | string;
+      post?: XOR<PostNullableScalarRelationFilter, PostWhereInput> | null;
+      comment?: XOR<
+        CommentNullableScalarRelationFilter,
+        CommentWhereInput
+      > | null;
+      user?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    },
+    "id"
+  >;
+
+  export type MentionOrderByWithAggregationInput = {
+    id?: SortOrder;
+    postId?: SortOrderInput | SortOrder;
+    commentId?: SortOrderInput | SortOrder;
+    userId?: SortOrder;
+    createdAt?: SortOrder;
+    _count?: MentionCountOrderByAggregateInput;
+    _max?: MentionMaxOrderByAggregateInput;
+    _min?: MentionMinOrderByAggregateInput;
+  };
+
+  export type MentionScalarWhereWithAggregatesInput = {
+    AND?:
+      | MentionScalarWhereWithAggregatesInput
+      | MentionScalarWhereWithAggregatesInput[];
+    OR?: MentionScalarWhereWithAggregatesInput[];
+    NOT?:
+      | MentionScalarWhereWithAggregatesInput
+      | MentionScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"Mention"> | string;
+    postId?: StringNullableWithAggregatesFilter<"Mention"> | string | null;
+    commentId?: StringNullableWithAggregatesFilter<"Mention"> | string | null;
+    userId?: StringWithAggregatesFilter<"Mention"> | string;
+    createdAt?: DateTimeWithAggregatesFilter<"Mention"> | Date | string;
   };
 
   export type UserCreateInput = {
@@ -25164,14 +35504,19 @@ export namespace Prisma {
     nationality?: NationalityCreateNestedOneWithoutUserInput;
     experiences?: ExperienceCreateNestedManyWithoutUserInput;
     educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
-    session?: SessionCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-    followers?: FollowCreateNestedManyWithoutFollowingInput;
-    following?: FollowCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateInput = {
@@ -25206,14 +35551,19 @@ export namespace Prisma {
     nationalityId?: string | null;
     experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
     educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
-    session?: SessionUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserUpdateInput = {
@@ -25269,14 +35619,19 @@ export namespace Prisma {
     nationality?: NationalityUpdateOneWithoutUserNestedInput;
     experiences?: ExperienceUpdateManyWithoutUserNestedInput;
     educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
-    session?: SessionUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-    followers?: FollowUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateInput = {
@@ -25332,14 +35687,19 @@ export namespace Prisma {
     nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
     experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
     educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
-    session?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserCreateManyInput = {
@@ -25798,8 +36158,8 @@ export namespace Prisma {
     id?: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    follower: UserCreateNestedOneWithoutFollowingInput;
-    following: UserCreateNestedOneWithoutFollowersInput;
+    follower: UserCreateNestedOneWithoutFollowsInput;
+    following: UserCreateNestedOneWithoutFollowingInput;
   };
 
   export type FollowUncheckedCreateInput = {
@@ -25814,8 +36174,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    follower?: UserUpdateOneRequiredWithoutFollowingNestedInput;
-    following?: UserUpdateOneRequiredWithoutFollowersNestedInput;
+    follower?: UserUpdateOneRequiredWithoutFollowsNestedInput;
+    following?: UserUpdateOneRequiredWithoutFollowingNestedInput;
   };
 
   export type FollowUncheckedUpdateInput = {
@@ -25945,7 +36305,7 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     skill: SkillCreateNestedOneWithoutSousSkillInput;
-    Technology?: TechnologyCreateNestedManyWithoutSousSkillTechInput;
+    Technology?: TechnologyCreateNestedManyWithoutSousSkillInput;
   };
 
   export type sousSkillUncheckedCreateInput = {
@@ -25954,7 +36314,7 @@ export namespace Prisma {
     skillId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    Technology?: TechnologyUncheckedCreateNestedManyWithoutSousSkillTechInput;
+    Technology?: TechnologyUncheckedCreateNestedManyWithoutSousSkillInput;
   };
 
   export type sousSkillUpdateInput = {
@@ -25963,7 +36323,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     skill?: SkillUpdateOneRequiredWithoutSousSkillNestedInput;
-    Technology?: TechnologyUpdateManyWithoutSousSkillTechNestedInput;
+    Technology?: TechnologyUpdateManyWithoutSousSkillNestedInput;
   };
 
   export type sousSkillUncheckedUpdateInput = {
@@ -25972,7 +36332,7 @@ export namespace Prisma {
     skillId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    Technology?: TechnologyUncheckedUpdateManyWithoutSousSkillTechNestedInput;
+    Technology?: TechnologyUncheckedUpdateManyWithoutSousSkillNestedInput;
   };
 
   export type sousSkillCreateManyInput = {
@@ -26001,38 +36361,57 @@ export namespace Prisma {
   export type TechnologyCreateInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    sousSkillTech: sousSkillCreateNestedOneWithoutTechnologyInput;
+    sousSkill: sousSkillCreateNestedOneWithoutTechnologyInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutTechnologyInput;
   };
 
   export type TechnologyUncheckedCreateInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     sousSkillTechId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutTechnologyInput;
   };
 
   export type TechnologyUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    sousSkillTech?: sousSkillUpdateOneRequiredWithoutTechnologyNestedInput;
+    sousSkill?: sousSkillUpdateOneRequiredWithoutTechnologyNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutTechnologyNestedInput;
   };
 
   export type TechnologyUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     sousSkillTechId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutTechnologyNestedInput;
   };
 
   export type TechnologyCreateManyInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     sousSkillTechId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
@@ -26041,6 +36420,9 @@ export namespace Prisma {
   export type TechnologyUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -26048,6 +36430,9 @@ export namespace Prisma {
   export type TechnologyUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     sousSkillTechId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -26109,6 +36494,67 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     userId?: StringFieldUpdateOperationsInput | string;
     skillId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserTechnologyCreateInput = {
+    id?: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutUserTechnologiesInput;
+    technology: TechnologyCreateNestedOneWithoutUserTechnologiesInput;
+  };
+
+  export type UserTechnologyUncheckedCreateInput = {
+    id?: string;
+    userId: string;
+    technologyId: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type UserTechnologyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutUserTechnologiesNestedInput;
+    technology?: TechnologyUpdateOneRequiredWithoutUserTechnologiesNestedInput;
+  };
+
+  export type UserTechnologyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    technologyId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserTechnologyCreateManyInput = {
+    id?: string;
+    userId: string;
+    technologyId: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type UserTechnologyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserTechnologyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    technologyId?: StringFieldUpdateOperationsInput | string;
     level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
@@ -26193,7 +36639,7 @@ export namespace Prisma {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     expiresAt: Date | string;
-    user: UserCreateNestedOneWithoutSessionInput;
+    user: UserCreateNestedOneWithoutSessionsInput;
   };
 
   export type SessionUncheckedCreateInput = {
@@ -26219,7 +36665,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    user?: UserUpdateOneRequiredWithoutSessionNestedInput;
+    user?: UserUpdateOneRequiredWithoutSessionsNestedInput;
   };
 
   export type SessionUncheckedUpdateInput = {
@@ -26482,49 +36928,78 @@ export namespace Prisma {
   export type PostCreateInput = {
     id?: string;
     content: string;
+    contentType?: $Enums.ContentType;
     visibility?: $Enums.Visibility;
-    media?: string | null;
+    isCollaborative?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     author: UserCreateNestedOneWithoutPostsInput;
+    media?: PostMediaCreateNestedManyWithoutPostInput;
+    collaborators?: PostCollaboratorCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionCreateNestedManyWithoutPostInput;
+    comments?: CommentCreateNestedManyWithoutPostInput;
+    mentions?: MentionCreateNestedManyWithoutPostInput;
   };
 
   export type PostUncheckedCreateInput = {
     id?: string;
     authorId: string;
     content: string;
+    contentType?: $Enums.ContentType;
     visibility?: $Enums.Visibility;
-    media?: string | null;
+    isCollaborative?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    media?: PostMediaUncheckedCreateNestedManyWithoutPostInput;
+    collaborators?: PostCollaboratorUncheckedCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionUncheckedCreateNestedManyWithoutPostInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutPostInput;
   };
 
   export type PostUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
     visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
-    media?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     author?: UserUpdateOneRequiredWithoutPostsNestedInput;
+    media?: PostMediaUpdateManyWithoutPostNestedInput;
+    collaborators?: PostCollaboratorUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUpdateManyWithoutPostNestedInput;
+    comments?: CommentUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUpdateManyWithoutPostNestedInput;
   };
 
   export type PostUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string;
     authorId?: StringFieldUpdateOperationsInput | string;
     content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
     visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
-    media?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    media?: PostMediaUncheckedUpdateManyWithoutPostNestedInput;
+    collaborators?: PostCollaboratorUncheckedUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUncheckedUpdateManyWithoutPostNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutPostNestedInput;
   };
 
   export type PostCreateManyInput = {
     id?: string;
     authorId: string;
     content: string;
+    contentType?: $Enums.ContentType;
     visibility?: $Enums.Visibility;
-    media?: string | null;
+    isCollaborative?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -26532,8 +37007,11 @@ export namespace Prisma {
   export type PostUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string;
     content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
     visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
-    media?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -26542,10 +37020,340 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     authorId?: StringFieldUpdateOperationsInput | string;
     content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
     visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
-    media?: NullableStringFieldUpdateOperationsInput | string | null;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostMediaCreateInput = {
+    id?: string;
+    type: $Enums.MediaType;
+    url: string;
+    publicId?: string | null;
+    filename?: string | null;
+    size?: number | null;
+    duration?: number | null;
+    createdAt?: Date | string;
+    post: PostCreateNestedOneWithoutMediaInput;
+  };
+
+  export type PostMediaUncheckedCreateInput = {
+    id?: string;
+    postId: string;
+    type: $Enums.MediaType;
+    url: string;
+    publicId?: string | null;
+    filename?: string | null;
+    size?: number | null;
+    duration?: number | null;
+    createdAt?: Date | string;
+  };
+
+  export type PostMediaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType;
+    url?: StringFieldUpdateOperationsInput | string;
+    publicId?: NullableStringFieldUpdateOperationsInput | string | null;
+    filename?: NullableStringFieldUpdateOperationsInput | string | null;
+    size?: NullableIntFieldUpdateOperationsInput | number | null;
+    duration?: NullableIntFieldUpdateOperationsInput | number | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneRequiredWithoutMediaNestedInput;
+  };
+
+  export type PostMediaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType;
+    url?: StringFieldUpdateOperationsInput | string;
+    publicId?: NullableStringFieldUpdateOperationsInput | string | null;
+    filename?: NullableStringFieldUpdateOperationsInput | string | null;
+    size?: NullableIntFieldUpdateOperationsInput | number | null;
+    duration?: NullableIntFieldUpdateOperationsInput | number | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostMediaCreateManyInput = {
+    id?: string;
+    postId: string;
+    type: $Enums.MediaType;
+    url: string;
+    publicId?: string | null;
+    filename?: string | null;
+    size?: number | null;
+    duration?: number | null;
+    createdAt?: Date | string;
+  };
+
+  export type PostMediaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType;
+    url?: StringFieldUpdateOperationsInput | string;
+    publicId?: NullableStringFieldUpdateOperationsInput | string | null;
+    filename?: NullableStringFieldUpdateOperationsInput | string | null;
+    size?: NullableIntFieldUpdateOperationsInput | number | null;
+    duration?: NullableIntFieldUpdateOperationsInput | number | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostMediaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType;
+    url?: StringFieldUpdateOperationsInput | string;
+    publicId?: NullableStringFieldUpdateOperationsInput | string | null;
+    filename?: NullableStringFieldUpdateOperationsInput | string | null;
+    size?: NullableIntFieldUpdateOperationsInput | number | null;
+    duration?: NullableIntFieldUpdateOperationsInput | number | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostCollaboratorCreateInput = {
+    id?: string;
+    role?: $Enums.CollaboratorRole;
+    addedAt?: Date | string;
+    post: PostCreateNestedOneWithoutCollaboratorsInput;
+    user: UserCreateNestedOneWithoutPostCollaborationsInput;
+  };
+
+  export type PostCollaboratorUncheckedCreateInput = {
+    id?: string;
+    postId: string;
+    userId: string;
+    role?: $Enums.CollaboratorRole;
+    addedAt?: Date | string;
+  };
+
+  export type PostCollaboratorUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    role?:
+      | EnumCollaboratorRoleFieldUpdateOperationsInput
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneRequiredWithoutCollaboratorsNestedInput;
+    user?: UserUpdateOneRequiredWithoutPostCollaborationsNestedInput;
+  };
+
+  export type PostCollaboratorUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    role?:
+      | EnumCollaboratorRoleFieldUpdateOperationsInput
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostCollaboratorCreateManyInput = {
+    id?: string;
+    postId: string;
+    userId: string;
+    role?: $Enums.CollaboratorRole;
+    addedAt?: Date | string;
+  };
+
+  export type PostCollaboratorUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    role?:
+      | EnumCollaboratorRoleFieldUpdateOperationsInput
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostCollaboratorUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    role?:
+      | EnumCollaboratorRoleFieldUpdateOperationsInput
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostReactionCreateInput = {
+    id?: string;
+    type: $Enums.ReactionType;
+    createdAt?: Date | string;
+    post: PostCreateNestedOneWithoutReactionsInput;
+    user: UserCreateNestedOneWithoutPostReactionsInput;
+  };
+
+  export type PostReactionUncheckedCreateInput = {
+    id?: string;
+    postId: string;
+    userId: string;
+    type: $Enums.ReactionType;
+    createdAt?: Date | string;
+  };
+
+  export type PostReactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    type?: EnumReactionTypeFieldUpdateOperationsInput | $Enums.ReactionType;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneRequiredWithoutReactionsNestedInput;
+    user?: UserUpdateOneRequiredWithoutPostReactionsNestedInput;
+  };
+
+  export type PostReactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    type?: EnumReactionTypeFieldUpdateOperationsInput | $Enums.ReactionType;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostReactionCreateManyInput = {
+    id?: string;
+    postId: string;
+    userId: string;
+    type: $Enums.ReactionType;
+    createdAt?: Date | string;
+  };
+
+  export type PostReactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    type?: EnumReactionTypeFieldUpdateOperationsInput | $Enums.ReactionType;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostReactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    type?: EnumReactionTypeFieldUpdateOperationsInput | $Enums.ReactionType;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CommentCreateInput = {
+    id?: string;
+    content: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    post: PostCreateNestedOneWithoutCommentsInput;
+    user: UserCreateNestedOneWithoutCommentsInput;
+    parent?: CommentCreateNestedOneWithoutRepliesInput;
+    replies?: CommentCreateNestedManyWithoutParentInput;
+    mentions?: MentionCreateNestedManyWithoutCommentInput;
+  };
+
+  export type CommentUncheckedCreateInput = {
+    id?: string;
+    postId: string;
+    userId: string;
+    content: string;
+    parentId?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    replies?: CommentUncheckedCreateNestedManyWithoutParentInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutCommentInput;
+  };
+
+  export type CommentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneRequiredWithoutCommentsNestedInput;
+    user?: UserUpdateOneRequiredWithoutCommentsNestedInput;
+    parent?: CommentUpdateOneWithoutRepliesNestedInput;
+    replies?: CommentUpdateManyWithoutParentNestedInput;
+    mentions?: MentionUpdateManyWithoutCommentNestedInput;
+  };
+
+  export type CommentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    replies?: CommentUncheckedUpdateManyWithoutParentNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutCommentNestedInput;
+  };
+
+  export type CommentCreateManyInput = {
+    id?: string;
+    postId: string;
+    userId: string;
+    content: string;
+    parentId?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type CommentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CommentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type MentionCreateInput = {
+    id?: string;
+    createdAt?: Date | string;
+    post?: PostCreateNestedOneWithoutMentionsInput;
+    comment?: CommentCreateNestedOneWithoutMentionsInput;
+    user: UserCreateNestedOneWithoutMentionsInput;
+  };
+
+  export type MentionUncheckedCreateInput = {
+    id?: string;
+    postId?: string | null;
+    commentId?: string | null;
+    userId: string;
+    createdAt?: Date | string;
+  };
+
+  export type MentionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneWithoutMentionsNestedInput;
+    comment?: CommentUpdateOneWithoutMentionsNestedInput;
+    user?: UserUpdateOneRequiredWithoutMentionsNestedInput;
+  };
+
+  export type MentionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: NullableStringFieldUpdateOperationsInput | string | null;
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null;
+    userId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type MentionCreateManyInput = {
+    id?: string;
+    postId?: string | null;
+    commentId?: string | null;
+    userId: string;
+    createdAt?: Date | string;
+  };
+
+  export type MentionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type MentionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: NullableStringFieldUpdateOperationsInput | string | null;
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null;
+    userId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type StringFilter<$PrismaModel = never> = {
@@ -26629,10 +37437,10 @@ export namespace Prisma {
     none?: EducationWhereInput;
   };
 
-  export type DegreeListRelationFilter = {
-    every?: DegreeWhereInput;
-    some?: DegreeWhereInput;
-    none?: DegreeWhereInput;
+  export type FollowListRelationFilter = {
+    every?: FollowWhereInput;
+    some?: FollowWhereInput;
+    none?: FollowWhereInput;
   };
 
   export type SessionListRelationFilter = {
@@ -26641,22 +37449,22 @@ export namespace Prisma {
     none?: SessionWhereInput;
   };
 
+  export type DegreeListRelationFilter = {
+    every?: DegreeWhereInput;
+    some?: DegreeWhereInput;
+    none?: DegreeWhereInput;
+  };
+
   export type UserSkillListRelationFilter = {
     every?: UserSkillWhereInput;
     some?: UserSkillWhereInput;
     none?: UserSkillWhereInput;
   };
 
-  export type AccountListRelationFilter = {
-    every?: AccountWhereInput;
-    some?: AccountWhereInput;
-    none?: AccountWhereInput;
-  };
-
-  export type FollowListRelationFilter = {
-    every?: FollowWhereInput;
-    some?: FollowWhereInput;
-    none?: FollowWhereInput;
+  export type UserTechnologyListRelationFilter = {
+    every?: UserTechnologyWhereInput;
+    some?: UserTechnologyWhereInput;
+    none?: UserTechnologyWhereInput;
   };
 
   export type PostListRelationFilter = {
@@ -26669,6 +37477,36 @@ export namespace Prisma {
     every?: NotificationWhereInput;
     some?: NotificationWhereInput;
     none?: NotificationWhereInput;
+  };
+
+  export type AccountListRelationFilter = {
+    every?: AccountWhereInput;
+    some?: AccountWhereInput;
+    none?: AccountWhereInput;
+  };
+
+  export type PostCollaboratorListRelationFilter = {
+    every?: PostCollaboratorWhereInput;
+    some?: PostCollaboratorWhereInput;
+    none?: PostCollaboratorWhereInput;
+  };
+
+  export type PostReactionListRelationFilter = {
+    every?: PostReactionWhereInput;
+    some?: PostReactionWhereInput;
+    none?: PostReactionWhereInput;
+  };
+
+  export type CommentListRelationFilter = {
+    every?: CommentWhereInput;
+    some?: CommentWhereInput;
+    none?: CommentWhereInput;
+  };
+
+  export type MentionListRelationFilter = {
+    every?: MentionWhereInput;
+    some?: MentionWhereInput;
+    none?: MentionWhereInput;
   };
 
   export type SortOrderInput = {
@@ -26684,7 +37522,7 @@ export namespace Prisma {
     _count?: SortOrder;
   };
 
-  export type DegreeOrderByRelationAggregateInput = {
+  export type FollowOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -26692,15 +37530,15 @@ export namespace Prisma {
     _count?: SortOrder;
   };
 
+  export type DegreeOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
   export type UserSkillOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
-  export type AccountOrderByRelationAggregateInput = {
-    _count?: SortOrder;
-  };
-
-  export type FollowOrderByRelationAggregateInput = {
+  export type UserTechnologyOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -26709,6 +37547,26 @@ export namespace Prisma {
   };
 
   export type NotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type AccountOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type PostCollaboratorOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type PostReactionOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type CommentOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type MentionOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -27261,6 +38119,9 @@ export namespace Prisma {
   export type TechnologyCountOrderByAggregateInput = {
     id?: SortOrder;
     title?: SortOrder;
+    icon?: SortOrder;
+    color?: SortOrder;
+    category?: SortOrder;
     sousSkillTechId?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -27269,6 +38130,9 @@ export namespace Prisma {
   export type TechnologyMaxOrderByAggregateInput = {
     id?: SortOrder;
     title?: SortOrder;
+    icon?: SortOrder;
+    color?: SortOrder;
+    category?: SortOrder;
     sousSkillTechId?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -27277,6 +38141,9 @@ export namespace Prisma {
   export type TechnologyMinOrderByAggregateInput = {
     id?: SortOrder;
     title?: SortOrder;
+    icon?: SortOrder;
+    color?: SortOrder;
+    category?: SortOrder;
     sousSkillTechId?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
@@ -27331,6 +38198,43 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>;
     _min?: NestedEnumSkillLevelFilter<$PrismaModel>;
     _max?: NestedEnumSkillLevelFilter<$PrismaModel>;
+  };
+
+  export type TechnologyScalarRelationFilter = {
+    is?: TechnologyWhereInput;
+    isNot?: TechnologyWhereInput;
+  };
+
+  export type UserTechnologyUserIdTechnologyIdCompoundUniqueInput = {
+    userId: string;
+    technologyId: string;
+  };
+
+  export type UserTechnologyCountOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    technologyId?: SortOrder;
+    level?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type UserTechnologyMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    technologyId?: SortOrder;
+    level?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type UserTechnologyMinOrderByAggregateInput = {
+    id?: SortOrder;
+    userId?: SortOrder;
+    technologyId?: SortOrder;
+    level?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
   };
 
   export type DegreeCountOrderByAggregateInput = {
@@ -27487,6 +38391,15 @@ export namespace Prisma {
     updatedAt?: SortOrder;
   };
 
+  export type EnumContentTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContentType | EnumContentTypeFieldRefInput<$PrismaModel>;
+    in?: $Enums.ContentType[] | ListEnumContentTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.ContentType[]
+      | ListEnumContentTypeFieldRefInput<$PrismaModel>;
+    not?: NestedEnumContentTypeFilter<$PrismaModel> | $Enums.ContentType;
+  };
+
   export type EnumVisibilityFilter<$PrismaModel = never> = {
     equals?: $Enums.Visibility | EnumVisibilityFieldRefInput<$PrismaModel>;
     in?: $Enums.Visibility[] | ListEnumVisibilityFieldRefInput<$PrismaModel>;
@@ -27494,12 +38407,23 @@ export namespace Prisma {
     not?: NestedEnumVisibilityFilter<$PrismaModel> | $Enums.Visibility;
   };
 
+  export type PostMediaListRelationFilter = {
+    every?: PostMediaWhereInput;
+    some?: PostMediaWhereInput;
+    none?: PostMediaWhereInput;
+  };
+
+  export type PostMediaOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
   export type PostCountOrderByAggregateInput = {
     id?: SortOrder;
     authorId?: SortOrder;
     content?: SortOrder;
+    contentType?: SortOrder;
     visibility?: SortOrder;
-    media?: SortOrder;
+    isCollaborative?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
   };
@@ -27508,8 +38432,9 @@ export namespace Prisma {
     id?: SortOrder;
     authorId?: SortOrder;
     content?: SortOrder;
+    contentType?: SortOrder;
     visibility?: SortOrder;
-    media?: SortOrder;
+    isCollaborative?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
   };
@@ -27518,10 +38443,25 @@ export namespace Prisma {
     id?: SortOrder;
     authorId?: SortOrder;
     content?: SortOrder;
+    contentType?: SortOrder;
     visibility?: SortOrder;
-    media?: SortOrder;
+    isCollaborative?: SortOrder;
     createdAt?: SortOrder;
     updatedAt?: SortOrder;
+  };
+
+  export type EnumContentTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContentType | EnumContentTypeFieldRefInput<$PrismaModel>;
+    in?: $Enums.ContentType[] | ListEnumContentTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.ContentType[]
+      | ListEnumContentTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumContentTypeWithAggregatesFilter<$PrismaModel>
+      | $Enums.ContentType;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumContentTypeFilter<$PrismaModel>;
+    _max?: NestedEnumContentTypeFilter<$PrismaModel>;
   };
 
   export type EnumVisibilityWithAggregatesFilter<$PrismaModel = never> = {
@@ -27534,6 +38474,286 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>;
     _min?: NestedEnumVisibilityFilter<$PrismaModel>;
     _max?: NestedEnumVisibilityFilter<$PrismaModel>;
+  };
+
+  export type EnumMediaTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>;
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>;
+    not?: NestedEnumMediaTypeFilter<$PrismaModel> | $Enums.MediaType;
+  };
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null;
+  };
+
+  export type PostScalarRelationFilter = {
+    is?: PostWhereInput;
+    isNot?: PostWhereInput;
+  };
+
+  export type PostMediaCountOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    type?: SortOrder;
+    url?: SortOrder;
+    publicId?: SortOrder;
+    filename?: SortOrder;
+    size?: SortOrder;
+    duration?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type PostMediaAvgOrderByAggregateInput = {
+    size?: SortOrder;
+    duration?: SortOrder;
+  };
+
+  export type PostMediaMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    type?: SortOrder;
+    url?: SortOrder;
+    publicId?: SortOrder;
+    filename?: SortOrder;
+    size?: SortOrder;
+    duration?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type PostMediaMinOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    type?: SortOrder;
+    url?: SortOrder;
+    publicId?: SortOrder;
+    filename?: SortOrder;
+    size?: SortOrder;
+    duration?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type PostMediaSumOrderByAggregateInput = {
+    size?: SortOrder;
+    duration?: SortOrder;
+  };
+
+  export type EnumMediaTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>;
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel>
+      | $Enums.MediaType;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumMediaTypeFilter<$PrismaModel>;
+    _max?: NestedEnumMediaTypeFilter<$PrismaModel>;
+  };
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null;
+    _count?: NestedIntNullableFilter<$PrismaModel>;
+    _avg?: NestedFloatNullableFilter<$PrismaModel>;
+    _sum?: NestedIntNullableFilter<$PrismaModel>;
+    _min?: NestedIntNullableFilter<$PrismaModel>;
+    _max?: NestedIntNullableFilter<$PrismaModel>;
+  };
+
+  export type EnumCollaboratorRoleFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.CollaboratorRole
+      | EnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.CollaboratorRole[]
+      | ListEnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.CollaboratorRole[]
+      | ListEnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumCollaboratorRoleFilter<$PrismaModel>
+      | $Enums.CollaboratorRole;
+  };
+
+  export type PostCollaboratorPostIdUserIdCompoundUniqueInput = {
+    postId: string;
+    userId: string;
+  };
+
+  export type PostCollaboratorCountOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    role?: SortOrder;
+    addedAt?: SortOrder;
+  };
+
+  export type PostCollaboratorMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    role?: SortOrder;
+    addedAt?: SortOrder;
+  };
+
+  export type PostCollaboratorMinOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    role?: SortOrder;
+    addedAt?: SortOrder;
+  };
+
+  export type EnumCollaboratorRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.CollaboratorRole
+      | EnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.CollaboratorRole[]
+      | ListEnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.CollaboratorRole[]
+      | ListEnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumCollaboratorRoleWithAggregatesFilter<$PrismaModel>
+      | $Enums.CollaboratorRole;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumCollaboratorRoleFilter<$PrismaModel>;
+    _max?: NestedEnumCollaboratorRoleFilter<$PrismaModel>;
+  };
+
+  export type EnumReactionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReactionType | EnumReactionTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.ReactionType[]
+      | ListEnumReactionTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.ReactionType[]
+      | ListEnumReactionTypeFieldRefInput<$PrismaModel>;
+    not?: NestedEnumReactionTypeFilter<$PrismaModel> | $Enums.ReactionType;
+  };
+
+  export type PostReactionPostIdUserIdTypeCompoundUniqueInput = {
+    postId: string;
+    userId: string;
+    type: $Enums.ReactionType;
+  };
+
+  export type PostReactionCountOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    type?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type PostReactionMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    type?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type PostReactionMinOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    type?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type EnumReactionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReactionType | EnumReactionTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.ReactionType[]
+      | ListEnumReactionTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.ReactionType[]
+      | ListEnumReactionTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumReactionTypeWithAggregatesFilter<$PrismaModel>
+      | $Enums.ReactionType;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumReactionTypeFilter<$PrismaModel>;
+    _max?: NestedEnumReactionTypeFilter<$PrismaModel>;
+  };
+
+  export type CommentNullableScalarRelationFilter = {
+    is?: CommentWhereInput | null;
+    isNot?: CommentWhereInput | null;
+  };
+
+  export type CommentCountOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    content?: SortOrder;
+    parentId?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type CommentMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    content?: SortOrder;
+    parentId?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type CommentMinOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    userId?: SortOrder;
+    content?: SortOrder;
+    parentId?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+  };
+
+  export type PostNullableScalarRelationFilter = {
+    is?: PostWhereInput | null;
+    isNot?: PostWhereInput | null;
+  };
+
+  export type MentionCountOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    commentId?: SortOrder;
+    userId?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type MentionMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    commentId?: SortOrder;
+    userId?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type MentionMinOrderByAggregateInput = {
+    id?: SortOrder;
+    postId?: SortOrder;
+    commentId?: SortOrder;
+    userId?: SortOrder;
+    createdAt?: SortOrder;
   };
 
   export type NationalityCreateNestedOneWithoutUserInput = {
@@ -27575,61 +38795,19 @@ export namespace Prisma {
     connect?: EducationWhereUniqueInput | EducationWhereUniqueInput[];
   };
 
-  export type DegreeCreateNestedManyWithoutUserInput = {
-    create?:
-      | XOR<DegreeCreateWithoutUserInput, DegreeUncheckedCreateWithoutUserInput>
-      | DegreeCreateWithoutUserInput[]
-      | DegreeUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | DegreeCreateOrConnectWithoutUserInput
-      | DegreeCreateOrConnectWithoutUserInput[];
-    createMany?: DegreeCreateManyUserInputEnvelope;
-    connect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
-  };
-
-  export type SessionCreateNestedManyWithoutUserInput = {
+  export type FollowCreateNestedManyWithoutFollowerInput = {
     create?:
       | XOR<
-          SessionCreateWithoutUserInput,
-          SessionUncheckedCreateWithoutUserInput
+          FollowCreateWithoutFollowerInput,
+          FollowUncheckedCreateWithoutFollowerInput
         >
-      | SessionCreateWithoutUserInput[]
-      | SessionUncheckedCreateWithoutUserInput[];
+      | FollowCreateWithoutFollowerInput[]
+      | FollowUncheckedCreateWithoutFollowerInput[];
     connectOrCreate?:
-      | SessionCreateOrConnectWithoutUserInput
-      | SessionCreateOrConnectWithoutUserInput[];
-    createMany?: SessionCreateManyUserInputEnvelope;
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
-  };
-
-  export type UserSkillCreateNestedManyWithoutUserInput = {
-    create?:
-      | XOR<
-          UserSkillCreateWithoutUserInput,
-          UserSkillUncheckedCreateWithoutUserInput
-        >
-      | UserSkillCreateWithoutUserInput[]
-      | UserSkillUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | UserSkillCreateOrConnectWithoutUserInput
-      | UserSkillCreateOrConnectWithoutUserInput[];
-    createMany?: UserSkillCreateManyUserInputEnvelope;
-    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
-  };
-
-  export type AccountCreateNestedManyWithoutUserInput = {
-    create?:
-      | XOR<
-          AccountCreateWithoutUserInput,
-          AccountUncheckedCreateWithoutUserInput
-        >
-      | AccountCreateWithoutUserInput[]
-      | AccountUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | AccountCreateOrConnectWithoutUserInput
-      | AccountCreateOrConnectWithoutUserInput[];
-    createMany?: AccountCreateManyUserInputEnvelope;
-    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+      | FollowCreateOrConnectWithoutFollowerInput
+      | FollowCreateOrConnectWithoutFollowerInput[];
+    createMany?: FollowCreateManyFollowerInputEnvelope;
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
   };
 
   export type FollowCreateNestedManyWithoutFollowingInput = {
@@ -27647,19 +38825,61 @@ export namespace Prisma {
     connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
   };
 
-  export type FollowCreateNestedManyWithoutFollowerInput = {
+  export type SessionCreateNestedManyWithoutUserInput = {
     create?:
       | XOR<
-          FollowCreateWithoutFollowerInput,
-          FollowUncheckedCreateWithoutFollowerInput
+          SessionCreateWithoutUserInput,
+          SessionUncheckedCreateWithoutUserInput
         >
-      | FollowCreateWithoutFollowerInput[]
-      | FollowUncheckedCreateWithoutFollowerInput[];
+      | SessionCreateWithoutUserInput[]
+      | SessionUncheckedCreateWithoutUserInput[];
     connectOrCreate?:
-      | FollowCreateOrConnectWithoutFollowerInput
-      | FollowCreateOrConnectWithoutFollowerInput[];
-    createMany?: FollowCreateManyFollowerInputEnvelope;
-    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
+      | SessionCreateOrConnectWithoutUserInput
+      | SessionCreateOrConnectWithoutUserInput[];
+    createMany?: SessionCreateManyUserInputEnvelope;
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
+  };
+
+  export type DegreeCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<DegreeCreateWithoutUserInput, DegreeUncheckedCreateWithoutUserInput>
+      | DegreeCreateWithoutUserInput[]
+      | DegreeUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | DegreeCreateOrConnectWithoutUserInput
+      | DegreeCreateOrConnectWithoutUserInput[];
+    createMany?: DegreeCreateManyUserInputEnvelope;
+    connect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
+  };
+
+  export type UserSkillCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          UserSkillCreateWithoutUserInput,
+          UserSkillUncheckedCreateWithoutUserInput
+        >
+      | UserSkillCreateWithoutUserInput[]
+      | UserSkillUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserSkillCreateOrConnectWithoutUserInput
+      | UserSkillCreateOrConnectWithoutUserInput[];
+    createMany?: UserSkillCreateManyUserInputEnvelope;
+    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
+  };
+
+  export type UserTechnologyCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutUserInput,
+          UserTechnologyUncheckedCreateWithoutUserInput
+        >
+      | UserTechnologyCreateWithoutUserInput[]
+      | UserTechnologyUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutUserInput
+      | UserTechnologyCreateOrConnectWithoutUserInput[];
+    createMany?: UserTechnologyCreateManyUserInputEnvelope;
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
   };
 
   export type PostCreateNestedManyWithoutAuthorInput = {
@@ -27687,6 +38907,83 @@ export namespace Prisma {
       | NotificationCreateOrConnectWithoutUserInput[];
     createMany?: NotificationCreateManyUserInputEnvelope;
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[];
+  };
+
+  export type AccountCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          AccountCreateWithoutUserInput,
+          AccountUncheckedCreateWithoutUserInput
+        >
+      | AccountCreateWithoutUserInput[]
+      | AccountUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | AccountCreateOrConnectWithoutUserInput
+      | AccountCreateOrConnectWithoutUserInput[];
+    createMany?: AccountCreateManyUserInputEnvelope;
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+  };
+
+  export type PostCollaboratorCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          PostCollaboratorCreateWithoutUserInput,
+          PostCollaboratorUncheckedCreateWithoutUserInput
+        >
+      | PostCollaboratorCreateWithoutUserInput[]
+      | PostCollaboratorUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PostCollaboratorCreateOrConnectWithoutUserInput
+      | PostCollaboratorCreateOrConnectWithoutUserInput[];
+    createMany?: PostCollaboratorCreateManyUserInputEnvelope;
+    connect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+  };
+
+  export type PostReactionCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          PostReactionCreateWithoutUserInput,
+          PostReactionUncheckedCreateWithoutUserInput
+        >
+      | PostReactionCreateWithoutUserInput[]
+      | PostReactionUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PostReactionCreateOrConnectWithoutUserInput
+      | PostReactionCreateOrConnectWithoutUserInput[];
+    createMany?: PostReactionCreateManyUserInputEnvelope;
+    connect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+  };
+
+  export type CommentCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutUserInput,
+          CommentUncheckedCreateWithoutUserInput
+        >
+      | CommentCreateWithoutUserInput[]
+      | CommentUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutUserInput
+      | CommentCreateOrConnectWithoutUserInput[];
+    createMany?: CommentCreateManyUserInputEnvelope;
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+  };
+
+  export type MentionCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutUserInput,
+          MentionUncheckedCreateWithoutUserInput
+        >
+      | MentionCreateWithoutUserInput[]
+      | MentionUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutUserInput
+      | MentionCreateOrConnectWithoutUserInput[];
+    createMany?: MentionCreateManyUserInputEnvelope;
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
   };
 
   export type ExperienceUncheckedCreateNestedManyWithoutUserInput = {
@@ -27719,61 +39016,19 @@ export namespace Prisma {
     connect?: EducationWhereUniqueInput | EducationWhereUniqueInput[];
   };
 
-  export type DegreeUncheckedCreateNestedManyWithoutUserInput = {
-    create?:
-      | XOR<DegreeCreateWithoutUserInput, DegreeUncheckedCreateWithoutUserInput>
-      | DegreeCreateWithoutUserInput[]
-      | DegreeUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | DegreeCreateOrConnectWithoutUserInput
-      | DegreeCreateOrConnectWithoutUserInput[];
-    createMany?: DegreeCreateManyUserInputEnvelope;
-    connect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
-  };
-
-  export type SessionUncheckedCreateNestedManyWithoutUserInput = {
+  export type FollowUncheckedCreateNestedManyWithoutFollowerInput = {
     create?:
       | XOR<
-          SessionCreateWithoutUserInput,
-          SessionUncheckedCreateWithoutUserInput
+          FollowCreateWithoutFollowerInput,
+          FollowUncheckedCreateWithoutFollowerInput
         >
-      | SessionCreateWithoutUserInput[]
-      | SessionUncheckedCreateWithoutUserInput[];
+      | FollowCreateWithoutFollowerInput[]
+      | FollowUncheckedCreateWithoutFollowerInput[];
     connectOrCreate?:
-      | SessionCreateOrConnectWithoutUserInput
-      | SessionCreateOrConnectWithoutUserInput[];
-    createMany?: SessionCreateManyUserInputEnvelope;
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
-  };
-
-  export type UserSkillUncheckedCreateNestedManyWithoutUserInput = {
-    create?:
-      | XOR<
-          UserSkillCreateWithoutUserInput,
-          UserSkillUncheckedCreateWithoutUserInput
-        >
-      | UserSkillCreateWithoutUserInput[]
-      | UserSkillUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | UserSkillCreateOrConnectWithoutUserInput
-      | UserSkillCreateOrConnectWithoutUserInput[];
-    createMany?: UserSkillCreateManyUserInputEnvelope;
-    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
-  };
-
-  export type AccountUncheckedCreateNestedManyWithoutUserInput = {
-    create?:
-      | XOR<
-          AccountCreateWithoutUserInput,
-          AccountUncheckedCreateWithoutUserInput
-        >
-      | AccountCreateWithoutUserInput[]
-      | AccountUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | AccountCreateOrConnectWithoutUserInput
-      | AccountCreateOrConnectWithoutUserInput[];
-    createMany?: AccountCreateManyUserInputEnvelope;
-    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+      | FollowCreateOrConnectWithoutFollowerInput
+      | FollowCreateOrConnectWithoutFollowerInput[];
+    createMany?: FollowCreateManyFollowerInputEnvelope;
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
   };
 
   export type FollowUncheckedCreateNestedManyWithoutFollowingInput = {
@@ -27791,19 +39046,61 @@ export namespace Prisma {
     connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
   };
 
-  export type FollowUncheckedCreateNestedManyWithoutFollowerInput = {
+  export type SessionUncheckedCreateNestedManyWithoutUserInput = {
     create?:
       | XOR<
-          FollowCreateWithoutFollowerInput,
-          FollowUncheckedCreateWithoutFollowerInput
+          SessionCreateWithoutUserInput,
+          SessionUncheckedCreateWithoutUserInput
         >
-      | FollowCreateWithoutFollowerInput[]
-      | FollowUncheckedCreateWithoutFollowerInput[];
+      | SessionCreateWithoutUserInput[]
+      | SessionUncheckedCreateWithoutUserInput[];
     connectOrCreate?:
-      | FollowCreateOrConnectWithoutFollowerInput
-      | FollowCreateOrConnectWithoutFollowerInput[];
-    createMany?: FollowCreateManyFollowerInputEnvelope;
-    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
+      | SessionCreateOrConnectWithoutUserInput
+      | SessionCreateOrConnectWithoutUserInput[];
+    createMany?: SessionCreateManyUserInputEnvelope;
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
+  };
+
+  export type DegreeUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<DegreeCreateWithoutUserInput, DegreeUncheckedCreateWithoutUserInput>
+      | DegreeCreateWithoutUserInput[]
+      | DegreeUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | DegreeCreateOrConnectWithoutUserInput
+      | DegreeCreateOrConnectWithoutUserInput[];
+    createMany?: DegreeCreateManyUserInputEnvelope;
+    connect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
+  };
+
+  export type UserSkillUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          UserSkillCreateWithoutUserInput,
+          UserSkillUncheckedCreateWithoutUserInput
+        >
+      | UserSkillCreateWithoutUserInput[]
+      | UserSkillUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserSkillCreateOrConnectWithoutUserInput
+      | UserSkillCreateOrConnectWithoutUserInput[];
+    createMany?: UserSkillCreateManyUserInputEnvelope;
+    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
+  };
+
+  export type UserTechnologyUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutUserInput,
+          UserTechnologyUncheckedCreateWithoutUserInput
+        >
+      | UserTechnologyCreateWithoutUserInput[]
+      | UserTechnologyUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutUserInput
+      | UserTechnologyCreateOrConnectWithoutUserInput[];
+    createMany?: UserTechnologyCreateManyUserInputEnvelope;
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
   };
 
   export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
@@ -27831,6 +39128,83 @@ export namespace Prisma {
       | NotificationCreateOrConnectWithoutUserInput[];
     createMany?: NotificationCreateManyUserInputEnvelope;
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[];
+  };
+
+  export type AccountUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          AccountCreateWithoutUserInput,
+          AccountUncheckedCreateWithoutUserInput
+        >
+      | AccountCreateWithoutUserInput[]
+      | AccountUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | AccountCreateOrConnectWithoutUserInput
+      | AccountCreateOrConnectWithoutUserInput[];
+    createMany?: AccountCreateManyUserInputEnvelope;
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+  };
+
+  export type PostCollaboratorUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          PostCollaboratorCreateWithoutUserInput,
+          PostCollaboratorUncheckedCreateWithoutUserInput
+        >
+      | PostCollaboratorCreateWithoutUserInput[]
+      | PostCollaboratorUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PostCollaboratorCreateOrConnectWithoutUserInput
+      | PostCollaboratorCreateOrConnectWithoutUserInput[];
+    createMany?: PostCollaboratorCreateManyUserInputEnvelope;
+    connect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+  };
+
+  export type PostReactionUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          PostReactionCreateWithoutUserInput,
+          PostReactionUncheckedCreateWithoutUserInput
+        >
+      | PostReactionCreateWithoutUserInput[]
+      | PostReactionUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PostReactionCreateOrConnectWithoutUserInput
+      | PostReactionCreateOrConnectWithoutUserInput[];
+    createMany?: PostReactionCreateManyUserInputEnvelope;
+    connect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+  };
+
+  export type CommentUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutUserInput,
+          CommentUncheckedCreateWithoutUserInput
+        >
+      | CommentCreateWithoutUserInput[]
+      | CommentUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutUserInput
+      | CommentCreateOrConnectWithoutUserInput[];
+    createMany?: CommentCreateManyUserInputEnvelope;
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+  };
+
+  export type MentionUncheckedCreateNestedManyWithoutUserInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutUserInput,
+          MentionUncheckedCreateWithoutUserInput
+        >
+      | MentionCreateWithoutUserInput[]
+      | MentionUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutUserInput
+      | MentionCreateOrConnectWithoutUserInput[];
+    createMany?: MentionCreateManyUserInputEnvelope;
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
   };
 
   export type StringFieldUpdateOperationsInput = {
@@ -27932,113 +39306,32 @@ export namespace Prisma {
     deleteMany?: EducationScalarWhereInput | EducationScalarWhereInput[];
   };
 
-  export type DegreeUpdateManyWithoutUserNestedInput = {
-    create?:
-      | XOR<DegreeCreateWithoutUserInput, DegreeUncheckedCreateWithoutUserInput>
-      | DegreeCreateWithoutUserInput[]
-      | DegreeUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | DegreeCreateOrConnectWithoutUserInput
-      | DegreeCreateOrConnectWithoutUserInput[];
-    upsert?:
-      | DegreeUpsertWithWhereUniqueWithoutUserInput
-      | DegreeUpsertWithWhereUniqueWithoutUserInput[];
-    createMany?: DegreeCreateManyUserInputEnvelope;
-    set?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
-    disconnect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
-    delete?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
-    connect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
-    update?:
-      | DegreeUpdateWithWhereUniqueWithoutUserInput
-      | DegreeUpdateWithWhereUniqueWithoutUserInput[];
-    updateMany?:
-      | DegreeUpdateManyWithWhereWithoutUserInput
-      | DegreeUpdateManyWithWhereWithoutUserInput[];
-    deleteMany?: DegreeScalarWhereInput | DegreeScalarWhereInput[];
-  };
-
-  export type SessionUpdateManyWithoutUserNestedInput = {
+  export type FollowUpdateManyWithoutFollowerNestedInput = {
     create?:
       | XOR<
-          SessionCreateWithoutUserInput,
-          SessionUncheckedCreateWithoutUserInput
+          FollowCreateWithoutFollowerInput,
+          FollowUncheckedCreateWithoutFollowerInput
         >
-      | SessionCreateWithoutUserInput[]
-      | SessionUncheckedCreateWithoutUserInput[];
+      | FollowCreateWithoutFollowerInput[]
+      | FollowUncheckedCreateWithoutFollowerInput[];
     connectOrCreate?:
-      | SessionCreateOrConnectWithoutUserInput
-      | SessionCreateOrConnectWithoutUserInput[];
+      | FollowCreateOrConnectWithoutFollowerInput
+      | FollowCreateOrConnectWithoutFollowerInput[];
     upsert?:
-      | SessionUpsertWithWhereUniqueWithoutUserInput
-      | SessionUpsertWithWhereUniqueWithoutUserInput[];
-    createMany?: SessionCreateManyUserInputEnvelope;
-    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
-    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
-    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
+      | FollowUpsertWithWhereUniqueWithoutFollowerInput
+      | FollowUpsertWithWhereUniqueWithoutFollowerInput[];
+    createMany?: FollowCreateManyFollowerInputEnvelope;
+    set?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
+    disconnect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
+    delete?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
     update?:
-      | SessionUpdateWithWhereUniqueWithoutUserInput
-      | SessionUpdateWithWhereUniqueWithoutUserInput[];
+      | FollowUpdateWithWhereUniqueWithoutFollowerInput
+      | FollowUpdateWithWhereUniqueWithoutFollowerInput[];
     updateMany?:
-      | SessionUpdateManyWithWhereWithoutUserInput
-      | SessionUpdateManyWithWhereWithoutUserInput[];
-    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[];
-  };
-
-  export type UserSkillUpdateManyWithoutUserNestedInput = {
-    create?:
-      | XOR<
-          UserSkillCreateWithoutUserInput,
-          UserSkillUncheckedCreateWithoutUserInput
-        >
-      | UserSkillCreateWithoutUserInput[]
-      | UserSkillUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | UserSkillCreateOrConnectWithoutUserInput
-      | UserSkillCreateOrConnectWithoutUserInput[];
-    upsert?:
-      | UserSkillUpsertWithWhereUniqueWithoutUserInput
-      | UserSkillUpsertWithWhereUniqueWithoutUserInput[];
-    createMany?: UserSkillCreateManyUserInputEnvelope;
-    set?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
-    disconnect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
-    delete?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
-    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
-    update?:
-      | UserSkillUpdateWithWhereUniqueWithoutUserInput
-      | UserSkillUpdateWithWhereUniqueWithoutUserInput[];
-    updateMany?:
-      | UserSkillUpdateManyWithWhereWithoutUserInput
-      | UserSkillUpdateManyWithWhereWithoutUserInput[];
-    deleteMany?: UserSkillScalarWhereInput | UserSkillScalarWhereInput[];
-  };
-
-  export type AccountUpdateManyWithoutUserNestedInput = {
-    create?:
-      | XOR<
-          AccountCreateWithoutUserInput,
-          AccountUncheckedCreateWithoutUserInput
-        >
-      | AccountCreateWithoutUserInput[]
-      | AccountUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | AccountCreateOrConnectWithoutUserInput
-      | AccountCreateOrConnectWithoutUserInput[];
-    upsert?:
-      | AccountUpsertWithWhereUniqueWithoutUserInput
-      | AccountUpsertWithWhereUniqueWithoutUserInput[];
-    createMany?: AccountCreateManyUserInputEnvelope;
-    set?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
-    disconnect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
-    delete?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
-    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
-    update?:
-      | AccountUpdateWithWhereUniqueWithoutUserInput
-      | AccountUpdateWithWhereUniqueWithoutUserInput[];
-    updateMany?:
-      | AccountUpdateManyWithWhereWithoutUserInput
-      | AccountUpdateManyWithWhereWithoutUserInput[];
-    deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[];
+      | FollowUpdateManyWithWhereWithoutFollowerInput
+      | FollowUpdateManyWithWhereWithoutFollowerInput[];
+    deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[];
   };
 
   export type FollowUpdateManyWithoutFollowingNestedInput = {
@@ -28069,32 +39362,117 @@ export namespace Prisma {
     deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[];
   };
 
-  export type FollowUpdateManyWithoutFollowerNestedInput = {
+  export type SessionUpdateManyWithoutUserNestedInput = {
     create?:
       | XOR<
-          FollowCreateWithoutFollowerInput,
-          FollowUncheckedCreateWithoutFollowerInput
+          SessionCreateWithoutUserInput,
+          SessionUncheckedCreateWithoutUserInput
         >
-      | FollowCreateWithoutFollowerInput[]
-      | FollowUncheckedCreateWithoutFollowerInput[];
+      | SessionCreateWithoutUserInput[]
+      | SessionUncheckedCreateWithoutUserInput[];
     connectOrCreate?:
-      | FollowCreateOrConnectWithoutFollowerInput
-      | FollowCreateOrConnectWithoutFollowerInput[];
+      | SessionCreateOrConnectWithoutUserInput
+      | SessionCreateOrConnectWithoutUserInput[];
     upsert?:
-      | FollowUpsertWithWhereUniqueWithoutFollowerInput
-      | FollowUpsertWithWhereUniqueWithoutFollowerInput[];
-    createMany?: FollowCreateManyFollowerInputEnvelope;
-    set?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
-    disconnect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
-    delete?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
-    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
+      | SessionUpsertWithWhereUniqueWithoutUserInput
+      | SessionUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: SessionCreateManyUserInputEnvelope;
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
     update?:
-      | FollowUpdateWithWhereUniqueWithoutFollowerInput
-      | FollowUpdateWithWhereUniqueWithoutFollowerInput[];
+      | SessionUpdateWithWhereUniqueWithoutUserInput
+      | SessionUpdateWithWhereUniqueWithoutUserInput[];
     updateMany?:
-      | FollowUpdateManyWithWhereWithoutFollowerInput
-      | FollowUpdateManyWithWhereWithoutFollowerInput[];
-    deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[];
+      | SessionUpdateManyWithWhereWithoutUserInput
+      | SessionUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[];
+  };
+
+  export type DegreeUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<DegreeCreateWithoutUserInput, DegreeUncheckedCreateWithoutUserInput>
+      | DegreeCreateWithoutUserInput[]
+      | DegreeUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | DegreeCreateOrConnectWithoutUserInput
+      | DegreeCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | DegreeUpsertWithWhereUniqueWithoutUserInput
+      | DegreeUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: DegreeCreateManyUserInputEnvelope;
+    set?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
+    disconnect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
+    delete?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
+    connect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
+    update?:
+      | DegreeUpdateWithWhereUniqueWithoutUserInput
+      | DegreeUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | DegreeUpdateManyWithWhereWithoutUserInput
+      | DegreeUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: DegreeScalarWhereInput | DegreeScalarWhereInput[];
+  };
+
+  export type UserSkillUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          UserSkillCreateWithoutUserInput,
+          UserSkillUncheckedCreateWithoutUserInput
+        >
+      | UserSkillCreateWithoutUserInput[]
+      | UserSkillUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserSkillCreateOrConnectWithoutUserInput
+      | UserSkillCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | UserSkillUpsertWithWhereUniqueWithoutUserInput
+      | UserSkillUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: UserSkillCreateManyUserInputEnvelope;
+    set?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
+    disconnect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
+    delete?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
+    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
+    update?:
+      | UserSkillUpdateWithWhereUniqueWithoutUserInput
+      | UserSkillUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | UserSkillUpdateManyWithWhereWithoutUserInput
+      | UserSkillUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: UserSkillScalarWhereInput | UserSkillScalarWhereInput[];
+  };
+
+  export type UserTechnologyUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutUserInput,
+          UserTechnologyUncheckedCreateWithoutUserInput
+        >
+      | UserTechnologyCreateWithoutUserInput[]
+      | UserTechnologyUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutUserInput
+      | UserTechnologyCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | UserTechnologyUpsertWithWhereUniqueWithoutUserInput
+      | UserTechnologyUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: UserTechnologyCreateManyUserInputEnvelope;
+    set?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    disconnect?:
+      | UserTechnologyWhereUniqueInput
+      | UserTechnologyWhereUniqueInput[];
+    delete?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    update?:
+      | UserTechnologyUpdateWithWhereUniqueWithoutUserInput
+      | UserTechnologyUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | UserTechnologyUpdateManyWithWhereWithoutUserInput
+      | UserTechnologyUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?:
+      | UserTechnologyScalarWhereInput
+      | UserTechnologyScalarWhereInput[];
   };
 
   export type PostUpdateManyWithoutAuthorNestedInput = {
@@ -28148,6 +39526,154 @@ export namespace Prisma {
       | NotificationUpdateManyWithWhereWithoutUserInput
       | NotificationUpdateManyWithWhereWithoutUserInput[];
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[];
+  };
+
+  export type AccountUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          AccountCreateWithoutUserInput,
+          AccountUncheckedCreateWithoutUserInput
+        >
+      | AccountCreateWithoutUserInput[]
+      | AccountUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | AccountCreateOrConnectWithoutUserInput
+      | AccountCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | AccountUpsertWithWhereUniqueWithoutUserInput
+      | AccountUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: AccountCreateManyUserInputEnvelope;
+    set?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+    disconnect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+    delete?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+    update?:
+      | AccountUpdateWithWhereUniqueWithoutUserInput
+      | AccountUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | AccountUpdateManyWithWhereWithoutUserInput
+      | AccountUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[];
+  };
+
+  export type PostCollaboratorUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          PostCollaboratorCreateWithoutUserInput,
+          PostCollaboratorUncheckedCreateWithoutUserInput
+        >
+      | PostCollaboratorCreateWithoutUserInput[]
+      | PostCollaboratorUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PostCollaboratorCreateOrConnectWithoutUserInput
+      | PostCollaboratorCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | PostCollaboratorUpsertWithWhereUniqueWithoutUserInput
+      | PostCollaboratorUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: PostCollaboratorCreateManyUserInputEnvelope;
+    set?: PostCollaboratorWhereUniqueInput | PostCollaboratorWhereUniqueInput[];
+    disconnect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    delete?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    connect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    update?:
+      | PostCollaboratorUpdateWithWhereUniqueWithoutUserInput
+      | PostCollaboratorUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | PostCollaboratorUpdateManyWithWhereWithoutUserInput
+      | PostCollaboratorUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?:
+      | PostCollaboratorScalarWhereInput
+      | PostCollaboratorScalarWhereInput[];
+  };
+
+  export type PostReactionUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          PostReactionCreateWithoutUserInput,
+          PostReactionUncheckedCreateWithoutUserInput
+        >
+      | PostReactionCreateWithoutUserInput[]
+      | PostReactionUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PostReactionCreateOrConnectWithoutUserInput
+      | PostReactionCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | PostReactionUpsertWithWhereUniqueWithoutUserInput
+      | PostReactionUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: PostReactionCreateManyUserInputEnvelope;
+    set?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    disconnect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    delete?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    connect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    update?:
+      | PostReactionUpdateWithWhereUniqueWithoutUserInput
+      | PostReactionUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | PostReactionUpdateManyWithWhereWithoutUserInput
+      | PostReactionUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: PostReactionScalarWhereInput | PostReactionScalarWhereInput[];
+  };
+
+  export type CommentUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutUserInput,
+          CommentUncheckedCreateWithoutUserInput
+        >
+      | CommentCreateWithoutUserInput[]
+      | CommentUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutUserInput
+      | CommentCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | CommentUpsertWithWhereUniqueWithoutUserInput
+      | CommentUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: CommentCreateManyUserInputEnvelope;
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    update?:
+      | CommentUpdateWithWhereUniqueWithoutUserInput
+      | CommentUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | CommentUpdateManyWithWhereWithoutUserInput
+      | CommentUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[];
+  };
+
+  export type MentionUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutUserInput,
+          MentionUncheckedCreateWithoutUserInput
+        >
+      | MentionCreateWithoutUserInput[]
+      | MentionUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutUserInput
+      | MentionCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | MentionUpsertWithWhereUniqueWithoutUserInput
+      | MentionUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: MentionCreateManyUserInputEnvelope;
+    set?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    disconnect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    delete?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    update?:
+      | MentionUpdateWithWhereUniqueWithoutUserInput
+      | MentionUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | MentionUpdateManyWithWhereWithoutUserInput
+      | MentionUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: MentionScalarWhereInput | MentionScalarWhereInput[];
   };
 
   export type ExperienceUncheckedUpdateManyWithoutUserNestedInput = {
@@ -28206,113 +39732,32 @@ export namespace Prisma {
     deleteMany?: EducationScalarWhereInput | EducationScalarWhereInput[];
   };
 
-  export type DegreeUncheckedUpdateManyWithoutUserNestedInput = {
-    create?:
-      | XOR<DegreeCreateWithoutUserInput, DegreeUncheckedCreateWithoutUserInput>
-      | DegreeCreateWithoutUserInput[]
-      | DegreeUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | DegreeCreateOrConnectWithoutUserInput
-      | DegreeCreateOrConnectWithoutUserInput[];
-    upsert?:
-      | DegreeUpsertWithWhereUniqueWithoutUserInput
-      | DegreeUpsertWithWhereUniqueWithoutUserInput[];
-    createMany?: DegreeCreateManyUserInputEnvelope;
-    set?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
-    disconnect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
-    delete?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
-    connect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
-    update?:
-      | DegreeUpdateWithWhereUniqueWithoutUserInput
-      | DegreeUpdateWithWhereUniqueWithoutUserInput[];
-    updateMany?:
-      | DegreeUpdateManyWithWhereWithoutUserInput
-      | DegreeUpdateManyWithWhereWithoutUserInput[];
-    deleteMany?: DegreeScalarWhereInput | DegreeScalarWhereInput[];
-  };
-
-  export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
+  export type FollowUncheckedUpdateManyWithoutFollowerNestedInput = {
     create?:
       | XOR<
-          SessionCreateWithoutUserInput,
-          SessionUncheckedCreateWithoutUserInput
+          FollowCreateWithoutFollowerInput,
+          FollowUncheckedCreateWithoutFollowerInput
         >
-      | SessionCreateWithoutUserInput[]
-      | SessionUncheckedCreateWithoutUserInput[];
+      | FollowCreateWithoutFollowerInput[]
+      | FollowUncheckedCreateWithoutFollowerInput[];
     connectOrCreate?:
-      | SessionCreateOrConnectWithoutUserInput
-      | SessionCreateOrConnectWithoutUserInput[];
+      | FollowCreateOrConnectWithoutFollowerInput
+      | FollowCreateOrConnectWithoutFollowerInput[];
     upsert?:
-      | SessionUpsertWithWhereUniqueWithoutUserInput
-      | SessionUpsertWithWhereUniqueWithoutUserInput[];
-    createMany?: SessionCreateManyUserInputEnvelope;
-    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
-    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
-    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
+      | FollowUpsertWithWhereUniqueWithoutFollowerInput
+      | FollowUpsertWithWhereUniqueWithoutFollowerInput[];
+    createMany?: FollowCreateManyFollowerInputEnvelope;
+    set?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
+    disconnect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
+    delete?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
+    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
     update?:
-      | SessionUpdateWithWhereUniqueWithoutUserInput
-      | SessionUpdateWithWhereUniqueWithoutUserInput[];
+      | FollowUpdateWithWhereUniqueWithoutFollowerInput
+      | FollowUpdateWithWhereUniqueWithoutFollowerInput[];
     updateMany?:
-      | SessionUpdateManyWithWhereWithoutUserInput
-      | SessionUpdateManyWithWhereWithoutUserInput[];
-    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[];
-  };
-
-  export type UserSkillUncheckedUpdateManyWithoutUserNestedInput = {
-    create?:
-      | XOR<
-          UserSkillCreateWithoutUserInput,
-          UserSkillUncheckedCreateWithoutUserInput
-        >
-      | UserSkillCreateWithoutUserInput[]
-      | UserSkillUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | UserSkillCreateOrConnectWithoutUserInput
-      | UserSkillCreateOrConnectWithoutUserInput[];
-    upsert?:
-      | UserSkillUpsertWithWhereUniqueWithoutUserInput
-      | UserSkillUpsertWithWhereUniqueWithoutUserInput[];
-    createMany?: UserSkillCreateManyUserInputEnvelope;
-    set?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
-    disconnect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
-    delete?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
-    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
-    update?:
-      | UserSkillUpdateWithWhereUniqueWithoutUserInput
-      | UserSkillUpdateWithWhereUniqueWithoutUserInput[];
-    updateMany?:
-      | UserSkillUpdateManyWithWhereWithoutUserInput
-      | UserSkillUpdateManyWithWhereWithoutUserInput[];
-    deleteMany?: UserSkillScalarWhereInput | UserSkillScalarWhereInput[];
-  };
-
-  export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
-    create?:
-      | XOR<
-          AccountCreateWithoutUserInput,
-          AccountUncheckedCreateWithoutUserInput
-        >
-      | AccountCreateWithoutUserInput[]
-      | AccountUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | AccountCreateOrConnectWithoutUserInput
-      | AccountCreateOrConnectWithoutUserInput[];
-    upsert?:
-      | AccountUpsertWithWhereUniqueWithoutUserInput
-      | AccountUpsertWithWhereUniqueWithoutUserInput[];
-    createMany?: AccountCreateManyUserInputEnvelope;
-    set?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
-    disconnect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
-    delete?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
-    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
-    update?:
-      | AccountUpdateWithWhereUniqueWithoutUserInput
-      | AccountUpdateWithWhereUniqueWithoutUserInput[];
-    updateMany?:
-      | AccountUpdateManyWithWhereWithoutUserInput
-      | AccountUpdateManyWithWhereWithoutUserInput[];
-    deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[];
+      | FollowUpdateManyWithWhereWithoutFollowerInput
+      | FollowUpdateManyWithWhereWithoutFollowerInput[];
+    deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[];
   };
 
   export type FollowUncheckedUpdateManyWithoutFollowingNestedInput = {
@@ -28343,32 +39788,117 @@ export namespace Prisma {
     deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[];
   };
 
-  export type FollowUncheckedUpdateManyWithoutFollowerNestedInput = {
+  export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?:
       | XOR<
-          FollowCreateWithoutFollowerInput,
-          FollowUncheckedCreateWithoutFollowerInput
+          SessionCreateWithoutUserInput,
+          SessionUncheckedCreateWithoutUserInput
         >
-      | FollowCreateWithoutFollowerInput[]
-      | FollowUncheckedCreateWithoutFollowerInput[];
+      | SessionCreateWithoutUserInput[]
+      | SessionUncheckedCreateWithoutUserInput[];
     connectOrCreate?:
-      | FollowCreateOrConnectWithoutFollowerInput
-      | FollowCreateOrConnectWithoutFollowerInput[];
+      | SessionCreateOrConnectWithoutUserInput
+      | SessionCreateOrConnectWithoutUserInput[];
     upsert?:
-      | FollowUpsertWithWhereUniqueWithoutFollowerInput
-      | FollowUpsertWithWhereUniqueWithoutFollowerInput[];
-    createMany?: FollowCreateManyFollowerInputEnvelope;
-    set?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
-    disconnect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
-    delete?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
-    connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[];
+      | SessionUpsertWithWhereUniqueWithoutUserInput
+      | SessionUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: SessionCreateManyUserInputEnvelope;
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[];
     update?:
-      | FollowUpdateWithWhereUniqueWithoutFollowerInput
-      | FollowUpdateWithWhereUniqueWithoutFollowerInput[];
+      | SessionUpdateWithWhereUniqueWithoutUserInput
+      | SessionUpdateWithWhereUniqueWithoutUserInput[];
     updateMany?:
-      | FollowUpdateManyWithWhereWithoutFollowerInput
-      | FollowUpdateManyWithWhereWithoutFollowerInput[];
-    deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[];
+      | SessionUpdateManyWithWhereWithoutUserInput
+      | SessionUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[];
+  };
+
+  export type DegreeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<DegreeCreateWithoutUserInput, DegreeUncheckedCreateWithoutUserInput>
+      | DegreeCreateWithoutUserInput[]
+      | DegreeUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | DegreeCreateOrConnectWithoutUserInput
+      | DegreeCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | DegreeUpsertWithWhereUniqueWithoutUserInput
+      | DegreeUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: DegreeCreateManyUserInputEnvelope;
+    set?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
+    disconnect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
+    delete?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
+    connect?: DegreeWhereUniqueInput | DegreeWhereUniqueInput[];
+    update?:
+      | DegreeUpdateWithWhereUniqueWithoutUserInput
+      | DegreeUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | DegreeUpdateManyWithWhereWithoutUserInput
+      | DegreeUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: DegreeScalarWhereInput | DegreeScalarWhereInput[];
+  };
+
+  export type UserSkillUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          UserSkillCreateWithoutUserInput,
+          UserSkillUncheckedCreateWithoutUserInput
+        >
+      | UserSkillCreateWithoutUserInput[]
+      | UserSkillUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserSkillCreateOrConnectWithoutUserInput
+      | UserSkillCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | UserSkillUpsertWithWhereUniqueWithoutUserInput
+      | UserSkillUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: UserSkillCreateManyUserInputEnvelope;
+    set?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
+    disconnect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
+    delete?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
+    connect?: UserSkillWhereUniqueInput | UserSkillWhereUniqueInput[];
+    update?:
+      | UserSkillUpdateWithWhereUniqueWithoutUserInput
+      | UserSkillUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | UserSkillUpdateManyWithWhereWithoutUserInput
+      | UserSkillUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: UserSkillScalarWhereInput | UserSkillScalarWhereInput[];
+  };
+
+  export type UserTechnologyUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutUserInput,
+          UserTechnologyUncheckedCreateWithoutUserInput
+        >
+      | UserTechnologyCreateWithoutUserInput[]
+      | UserTechnologyUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutUserInput
+      | UserTechnologyCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | UserTechnologyUpsertWithWhereUniqueWithoutUserInput
+      | UserTechnologyUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: UserTechnologyCreateManyUserInputEnvelope;
+    set?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    disconnect?:
+      | UserTechnologyWhereUniqueInput
+      | UserTechnologyWhereUniqueInput[];
+    delete?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    update?:
+      | UserTechnologyUpdateWithWhereUniqueWithoutUserInput
+      | UserTechnologyUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | UserTechnologyUpdateManyWithWhereWithoutUserInput
+      | UserTechnologyUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?:
+      | UserTechnologyScalarWhereInput
+      | UserTechnologyScalarWhereInput[];
   };
 
   export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
@@ -28422,6 +39952,154 @@ export namespace Prisma {
       | NotificationUpdateManyWithWhereWithoutUserInput
       | NotificationUpdateManyWithWhereWithoutUserInput[];
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[];
+  };
+
+  export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          AccountCreateWithoutUserInput,
+          AccountUncheckedCreateWithoutUserInput
+        >
+      | AccountCreateWithoutUserInput[]
+      | AccountUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | AccountCreateOrConnectWithoutUserInput
+      | AccountCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | AccountUpsertWithWhereUniqueWithoutUserInput
+      | AccountUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: AccountCreateManyUserInputEnvelope;
+    set?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+    disconnect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+    delete?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[];
+    update?:
+      | AccountUpdateWithWhereUniqueWithoutUserInput
+      | AccountUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | AccountUpdateManyWithWhereWithoutUserInput
+      | AccountUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[];
+  };
+
+  export type PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          PostCollaboratorCreateWithoutUserInput,
+          PostCollaboratorUncheckedCreateWithoutUserInput
+        >
+      | PostCollaboratorCreateWithoutUserInput[]
+      | PostCollaboratorUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PostCollaboratorCreateOrConnectWithoutUserInput
+      | PostCollaboratorCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | PostCollaboratorUpsertWithWhereUniqueWithoutUserInput
+      | PostCollaboratorUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: PostCollaboratorCreateManyUserInputEnvelope;
+    set?: PostCollaboratorWhereUniqueInput | PostCollaboratorWhereUniqueInput[];
+    disconnect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    delete?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    connect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    update?:
+      | PostCollaboratorUpdateWithWhereUniqueWithoutUserInput
+      | PostCollaboratorUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | PostCollaboratorUpdateManyWithWhereWithoutUserInput
+      | PostCollaboratorUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?:
+      | PostCollaboratorScalarWhereInput
+      | PostCollaboratorScalarWhereInput[];
+  };
+
+  export type PostReactionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          PostReactionCreateWithoutUserInput,
+          PostReactionUncheckedCreateWithoutUserInput
+        >
+      | PostReactionCreateWithoutUserInput[]
+      | PostReactionUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | PostReactionCreateOrConnectWithoutUserInput
+      | PostReactionCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | PostReactionUpsertWithWhereUniqueWithoutUserInput
+      | PostReactionUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: PostReactionCreateManyUserInputEnvelope;
+    set?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    disconnect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    delete?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    connect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    update?:
+      | PostReactionUpdateWithWhereUniqueWithoutUserInput
+      | PostReactionUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | PostReactionUpdateManyWithWhereWithoutUserInput
+      | PostReactionUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: PostReactionScalarWhereInput | PostReactionScalarWhereInput[];
+  };
+
+  export type CommentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutUserInput,
+          CommentUncheckedCreateWithoutUserInput
+        >
+      | CommentCreateWithoutUserInput[]
+      | CommentUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutUserInput
+      | CommentCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | CommentUpsertWithWhereUniqueWithoutUserInput
+      | CommentUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: CommentCreateManyUserInputEnvelope;
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    update?:
+      | CommentUpdateWithWhereUniqueWithoutUserInput
+      | CommentUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | CommentUpdateManyWithWhereWithoutUserInput
+      | CommentUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[];
+  };
+
+  export type MentionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutUserInput,
+          MentionUncheckedCreateWithoutUserInput
+        >
+      | MentionCreateWithoutUserInput[]
+      | MentionUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutUserInput
+      | MentionCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | MentionUpsertWithWhereUniqueWithoutUserInput
+      | MentionUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: MentionCreateManyUserInputEnvelope;
+    set?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    disconnect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    delete?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    update?:
+      | MentionUpdateWithWhereUniqueWithoutUserInput
+      | MentionUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | MentionUpdateManyWithWhereWithoutUserInput
+      | MentionUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: MentionScalarWhereInput | MentionScalarWhereInput[];
   };
 
   export type UserCreateNestedManyWithoutNationalityInput = {
@@ -28734,6 +40412,15 @@ export namespace Prisma {
     deleteMany?: UserSkillScalarWhereInput | UserSkillScalarWhereInput[];
   };
 
+  export type UserCreateNestedOneWithoutFollowsInput = {
+    create?: XOR<
+      UserCreateWithoutFollowsInput,
+      UserUncheckedCreateWithoutFollowsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutFollowsInput;
+    connect?: UserWhereUniqueInput;
+  };
+
   export type UserCreateNestedOneWithoutFollowingInput = {
     create?: XOR<
       UserCreateWithoutFollowingInput,
@@ -28743,13 +40430,21 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput;
   };
 
-  export type UserCreateNestedOneWithoutFollowersInput = {
+  export type UserUpdateOneRequiredWithoutFollowsNestedInput = {
     create?: XOR<
-      UserCreateWithoutFollowersInput,
-      UserUncheckedCreateWithoutFollowersInput
+      UserCreateWithoutFollowsInput,
+      UserUncheckedCreateWithoutFollowsInput
     >;
-    connectOrCreate?: UserCreateOrConnectWithoutFollowersInput;
+    connectOrCreate?: UserCreateOrConnectWithoutFollowsInput;
+    upsert?: UserUpsertWithoutFollowsInput;
     connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutFollowsInput,
+        UserUpdateWithoutFollowsInput
+      >,
+      UserUncheckedUpdateWithoutFollowsInput
+    >;
   };
 
   export type UserUpdateOneRequiredWithoutFollowingNestedInput = {
@@ -28766,23 +40461,6 @@ export namespace Prisma {
         UserUpdateWithoutFollowingInput
       >,
       UserUncheckedUpdateWithoutFollowingInput
-    >;
-  };
-
-  export type UserUpdateOneRequiredWithoutFollowersNestedInput = {
-    create?: XOR<
-      UserCreateWithoutFollowersInput,
-      UserUncheckedCreateWithoutFollowersInput
-    >;
-    connectOrCreate?: UserCreateOrConnectWithoutFollowersInput;
-    upsert?: UserUpsertWithoutFollowersInput;
-    connect?: UserWhereUniqueInput;
-    update?: XOR<
-      XOR<
-        UserUpdateToOneWithWhereWithoutFollowersInput,
-        UserUpdateWithoutFollowersInput
-      >,
-      UserUncheckedUpdateWithoutFollowersInput
     >;
   };
 
@@ -28825,33 +40503,33 @@ export namespace Prisma {
     connect?: SkillWhereUniqueInput;
   };
 
-  export type TechnologyCreateNestedManyWithoutSousSkillTechInput = {
+  export type TechnologyCreateNestedManyWithoutSousSkillInput = {
     create?:
       | XOR<
-          TechnologyCreateWithoutSousSkillTechInput,
-          TechnologyUncheckedCreateWithoutSousSkillTechInput
+          TechnologyCreateWithoutSousSkillInput,
+          TechnologyUncheckedCreateWithoutSousSkillInput
         >
-      | TechnologyCreateWithoutSousSkillTechInput[]
-      | TechnologyUncheckedCreateWithoutSousSkillTechInput[];
+      | TechnologyCreateWithoutSousSkillInput[]
+      | TechnologyUncheckedCreateWithoutSousSkillInput[];
     connectOrCreate?:
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput[];
-    createMany?: TechnologyCreateManySousSkillTechInputEnvelope;
+      | TechnologyCreateOrConnectWithoutSousSkillInput
+      | TechnologyCreateOrConnectWithoutSousSkillInput[];
+    createMany?: TechnologyCreateManySousSkillInputEnvelope;
     connect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
   };
 
-  export type TechnologyUncheckedCreateNestedManyWithoutSousSkillTechInput = {
+  export type TechnologyUncheckedCreateNestedManyWithoutSousSkillInput = {
     create?:
       | XOR<
-          TechnologyCreateWithoutSousSkillTechInput,
-          TechnologyUncheckedCreateWithoutSousSkillTechInput
+          TechnologyCreateWithoutSousSkillInput,
+          TechnologyUncheckedCreateWithoutSousSkillInput
         >
-      | TechnologyCreateWithoutSousSkillTechInput[]
-      | TechnologyUncheckedCreateWithoutSousSkillTechInput[];
+      | TechnologyCreateWithoutSousSkillInput[]
+      | TechnologyUncheckedCreateWithoutSousSkillInput[];
     connectOrCreate?:
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput[];
-    createMany?: TechnologyCreateManySousSkillTechInputEnvelope;
+      | TechnologyCreateOrConnectWithoutSousSkillInput
+      | TechnologyCreateOrConnectWithoutSousSkillInput[];
+    createMany?: TechnologyCreateManySousSkillInputEnvelope;
     connect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
   };
 
@@ -28872,59 +40550,59 @@ export namespace Prisma {
     >;
   };
 
-  export type TechnologyUpdateManyWithoutSousSkillTechNestedInput = {
+  export type TechnologyUpdateManyWithoutSousSkillNestedInput = {
     create?:
       | XOR<
-          TechnologyCreateWithoutSousSkillTechInput,
-          TechnologyUncheckedCreateWithoutSousSkillTechInput
+          TechnologyCreateWithoutSousSkillInput,
+          TechnologyUncheckedCreateWithoutSousSkillInput
         >
-      | TechnologyCreateWithoutSousSkillTechInput[]
-      | TechnologyUncheckedCreateWithoutSousSkillTechInput[];
+      | TechnologyCreateWithoutSousSkillInput[]
+      | TechnologyUncheckedCreateWithoutSousSkillInput[];
     connectOrCreate?:
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput[];
+      | TechnologyCreateOrConnectWithoutSousSkillInput
+      | TechnologyCreateOrConnectWithoutSousSkillInput[];
     upsert?:
-      | TechnologyUpsertWithWhereUniqueWithoutSousSkillTechInput
-      | TechnologyUpsertWithWhereUniqueWithoutSousSkillTechInput[];
-    createMany?: TechnologyCreateManySousSkillTechInputEnvelope;
+      | TechnologyUpsertWithWhereUniqueWithoutSousSkillInput
+      | TechnologyUpsertWithWhereUniqueWithoutSousSkillInput[];
+    createMany?: TechnologyCreateManySousSkillInputEnvelope;
     set?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     disconnect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     delete?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     connect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     update?:
-      | TechnologyUpdateWithWhereUniqueWithoutSousSkillTechInput
-      | TechnologyUpdateWithWhereUniqueWithoutSousSkillTechInput[];
+      | TechnologyUpdateWithWhereUniqueWithoutSousSkillInput
+      | TechnologyUpdateWithWhereUniqueWithoutSousSkillInput[];
     updateMany?:
-      | TechnologyUpdateManyWithWhereWithoutSousSkillTechInput
-      | TechnologyUpdateManyWithWhereWithoutSousSkillTechInput[];
+      | TechnologyUpdateManyWithWhereWithoutSousSkillInput
+      | TechnologyUpdateManyWithWhereWithoutSousSkillInput[];
     deleteMany?: TechnologyScalarWhereInput | TechnologyScalarWhereInput[];
   };
 
-  export type TechnologyUncheckedUpdateManyWithoutSousSkillTechNestedInput = {
+  export type TechnologyUncheckedUpdateManyWithoutSousSkillNestedInput = {
     create?:
       | XOR<
-          TechnologyCreateWithoutSousSkillTechInput,
-          TechnologyUncheckedCreateWithoutSousSkillTechInput
+          TechnologyCreateWithoutSousSkillInput,
+          TechnologyUncheckedCreateWithoutSousSkillInput
         >
-      | TechnologyCreateWithoutSousSkillTechInput[]
-      | TechnologyUncheckedCreateWithoutSousSkillTechInput[];
+      | TechnologyCreateWithoutSousSkillInput[]
+      | TechnologyUncheckedCreateWithoutSousSkillInput[];
     connectOrCreate?:
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput
-      | TechnologyCreateOrConnectWithoutSousSkillTechInput[];
+      | TechnologyCreateOrConnectWithoutSousSkillInput
+      | TechnologyCreateOrConnectWithoutSousSkillInput[];
     upsert?:
-      | TechnologyUpsertWithWhereUniqueWithoutSousSkillTechInput
-      | TechnologyUpsertWithWhereUniqueWithoutSousSkillTechInput[];
-    createMany?: TechnologyCreateManySousSkillTechInputEnvelope;
+      | TechnologyUpsertWithWhereUniqueWithoutSousSkillInput
+      | TechnologyUpsertWithWhereUniqueWithoutSousSkillInput[];
+    createMany?: TechnologyCreateManySousSkillInputEnvelope;
     set?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     disconnect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     delete?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     connect?: TechnologyWhereUniqueInput | TechnologyWhereUniqueInput[];
     update?:
-      | TechnologyUpdateWithWhereUniqueWithoutSousSkillTechInput
-      | TechnologyUpdateWithWhereUniqueWithoutSousSkillTechInput[];
+      | TechnologyUpdateWithWhereUniqueWithoutSousSkillInput
+      | TechnologyUpdateWithWhereUniqueWithoutSousSkillInput[];
     updateMany?:
-      | TechnologyUpdateManyWithWhereWithoutSousSkillTechInput
-      | TechnologyUpdateManyWithWhereWithoutSousSkillTechInput[];
+      | TechnologyUpdateManyWithWhereWithoutSousSkillInput
+      | TechnologyUpdateManyWithWhereWithoutSousSkillInput[];
     deleteMany?: TechnologyScalarWhereInput | TechnologyScalarWhereInput[];
   };
 
@@ -28935,6 +40613,36 @@ export namespace Prisma {
     >;
     connectOrCreate?: sousSkillCreateOrConnectWithoutTechnologyInput;
     connect?: sousSkillWhereUniqueInput;
+  };
+
+  export type UserTechnologyCreateNestedManyWithoutTechnologyInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutTechnologyInput,
+          UserTechnologyUncheckedCreateWithoutTechnologyInput
+        >
+      | UserTechnologyCreateWithoutTechnologyInput[]
+      | UserTechnologyUncheckedCreateWithoutTechnologyInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput[];
+    createMany?: UserTechnologyCreateManyTechnologyInputEnvelope;
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+  };
+
+  export type UserTechnologyUncheckedCreateNestedManyWithoutTechnologyInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutTechnologyInput,
+          UserTechnologyUncheckedCreateWithoutTechnologyInput
+        >
+      | UserTechnologyCreateWithoutTechnologyInput[]
+      | UserTechnologyUncheckedCreateWithoutTechnologyInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput[];
+    createMany?: UserTechnologyCreateManyTechnologyInputEnvelope;
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
   };
 
   export type sousSkillUpdateOneRequiredWithoutTechnologyNestedInput = {
@@ -28952,6 +40660,70 @@ export namespace Prisma {
       >,
       sousSkillUncheckedUpdateWithoutTechnologyInput
     >;
+  };
+
+  export type UserTechnologyUpdateManyWithoutTechnologyNestedInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutTechnologyInput,
+          UserTechnologyUncheckedCreateWithoutTechnologyInput
+        >
+      | UserTechnologyCreateWithoutTechnologyInput[]
+      | UserTechnologyUncheckedCreateWithoutTechnologyInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput[];
+    upsert?:
+      | UserTechnologyUpsertWithWhereUniqueWithoutTechnologyInput
+      | UserTechnologyUpsertWithWhereUniqueWithoutTechnologyInput[];
+    createMany?: UserTechnologyCreateManyTechnologyInputEnvelope;
+    set?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    disconnect?:
+      | UserTechnologyWhereUniqueInput
+      | UserTechnologyWhereUniqueInput[];
+    delete?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    update?:
+      | UserTechnologyUpdateWithWhereUniqueWithoutTechnologyInput
+      | UserTechnologyUpdateWithWhereUniqueWithoutTechnologyInput[];
+    updateMany?:
+      | UserTechnologyUpdateManyWithWhereWithoutTechnologyInput
+      | UserTechnologyUpdateManyWithWhereWithoutTechnologyInput[];
+    deleteMany?:
+      | UserTechnologyScalarWhereInput
+      | UserTechnologyScalarWhereInput[];
+  };
+
+  export type UserTechnologyUncheckedUpdateManyWithoutTechnologyNestedInput = {
+    create?:
+      | XOR<
+          UserTechnologyCreateWithoutTechnologyInput,
+          UserTechnologyUncheckedCreateWithoutTechnologyInput
+        >
+      | UserTechnologyCreateWithoutTechnologyInput[]
+      | UserTechnologyUncheckedCreateWithoutTechnologyInput[];
+    connectOrCreate?:
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput
+      | UserTechnologyCreateOrConnectWithoutTechnologyInput[];
+    upsert?:
+      | UserTechnologyUpsertWithWhereUniqueWithoutTechnologyInput
+      | UserTechnologyUpsertWithWhereUniqueWithoutTechnologyInput[];
+    createMany?: UserTechnologyCreateManyTechnologyInputEnvelope;
+    set?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    disconnect?:
+      | UserTechnologyWhereUniqueInput
+      | UserTechnologyWhereUniqueInput[];
+    delete?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    connect?: UserTechnologyWhereUniqueInput | UserTechnologyWhereUniqueInput[];
+    update?:
+      | UserTechnologyUpdateWithWhereUniqueWithoutTechnologyInput
+      | UserTechnologyUpdateWithWhereUniqueWithoutTechnologyInput[];
+    updateMany?:
+      | UserTechnologyUpdateManyWithWhereWithoutTechnologyInput
+      | UserTechnologyUpdateManyWithWhereWithoutTechnologyInput[];
+    deleteMany?:
+      | UserTechnologyScalarWhereInput
+      | UserTechnologyScalarWhereInput[];
   };
 
   export type UserCreateNestedOneWithoutUserSkillsInput = {
@@ -29010,6 +40782,58 @@ export namespace Prisma {
     >;
   };
 
+  export type UserCreateNestedOneWithoutUserTechnologiesInput = {
+    create?: XOR<
+      UserCreateWithoutUserTechnologiesInput,
+      UserUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutUserTechnologiesInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type TechnologyCreateNestedOneWithoutUserTechnologiesInput = {
+    create?: XOR<
+      TechnologyCreateWithoutUserTechnologiesInput,
+      TechnologyUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    connectOrCreate?: TechnologyCreateOrConnectWithoutUserTechnologiesInput;
+    connect?: TechnologyWhereUniqueInput;
+  };
+
+  export type UserUpdateOneRequiredWithoutUserTechnologiesNestedInput = {
+    create?: XOR<
+      UserCreateWithoutUserTechnologiesInput,
+      UserUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutUserTechnologiesInput;
+    upsert?: UserUpsertWithoutUserTechnologiesInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutUserTechnologiesInput,
+        UserUpdateWithoutUserTechnologiesInput
+      >,
+      UserUncheckedUpdateWithoutUserTechnologiesInput
+    >;
+  };
+
+  export type TechnologyUpdateOneRequiredWithoutUserTechnologiesNestedInput = {
+    create?: XOR<
+      TechnologyCreateWithoutUserTechnologiesInput,
+      TechnologyUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    connectOrCreate?: TechnologyCreateOrConnectWithoutUserTechnologiesInput;
+    upsert?: TechnologyUpsertWithoutUserTechnologiesInput;
+    connect?: TechnologyWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        TechnologyUpdateToOneWithWhereWithoutUserTechnologiesInput,
+        TechnologyUpdateWithoutUserTechnologiesInput
+      >,
+      TechnologyUncheckedUpdateWithoutUserTechnologiesInput
+    >;
+  };
+
   export type UserCreateNestedOneWithoutDegreesInput = {
     create?: XOR<
       UserCreateWithoutDegreesInput,
@@ -29036,29 +40860,29 @@ export namespace Prisma {
     >;
   };
 
-  export type UserCreateNestedOneWithoutSessionInput = {
+  export type UserCreateNestedOneWithoutSessionsInput = {
     create?: XOR<
-      UserCreateWithoutSessionInput,
-      UserUncheckedCreateWithoutSessionInput
+      UserCreateWithoutSessionsInput,
+      UserUncheckedCreateWithoutSessionsInput
     >;
-    connectOrCreate?: UserCreateOrConnectWithoutSessionInput;
+    connectOrCreate?: UserCreateOrConnectWithoutSessionsInput;
     connect?: UserWhereUniqueInput;
   };
 
-  export type UserUpdateOneRequiredWithoutSessionNestedInput = {
+  export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
     create?: XOR<
-      UserCreateWithoutSessionInput,
-      UserUncheckedCreateWithoutSessionInput
+      UserCreateWithoutSessionsInput,
+      UserUncheckedCreateWithoutSessionsInput
     >;
-    connectOrCreate?: UserCreateOrConnectWithoutSessionInput;
-    upsert?: UserUpsertWithoutSessionInput;
+    connectOrCreate?: UserCreateOrConnectWithoutSessionsInput;
+    upsert?: UserUpsertWithoutSessionsInput;
     connect?: UserWhereUniqueInput;
     update?: XOR<
       XOR<
-        UserUpdateToOneWithWhereWithoutSessionInput,
-        UserUpdateWithoutSessionInput
+        UserUpdateToOneWithWhereWithoutSessionsInput,
+        UserUpdateWithoutSessionsInput
       >,
-      UserUncheckedUpdateWithoutSessionInput
+      UserUncheckedUpdateWithoutSessionsInput
     >;
   };
 
@@ -29097,6 +40921,164 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput;
   };
 
+  export type PostMediaCreateNestedManyWithoutPostInput = {
+    create?:
+      | XOR<
+          PostMediaCreateWithoutPostInput,
+          PostMediaUncheckedCreateWithoutPostInput
+        >
+      | PostMediaCreateWithoutPostInput[]
+      | PostMediaUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostMediaCreateOrConnectWithoutPostInput
+      | PostMediaCreateOrConnectWithoutPostInput[];
+    createMany?: PostMediaCreateManyPostInputEnvelope;
+    connect?: PostMediaWhereUniqueInput | PostMediaWhereUniqueInput[];
+  };
+
+  export type PostCollaboratorCreateNestedManyWithoutPostInput = {
+    create?:
+      | XOR<
+          PostCollaboratorCreateWithoutPostInput,
+          PostCollaboratorUncheckedCreateWithoutPostInput
+        >
+      | PostCollaboratorCreateWithoutPostInput[]
+      | PostCollaboratorUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostCollaboratorCreateOrConnectWithoutPostInput
+      | PostCollaboratorCreateOrConnectWithoutPostInput[];
+    createMany?: PostCollaboratorCreateManyPostInputEnvelope;
+    connect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+  };
+
+  export type PostReactionCreateNestedManyWithoutPostInput = {
+    create?:
+      | XOR<
+          PostReactionCreateWithoutPostInput,
+          PostReactionUncheckedCreateWithoutPostInput
+        >
+      | PostReactionCreateWithoutPostInput[]
+      | PostReactionUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostReactionCreateOrConnectWithoutPostInput
+      | PostReactionCreateOrConnectWithoutPostInput[];
+    createMany?: PostReactionCreateManyPostInputEnvelope;
+    connect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+  };
+
+  export type CommentCreateNestedManyWithoutPostInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutPostInput,
+          CommentUncheckedCreateWithoutPostInput
+        >
+      | CommentCreateWithoutPostInput[]
+      | CommentUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutPostInput
+      | CommentCreateOrConnectWithoutPostInput[];
+    createMany?: CommentCreateManyPostInputEnvelope;
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+  };
+
+  export type MentionCreateNestedManyWithoutPostInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutPostInput,
+          MentionUncheckedCreateWithoutPostInput
+        >
+      | MentionCreateWithoutPostInput[]
+      | MentionUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutPostInput
+      | MentionCreateOrConnectWithoutPostInput[];
+    createMany?: MentionCreateManyPostInputEnvelope;
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+  };
+
+  export type PostMediaUncheckedCreateNestedManyWithoutPostInput = {
+    create?:
+      | XOR<
+          PostMediaCreateWithoutPostInput,
+          PostMediaUncheckedCreateWithoutPostInput
+        >
+      | PostMediaCreateWithoutPostInput[]
+      | PostMediaUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostMediaCreateOrConnectWithoutPostInput
+      | PostMediaCreateOrConnectWithoutPostInput[];
+    createMany?: PostMediaCreateManyPostInputEnvelope;
+    connect?: PostMediaWhereUniqueInput | PostMediaWhereUniqueInput[];
+  };
+
+  export type PostCollaboratorUncheckedCreateNestedManyWithoutPostInput = {
+    create?:
+      | XOR<
+          PostCollaboratorCreateWithoutPostInput,
+          PostCollaboratorUncheckedCreateWithoutPostInput
+        >
+      | PostCollaboratorCreateWithoutPostInput[]
+      | PostCollaboratorUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostCollaboratorCreateOrConnectWithoutPostInput
+      | PostCollaboratorCreateOrConnectWithoutPostInput[];
+    createMany?: PostCollaboratorCreateManyPostInputEnvelope;
+    connect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+  };
+
+  export type PostReactionUncheckedCreateNestedManyWithoutPostInput = {
+    create?:
+      | XOR<
+          PostReactionCreateWithoutPostInput,
+          PostReactionUncheckedCreateWithoutPostInput
+        >
+      | PostReactionCreateWithoutPostInput[]
+      | PostReactionUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostReactionCreateOrConnectWithoutPostInput
+      | PostReactionCreateOrConnectWithoutPostInput[];
+    createMany?: PostReactionCreateManyPostInputEnvelope;
+    connect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+  };
+
+  export type CommentUncheckedCreateNestedManyWithoutPostInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutPostInput,
+          CommentUncheckedCreateWithoutPostInput
+        >
+      | CommentCreateWithoutPostInput[]
+      | CommentUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutPostInput
+      | CommentCreateOrConnectWithoutPostInput[];
+    createMany?: CommentCreateManyPostInputEnvelope;
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+  };
+
+  export type MentionUncheckedCreateNestedManyWithoutPostInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutPostInput,
+          MentionUncheckedCreateWithoutPostInput
+        >
+      | MentionCreateWithoutPostInput[]
+      | MentionUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutPostInput
+      | MentionCreateOrConnectWithoutPostInput[];
+    createMany?: MentionCreateManyPostInputEnvelope;
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+  };
+
+  export type EnumContentTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ContentType;
+  };
+
   export type EnumVisibilityFieldUpdateOperationsInput = {
     set?: $Enums.Visibility;
   };
@@ -29115,6 +41097,786 @@ export namespace Prisma {
         UserUpdateWithoutPostsInput
       >,
       UserUncheckedUpdateWithoutPostsInput
+    >;
+  };
+
+  export type PostMediaUpdateManyWithoutPostNestedInput = {
+    create?:
+      | XOR<
+          PostMediaCreateWithoutPostInput,
+          PostMediaUncheckedCreateWithoutPostInput
+        >
+      | PostMediaCreateWithoutPostInput[]
+      | PostMediaUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostMediaCreateOrConnectWithoutPostInput
+      | PostMediaCreateOrConnectWithoutPostInput[];
+    upsert?:
+      | PostMediaUpsertWithWhereUniqueWithoutPostInput
+      | PostMediaUpsertWithWhereUniqueWithoutPostInput[];
+    createMany?: PostMediaCreateManyPostInputEnvelope;
+    set?: PostMediaWhereUniqueInput | PostMediaWhereUniqueInput[];
+    disconnect?: PostMediaWhereUniqueInput | PostMediaWhereUniqueInput[];
+    delete?: PostMediaWhereUniqueInput | PostMediaWhereUniqueInput[];
+    connect?: PostMediaWhereUniqueInput | PostMediaWhereUniqueInput[];
+    update?:
+      | PostMediaUpdateWithWhereUniqueWithoutPostInput
+      | PostMediaUpdateWithWhereUniqueWithoutPostInput[];
+    updateMany?:
+      | PostMediaUpdateManyWithWhereWithoutPostInput
+      | PostMediaUpdateManyWithWhereWithoutPostInput[];
+    deleteMany?: PostMediaScalarWhereInput | PostMediaScalarWhereInput[];
+  };
+
+  export type PostCollaboratorUpdateManyWithoutPostNestedInput = {
+    create?:
+      | XOR<
+          PostCollaboratorCreateWithoutPostInput,
+          PostCollaboratorUncheckedCreateWithoutPostInput
+        >
+      | PostCollaboratorCreateWithoutPostInput[]
+      | PostCollaboratorUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostCollaboratorCreateOrConnectWithoutPostInput
+      | PostCollaboratorCreateOrConnectWithoutPostInput[];
+    upsert?:
+      | PostCollaboratorUpsertWithWhereUniqueWithoutPostInput
+      | PostCollaboratorUpsertWithWhereUniqueWithoutPostInput[];
+    createMany?: PostCollaboratorCreateManyPostInputEnvelope;
+    set?: PostCollaboratorWhereUniqueInput | PostCollaboratorWhereUniqueInput[];
+    disconnect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    delete?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    connect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    update?:
+      | PostCollaboratorUpdateWithWhereUniqueWithoutPostInput
+      | PostCollaboratorUpdateWithWhereUniqueWithoutPostInput[];
+    updateMany?:
+      | PostCollaboratorUpdateManyWithWhereWithoutPostInput
+      | PostCollaboratorUpdateManyWithWhereWithoutPostInput[];
+    deleteMany?:
+      | PostCollaboratorScalarWhereInput
+      | PostCollaboratorScalarWhereInput[];
+  };
+
+  export type PostReactionUpdateManyWithoutPostNestedInput = {
+    create?:
+      | XOR<
+          PostReactionCreateWithoutPostInput,
+          PostReactionUncheckedCreateWithoutPostInput
+        >
+      | PostReactionCreateWithoutPostInput[]
+      | PostReactionUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostReactionCreateOrConnectWithoutPostInput
+      | PostReactionCreateOrConnectWithoutPostInput[];
+    upsert?:
+      | PostReactionUpsertWithWhereUniqueWithoutPostInput
+      | PostReactionUpsertWithWhereUniqueWithoutPostInput[];
+    createMany?: PostReactionCreateManyPostInputEnvelope;
+    set?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    disconnect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    delete?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    connect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    update?:
+      | PostReactionUpdateWithWhereUniqueWithoutPostInput
+      | PostReactionUpdateWithWhereUniqueWithoutPostInput[];
+    updateMany?:
+      | PostReactionUpdateManyWithWhereWithoutPostInput
+      | PostReactionUpdateManyWithWhereWithoutPostInput[];
+    deleteMany?: PostReactionScalarWhereInput | PostReactionScalarWhereInput[];
+  };
+
+  export type CommentUpdateManyWithoutPostNestedInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutPostInput,
+          CommentUncheckedCreateWithoutPostInput
+        >
+      | CommentCreateWithoutPostInput[]
+      | CommentUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutPostInput
+      | CommentCreateOrConnectWithoutPostInput[];
+    upsert?:
+      | CommentUpsertWithWhereUniqueWithoutPostInput
+      | CommentUpsertWithWhereUniqueWithoutPostInput[];
+    createMany?: CommentCreateManyPostInputEnvelope;
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    update?:
+      | CommentUpdateWithWhereUniqueWithoutPostInput
+      | CommentUpdateWithWhereUniqueWithoutPostInput[];
+    updateMany?:
+      | CommentUpdateManyWithWhereWithoutPostInput
+      | CommentUpdateManyWithWhereWithoutPostInput[];
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[];
+  };
+
+  export type MentionUpdateManyWithoutPostNestedInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutPostInput,
+          MentionUncheckedCreateWithoutPostInput
+        >
+      | MentionCreateWithoutPostInput[]
+      | MentionUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutPostInput
+      | MentionCreateOrConnectWithoutPostInput[];
+    upsert?:
+      | MentionUpsertWithWhereUniqueWithoutPostInput
+      | MentionUpsertWithWhereUniqueWithoutPostInput[];
+    createMany?: MentionCreateManyPostInputEnvelope;
+    set?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    disconnect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    delete?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    update?:
+      | MentionUpdateWithWhereUniqueWithoutPostInput
+      | MentionUpdateWithWhereUniqueWithoutPostInput[];
+    updateMany?:
+      | MentionUpdateManyWithWhereWithoutPostInput
+      | MentionUpdateManyWithWhereWithoutPostInput[];
+    deleteMany?: MentionScalarWhereInput | MentionScalarWhereInput[];
+  };
+
+  export type PostMediaUncheckedUpdateManyWithoutPostNestedInput = {
+    create?:
+      | XOR<
+          PostMediaCreateWithoutPostInput,
+          PostMediaUncheckedCreateWithoutPostInput
+        >
+      | PostMediaCreateWithoutPostInput[]
+      | PostMediaUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostMediaCreateOrConnectWithoutPostInput
+      | PostMediaCreateOrConnectWithoutPostInput[];
+    upsert?:
+      | PostMediaUpsertWithWhereUniqueWithoutPostInput
+      | PostMediaUpsertWithWhereUniqueWithoutPostInput[];
+    createMany?: PostMediaCreateManyPostInputEnvelope;
+    set?: PostMediaWhereUniqueInput | PostMediaWhereUniqueInput[];
+    disconnect?: PostMediaWhereUniqueInput | PostMediaWhereUniqueInput[];
+    delete?: PostMediaWhereUniqueInput | PostMediaWhereUniqueInput[];
+    connect?: PostMediaWhereUniqueInput | PostMediaWhereUniqueInput[];
+    update?:
+      | PostMediaUpdateWithWhereUniqueWithoutPostInput
+      | PostMediaUpdateWithWhereUniqueWithoutPostInput[];
+    updateMany?:
+      | PostMediaUpdateManyWithWhereWithoutPostInput
+      | PostMediaUpdateManyWithWhereWithoutPostInput[];
+    deleteMany?: PostMediaScalarWhereInput | PostMediaScalarWhereInput[];
+  };
+
+  export type PostCollaboratorUncheckedUpdateManyWithoutPostNestedInput = {
+    create?:
+      | XOR<
+          PostCollaboratorCreateWithoutPostInput,
+          PostCollaboratorUncheckedCreateWithoutPostInput
+        >
+      | PostCollaboratorCreateWithoutPostInput[]
+      | PostCollaboratorUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostCollaboratorCreateOrConnectWithoutPostInput
+      | PostCollaboratorCreateOrConnectWithoutPostInput[];
+    upsert?:
+      | PostCollaboratorUpsertWithWhereUniqueWithoutPostInput
+      | PostCollaboratorUpsertWithWhereUniqueWithoutPostInput[];
+    createMany?: PostCollaboratorCreateManyPostInputEnvelope;
+    set?: PostCollaboratorWhereUniqueInput | PostCollaboratorWhereUniqueInput[];
+    disconnect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    delete?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    connect?:
+      | PostCollaboratorWhereUniqueInput
+      | PostCollaboratorWhereUniqueInput[];
+    update?:
+      | PostCollaboratorUpdateWithWhereUniqueWithoutPostInput
+      | PostCollaboratorUpdateWithWhereUniqueWithoutPostInput[];
+    updateMany?:
+      | PostCollaboratorUpdateManyWithWhereWithoutPostInput
+      | PostCollaboratorUpdateManyWithWhereWithoutPostInput[];
+    deleteMany?:
+      | PostCollaboratorScalarWhereInput
+      | PostCollaboratorScalarWhereInput[];
+  };
+
+  export type PostReactionUncheckedUpdateManyWithoutPostNestedInput = {
+    create?:
+      | XOR<
+          PostReactionCreateWithoutPostInput,
+          PostReactionUncheckedCreateWithoutPostInput
+        >
+      | PostReactionCreateWithoutPostInput[]
+      | PostReactionUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | PostReactionCreateOrConnectWithoutPostInput
+      | PostReactionCreateOrConnectWithoutPostInput[];
+    upsert?:
+      | PostReactionUpsertWithWhereUniqueWithoutPostInput
+      | PostReactionUpsertWithWhereUniqueWithoutPostInput[];
+    createMany?: PostReactionCreateManyPostInputEnvelope;
+    set?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    disconnect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    delete?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    connect?: PostReactionWhereUniqueInput | PostReactionWhereUniqueInput[];
+    update?:
+      | PostReactionUpdateWithWhereUniqueWithoutPostInput
+      | PostReactionUpdateWithWhereUniqueWithoutPostInput[];
+    updateMany?:
+      | PostReactionUpdateManyWithWhereWithoutPostInput
+      | PostReactionUpdateManyWithWhereWithoutPostInput[];
+    deleteMany?: PostReactionScalarWhereInput | PostReactionScalarWhereInput[];
+  };
+
+  export type CommentUncheckedUpdateManyWithoutPostNestedInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutPostInput,
+          CommentUncheckedCreateWithoutPostInput
+        >
+      | CommentCreateWithoutPostInput[]
+      | CommentUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutPostInput
+      | CommentCreateOrConnectWithoutPostInput[];
+    upsert?:
+      | CommentUpsertWithWhereUniqueWithoutPostInput
+      | CommentUpsertWithWhereUniqueWithoutPostInput[];
+    createMany?: CommentCreateManyPostInputEnvelope;
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    update?:
+      | CommentUpdateWithWhereUniqueWithoutPostInput
+      | CommentUpdateWithWhereUniqueWithoutPostInput[];
+    updateMany?:
+      | CommentUpdateManyWithWhereWithoutPostInput
+      | CommentUpdateManyWithWhereWithoutPostInput[];
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[];
+  };
+
+  export type MentionUncheckedUpdateManyWithoutPostNestedInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutPostInput,
+          MentionUncheckedCreateWithoutPostInput
+        >
+      | MentionCreateWithoutPostInput[]
+      | MentionUncheckedCreateWithoutPostInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutPostInput
+      | MentionCreateOrConnectWithoutPostInput[];
+    upsert?:
+      | MentionUpsertWithWhereUniqueWithoutPostInput
+      | MentionUpsertWithWhereUniqueWithoutPostInput[];
+    createMany?: MentionCreateManyPostInputEnvelope;
+    set?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    disconnect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    delete?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    update?:
+      | MentionUpdateWithWhereUniqueWithoutPostInput
+      | MentionUpdateWithWhereUniqueWithoutPostInput[];
+    updateMany?:
+      | MentionUpdateManyWithWhereWithoutPostInput
+      | MentionUpdateManyWithWhereWithoutPostInput[];
+    deleteMany?: MentionScalarWhereInput | MentionScalarWhereInput[];
+  };
+
+  export type PostCreateNestedOneWithoutMediaInput = {
+    create?: XOR<
+      PostCreateWithoutMediaInput,
+      PostUncheckedCreateWithoutMediaInput
+    >;
+    connectOrCreate?: PostCreateOrConnectWithoutMediaInput;
+    connect?: PostWhereUniqueInput;
+  };
+
+  export type EnumMediaTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MediaType;
+  };
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null;
+    increment?: number;
+    decrement?: number;
+    multiply?: number;
+    divide?: number;
+  };
+
+  export type PostUpdateOneRequiredWithoutMediaNestedInput = {
+    create?: XOR<
+      PostCreateWithoutMediaInput,
+      PostUncheckedCreateWithoutMediaInput
+    >;
+    connectOrCreate?: PostCreateOrConnectWithoutMediaInput;
+    upsert?: PostUpsertWithoutMediaInput;
+    connect?: PostWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        PostUpdateToOneWithWhereWithoutMediaInput,
+        PostUpdateWithoutMediaInput
+      >,
+      PostUncheckedUpdateWithoutMediaInput
+    >;
+  };
+
+  export type PostCreateNestedOneWithoutCollaboratorsInput = {
+    create?: XOR<
+      PostCreateWithoutCollaboratorsInput,
+      PostUncheckedCreateWithoutCollaboratorsInput
+    >;
+    connectOrCreate?: PostCreateOrConnectWithoutCollaboratorsInput;
+    connect?: PostWhereUniqueInput;
+  };
+
+  export type UserCreateNestedOneWithoutPostCollaborationsInput = {
+    create?: XOR<
+      UserCreateWithoutPostCollaborationsInput,
+      UserUncheckedCreateWithoutPostCollaborationsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutPostCollaborationsInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type EnumCollaboratorRoleFieldUpdateOperationsInput = {
+    set?: $Enums.CollaboratorRole;
+  };
+
+  export type PostUpdateOneRequiredWithoutCollaboratorsNestedInput = {
+    create?: XOR<
+      PostCreateWithoutCollaboratorsInput,
+      PostUncheckedCreateWithoutCollaboratorsInput
+    >;
+    connectOrCreate?: PostCreateOrConnectWithoutCollaboratorsInput;
+    upsert?: PostUpsertWithoutCollaboratorsInput;
+    connect?: PostWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        PostUpdateToOneWithWhereWithoutCollaboratorsInput,
+        PostUpdateWithoutCollaboratorsInput
+      >,
+      PostUncheckedUpdateWithoutCollaboratorsInput
+    >;
+  };
+
+  export type UserUpdateOneRequiredWithoutPostCollaborationsNestedInput = {
+    create?: XOR<
+      UserCreateWithoutPostCollaborationsInput,
+      UserUncheckedCreateWithoutPostCollaborationsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutPostCollaborationsInput;
+    upsert?: UserUpsertWithoutPostCollaborationsInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutPostCollaborationsInput,
+        UserUpdateWithoutPostCollaborationsInput
+      >,
+      UserUncheckedUpdateWithoutPostCollaborationsInput
+    >;
+  };
+
+  export type PostCreateNestedOneWithoutReactionsInput = {
+    create?: XOR<
+      PostCreateWithoutReactionsInput,
+      PostUncheckedCreateWithoutReactionsInput
+    >;
+    connectOrCreate?: PostCreateOrConnectWithoutReactionsInput;
+    connect?: PostWhereUniqueInput;
+  };
+
+  export type UserCreateNestedOneWithoutPostReactionsInput = {
+    create?: XOR<
+      UserCreateWithoutPostReactionsInput,
+      UserUncheckedCreateWithoutPostReactionsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutPostReactionsInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type EnumReactionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ReactionType;
+  };
+
+  export type PostUpdateOneRequiredWithoutReactionsNestedInput = {
+    create?: XOR<
+      PostCreateWithoutReactionsInput,
+      PostUncheckedCreateWithoutReactionsInput
+    >;
+    connectOrCreate?: PostCreateOrConnectWithoutReactionsInput;
+    upsert?: PostUpsertWithoutReactionsInput;
+    connect?: PostWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        PostUpdateToOneWithWhereWithoutReactionsInput,
+        PostUpdateWithoutReactionsInput
+      >,
+      PostUncheckedUpdateWithoutReactionsInput
+    >;
+  };
+
+  export type UserUpdateOneRequiredWithoutPostReactionsNestedInput = {
+    create?: XOR<
+      UserCreateWithoutPostReactionsInput,
+      UserUncheckedCreateWithoutPostReactionsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutPostReactionsInput;
+    upsert?: UserUpsertWithoutPostReactionsInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutPostReactionsInput,
+        UserUpdateWithoutPostReactionsInput
+      >,
+      UserUncheckedUpdateWithoutPostReactionsInput
+    >;
+  };
+
+  export type PostCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<
+      PostCreateWithoutCommentsInput,
+      PostUncheckedCreateWithoutCommentsInput
+    >;
+    connectOrCreate?: PostCreateOrConnectWithoutCommentsInput;
+    connect?: PostWhereUniqueInput;
+  };
+
+  export type UserCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<
+      UserCreateWithoutCommentsInput,
+      UserUncheckedCreateWithoutCommentsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type CommentCreateNestedOneWithoutRepliesInput = {
+    create?: XOR<
+      CommentCreateWithoutRepliesInput,
+      CommentUncheckedCreateWithoutRepliesInput
+    >;
+    connectOrCreate?: CommentCreateOrConnectWithoutRepliesInput;
+    connect?: CommentWhereUniqueInput;
+  };
+
+  export type CommentCreateNestedManyWithoutParentInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutParentInput,
+          CommentUncheckedCreateWithoutParentInput
+        >
+      | CommentCreateWithoutParentInput[]
+      | CommentUncheckedCreateWithoutParentInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutParentInput
+      | CommentCreateOrConnectWithoutParentInput[];
+    createMany?: CommentCreateManyParentInputEnvelope;
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+  };
+
+  export type MentionCreateNestedManyWithoutCommentInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutCommentInput,
+          MentionUncheckedCreateWithoutCommentInput
+        >
+      | MentionCreateWithoutCommentInput[]
+      | MentionUncheckedCreateWithoutCommentInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutCommentInput
+      | MentionCreateOrConnectWithoutCommentInput[];
+    createMany?: MentionCreateManyCommentInputEnvelope;
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+  };
+
+  export type CommentUncheckedCreateNestedManyWithoutParentInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutParentInput,
+          CommentUncheckedCreateWithoutParentInput
+        >
+      | CommentCreateWithoutParentInput[]
+      | CommentUncheckedCreateWithoutParentInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutParentInput
+      | CommentCreateOrConnectWithoutParentInput[];
+    createMany?: CommentCreateManyParentInputEnvelope;
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+  };
+
+  export type MentionUncheckedCreateNestedManyWithoutCommentInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutCommentInput,
+          MentionUncheckedCreateWithoutCommentInput
+        >
+      | MentionCreateWithoutCommentInput[]
+      | MentionUncheckedCreateWithoutCommentInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutCommentInput
+      | MentionCreateOrConnectWithoutCommentInput[];
+    createMany?: MentionCreateManyCommentInputEnvelope;
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+  };
+
+  export type PostUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<
+      PostCreateWithoutCommentsInput,
+      PostUncheckedCreateWithoutCommentsInput
+    >;
+    connectOrCreate?: PostCreateOrConnectWithoutCommentsInput;
+    upsert?: PostUpsertWithoutCommentsInput;
+    connect?: PostWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        PostUpdateToOneWithWhereWithoutCommentsInput,
+        PostUpdateWithoutCommentsInput
+      >,
+      PostUncheckedUpdateWithoutCommentsInput
+    >;
+  };
+
+  export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<
+      UserCreateWithoutCommentsInput,
+      UserUncheckedCreateWithoutCommentsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput;
+    upsert?: UserUpsertWithoutCommentsInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutCommentsInput,
+        UserUpdateWithoutCommentsInput
+      >,
+      UserUncheckedUpdateWithoutCommentsInput
+    >;
+  };
+
+  export type CommentUpdateOneWithoutRepliesNestedInput = {
+    create?: XOR<
+      CommentCreateWithoutRepliesInput,
+      CommentUncheckedCreateWithoutRepliesInput
+    >;
+    connectOrCreate?: CommentCreateOrConnectWithoutRepliesInput;
+    upsert?: CommentUpsertWithoutRepliesInput;
+    disconnect?: CommentWhereInput | boolean;
+    delete?: CommentWhereInput | boolean;
+    connect?: CommentWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        CommentUpdateToOneWithWhereWithoutRepliesInput,
+        CommentUpdateWithoutRepliesInput
+      >,
+      CommentUncheckedUpdateWithoutRepliesInput
+    >;
+  };
+
+  export type CommentUpdateManyWithoutParentNestedInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutParentInput,
+          CommentUncheckedCreateWithoutParentInput
+        >
+      | CommentCreateWithoutParentInput[]
+      | CommentUncheckedCreateWithoutParentInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutParentInput
+      | CommentCreateOrConnectWithoutParentInput[];
+    upsert?:
+      | CommentUpsertWithWhereUniqueWithoutParentInput
+      | CommentUpsertWithWhereUniqueWithoutParentInput[];
+    createMany?: CommentCreateManyParentInputEnvelope;
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    update?:
+      | CommentUpdateWithWhereUniqueWithoutParentInput
+      | CommentUpdateWithWhereUniqueWithoutParentInput[];
+    updateMany?:
+      | CommentUpdateManyWithWhereWithoutParentInput
+      | CommentUpdateManyWithWhereWithoutParentInput[];
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[];
+  };
+
+  export type MentionUpdateManyWithoutCommentNestedInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutCommentInput,
+          MentionUncheckedCreateWithoutCommentInput
+        >
+      | MentionCreateWithoutCommentInput[]
+      | MentionUncheckedCreateWithoutCommentInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutCommentInput
+      | MentionCreateOrConnectWithoutCommentInput[];
+    upsert?:
+      | MentionUpsertWithWhereUniqueWithoutCommentInput
+      | MentionUpsertWithWhereUniqueWithoutCommentInput[];
+    createMany?: MentionCreateManyCommentInputEnvelope;
+    set?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    disconnect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    delete?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    update?:
+      | MentionUpdateWithWhereUniqueWithoutCommentInput
+      | MentionUpdateWithWhereUniqueWithoutCommentInput[];
+    updateMany?:
+      | MentionUpdateManyWithWhereWithoutCommentInput
+      | MentionUpdateManyWithWhereWithoutCommentInput[];
+    deleteMany?: MentionScalarWhereInput | MentionScalarWhereInput[];
+  };
+
+  export type CommentUncheckedUpdateManyWithoutParentNestedInput = {
+    create?:
+      | XOR<
+          CommentCreateWithoutParentInput,
+          CommentUncheckedCreateWithoutParentInput
+        >
+      | CommentCreateWithoutParentInput[]
+      | CommentUncheckedCreateWithoutParentInput[];
+    connectOrCreate?:
+      | CommentCreateOrConnectWithoutParentInput
+      | CommentCreateOrConnectWithoutParentInput[];
+    upsert?:
+      | CommentUpsertWithWhereUniqueWithoutParentInput
+      | CommentUpsertWithWhereUniqueWithoutParentInput[];
+    createMany?: CommentCreateManyParentInputEnvelope;
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[];
+    update?:
+      | CommentUpdateWithWhereUniqueWithoutParentInput
+      | CommentUpdateWithWhereUniqueWithoutParentInput[];
+    updateMany?:
+      | CommentUpdateManyWithWhereWithoutParentInput
+      | CommentUpdateManyWithWhereWithoutParentInput[];
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[];
+  };
+
+  export type MentionUncheckedUpdateManyWithoutCommentNestedInput = {
+    create?:
+      | XOR<
+          MentionCreateWithoutCommentInput,
+          MentionUncheckedCreateWithoutCommentInput
+        >
+      | MentionCreateWithoutCommentInput[]
+      | MentionUncheckedCreateWithoutCommentInput[];
+    connectOrCreate?:
+      | MentionCreateOrConnectWithoutCommentInput
+      | MentionCreateOrConnectWithoutCommentInput[];
+    upsert?:
+      | MentionUpsertWithWhereUniqueWithoutCommentInput
+      | MentionUpsertWithWhereUniqueWithoutCommentInput[];
+    createMany?: MentionCreateManyCommentInputEnvelope;
+    set?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    disconnect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    delete?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[];
+    update?:
+      | MentionUpdateWithWhereUniqueWithoutCommentInput
+      | MentionUpdateWithWhereUniqueWithoutCommentInput[];
+    updateMany?:
+      | MentionUpdateManyWithWhereWithoutCommentInput
+      | MentionUpdateManyWithWhereWithoutCommentInput[];
+    deleteMany?: MentionScalarWhereInput | MentionScalarWhereInput[];
+  };
+
+  export type PostCreateNestedOneWithoutMentionsInput = {
+    create?: XOR<
+      PostCreateWithoutMentionsInput,
+      PostUncheckedCreateWithoutMentionsInput
+    >;
+    connectOrCreate?: PostCreateOrConnectWithoutMentionsInput;
+    connect?: PostWhereUniqueInput;
+  };
+
+  export type CommentCreateNestedOneWithoutMentionsInput = {
+    create?: XOR<
+      CommentCreateWithoutMentionsInput,
+      CommentUncheckedCreateWithoutMentionsInput
+    >;
+    connectOrCreate?: CommentCreateOrConnectWithoutMentionsInput;
+    connect?: CommentWhereUniqueInput;
+  };
+
+  export type UserCreateNestedOneWithoutMentionsInput = {
+    create?: XOR<
+      UserCreateWithoutMentionsInput,
+      UserUncheckedCreateWithoutMentionsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutMentionsInput;
+    connect?: UserWhereUniqueInput;
+  };
+
+  export type PostUpdateOneWithoutMentionsNestedInput = {
+    create?: XOR<
+      PostCreateWithoutMentionsInput,
+      PostUncheckedCreateWithoutMentionsInput
+    >;
+    connectOrCreate?: PostCreateOrConnectWithoutMentionsInput;
+    upsert?: PostUpsertWithoutMentionsInput;
+    disconnect?: PostWhereInput | boolean;
+    delete?: PostWhereInput | boolean;
+    connect?: PostWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        PostUpdateToOneWithWhereWithoutMentionsInput,
+        PostUpdateWithoutMentionsInput
+      >,
+      PostUncheckedUpdateWithoutMentionsInput
+    >;
+  };
+
+  export type CommentUpdateOneWithoutMentionsNestedInput = {
+    create?: XOR<
+      CommentCreateWithoutMentionsInput,
+      CommentUncheckedCreateWithoutMentionsInput
+    >;
+    connectOrCreate?: CommentCreateOrConnectWithoutMentionsInput;
+    upsert?: CommentUpsertWithoutMentionsInput;
+    disconnect?: CommentWhereInput | boolean;
+    delete?: CommentWhereInput | boolean;
+    connect?: CommentWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        CommentUpdateToOneWithWhereWithoutMentionsInput,
+        CommentUpdateWithoutMentionsInput
+      >,
+      CommentUncheckedUpdateWithoutMentionsInput
+    >;
+  };
+
+  export type UserUpdateOneRequiredWithoutMentionsNestedInput = {
+    create?: XOR<
+      UserCreateWithoutMentionsInput,
+      UserUncheckedCreateWithoutMentionsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutMentionsInput;
+    upsert?: UserUpsertWithoutMentionsInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutMentionsInput,
+        UserUpdateWithoutMentionsInput
+      >,
+      UserUncheckedUpdateWithoutMentionsInput
     >;
   };
 
@@ -29387,12 +42149,38 @@ export namespace Prisma {
     _max?: NestedEnumSkillLevelFilter<$PrismaModel>;
   };
 
+  export type NestedEnumContentTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContentType | EnumContentTypeFieldRefInput<$PrismaModel>;
+    in?: $Enums.ContentType[] | ListEnumContentTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.ContentType[]
+      | ListEnumContentTypeFieldRefInput<$PrismaModel>;
+    not?: NestedEnumContentTypeFilter<$PrismaModel> | $Enums.ContentType;
+  };
+
   export type NestedEnumVisibilityFilter<$PrismaModel = never> = {
     equals?: $Enums.Visibility | EnumVisibilityFieldRefInput<$PrismaModel>;
     in?: $Enums.Visibility[] | ListEnumVisibilityFieldRefInput<$PrismaModel>;
     notIn?: $Enums.Visibility[] | ListEnumVisibilityFieldRefInput<$PrismaModel>;
     not?: NestedEnumVisibilityFilter<$PrismaModel> | $Enums.Visibility;
   };
+
+  export type NestedEnumContentTypeWithAggregatesFilter<$PrismaModel = never> =
+    {
+      equals?: $Enums.ContentType | EnumContentTypeFieldRefInput<$PrismaModel>;
+      in?:
+        | $Enums.ContentType[]
+        | ListEnumContentTypeFieldRefInput<$PrismaModel>;
+      notIn?:
+        | $Enums.ContentType[]
+        | ListEnumContentTypeFieldRefInput<$PrismaModel>;
+      not?:
+        | NestedEnumContentTypeWithAggregatesFilter<$PrismaModel>
+        | $Enums.ContentType;
+      _count?: NestedIntFilter<$PrismaModel>;
+      _min?: NestedEnumContentTypeFilter<$PrismaModel>;
+      _max?: NestedEnumContentTypeFilter<$PrismaModel>;
+    };
 
   export type NestedEnumVisibilityWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Visibility | EnumVisibilityFieldRefInput<$PrismaModel>;
@@ -29405,6 +42193,117 @@ export namespace Prisma {
     _min?: NestedEnumVisibilityFilter<$PrismaModel>;
     _max?: NestedEnumVisibilityFilter<$PrismaModel>;
   };
+
+  export type NestedEnumMediaTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>;
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>;
+    not?: NestedEnumMediaTypeFilter<$PrismaModel> | $Enums.MediaType;
+  };
+
+  export type NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>;
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel>
+      | $Enums.MediaType;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumMediaTypeFilter<$PrismaModel>;
+    _max?: NestedEnumMediaTypeFilter<$PrismaModel>;
+  };
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null;
+    _count?: NestedIntNullableFilter<$PrismaModel>;
+    _avg?: NestedFloatNullableFilter<$PrismaModel>;
+    _sum?: NestedIntNullableFilter<$PrismaModel>;
+    _min?: NestedIntNullableFilter<$PrismaModel>;
+    _max?: NestedIntNullableFilter<$PrismaModel>;
+  };
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null;
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null;
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null;
+    lt?: number | FloatFieldRefInput<$PrismaModel>;
+    lte?: number | FloatFieldRefInput<$PrismaModel>;
+    gt?: number | FloatFieldRefInput<$PrismaModel>;
+    gte?: number | FloatFieldRefInput<$PrismaModel>;
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null;
+  };
+
+  export type NestedEnumCollaboratorRoleFilter<$PrismaModel = never> = {
+    equals?:
+      | $Enums.CollaboratorRole
+      | EnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.CollaboratorRole[]
+      | ListEnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.CollaboratorRole[]
+      | ListEnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumCollaboratorRoleFilter<$PrismaModel>
+      | $Enums.CollaboratorRole;
+  };
+
+  export type NestedEnumCollaboratorRoleWithAggregatesFilter<
+    $PrismaModel = never,
+  > = {
+    equals?:
+      | $Enums.CollaboratorRole
+      | EnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.CollaboratorRole[]
+      | ListEnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.CollaboratorRole[]
+      | ListEnumCollaboratorRoleFieldRefInput<$PrismaModel>;
+    not?:
+      | NestedEnumCollaboratorRoleWithAggregatesFilter<$PrismaModel>
+      | $Enums.CollaboratorRole;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedEnumCollaboratorRoleFilter<$PrismaModel>;
+    _max?: NestedEnumCollaboratorRoleFilter<$PrismaModel>;
+  };
+
+  export type NestedEnumReactionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ReactionType | EnumReactionTypeFieldRefInput<$PrismaModel>;
+    in?:
+      | $Enums.ReactionType[]
+      | ListEnumReactionTypeFieldRefInput<$PrismaModel>;
+    notIn?:
+      | $Enums.ReactionType[]
+      | ListEnumReactionTypeFieldRefInput<$PrismaModel>;
+    not?: NestedEnumReactionTypeFilter<$PrismaModel> | $Enums.ReactionType;
+  };
+
+  export type NestedEnumReactionTypeWithAggregatesFilter<$PrismaModel = never> =
+    {
+      equals?:
+        | $Enums.ReactionType
+        | EnumReactionTypeFieldRefInput<$PrismaModel>;
+      in?:
+        | $Enums.ReactionType[]
+        | ListEnumReactionTypeFieldRefInput<$PrismaModel>;
+      notIn?:
+        | $Enums.ReactionType[]
+        | ListEnumReactionTypeFieldRefInput<$PrismaModel>;
+      not?:
+        | NestedEnumReactionTypeWithAggregatesFilter<$PrismaModel>
+        | $Enums.ReactionType;
+      _count?: NestedIntFilter<$PrismaModel>;
+      _min?: NestedEnumReactionTypeFilter<$PrismaModel>;
+      _max?: NestedEnumReactionTypeFilter<$PrismaModel>;
+    };
 
   export type NationalityCreateWithoutUserInput = {
     id?: string;
@@ -29500,34 +42399,57 @@ export namespace Prisma {
     skipDuplicates?: boolean;
   };
 
-  export type DegreeCreateWithoutUserInput = {
+  export type FollowCreateWithoutFollowerInput = {
     id?: string;
-    title: string;
-    identify: string;
-    dateDelivrance: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    following: UserCreateNestedOneWithoutFollowingInput;
+  };
+
+  export type FollowUncheckedCreateWithoutFollowerInput = {
+    id?: string;
+    followingId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
 
-  export type DegreeUncheckedCreateWithoutUserInput = {
-    id?: string;
-    title: string;
-    identify: string;
-    dateDelivrance: Date | string;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-  };
-
-  export type DegreeCreateOrConnectWithoutUserInput = {
-    where: DegreeWhereUniqueInput;
+  export type FollowCreateOrConnectWithoutFollowerInput = {
+    where: FollowWhereUniqueInput;
     create: XOR<
-      DegreeCreateWithoutUserInput,
-      DegreeUncheckedCreateWithoutUserInput
+      FollowCreateWithoutFollowerInput,
+      FollowUncheckedCreateWithoutFollowerInput
     >;
   };
 
-  export type DegreeCreateManyUserInputEnvelope = {
-    data: DegreeCreateManyUserInput | DegreeCreateManyUserInput[];
+  export type FollowCreateManyFollowerInputEnvelope = {
+    data: FollowCreateManyFollowerInput | FollowCreateManyFollowerInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type FollowCreateWithoutFollowingInput = {
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    follower: UserCreateNestedOneWithoutFollowsInput;
+  };
+
+  export type FollowUncheckedCreateWithoutFollowingInput = {
+    id?: string;
+    followerId: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type FollowCreateOrConnectWithoutFollowingInput = {
+    where: FollowWhereUniqueInput;
+    create: XOR<
+      FollowCreateWithoutFollowingInput,
+      FollowUncheckedCreateWithoutFollowingInput
+    >;
+  };
+
+  export type FollowCreateManyFollowingInputEnvelope = {
+    data: FollowCreateManyFollowingInput | FollowCreateManyFollowingInput[];
     skipDuplicates?: boolean;
   };
 
@@ -29568,6 +42490,37 @@ export namespace Prisma {
     skipDuplicates?: boolean;
   };
 
+  export type DegreeCreateWithoutUserInput = {
+    id?: string;
+    title: string;
+    identify: string;
+    dateDelivrance: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type DegreeUncheckedCreateWithoutUserInput = {
+    id?: string;
+    title: string;
+    identify: string;
+    dateDelivrance: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type DegreeCreateOrConnectWithoutUserInput = {
+    where: DegreeWhereUniqueInput;
+    create: XOR<
+      DegreeCreateWithoutUserInput,
+      DegreeUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type DegreeCreateManyUserInputEnvelope = {
+    data: DegreeCreateManyUserInput | DegreeCreateManyUserInput[];
+    skipDuplicates?: boolean;
+  };
+
   export type UserSkillCreateWithoutUserInput = {
     id?: string;
     level?: $Enums.SkillLevel;
@@ -29597,119 +42550,65 @@ export namespace Prisma {
     skipDuplicates?: boolean;
   };
 
-  export type AccountCreateWithoutUserInput = {
+  export type UserTechnologyCreateWithoutUserInput = {
     id?: string;
-    accountId: string;
-    providerId: string;
-    accessToken?: string | null;
-    refreshToken?: string | null;
-    idToken?: string | null;
-    accessTokenExpiresAt?: Date | string | null;
-    refreshTokenExpiresAt?: Date | string | null;
-    scope?: string | null;
-    password?: string | null;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    technology: TechnologyCreateNestedOneWithoutUserTechnologiesInput;
+  };
+
+  export type UserTechnologyUncheckedCreateWithoutUserInput = {
+    id?: string;
+    technologyId: string;
+    level?: $Enums.SkillLevel;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
 
-  export type AccountUncheckedCreateWithoutUserInput = {
-    id?: string;
-    accountId: string;
-    providerId: string;
-    accessToken?: string | null;
-    refreshToken?: string | null;
-    idToken?: string | null;
-    accessTokenExpiresAt?: Date | string | null;
-    refreshTokenExpiresAt?: Date | string | null;
-    scope?: string | null;
-    password?: string | null;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-  };
-
-  export type AccountCreateOrConnectWithoutUserInput = {
-    where: AccountWhereUniqueInput;
+  export type UserTechnologyCreateOrConnectWithoutUserInput = {
+    where: UserTechnologyWhereUniqueInput;
     create: XOR<
-      AccountCreateWithoutUserInput,
-      AccountUncheckedCreateWithoutUserInput
+      UserTechnologyCreateWithoutUserInput,
+      UserTechnologyUncheckedCreateWithoutUserInput
     >;
   };
 
-  export type AccountCreateManyUserInputEnvelope = {
-    data: AccountCreateManyUserInput | AccountCreateManyUserInput[];
-    skipDuplicates?: boolean;
-  };
-
-  export type FollowCreateWithoutFollowingInput = {
-    id?: string;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    follower: UserCreateNestedOneWithoutFollowingInput;
-  };
-
-  export type FollowUncheckedCreateWithoutFollowingInput = {
-    id?: string;
-    followerId: string;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-  };
-
-  export type FollowCreateOrConnectWithoutFollowingInput = {
-    where: FollowWhereUniqueInput;
-    create: XOR<
-      FollowCreateWithoutFollowingInput,
-      FollowUncheckedCreateWithoutFollowingInput
-    >;
-  };
-
-  export type FollowCreateManyFollowingInputEnvelope = {
-    data: FollowCreateManyFollowingInput | FollowCreateManyFollowingInput[];
-    skipDuplicates?: boolean;
-  };
-
-  export type FollowCreateWithoutFollowerInput = {
-    id?: string;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    following: UserCreateNestedOneWithoutFollowersInput;
-  };
-
-  export type FollowUncheckedCreateWithoutFollowerInput = {
-    id?: string;
-    followingId: string;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-  };
-
-  export type FollowCreateOrConnectWithoutFollowerInput = {
-    where: FollowWhereUniqueInput;
-    create: XOR<
-      FollowCreateWithoutFollowerInput,
-      FollowUncheckedCreateWithoutFollowerInput
-    >;
-  };
-
-  export type FollowCreateManyFollowerInputEnvelope = {
-    data: FollowCreateManyFollowerInput | FollowCreateManyFollowerInput[];
+  export type UserTechnologyCreateManyUserInputEnvelope = {
+    data:
+      | UserTechnologyCreateManyUserInput
+      | UserTechnologyCreateManyUserInput[];
     skipDuplicates?: boolean;
   };
 
   export type PostCreateWithoutAuthorInput = {
     id?: string;
     content: string;
+    contentType?: $Enums.ContentType;
     visibility?: $Enums.Visibility;
-    media?: string | null;
+    isCollaborative?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    media?: PostMediaCreateNestedManyWithoutPostInput;
+    collaborators?: PostCollaboratorCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionCreateNestedManyWithoutPostInput;
+    comments?: CommentCreateNestedManyWithoutPostInput;
+    mentions?: MentionCreateNestedManyWithoutPostInput;
   };
 
   export type PostUncheckedCreateWithoutAuthorInput = {
     id?: string;
     content: string;
+    contentType?: $Enums.ContentType;
     visibility?: $Enums.Visibility;
-    media?: string | null;
+    isCollaborative?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    media?: PostMediaUncheckedCreateNestedManyWithoutPostInput;
+    collaborators?: PostCollaboratorUncheckedCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionUncheckedCreateNestedManyWithoutPostInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutPostInput;
   };
 
   export type PostCreateOrConnectWithoutAuthorInput = {
@@ -29757,6 +42656,167 @@ export namespace Prisma {
 
   export type NotificationCreateManyUserInputEnvelope = {
     data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type AccountCreateWithoutUserInput = {
+    id?: string;
+    accountId: string;
+    providerId: string;
+    accessToken?: string | null;
+    refreshToken?: string | null;
+    idToken?: string | null;
+    accessTokenExpiresAt?: Date | string | null;
+    refreshTokenExpiresAt?: Date | string | null;
+    scope?: string | null;
+    password?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type AccountUncheckedCreateWithoutUserInput = {
+    id?: string;
+    accountId: string;
+    providerId: string;
+    accessToken?: string | null;
+    refreshToken?: string | null;
+    idToken?: string | null;
+    accessTokenExpiresAt?: Date | string | null;
+    refreshTokenExpiresAt?: Date | string | null;
+    scope?: string | null;
+    password?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type AccountCreateOrConnectWithoutUserInput = {
+    where: AccountWhereUniqueInput;
+    create: XOR<
+      AccountCreateWithoutUserInput,
+      AccountUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type AccountCreateManyUserInputEnvelope = {
+    data: AccountCreateManyUserInput | AccountCreateManyUserInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type PostCollaboratorCreateWithoutUserInput = {
+    id?: string;
+    role?: $Enums.CollaboratorRole;
+    addedAt?: Date | string;
+    post: PostCreateNestedOneWithoutCollaboratorsInput;
+  };
+
+  export type PostCollaboratorUncheckedCreateWithoutUserInput = {
+    id?: string;
+    postId: string;
+    role?: $Enums.CollaboratorRole;
+    addedAt?: Date | string;
+  };
+
+  export type PostCollaboratorCreateOrConnectWithoutUserInput = {
+    where: PostCollaboratorWhereUniqueInput;
+    create: XOR<
+      PostCollaboratorCreateWithoutUserInput,
+      PostCollaboratorUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type PostCollaboratorCreateManyUserInputEnvelope = {
+    data:
+      | PostCollaboratorCreateManyUserInput
+      | PostCollaboratorCreateManyUserInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type PostReactionCreateWithoutUserInput = {
+    id?: string;
+    type: $Enums.ReactionType;
+    createdAt?: Date | string;
+    post: PostCreateNestedOneWithoutReactionsInput;
+  };
+
+  export type PostReactionUncheckedCreateWithoutUserInput = {
+    id?: string;
+    postId: string;
+    type: $Enums.ReactionType;
+    createdAt?: Date | string;
+  };
+
+  export type PostReactionCreateOrConnectWithoutUserInput = {
+    where: PostReactionWhereUniqueInput;
+    create: XOR<
+      PostReactionCreateWithoutUserInput,
+      PostReactionUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type PostReactionCreateManyUserInputEnvelope = {
+    data: PostReactionCreateManyUserInput | PostReactionCreateManyUserInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type CommentCreateWithoutUserInput = {
+    id?: string;
+    content: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    post: PostCreateNestedOneWithoutCommentsInput;
+    parent?: CommentCreateNestedOneWithoutRepliesInput;
+    replies?: CommentCreateNestedManyWithoutParentInput;
+    mentions?: MentionCreateNestedManyWithoutCommentInput;
+  };
+
+  export type CommentUncheckedCreateWithoutUserInput = {
+    id?: string;
+    postId: string;
+    content: string;
+    parentId?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    replies?: CommentUncheckedCreateNestedManyWithoutParentInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutCommentInput;
+  };
+
+  export type CommentCreateOrConnectWithoutUserInput = {
+    where: CommentWhereUniqueInput;
+    create: XOR<
+      CommentCreateWithoutUserInput,
+      CommentUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type CommentCreateManyUserInputEnvelope = {
+    data: CommentCreateManyUserInput | CommentCreateManyUserInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type MentionCreateWithoutUserInput = {
+    id?: string;
+    createdAt?: Date | string;
+    post?: PostCreateNestedOneWithoutMentionsInput;
+    comment?: CommentCreateNestedOneWithoutMentionsInput;
+  };
+
+  export type MentionUncheckedCreateWithoutUserInput = {
+    id?: string;
+    postId?: string | null;
+    commentId?: string | null;
+    createdAt?: Date | string;
+  };
+
+  export type MentionCreateOrConnectWithoutUserInput = {
+    where: MentionWhereUniqueInput;
+    create: XOR<
+      MentionCreateWithoutUserInput,
+      MentionUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type MentionCreateManyUserInputEnvelope = {
+    data: MentionCreateManyUserInput | MentionCreateManyUserInput[];
     skipDuplicates?: boolean;
   };
 
@@ -29882,45 +42942,71 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Education"> | Date | string;
   };
 
-  export type DegreeUpsertWithWhereUniqueWithoutUserInput = {
-    where: DegreeWhereUniqueInput;
+  export type FollowUpsertWithWhereUniqueWithoutFollowerInput = {
+    where: FollowWhereUniqueInput;
     update: XOR<
-      DegreeUpdateWithoutUserInput,
-      DegreeUncheckedUpdateWithoutUserInput
+      FollowUpdateWithoutFollowerInput,
+      FollowUncheckedUpdateWithoutFollowerInput
     >;
     create: XOR<
-      DegreeCreateWithoutUserInput,
-      DegreeUncheckedCreateWithoutUserInput
+      FollowCreateWithoutFollowerInput,
+      FollowUncheckedCreateWithoutFollowerInput
     >;
   };
 
-  export type DegreeUpdateWithWhereUniqueWithoutUserInput = {
-    where: DegreeWhereUniqueInput;
+  export type FollowUpdateWithWhereUniqueWithoutFollowerInput = {
+    where: FollowWhereUniqueInput;
     data: XOR<
-      DegreeUpdateWithoutUserInput,
-      DegreeUncheckedUpdateWithoutUserInput
+      FollowUpdateWithoutFollowerInput,
+      FollowUncheckedUpdateWithoutFollowerInput
     >;
   };
 
-  export type DegreeUpdateManyWithWhereWithoutUserInput = {
-    where: DegreeScalarWhereInput;
+  export type FollowUpdateManyWithWhereWithoutFollowerInput = {
+    where: FollowScalarWhereInput;
     data: XOR<
-      DegreeUpdateManyMutationInput,
-      DegreeUncheckedUpdateManyWithoutUserInput
+      FollowUpdateManyMutationInput,
+      FollowUncheckedUpdateManyWithoutFollowerInput
     >;
   };
 
-  export type DegreeScalarWhereInput = {
-    AND?: DegreeScalarWhereInput | DegreeScalarWhereInput[];
-    OR?: DegreeScalarWhereInput[];
-    NOT?: DegreeScalarWhereInput | DegreeScalarWhereInput[];
-    id?: StringFilter<"Degree"> | string;
-    title?: StringFilter<"Degree"> | string;
-    identify?: StringFilter<"Degree"> | string;
-    dateDelivrance?: DateTimeFilter<"Degree"> | Date | string;
-    userId?: StringFilter<"Degree"> | string;
-    createdAt?: DateTimeFilter<"Degree"> | Date | string;
-    updatedAt?: DateTimeFilter<"Degree"> | Date | string;
+  export type FollowScalarWhereInput = {
+    AND?: FollowScalarWhereInput | FollowScalarWhereInput[];
+    OR?: FollowScalarWhereInput[];
+    NOT?: FollowScalarWhereInput | FollowScalarWhereInput[];
+    id?: StringFilter<"Follow"> | string;
+    followerId?: StringFilter<"Follow"> | string;
+    followingId?: StringFilter<"Follow"> | string;
+    createdAt?: DateTimeFilter<"Follow"> | Date | string;
+    updatedAt?: DateTimeFilter<"Follow"> | Date | string;
+  };
+
+  export type FollowUpsertWithWhereUniqueWithoutFollowingInput = {
+    where: FollowWhereUniqueInput;
+    update: XOR<
+      FollowUpdateWithoutFollowingInput,
+      FollowUncheckedUpdateWithoutFollowingInput
+    >;
+    create: XOR<
+      FollowCreateWithoutFollowingInput,
+      FollowUncheckedCreateWithoutFollowingInput
+    >;
+  };
+
+  export type FollowUpdateWithWhereUniqueWithoutFollowingInput = {
+    where: FollowWhereUniqueInput;
+    data: XOR<
+      FollowUpdateWithoutFollowingInput,
+      FollowUncheckedUpdateWithoutFollowingInput
+    >;
+  };
+
+  export type FollowUpdateManyWithWhereWithoutFollowingInput = {
+    where: FollowScalarWhereInput;
+    data: XOR<
+      FollowUpdateManyMutationInput,
+      FollowUncheckedUpdateManyWithoutFollowingInput
+    >;
   };
 
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
@@ -29967,6 +43053,47 @@ export namespace Prisma {
     expiresAt?: DateTimeFilter<"Session"> | Date | string;
   };
 
+  export type DegreeUpsertWithWhereUniqueWithoutUserInput = {
+    where: DegreeWhereUniqueInput;
+    update: XOR<
+      DegreeUpdateWithoutUserInput,
+      DegreeUncheckedUpdateWithoutUserInput
+    >;
+    create: XOR<
+      DegreeCreateWithoutUserInput,
+      DegreeUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type DegreeUpdateWithWhereUniqueWithoutUserInput = {
+    where: DegreeWhereUniqueInput;
+    data: XOR<
+      DegreeUpdateWithoutUserInput,
+      DegreeUncheckedUpdateWithoutUserInput
+    >;
+  };
+
+  export type DegreeUpdateManyWithWhereWithoutUserInput = {
+    where: DegreeScalarWhereInput;
+    data: XOR<
+      DegreeUpdateManyMutationInput,
+      DegreeUncheckedUpdateManyWithoutUserInput
+    >;
+  };
+
+  export type DegreeScalarWhereInput = {
+    AND?: DegreeScalarWhereInput | DegreeScalarWhereInput[];
+    OR?: DegreeScalarWhereInput[];
+    NOT?: DegreeScalarWhereInput | DegreeScalarWhereInput[];
+    id?: StringFilter<"Degree"> | string;
+    title?: StringFilter<"Degree"> | string;
+    identify?: StringFilter<"Degree"> | string;
+    dateDelivrance?: DateTimeFilter<"Degree"> | Date | string;
+    userId?: StringFilter<"Degree"> | string;
+    createdAt?: DateTimeFilter<"Degree"> | Date | string;
+    updatedAt?: DateTimeFilter<"Degree"> | Date | string;
+  };
+
   export type UserSkillUpsertWithWhereUniqueWithoutUserInput = {
     where: UserSkillWhereUniqueInput;
     update: XOR<
@@ -30005,6 +43132,131 @@ export namespace Prisma {
     level?: EnumSkillLevelFilter<"UserSkill"> | $Enums.SkillLevel;
     createdAt?: DateTimeFilter<"UserSkill"> | Date | string;
     updatedAt?: DateTimeFilter<"UserSkill"> | Date | string;
+  };
+
+  export type UserTechnologyUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserTechnologyWhereUniqueInput;
+    update: XOR<
+      UserTechnologyUpdateWithoutUserInput,
+      UserTechnologyUncheckedUpdateWithoutUserInput
+    >;
+    create: XOR<
+      UserTechnologyCreateWithoutUserInput,
+      UserTechnologyUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type UserTechnologyUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserTechnologyWhereUniqueInput;
+    data: XOR<
+      UserTechnologyUpdateWithoutUserInput,
+      UserTechnologyUncheckedUpdateWithoutUserInput
+    >;
+  };
+
+  export type UserTechnologyUpdateManyWithWhereWithoutUserInput = {
+    where: UserTechnologyScalarWhereInput;
+    data: XOR<
+      UserTechnologyUpdateManyMutationInput,
+      UserTechnologyUncheckedUpdateManyWithoutUserInput
+    >;
+  };
+
+  export type UserTechnologyScalarWhereInput = {
+    AND?: UserTechnologyScalarWhereInput | UserTechnologyScalarWhereInput[];
+    OR?: UserTechnologyScalarWhereInput[];
+    NOT?: UserTechnologyScalarWhereInput | UserTechnologyScalarWhereInput[];
+    id?: StringFilter<"UserTechnology"> | string;
+    userId?: StringFilter<"UserTechnology"> | string;
+    technologyId?: StringFilter<"UserTechnology"> | string;
+    level?: EnumSkillLevelFilter<"UserTechnology"> | $Enums.SkillLevel;
+    createdAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+    updatedAt?: DateTimeFilter<"UserTechnology"> | Date | string;
+  };
+
+  export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: PostWhereUniqueInput;
+    update: XOR<
+      PostUpdateWithoutAuthorInput,
+      PostUncheckedUpdateWithoutAuthorInput
+    >;
+    create: XOR<
+      PostCreateWithoutAuthorInput,
+      PostUncheckedCreateWithoutAuthorInput
+    >;
+  };
+
+  export type PostUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: PostWhereUniqueInput;
+    data: XOR<
+      PostUpdateWithoutAuthorInput,
+      PostUncheckedUpdateWithoutAuthorInput
+    >;
+  };
+
+  export type PostUpdateManyWithWhereWithoutAuthorInput = {
+    where: PostScalarWhereInput;
+    data: XOR<
+      PostUpdateManyMutationInput,
+      PostUncheckedUpdateManyWithoutAuthorInput
+    >;
+  };
+
+  export type PostScalarWhereInput = {
+    AND?: PostScalarWhereInput | PostScalarWhereInput[];
+    OR?: PostScalarWhereInput[];
+    NOT?: PostScalarWhereInput | PostScalarWhereInput[];
+    id?: StringFilter<"Post"> | string;
+    authorId?: StringFilter<"Post"> | string;
+    content?: StringFilter<"Post"> | string;
+    contentType?: EnumContentTypeFilter<"Post"> | $Enums.ContentType;
+    visibility?: EnumVisibilityFilter<"Post"> | $Enums.Visibility;
+    isCollaborative?: BoolFilter<"Post"> | boolean;
+    createdAt?: DateTimeFilter<"Post"> | Date | string;
+    updatedAt?: DateTimeFilter<"Post"> | Date | string;
+  };
+
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput;
+    update: XOR<
+      NotificationUpdateWithoutUserInput,
+      NotificationUncheckedUpdateWithoutUserInput
+    >;
+    create: XOR<
+      NotificationCreateWithoutUserInput,
+      NotificationUncheckedCreateWithoutUserInput
+    >;
+  };
+
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput;
+    data: XOR<
+      NotificationUpdateWithoutUserInput,
+      NotificationUncheckedUpdateWithoutUserInput
+    >;
+  };
+
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput;
+    data: XOR<
+      NotificationUpdateManyMutationInput,
+      NotificationUncheckedUpdateManyWithoutUserInput
+    >;
+  };
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[];
+    OR?: NotificationScalarWhereInput[];
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[];
+    id?: StringFilter<"Notification"> | string;
+    userId?: StringFilter<"Notification"> | string;
+    type?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType;
+    title?: StringFilter<"Notification"> | string;
+    message?: StringFilter<"Notification"> | string;
+    data?: JsonNullableFilter<"Notification">;
+    read?: BoolFilter<"Notification"> | boolean;
+    createdAt?: DateTimeFilter<"Notification"> | Date | string;
+    updatedAt?: DateTimeFilter<"Notification"> | Date | string;
   };
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -30062,155 +43314,164 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Account"> | Date | string;
   };
 
-  export type FollowUpsertWithWhereUniqueWithoutFollowingInput = {
-    where: FollowWhereUniqueInput;
+  export type PostCollaboratorUpsertWithWhereUniqueWithoutUserInput = {
+    where: PostCollaboratorWhereUniqueInput;
     update: XOR<
-      FollowUpdateWithoutFollowingInput,
-      FollowUncheckedUpdateWithoutFollowingInput
+      PostCollaboratorUpdateWithoutUserInput,
+      PostCollaboratorUncheckedUpdateWithoutUserInput
     >;
     create: XOR<
-      FollowCreateWithoutFollowingInput,
-      FollowUncheckedCreateWithoutFollowingInput
+      PostCollaboratorCreateWithoutUserInput,
+      PostCollaboratorUncheckedCreateWithoutUserInput
     >;
   };
 
-  export type FollowUpdateWithWhereUniqueWithoutFollowingInput = {
-    where: FollowWhereUniqueInput;
+  export type PostCollaboratorUpdateWithWhereUniqueWithoutUserInput = {
+    where: PostCollaboratorWhereUniqueInput;
     data: XOR<
-      FollowUpdateWithoutFollowingInput,
-      FollowUncheckedUpdateWithoutFollowingInput
+      PostCollaboratorUpdateWithoutUserInput,
+      PostCollaboratorUncheckedUpdateWithoutUserInput
     >;
   };
 
-  export type FollowUpdateManyWithWhereWithoutFollowingInput = {
-    where: FollowScalarWhereInput;
+  export type PostCollaboratorUpdateManyWithWhereWithoutUserInput = {
+    where: PostCollaboratorScalarWhereInput;
     data: XOR<
-      FollowUpdateManyMutationInput,
-      FollowUncheckedUpdateManyWithoutFollowingInput
+      PostCollaboratorUpdateManyMutationInput,
+      PostCollaboratorUncheckedUpdateManyWithoutUserInput
     >;
   };
 
-  export type FollowScalarWhereInput = {
-    AND?: FollowScalarWhereInput | FollowScalarWhereInput[];
-    OR?: FollowScalarWhereInput[];
-    NOT?: FollowScalarWhereInput | FollowScalarWhereInput[];
-    id?: StringFilter<"Follow"> | string;
-    followerId?: StringFilter<"Follow"> | string;
-    followingId?: StringFilter<"Follow"> | string;
-    createdAt?: DateTimeFilter<"Follow"> | Date | string;
-    updatedAt?: DateTimeFilter<"Follow"> | Date | string;
+  export type PostCollaboratorScalarWhereInput = {
+    AND?: PostCollaboratorScalarWhereInput | PostCollaboratorScalarWhereInput[];
+    OR?: PostCollaboratorScalarWhereInput[];
+    NOT?: PostCollaboratorScalarWhereInput | PostCollaboratorScalarWhereInput[];
+    id?: StringFilter<"PostCollaborator"> | string;
+    postId?: StringFilter<"PostCollaborator"> | string;
+    userId?: StringFilter<"PostCollaborator"> | string;
+    role?:
+      | EnumCollaboratorRoleFilter<"PostCollaborator">
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFilter<"PostCollaborator"> | Date | string;
   };
 
-  export type FollowUpsertWithWhereUniqueWithoutFollowerInput = {
-    where: FollowWhereUniqueInput;
+  export type PostReactionUpsertWithWhereUniqueWithoutUserInput = {
+    where: PostReactionWhereUniqueInput;
     update: XOR<
-      FollowUpdateWithoutFollowerInput,
-      FollowUncheckedUpdateWithoutFollowerInput
+      PostReactionUpdateWithoutUserInput,
+      PostReactionUncheckedUpdateWithoutUserInput
     >;
     create: XOR<
-      FollowCreateWithoutFollowerInput,
-      FollowUncheckedCreateWithoutFollowerInput
+      PostReactionCreateWithoutUserInput,
+      PostReactionUncheckedCreateWithoutUserInput
     >;
   };
 
-  export type FollowUpdateWithWhereUniqueWithoutFollowerInput = {
-    where: FollowWhereUniqueInput;
+  export type PostReactionUpdateWithWhereUniqueWithoutUserInput = {
+    where: PostReactionWhereUniqueInput;
     data: XOR<
-      FollowUpdateWithoutFollowerInput,
-      FollowUncheckedUpdateWithoutFollowerInput
+      PostReactionUpdateWithoutUserInput,
+      PostReactionUncheckedUpdateWithoutUserInput
     >;
   };
 
-  export type FollowUpdateManyWithWhereWithoutFollowerInput = {
-    where: FollowScalarWhereInput;
+  export type PostReactionUpdateManyWithWhereWithoutUserInput = {
+    where: PostReactionScalarWhereInput;
     data: XOR<
-      FollowUpdateManyMutationInput,
-      FollowUncheckedUpdateManyWithoutFollowerInput
+      PostReactionUpdateManyMutationInput,
+      PostReactionUncheckedUpdateManyWithoutUserInput
     >;
   };
 
-  export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
-    where: PostWhereUniqueInput;
+  export type PostReactionScalarWhereInput = {
+    AND?: PostReactionScalarWhereInput | PostReactionScalarWhereInput[];
+    OR?: PostReactionScalarWhereInput[];
+    NOT?: PostReactionScalarWhereInput | PostReactionScalarWhereInput[];
+    id?: StringFilter<"PostReaction"> | string;
+    postId?: StringFilter<"PostReaction"> | string;
+    userId?: StringFilter<"PostReaction"> | string;
+    type?: EnumReactionTypeFilter<"PostReaction"> | $Enums.ReactionType;
+    createdAt?: DateTimeFilter<"PostReaction"> | Date | string;
+  };
+
+  export type CommentUpsertWithWhereUniqueWithoutUserInput = {
+    where: CommentWhereUniqueInput;
     update: XOR<
-      PostUpdateWithoutAuthorInput,
-      PostUncheckedUpdateWithoutAuthorInput
+      CommentUpdateWithoutUserInput,
+      CommentUncheckedUpdateWithoutUserInput
     >;
     create: XOR<
-      PostCreateWithoutAuthorInput,
-      PostUncheckedCreateWithoutAuthorInput
+      CommentCreateWithoutUserInput,
+      CommentUncheckedCreateWithoutUserInput
     >;
   };
 
-  export type PostUpdateWithWhereUniqueWithoutAuthorInput = {
-    where: PostWhereUniqueInput;
+  export type CommentUpdateWithWhereUniqueWithoutUserInput = {
+    where: CommentWhereUniqueInput;
     data: XOR<
-      PostUpdateWithoutAuthorInput,
-      PostUncheckedUpdateWithoutAuthorInput
+      CommentUpdateWithoutUserInput,
+      CommentUncheckedUpdateWithoutUserInput
     >;
   };
 
-  export type PostUpdateManyWithWhereWithoutAuthorInput = {
-    where: PostScalarWhereInput;
+  export type CommentUpdateManyWithWhereWithoutUserInput = {
+    where: CommentScalarWhereInput;
     data: XOR<
-      PostUpdateManyMutationInput,
-      PostUncheckedUpdateManyWithoutAuthorInput
+      CommentUpdateManyMutationInput,
+      CommentUncheckedUpdateManyWithoutUserInput
     >;
   };
 
-  export type PostScalarWhereInput = {
-    AND?: PostScalarWhereInput | PostScalarWhereInput[];
-    OR?: PostScalarWhereInput[];
-    NOT?: PostScalarWhereInput | PostScalarWhereInput[];
-    id?: StringFilter<"Post"> | string;
-    authorId?: StringFilter<"Post"> | string;
-    content?: StringFilter<"Post"> | string;
-    visibility?: EnumVisibilityFilter<"Post"> | $Enums.Visibility;
-    media?: StringNullableFilter<"Post"> | string | null;
-    createdAt?: DateTimeFilter<"Post"> | Date | string;
-    updatedAt?: DateTimeFilter<"Post"> | Date | string;
+  export type CommentScalarWhereInput = {
+    AND?: CommentScalarWhereInput | CommentScalarWhereInput[];
+    OR?: CommentScalarWhereInput[];
+    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[];
+    id?: StringFilter<"Comment"> | string;
+    postId?: StringFilter<"Comment"> | string;
+    userId?: StringFilter<"Comment"> | string;
+    content?: StringFilter<"Comment"> | string;
+    parentId?: StringNullableFilter<"Comment"> | string | null;
+    createdAt?: DateTimeFilter<"Comment"> | Date | string;
+    updatedAt?: DateTimeFilter<"Comment"> | Date | string;
   };
 
-  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput;
+  export type MentionUpsertWithWhereUniqueWithoutUserInput = {
+    where: MentionWhereUniqueInput;
     update: XOR<
-      NotificationUpdateWithoutUserInput,
-      NotificationUncheckedUpdateWithoutUserInput
+      MentionUpdateWithoutUserInput,
+      MentionUncheckedUpdateWithoutUserInput
     >;
     create: XOR<
-      NotificationCreateWithoutUserInput,
-      NotificationUncheckedCreateWithoutUserInput
+      MentionCreateWithoutUserInput,
+      MentionUncheckedCreateWithoutUserInput
     >;
   };
 
-  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput;
+  export type MentionUpdateWithWhereUniqueWithoutUserInput = {
+    where: MentionWhereUniqueInput;
     data: XOR<
-      NotificationUpdateWithoutUserInput,
-      NotificationUncheckedUpdateWithoutUserInput
+      MentionUpdateWithoutUserInput,
+      MentionUncheckedUpdateWithoutUserInput
     >;
   };
 
-  export type NotificationUpdateManyWithWhereWithoutUserInput = {
-    where: NotificationScalarWhereInput;
+  export type MentionUpdateManyWithWhereWithoutUserInput = {
+    where: MentionScalarWhereInput;
     data: XOR<
-      NotificationUpdateManyMutationInput,
-      NotificationUncheckedUpdateManyWithoutUserInput
+      MentionUpdateManyMutationInput,
+      MentionUncheckedUpdateManyWithoutUserInput
     >;
   };
 
-  export type NotificationScalarWhereInput = {
-    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[];
-    OR?: NotificationScalarWhereInput[];
-    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[];
-    id?: StringFilter<"Notification"> | string;
-    userId?: StringFilter<"Notification"> | string;
-    type?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType;
-    title?: StringFilter<"Notification"> | string;
-    message?: StringFilter<"Notification"> | string;
-    data?: JsonNullableFilter<"Notification">;
-    read?: BoolFilter<"Notification"> | boolean;
-    createdAt?: DateTimeFilter<"Notification"> | Date | string;
-    updatedAt?: DateTimeFilter<"Notification"> | Date | string;
+  export type MentionScalarWhereInput = {
+    AND?: MentionScalarWhereInput | MentionScalarWhereInput[];
+    OR?: MentionScalarWhereInput[];
+    NOT?: MentionScalarWhereInput | MentionScalarWhereInput[];
+    id?: StringFilter<"Mention"> | string;
+    postId?: StringNullableFilter<"Mention"> | string | null;
+    commentId?: StringNullableFilter<"Mention"> | string | null;
+    userId?: StringFilter<"Mention"> | string;
+    createdAt?: DateTimeFilter<"Mention"> | Date | string;
   };
 
   export type UserCreateWithoutNationalityInput = {
@@ -30244,14 +43505,19 @@ export namespace Prisma {
     role?: $Enums.userRole;
     experiences?: ExperienceCreateNestedManyWithoutUserInput;
     educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
-    session?: SessionCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-    followers?: FollowCreateNestedManyWithoutFollowingInput;
-    following?: FollowCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutNationalityInput = {
@@ -30285,14 +43551,19 @@ export namespace Prisma {
     role?: $Enums.userRole;
     experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
     educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
-    session?: SessionUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutNationalityInput = {
@@ -30414,14 +43685,19 @@ export namespace Prisma {
     role?: $Enums.userRole;
     nationality?: NationalityCreateNestedOneWithoutUserInput;
     educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
-    session?: SessionCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-    followers?: FollowCreateNestedManyWithoutFollowingInput;
-    following?: FollowCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutExperiencesInput = {
@@ -30455,14 +43731,19 @@ export namespace Prisma {
     role?: $Enums.userRole;
     nationalityId?: string | null;
     educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
-    session?: SessionUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutExperiencesInput = {
@@ -30545,14 +43826,19 @@ export namespace Prisma {
     role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
     nationality?: NationalityUpdateOneWithoutUserNestedInput;
     educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
-    session?: SessionUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-    followers?: FollowUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutExperiencesInput = {
@@ -30607,14 +43893,19 @@ export namespace Prisma {
     role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
     nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
     educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
-    session?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserCreateWithoutEducationsInput = {
@@ -30648,14 +43939,19 @@ export namespace Prisma {
     role?: $Enums.userRole;
     nationality?: NationalityCreateNestedOneWithoutUserInput;
     experiences?: ExperienceCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
-    session?: SessionCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-    followers?: FollowCreateNestedManyWithoutFollowingInput;
-    following?: FollowCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutEducationsInput = {
@@ -30689,14 +43985,19 @@ export namespace Prisma {
     role?: $Enums.userRole;
     nationalityId?: string | null;
     experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
-    session?: SessionUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutEducationsInput = {
@@ -30779,14 +44080,19 @@ export namespace Prisma {
     role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
     nationality?: NationalityUpdateOneWithoutUserNestedInput;
     experiences?: ExperienceUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
-    session?: SessionUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-    followers?: FollowUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutEducationsInput = {
@@ -30841,14 +44147,19 @@ export namespace Prisma {
     role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
     nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
     experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
-    session?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type sousSkillCreateWithoutSkillInput = {
@@ -30856,7 +44167,7 @@ export namespace Prisma {
     title: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    Technology?: TechnologyCreateNestedManyWithoutSousSkillTechInput;
+    Technology?: TechnologyCreateNestedManyWithoutSousSkillInput;
   };
 
   export type sousSkillUncheckedCreateWithoutSkillInput = {
@@ -30864,7 +44175,7 @@ export namespace Prisma {
     title: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    Technology?: TechnologyUncheckedCreateNestedManyWithoutSousSkillTechInput;
+    Technology?: TechnologyUncheckedCreateNestedManyWithoutSousSkillInput;
   };
 
   export type sousSkillCreateOrConnectWithoutSkillInput = {
@@ -30976,6 +44287,106 @@ export namespace Prisma {
     >;
   };
 
+  export type UserCreateWithoutFollowsInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationality?: NationalityCreateNestedOneWithoutUserInput;
+    experiences?: ExperienceCreateNestedManyWithoutUserInput;
+    educations?: EducationCreateNestedManyWithoutUserInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    degrees?: DegreeCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
+    posts?: PostCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutFollowsInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationalityId?: string | null;
+    experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
+    educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutFollowsInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutFollowsInput,
+      UserUncheckedCreateWithoutFollowsInput
+    >;
+  };
+
   export type UserCreateWithoutFollowingInput = {
     id?: string;
     firstName: string;
@@ -31008,13 +44419,18 @@ export namespace Prisma {
     nationality?: NationalityCreateNestedOneWithoutUserInput;
     experiences?: ExperienceCreateNestedManyWithoutUserInput;
     educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
-    session?: SessionCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-    followers?: FollowCreateNestedManyWithoutFollowingInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutFollowingInput = {
@@ -31049,13 +44465,18 @@ export namespace Prisma {
     nationalityId?: string | null;
     experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
     educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
-    session?: SessionUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutFollowingInput = {
@@ -31066,94 +44487,158 @@ export namespace Prisma {
     >;
   };
 
-  export type UserCreateWithoutFollowersInput = {
-    id?: string;
-    firstName: string;
-    lastName: string;
-    username: string;
-    email: string;
-    password: string;
-    avatarPicture?: string | null;
-    coverPicture?: string | null;
-    description?: string | null;
-    dateBirth: Date | string;
-    title?: string | null;
-    titleProfession?: string | null;
-    linkWebsite?: string | null;
-    isVerify?: boolean;
-    phoneNumber?: string | null;
-    isOnline?: boolean;
-    phoneNumberVerificationToken?: string | null;
-    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
-    location?: string | null;
-    socialLinks?: string | null;
-    emailVerificationToken?: string | null;
-    emailVerificationTokenExpiresAt?: Date | string | null;
-    resetPasswordToken?: string | null;
-    resetPasswordTokenExpiresAt?: Date | string | null;
-    onboarding?: boolean;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    role?: $Enums.userRole;
-    nationality?: NationalityCreateNestedOneWithoutUserInput;
-    experiences?: ExperienceCreateNestedManyWithoutUserInput;
-    educations?: EducationCreateNestedManyWithoutUserInput;
-    degrees?: DegreeCreateNestedManyWithoutUserInput;
-    session?: SessionCreateNestedManyWithoutUserInput;
-    userSkills?: UserSkillCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-    following?: FollowCreateNestedManyWithoutFollowerInput;
-    posts?: PostCreateNestedManyWithoutAuthorInput;
-    notifications?: NotificationCreateNestedManyWithoutUserInput;
-  };
-
-  export type UserUncheckedCreateWithoutFollowersInput = {
-    id?: string;
-    firstName: string;
-    lastName: string;
-    username: string;
-    email: string;
-    password: string;
-    avatarPicture?: string | null;
-    coverPicture?: string | null;
-    description?: string | null;
-    dateBirth: Date | string;
-    title?: string | null;
-    titleProfession?: string | null;
-    linkWebsite?: string | null;
-    isVerify?: boolean;
-    phoneNumber?: string | null;
-    isOnline?: boolean;
-    phoneNumberVerificationToken?: string | null;
-    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
-    location?: string | null;
-    socialLinks?: string | null;
-    emailVerificationToken?: string | null;
-    emailVerificationTokenExpiresAt?: Date | string | null;
-    resetPasswordToken?: string | null;
-    resetPasswordTokenExpiresAt?: Date | string | null;
-    onboarding?: boolean;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    role?: $Enums.userRole;
-    nationalityId?: string | null;
-    experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
-    educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
-    degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
-    session?: SessionUncheckedCreateNestedManyWithoutUserInput;
-    userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
-    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
-  };
-
-  export type UserCreateOrConnectWithoutFollowersInput = {
-    where: UserWhereUniqueInput;
-    create: XOR<
-      UserCreateWithoutFollowersInput,
-      UserUncheckedCreateWithoutFollowersInput
+  export type UserUpsertWithoutFollowsInput = {
+    update: XOR<
+      UserUpdateWithoutFollowsInput,
+      UserUncheckedUpdateWithoutFollowsInput
     >;
+    create: XOR<
+      UserCreateWithoutFollowsInput,
+      UserUncheckedCreateWithoutFollowsInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutFollowsInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutFollowsInput,
+      UserUncheckedUpdateWithoutFollowsInput
+    >;
+  };
+
+  export type UserUpdateWithoutFollowsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationality?: NationalityUpdateOneWithoutUserNestedInput;
+    experiences?: ExperienceUpdateManyWithoutUserNestedInput;
+    educations?: EducationUpdateManyWithoutUserNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
+    posts?: PostUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutFollowsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
+    experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
+    educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUpsertWithoutFollowingInput = {
@@ -31229,13 +44714,18 @@ export namespace Prisma {
     nationality?: NationalityUpdateOneWithoutUserNestedInput;
     experiences?: ExperienceUpdateManyWithoutUserNestedInput;
     educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
-    session?: SessionUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-    followers?: FollowUpdateManyWithoutFollowingNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -31291,157 +44781,18 @@ export namespace Prisma {
     nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
     experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
     educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
-    session?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
-  };
-
-  export type UserUpsertWithoutFollowersInput = {
-    update: XOR<
-      UserUpdateWithoutFollowersInput,
-      UserUncheckedUpdateWithoutFollowersInput
-    >;
-    create: XOR<
-      UserCreateWithoutFollowersInput,
-      UserUncheckedCreateWithoutFollowersInput
-    >;
-    where?: UserWhereInput;
-  };
-
-  export type UserUpdateToOneWithWhereWithoutFollowersInput = {
-    where?: UserWhereInput;
-    data: XOR<
-      UserUpdateWithoutFollowersInput,
-      UserUncheckedUpdateWithoutFollowersInput
-    >;
-  };
-
-  export type UserUpdateWithoutFollowersInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    firstName?: StringFieldUpdateOperationsInput | string;
-    lastName?: StringFieldUpdateOperationsInput | string;
-    username?: StringFieldUpdateOperationsInput | string;
-    email?: StringFieldUpdateOperationsInput | string;
-    password?: StringFieldUpdateOperationsInput | string;
-    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
-    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
-    description?: NullableStringFieldUpdateOperationsInput | string | null;
-    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
-    title?: NullableStringFieldUpdateOperationsInput | string | null;
-    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
-    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
-    isVerify?: BoolFieldUpdateOperationsInput | boolean;
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
-    isOnline?: BoolFieldUpdateOperationsInput | boolean;
-    phoneNumberVerificationToken?:
-      | NullableStringFieldUpdateOperationsInput
-      | string
-      | null;
-    phoneNumberVerificationTokenExpiresAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    location?: NullableStringFieldUpdateOperationsInput | string | null;
-    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
-    emailVerificationToken?:
-      | NullableStringFieldUpdateOperationsInput
-      | string
-      | null;
-    emailVerificationTokenExpiresAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    resetPasswordToken?:
-      | NullableStringFieldUpdateOperationsInput
-      | string
-      | null;
-    resetPasswordTokenExpiresAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    onboarding?: BoolFieldUpdateOperationsInput | boolean;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
-    nationality?: NationalityUpdateOneWithoutUserNestedInput;
-    experiences?: ExperienceUpdateManyWithoutUserNestedInput;
-    educations?: EducationUpdateManyWithoutUserNestedInput;
-    degrees?: DegreeUpdateManyWithoutUserNestedInput;
-    session?: SessionUpdateManyWithoutUserNestedInput;
-    userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-    following?: FollowUpdateManyWithoutFollowerNestedInput;
-    posts?: PostUpdateManyWithoutAuthorNestedInput;
-    notifications?: NotificationUpdateManyWithoutUserNestedInput;
-  };
-
-  export type UserUncheckedUpdateWithoutFollowersInput = {
-    id?: StringFieldUpdateOperationsInput | string;
-    firstName?: StringFieldUpdateOperationsInput | string;
-    lastName?: StringFieldUpdateOperationsInput | string;
-    username?: StringFieldUpdateOperationsInput | string;
-    email?: StringFieldUpdateOperationsInput | string;
-    password?: StringFieldUpdateOperationsInput | string;
-    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
-    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
-    description?: NullableStringFieldUpdateOperationsInput | string | null;
-    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
-    title?: NullableStringFieldUpdateOperationsInput | string | null;
-    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
-    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
-    isVerify?: BoolFieldUpdateOperationsInput | boolean;
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
-    isOnline?: BoolFieldUpdateOperationsInput | boolean;
-    phoneNumberVerificationToken?:
-      | NullableStringFieldUpdateOperationsInput
-      | string
-      | null;
-    phoneNumberVerificationTokenExpiresAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    location?: NullableStringFieldUpdateOperationsInput | string | null;
-    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
-    emailVerificationToken?:
-      | NullableStringFieldUpdateOperationsInput
-      | string
-      | null;
-    emailVerificationTokenExpiresAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    resetPasswordToken?:
-      | NullableStringFieldUpdateOperationsInput
-      | string
-      | null;
-    resetPasswordTokenExpiresAt?:
-      | NullableDateTimeFieldUpdateOperationsInput
-      | Date
-      | string
-      | null;
-    onboarding?: BoolFieldUpdateOperationsInput | boolean;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
-    nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
-    experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
-    educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
-    degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
-    session?: SessionUncheckedUpdateManyWithoutUserNestedInput;
-    userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
-    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserCreateWithoutNotificationsInput = {
@@ -31476,13 +44827,18 @@ export namespace Prisma {
     nationality?: NationalityCreateNestedOneWithoutUserInput;
     experiences?: ExperienceCreateNestedManyWithoutUserInput;
     educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
-    session?: SessionCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-    followers?: FollowCreateNestedManyWithoutFollowingInput;
-    following?: FollowCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -31517,13 +44873,18 @@ export namespace Prisma {
     nationalityId?: string | null;
     experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
     educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
-    session?: SessionUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -31607,13 +44968,18 @@ export namespace Prisma {
     nationality?: NationalityUpdateOneWithoutUserNestedInput;
     experiences?: ExperienceUpdateManyWithoutUserNestedInput;
     educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
-    session?: SessionUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-    followers?: FollowUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -31669,13 +45035,18 @@ export namespace Prisma {
     nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
     experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
     educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
-    session?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type SkillCreateWithoutSousSkillInput = {
@@ -31702,32 +45073,40 @@ export namespace Prisma {
     >;
   };
 
-  export type TechnologyCreateWithoutSousSkillTechInput = {
+  export type TechnologyCreateWithoutSousSkillInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutTechnologyInput;
   };
 
-  export type TechnologyUncheckedCreateWithoutSousSkillTechInput = {
+  export type TechnologyUncheckedCreateWithoutSousSkillInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutTechnologyInput;
   };
 
-  export type TechnologyCreateOrConnectWithoutSousSkillTechInput = {
+  export type TechnologyCreateOrConnectWithoutSousSkillInput = {
     where: TechnologyWhereUniqueInput;
     create: XOR<
-      TechnologyCreateWithoutSousSkillTechInput,
-      TechnologyUncheckedCreateWithoutSousSkillTechInput
+      TechnologyCreateWithoutSousSkillInput,
+      TechnologyUncheckedCreateWithoutSousSkillInput
     >;
   };
 
-  export type TechnologyCreateManySousSkillTechInputEnvelope = {
+  export type TechnologyCreateManySousSkillInputEnvelope = {
     data:
-      | TechnologyCreateManySousSkillTechInput
-      | TechnologyCreateManySousSkillTechInput[];
+      | TechnologyCreateManySousSkillInput
+      | TechnologyCreateManySousSkillInput[];
     skipDuplicates?: boolean;
   };
 
@@ -31767,31 +45146,31 @@ export namespace Prisma {
     userSkills?: UserSkillUncheckedUpdateManyWithoutSkillNestedInput;
   };
 
-  export type TechnologyUpsertWithWhereUniqueWithoutSousSkillTechInput = {
+  export type TechnologyUpsertWithWhereUniqueWithoutSousSkillInput = {
     where: TechnologyWhereUniqueInput;
     update: XOR<
-      TechnologyUpdateWithoutSousSkillTechInput,
-      TechnologyUncheckedUpdateWithoutSousSkillTechInput
+      TechnologyUpdateWithoutSousSkillInput,
+      TechnologyUncheckedUpdateWithoutSousSkillInput
     >;
     create: XOR<
-      TechnologyCreateWithoutSousSkillTechInput,
-      TechnologyUncheckedCreateWithoutSousSkillTechInput
+      TechnologyCreateWithoutSousSkillInput,
+      TechnologyUncheckedCreateWithoutSousSkillInput
     >;
   };
 
-  export type TechnologyUpdateWithWhereUniqueWithoutSousSkillTechInput = {
+  export type TechnologyUpdateWithWhereUniqueWithoutSousSkillInput = {
     where: TechnologyWhereUniqueInput;
     data: XOR<
-      TechnologyUpdateWithoutSousSkillTechInput,
-      TechnologyUncheckedUpdateWithoutSousSkillTechInput
+      TechnologyUpdateWithoutSousSkillInput,
+      TechnologyUncheckedUpdateWithoutSousSkillInput
     >;
   };
 
-  export type TechnologyUpdateManyWithWhereWithoutSousSkillTechInput = {
+  export type TechnologyUpdateManyWithWhereWithoutSousSkillInput = {
     where: TechnologyScalarWhereInput;
     data: XOR<
       TechnologyUpdateManyMutationInput,
-      TechnologyUncheckedUpdateManyWithoutSousSkillTechInput
+      TechnologyUncheckedUpdateManyWithoutSousSkillInput
     >;
   };
 
@@ -31801,6 +45180,9 @@ export namespace Prisma {
     NOT?: TechnologyScalarWhereInput | TechnologyScalarWhereInput[];
     id?: StringFilter<"Technology"> | string;
     title?: StringFilter<"Technology"> | string;
+    icon?: StringNullableFilter<"Technology"> | string | null;
+    color?: StringNullableFilter<"Technology"> | string | null;
+    category?: StringNullableFilter<"Technology"> | string | null;
     sousSkillTechId?: StringFilter<"Technology"> | string;
     createdAt?: DateTimeFilter<"Technology"> | Date | string;
     updatedAt?: DateTimeFilter<"Technology"> | Date | string;
@@ -31828,6 +45210,37 @@ export namespace Prisma {
       sousSkillCreateWithoutTechnologyInput,
       sousSkillUncheckedCreateWithoutTechnologyInput
     >;
+  };
+
+  export type UserTechnologyCreateWithoutTechnologyInput = {
+    id?: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutUserTechnologiesInput;
+  };
+
+  export type UserTechnologyUncheckedCreateWithoutTechnologyInput = {
+    id?: string;
+    userId: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type UserTechnologyCreateOrConnectWithoutTechnologyInput = {
+    where: UserTechnologyWhereUniqueInput;
+    create: XOR<
+      UserTechnologyCreateWithoutTechnologyInput,
+      UserTechnologyUncheckedCreateWithoutTechnologyInput
+    >;
+  };
+
+  export type UserTechnologyCreateManyTechnologyInputEnvelope = {
+    data:
+      | UserTechnologyCreateManyTechnologyInput
+      | UserTechnologyCreateManyTechnologyInput[];
+    skipDuplicates?: boolean;
   };
 
   export type sousSkillUpsertWithoutTechnologyInput = {
@@ -31866,6 +45279,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
+  export type UserTechnologyUpsertWithWhereUniqueWithoutTechnologyInput = {
+    where: UserTechnologyWhereUniqueInput;
+    update: XOR<
+      UserTechnologyUpdateWithoutTechnologyInput,
+      UserTechnologyUncheckedUpdateWithoutTechnologyInput
+    >;
+    create: XOR<
+      UserTechnologyCreateWithoutTechnologyInput,
+      UserTechnologyUncheckedCreateWithoutTechnologyInput
+    >;
+  };
+
+  export type UserTechnologyUpdateWithWhereUniqueWithoutTechnologyInput = {
+    where: UserTechnologyWhereUniqueInput;
+    data: XOR<
+      UserTechnologyUpdateWithoutTechnologyInput,
+      UserTechnologyUncheckedUpdateWithoutTechnologyInput
+    >;
+  };
+
+  export type UserTechnologyUpdateManyWithWhereWithoutTechnologyInput = {
+    where: UserTechnologyScalarWhereInput;
+    data: XOR<
+      UserTechnologyUpdateManyMutationInput,
+      UserTechnologyUncheckedUpdateManyWithoutTechnologyInput
+    >;
+  };
+
   export type UserCreateWithoutUserSkillsInput = {
     id?: string;
     firstName: string;
@@ -31898,13 +45339,18 @@ export namespace Prisma {
     nationality?: NationalityCreateNestedOneWithoutUserInput;
     experiences?: ExperienceCreateNestedManyWithoutUserInput;
     educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
-    session?: SessionCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-    followers?: FollowCreateNestedManyWithoutFollowingInput;
-    following?: FollowCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutUserSkillsInput = {
@@ -31939,13 +45385,18 @@ export namespace Prisma {
     nationalityId?: string | null;
     experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
     educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
-    session?: SessionUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutUserSkillsInput = {
@@ -32053,13 +45504,18 @@ export namespace Prisma {
     nationality?: NationalityUpdateOneWithoutUserNestedInput;
     experiences?: ExperienceUpdateManyWithoutUserNestedInput;
     educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
-    session?: SessionUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-    followers?: FollowUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutUserSkillsInput = {
@@ -32115,13 +45571,18 @@ export namespace Prisma {
     nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
     experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
     educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
-    session?: SessionUncheckedUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type SkillUpsertWithoutUserSkillsInput = {
@@ -32160,6 +45621,332 @@ export namespace Prisma {
     sousSkill?: sousSkillUncheckedUpdateManyWithoutSkillNestedInput;
   };
 
+  export type UserCreateWithoutUserTechnologiesInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationality?: NationalityCreateNestedOneWithoutUserInput;
+    experiences?: ExperienceCreateNestedManyWithoutUserInput;
+    educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    degrees?: DegreeCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    posts?: PostCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutUserTechnologiesInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationalityId?: string | null;
+    experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
+    educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutUserTechnologiesInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutUserTechnologiesInput,
+      UserUncheckedCreateWithoutUserTechnologiesInput
+    >;
+  };
+
+  export type TechnologyCreateWithoutUserTechnologiesInput = {
+    id?: string;
+    title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sousSkill: sousSkillCreateNestedOneWithoutTechnologyInput;
+  };
+
+  export type TechnologyUncheckedCreateWithoutUserTechnologiesInput = {
+    id?: string;
+    title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
+    sousSkillTechId: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type TechnologyCreateOrConnectWithoutUserTechnologiesInput = {
+    where: TechnologyWhereUniqueInput;
+    create: XOR<
+      TechnologyCreateWithoutUserTechnologiesInput,
+      TechnologyUncheckedCreateWithoutUserTechnologiesInput
+    >;
+  };
+
+  export type UserUpsertWithoutUserTechnologiesInput = {
+    update: XOR<
+      UserUpdateWithoutUserTechnologiesInput,
+      UserUncheckedUpdateWithoutUserTechnologiesInput
+    >;
+    create: XOR<
+      UserCreateWithoutUserTechnologiesInput,
+      UserUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutUserTechnologiesInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutUserTechnologiesInput,
+      UserUncheckedUpdateWithoutUserTechnologiesInput
+    >;
+  };
+
+  export type UserUpdateWithoutUserTechnologiesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationality?: NationalityUpdateOneWithoutUserNestedInput;
+    experiences?: ExperienceUpdateManyWithoutUserNestedInput;
+    educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    posts?: PostUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutUserTechnologiesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
+    experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
+    educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type TechnologyUpsertWithoutUserTechnologiesInput = {
+    update: XOR<
+      TechnologyUpdateWithoutUserTechnologiesInput,
+      TechnologyUncheckedUpdateWithoutUserTechnologiesInput
+    >;
+    create: XOR<
+      TechnologyCreateWithoutUserTechnologiesInput,
+      TechnologyUncheckedCreateWithoutUserTechnologiesInput
+    >;
+    where?: TechnologyWhereInput;
+  };
+
+  export type TechnologyUpdateToOneWithWhereWithoutUserTechnologiesInput = {
+    where?: TechnologyWhereInput;
+    data: XOR<
+      TechnologyUpdateWithoutUserTechnologiesInput,
+      TechnologyUncheckedUpdateWithoutUserTechnologiesInput
+    >;
+  };
+
+  export type TechnologyUpdateWithoutUserTechnologiesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    sousSkill?: sousSkillUpdateOneRequiredWithoutTechnologyNestedInput;
+  };
+
+  export type TechnologyUncheckedUpdateWithoutUserTechnologiesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
+    sousSkillTechId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
   export type UserCreateWithoutDegreesInput = {
     id?: string;
     firstName: string;
@@ -32192,13 +45979,18 @@ export namespace Prisma {
     nationality?: NationalityCreateNestedOneWithoutUserInput;
     experiences?: ExperienceCreateNestedManyWithoutUserInput;
     educations?: EducationCreateNestedManyWithoutUserInput;
-    session?: SessionCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-    followers?: FollowCreateNestedManyWithoutFollowingInput;
-    following?: FollowCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutDegreesInput = {
@@ -32233,13 +46025,18 @@ export namespace Prisma {
     nationalityId?: string | null;
     experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
     educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
-    session?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutDegreesInput = {
@@ -32323,13 +46120,18 @@ export namespace Prisma {
     nationality?: NationalityUpdateOneWithoutUserNestedInput;
     experiences?: ExperienceUpdateManyWithoutUserNestedInput;
     educations?: EducationUpdateManyWithoutUserNestedInput;
-    session?: SessionUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-    followers?: FollowUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutDegreesInput = {
@@ -32385,16 +46187,21 @@ export namespace Prisma {
     nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
     experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
     educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
-    session?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
-  export type UserCreateWithoutSessionInput = {
+  export type UserCreateWithoutSessionsInput = {
     id?: string;
     firstName: string;
     lastName: string;
@@ -32426,16 +46233,21 @@ export namespace Prisma {
     nationality?: NationalityCreateNestedOneWithoutUserInput;
     experiences?: ExperienceCreateNestedManyWithoutUserInput;
     educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-    followers?: FollowCreateNestedManyWithoutFollowingInput;
-    following?: FollowCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
   };
 
-  export type UserUncheckedCreateWithoutSessionInput = {
+  export type UserUncheckedCreateWithoutSessionsInput = {
     id?: string;
     firstName: string;
     lastName: string;
@@ -32467,44 +46279,49 @@ export namespace Prisma {
     nationalityId?: string | null;
     experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
     educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
   };
 
-  export type UserCreateOrConnectWithoutSessionInput = {
+  export type UserCreateOrConnectWithoutSessionsInput = {
     where: UserWhereUniqueInput;
     create: XOR<
-      UserCreateWithoutSessionInput,
-      UserUncheckedCreateWithoutSessionInput
+      UserCreateWithoutSessionsInput,
+      UserUncheckedCreateWithoutSessionsInput
     >;
   };
 
-  export type UserUpsertWithoutSessionInput = {
+  export type UserUpsertWithoutSessionsInput = {
     update: XOR<
-      UserUpdateWithoutSessionInput,
-      UserUncheckedUpdateWithoutSessionInput
+      UserUpdateWithoutSessionsInput,
+      UserUncheckedUpdateWithoutSessionsInput
     >;
     create: XOR<
-      UserCreateWithoutSessionInput,
-      UserUncheckedCreateWithoutSessionInput
+      UserCreateWithoutSessionsInput,
+      UserUncheckedCreateWithoutSessionsInput
     >;
     where?: UserWhereInput;
   };
 
-  export type UserUpdateToOneWithWhereWithoutSessionInput = {
+  export type UserUpdateToOneWithWhereWithoutSessionsInput = {
     where?: UserWhereInput;
     data: XOR<
-      UserUpdateWithoutSessionInput,
-      UserUncheckedUpdateWithoutSessionInput
+      UserUpdateWithoutSessionsInput,
+      UserUncheckedUpdateWithoutSessionsInput
     >;
   };
 
-  export type UserUpdateWithoutSessionInput = {
+  export type UserUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string;
     firstName?: StringFieldUpdateOperationsInput | string;
     lastName?: StringFieldUpdateOperationsInput | string;
@@ -32557,16 +46374,21 @@ export namespace Prisma {
     nationality?: NationalityUpdateOneWithoutUserNestedInput;
     experiences?: ExperienceUpdateManyWithoutUserNestedInput;
     educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-    followers?: FollowUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
   };
 
-  export type UserUncheckedUpdateWithoutSessionInput = {
+  export type UserUncheckedUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string;
     firstName?: StringFieldUpdateOperationsInput | string;
     lastName?: StringFieldUpdateOperationsInput | string;
@@ -32619,13 +46441,18 @@ export namespace Prisma {
     nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
     experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
     educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserCreateWithoutAccountsInput = {
@@ -32660,13 +46487,18 @@ export namespace Prisma {
     nationality?: NationalityCreateNestedOneWithoutUserInput;
     experiences?: ExperienceCreateNestedManyWithoutUserInput;
     educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
-    session?: SessionCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
-    followers?: FollowCreateNestedManyWithoutFollowingInput;
-    following?: FollowCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     posts?: PostCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -32701,13 +46533,18 @@ export namespace Prisma {
     nationalityId?: string | null;
     experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
     educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
-    session?: SessionUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
-    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -32791,13 +46628,18 @@ export namespace Prisma {
     nationality?: NationalityUpdateOneWithoutUserNestedInput;
     experiences?: ExperienceUpdateManyWithoutUserNestedInput;
     educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
-    session?: SessionUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
-    followers?: FollowUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -32853,13 +46695,18 @@ export namespace Prisma {
     nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
     experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
     educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
-    session?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
-    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserCreateWithoutPostsInput = {
@@ -32894,13 +46741,18 @@ export namespace Prisma {
     nationality?: NationalityCreateNestedOneWithoutUserInput;
     experiences?: ExperienceCreateNestedManyWithoutUserInput;
     educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
     degrees?: DegreeCreateNestedManyWithoutUserInput;
-    session?: SessionCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillCreateNestedManyWithoutUserInput;
-    accounts?: AccountCreateNestedManyWithoutUserInput;
-    followers?: FollowCreateNestedManyWithoutFollowingInput;
-    following?: FollowCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
     notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutPostsInput = {
@@ -32935,13 +46787,18 @@ export namespace Prisma {
     nationalityId?: string | null;
     experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
     educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
     degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
-    session?: SessionUncheckedCreateNestedManyWithoutUserInput;
     userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
-    followers?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
-    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutPostsInput = {
@@ -32950,6 +46807,159 @@ export namespace Prisma {
       UserCreateWithoutPostsInput,
       UserUncheckedCreateWithoutPostsInput
     >;
+  };
+
+  export type PostMediaCreateWithoutPostInput = {
+    id?: string;
+    type: $Enums.MediaType;
+    url: string;
+    publicId?: string | null;
+    filename?: string | null;
+    size?: number | null;
+    duration?: number | null;
+    createdAt?: Date | string;
+  };
+
+  export type PostMediaUncheckedCreateWithoutPostInput = {
+    id?: string;
+    type: $Enums.MediaType;
+    url: string;
+    publicId?: string | null;
+    filename?: string | null;
+    size?: number | null;
+    duration?: number | null;
+    createdAt?: Date | string;
+  };
+
+  export type PostMediaCreateOrConnectWithoutPostInput = {
+    where: PostMediaWhereUniqueInput;
+    create: XOR<
+      PostMediaCreateWithoutPostInput,
+      PostMediaUncheckedCreateWithoutPostInput
+    >;
+  };
+
+  export type PostMediaCreateManyPostInputEnvelope = {
+    data: PostMediaCreateManyPostInput | PostMediaCreateManyPostInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type PostCollaboratorCreateWithoutPostInput = {
+    id?: string;
+    role?: $Enums.CollaboratorRole;
+    addedAt?: Date | string;
+    user: UserCreateNestedOneWithoutPostCollaborationsInput;
+  };
+
+  export type PostCollaboratorUncheckedCreateWithoutPostInput = {
+    id?: string;
+    userId: string;
+    role?: $Enums.CollaboratorRole;
+    addedAt?: Date | string;
+  };
+
+  export type PostCollaboratorCreateOrConnectWithoutPostInput = {
+    where: PostCollaboratorWhereUniqueInput;
+    create: XOR<
+      PostCollaboratorCreateWithoutPostInput,
+      PostCollaboratorUncheckedCreateWithoutPostInput
+    >;
+  };
+
+  export type PostCollaboratorCreateManyPostInputEnvelope = {
+    data:
+      | PostCollaboratorCreateManyPostInput
+      | PostCollaboratorCreateManyPostInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type PostReactionCreateWithoutPostInput = {
+    id?: string;
+    type: $Enums.ReactionType;
+    createdAt?: Date | string;
+    user: UserCreateNestedOneWithoutPostReactionsInput;
+  };
+
+  export type PostReactionUncheckedCreateWithoutPostInput = {
+    id?: string;
+    userId: string;
+    type: $Enums.ReactionType;
+    createdAt?: Date | string;
+  };
+
+  export type PostReactionCreateOrConnectWithoutPostInput = {
+    where: PostReactionWhereUniqueInput;
+    create: XOR<
+      PostReactionCreateWithoutPostInput,
+      PostReactionUncheckedCreateWithoutPostInput
+    >;
+  };
+
+  export type PostReactionCreateManyPostInputEnvelope = {
+    data: PostReactionCreateManyPostInput | PostReactionCreateManyPostInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type CommentCreateWithoutPostInput = {
+    id?: string;
+    content: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    user: UserCreateNestedOneWithoutCommentsInput;
+    parent?: CommentCreateNestedOneWithoutRepliesInput;
+    replies?: CommentCreateNestedManyWithoutParentInput;
+    mentions?: MentionCreateNestedManyWithoutCommentInput;
+  };
+
+  export type CommentUncheckedCreateWithoutPostInput = {
+    id?: string;
+    userId: string;
+    content: string;
+    parentId?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    replies?: CommentUncheckedCreateNestedManyWithoutParentInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutCommentInput;
+  };
+
+  export type CommentCreateOrConnectWithoutPostInput = {
+    where: CommentWhereUniqueInput;
+    create: XOR<
+      CommentCreateWithoutPostInput,
+      CommentUncheckedCreateWithoutPostInput
+    >;
+  };
+
+  export type CommentCreateManyPostInputEnvelope = {
+    data: CommentCreateManyPostInput | CommentCreateManyPostInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type MentionCreateWithoutPostInput = {
+    id?: string;
+    createdAt?: Date | string;
+    comment?: CommentCreateNestedOneWithoutMentionsInput;
+    user: UserCreateNestedOneWithoutMentionsInput;
+  };
+
+  export type MentionUncheckedCreateWithoutPostInput = {
+    id?: string;
+    commentId?: string | null;
+    userId: string;
+    createdAt?: Date | string;
+  };
+
+  export type MentionCreateOrConnectWithoutPostInput = {
+    where: MentionWhereUniqueInput;
+    create: XOR<
+      MentionCreateWithoutPostInput,
+      MentionUncheckedCreateWithoutPostInput
+    >;
+  };
+
+  export type MentionCreateManyPostInputEnvelope = {
+    data: MentionCreateManyPostInput | MentionCreateManyPostInput[];
+    skipDuplicates?: boolean;
   };
 
   export type UserUpsertWithoutPostsInput = {
@@ -33025,13 +47035,18 @@ export namespace Prisma {
     nationality?: NationalityUpdateOneWithoutUserNestedInput;
     experiences?: ExperienceUpdateManyWithoutUserNestedInput;
     educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
-    session?: SessionUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-    followers?: FollowUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutPostsInput = {
@@ -33087,13 +47102,1911 @@ export namespace Prisma {
     nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
     experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
     educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
-    session?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type PostMediaUpsertWithWhereUniqueWithoutPostInput = {
+    where: PostMediaWhereUniqueInput;
+    update: XOR<
+      PostMediaUpdateWithoutPostInput,
+      PostMediaUncheckedUpdateWithoutPostInput
+    >;
+    create: XOR<
+      PostMediaCreateWithoutPostInput,
+      PostMediaUncheckedCreateWithoutPostInput
+    >;
+  };
+
+  export type PostMediaUpdateWithWhereUniqueWithoutPostInput = {
+    where: PostMediaWhereUniqueInput;
+    data: XOR<
+      PostMediaUpdateWithoutPostInput,
+      PostMediaUncheckedUpdateWithoutPostInput
+    >;
+  };
+
+  export type PostMediaUpdateManyWithWhereWithoutPostInput = {
+    where: PostMediaScalarWhereInput;
+    data: XOR<
+      PostMediaUpdateManyMutationInput,
+      PostMediaUncheckedUpdateManyWithoutPostInput
+    >;
+  };
+
+  export type PostMediaScalarWhereInput = {
+    AND?: PostMediaScalarWhereInput | PostMediaScalarWhereInput[];
+    OR?: PostMediaScalarWhereInput[];
+    NOT?: PostMediaScalarWhereInput | PostMediaScalarWhereInput[];
+    id?: StringFilter<"PostMedia"> | string;
+    postId?: StringFilter<"PostMedia"> | string;
+    type?: EnumMediaTypeFilter<"PostMedia"> | $Enums.MediaType;
+    url?: StringFilter<"PostMedia"> | string;
+    publicId?: StringNullableFilter<"PostMedia"> | string | null;
+    filename?: StringNullableFilter<"PostMedia"> | string | null;
+    size?: IntNullableFilter<"PostMedia"> | number | null;
+    duration?: IntNullableFilter<"PostMedia"> | number | null;
+    createdAt?: DateTimeFilter<"PostMedia"> | Date | string;
+  };
+
+  export type PostCollaboratorUpsertWithWhereUniqueWithoutPostInput = {
+    where: PostCollaboratorWhereUniqueInput;
+    update: XOR<
+      PostCollaboratorUpdateWithoutPostInput,
+      PostCollaboratorUncheckedUpdateWithoutPostInput
+    >;
+    create: XOR<
+      PostCollaboratorCreateWithoutPostInput,
+      PostCollaboratorUncheckedCreateWithoutPostInput
+    >;
+  };
+
+  export type PostCollaboratorUpdateWithWhereUniqueWithoutPostInput = {
+    where: PostCollaboratorWhereUniqueInput;
+    data: XOR<
+      PostCollaboratorUpdateWithoutPostInput,
+      PostCollaboratorUncheckedUpdateWithoutPostInput
+    >;
+  };
+
+  export type PostCollaboratorUpdateManyWithWhereWithoutPostInput = {
+    where: PostCollaboratorScalarWhereInput;
+    data: XOR<
+      PostCollaboratorUpdateManyMutationInput,
+      PostCollaboratorUncheckedUpdateManyWithoutPostInput
+    >;
+  };
+
+  export type PostReactionUpsertWithWhereUniqueWithoutPostInput = {
+    where: PostReactionWhereUniqueInput;
+    update: XOR<
+      PostReactionUpdateWithoutPostInput,
+      PostReactionUncheckedUpdateWithoutPostInput
+    >;
+    create: XOR<
+      PostReactionCreateWithoutPostInput,
+      PostReactionUncheckedCreateWithoutPostInput
+    >;
+  };
+
+  export type PostReactionUpdateWithWhereUniqueWithoutPostInput = {
+    where: PostReactionWhereUniqueInput;
+    data: XOR<
+      PostReactionUpdateWithoutPostInput,
+      PostReactionUncheckedUpdateWithoutPostInput
+    >;
+  };
+
+  export type PostReactionUpdateManyWithWhereWithoutPostInput = {
+    where: PostReactionScalarWhereInput;
+    data: XOR<
+      PostReactionUpdateManyMutationInput,
+      PostReactionUncheckedUpdateManyWithoutPostInput
+    >;
+  };
+
+  export type CommentUpsertWithWhereUniqueWithoutPostInput = {
+    where: CommentWhereUniqueInput;
+    update: XOR<
+      CommentUpdateWithoutPostInput,
+      CommentUncheckedUpdateWithoutPostInput
+    >;
+    create: XOR<
+      CommentCreateWithoutPostInput,
+      CommentUncheckedCreateWithoutPostInput
+    >;
+  };
+
+  export type CommentUpdateWithWhereUniqueWithoutPostInput = {
+    where: CommentWhereUniqueInput;
+    data: XOR<
+      CommentUpdateWithoutPostInput,
+      CommentUncheckedUpdateWithoutPostInput
+    >;
+  };
+
+  export type CommentUpdateManyWithWhereWithoutPostInput = {
+    where: CommentScalarWhereInput;
+    data: XOR<
+      CommentUpdateManyMutationInput,
+      CommentUncheckedUpdateManyWithoutPostInput
+    >;
+  };
+
+  export type MentionUpsertWithWhereUniqueWithoutPostInput = {
+    where: MentionWhereUniqueInput;
+    update: XOR<
+      MentionUpdateWithoutPostInput,
+      MentionUncheckedUpdateWithoutPostInput
+    >;
+    create: XOR<
+      MentionCreateWithoutPostInput,
+      MentionUncheckedCreateWithoutPostInput
+    >;
+  };
+
+  export type MentionUpdateWithWhereUniqueWithoutPostInput = {
+    where: MentionWhereUniqueInput;
+    data: XOR<
+      MentionUpdateWithoutPostInput,
+      MentionUncheckedUpdateWithoutPostInput
+    >;
+  };
+
+  export type MentionUpdateManyWithWhereWithoutPostInput = {
+    where: MentionScalarWhereInput;
+    data: XOR<
+      MentionUpdateManyMutationInput,
+      MentionUncheckedUpdateManyWithoutPostInput
+    >;
+  };
+
+  export type PostCreateWithoutMediaInput = {
+    id?: string;
+    content: string;
+    contentType?: $Enums.ContentType;
+    visibility?: $Enums.Visibility;
+    isCollaborative?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    author: UserCreateNestedOneWithoutPostsInput;
+    collaborators?: PostCollaboratorCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionCreateNestedManyWithoutPostInput;
+    comments?: CommentCreateNestedManyWithoutPostInput;
+    mentions?: MentionCreateNestedManyWithoutPostInput;
+  };
+
+  export type PostUncheckedCreateWithoutMediaInput = {
+    id?: string;
+    authorId: string;
+    content: string;
+    contentType?: $Enums.ContentType;
+    visibility?: $Enums.Visibility;
+    isCollaborative?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    collaborators?: PostCollaboratorUncheckedCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionUncheckedCreateNestedManyWithoutPostInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutPostInput;
+  };
+
+  export type PostCreateOrConnectWithoutMediaInput = {
+    where: PostWhereUniqueInput;
+    create: XOR<
+      PostCreateWithoutMediaInput,
+      PostUncheckedCreateWithoutMediaInput
+    >;
+  };
+
+  export type PostUpsertWithoutMediaInput = {
+    update: XOR<
+      PostUpdateWithoutMediaInput,
+      PostUncheckedUpdateWithoutMediaInput
+    >;
+    create: XOR<
+      PostCreateWithoutMediaInput,
+      PostUncheckedCreateWithoutMediaInput
+    >;
+    where?: PostWhereInput;
+  };
+
+  export type PostUpdateToOneWithWhereWithoutMediaInput = {
+    where?: PostWhereInput;
+    data: XOR<
+      PostUpdateWithoutMediaInput,
+      PostUncheckedUpdateWithoutMediaInput
+    >;
+  };
+
+  export type PostUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput;
+    collaborators?: PostCollaboratorUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUpdateManyWithoutPostNestedInput;
+    comments?: CommentUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUpdateManyWithoutPostNestedInput;
+  };
+
+  export type PostUncheckedUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    authorId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    collaborators?: PostCollaboratorUncheckedUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUncheckedUpdateManyWithoutPostNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutPostNestedInput;
+  };
+
+  export type PostCreateWithoutCollaboratorsInput = {
+    id?: string;
+    content: string;
+    contentType?: $Enums.ContentType;
+    visibility?: $Enums.Visibility;
+    isCollaborative?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    author: UserCreateNestedOneWithoutPostsInput;
+    media?: PostMediaCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionCreateNestedManyWithoutPostInput;
+    comments?: CommentCreateNestedManyWithoutPostInput;
+    mentions?: MentionCreateNestedManyWithoutPostInput;
+  };
+
+  export type PostUncheckedCreateWithoutCollaboratorsInput = {
+    id?: string;
+    authorId: string;
+    content: string;
+    contentType?: $Enums.ContentType;
+    visibility?: $Enums.Visibility;
+    isCollaborative?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    media?: PostMediaUncheckedCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionUncheckedCreateNestedManyWithoutPostInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutPostInput;
+  };
+
+  export type PostCreateOrConnectWithoutCollaboratorsInput = {
+    where: PostWhereUniqueInput;
+    create: XOR<
+      PostCreateWithoutCollaboratorsInput,
+      PostUncheckedCreateWithoutCollaboratorsInput
+    >;
+  };
+
+  export type UserCreateWithoutPostCollaborationsInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationality?: NationalityCreateNestedOneWithoutUserInput;
+    experiences?: ExperienceCreateNestedManyWithoutUserInput;
+    educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    degrees?: DegreeCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
+    posts?: PostCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutPostCollaborationsInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationalityId?: string | null;
+    experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
+    educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutPostCollaborationsInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutPostCollaborationsInput,
+      UserUncheckedCreateWithoutPostCollaborationsInput
+    >;
+  };
+
+  export type PostUpsertWithoutCollaboratorsInput = {
+    update: XOR<
+      PostUpdateWithoutCollaboratorsInput,
+      PostUncheckedUpdateWithoutCollaboratorsInput
+    >;
+    create: XOR<
+      PostCreateWithoutCollaboratorsInput,
+      PostUncheckedCreateWithoutCollaboratorsInput
+    >;
+    where?: PostWhereInput;
+  };
+
+  export type PostUpdateToOneWithWhereWithoutCollaboratorsInput = {
+    where?: PostWhereInput;
+    data: XOR<
+      PostUpdateWithoutCollaboratorsInput,
+      PostUncheckedUpdateWithoutCollaboratorsInput
+    >;
+  };
+
+  export type PostUpdateWithoutCollaboratorsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput;
+    media?: PostMediaUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUpdateManyWithoutPostNestedInput;
+    comments?: CommentUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUpdateManyWithoutPostNestedInput;
+  };
+
+  export type PostUncheckedUpdateWithoutCollaboratorsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    authorId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    media?: PostMediaUncheckedUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUncheckedUpdateManyWithoutPostNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutPostNestedInput;
+  };
+
+  export type UserUpsertWithoutPostCollaborationsInput = {
+    update: XOR<
+      UserUpdateWithoutPostCollaborationsInput,
+      UserUncheckedUpdateWithoutPostCollaborationsInput
+    >;
+    create: XOR<
+      UserCreateWithoutPostCollaborationsInput,
+      UserUncheckedCreateWithoutPostCollaborationsInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutPostCollaborationsInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutPostCollaborationsInput,
+      UserUncheckedUpdateWithoutPostCollaborationsInput
+    >;
+  };
+
+  export type UserUpdateWithoutPostCollaborationsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationality?: NationalityUpdateOneWithoutUserNestedInput;
+    experiences?: ExperienceUpdateManyWithoutUserNestedInput;
+    educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
+    posts?: PostUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutPostCollaborationsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
+    experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
+    educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type PostCreateWithoutReactionsInput = {
+    id?: string;
+    content: string;
+    contentType?: $Enums.ContentType;
+    visibility?: $Enums.Visibility;
+    isCollaborative?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    author: UserCreateNestedOneWithoutPostsInput;
+    media?: PostMediaCreateNestedManyWithoutPostInput;
+    collaborators?: PostCollaboratorCreateNestedManyWithoutPostInput;
+    comments?: CommentCreateNestedManyWithoutPostInput;
+    mentions?: MentionCreateNestedManyWithoutPostInput;
+  };
+
+  export type PostUncheckedCreateWithoutReactionsInput = {
+    id?: string;
+    authorId: string;
+    content: string;
+    contentType?: $Enums.ContentType;
+    visibility?: $Enums.Visibility;
+    isCollaborative?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    media?: PostMediaUncheckedCreateNestedManyWithoutPostInput;
+    collaborators?: PostCollaboratorUncheckedCreateNestedManyWithoutPostInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutPostInput;
+  };
+
+  export type PostCreateOrConnectWithoutReactionsInput = {
+    where: PostWhereUniqueInput;
+    create: XOR<
+      PostCreateWithoutReactionsInput,
+      PostUncheckedCreateWithoutReactionsInput
+    >;
+  };
+
+  export type UserCreateWithoutPostReactionsInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationality?: NationalityCreateNestedOneWithoutUserInput;
+    experiences?: ExperienceCreateNestedManyWithoutUserInput;
+    educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    degrees?: DegreeCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
+    posts?: PostCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutPostReactionsInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationalityId?: string | null;
+    experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
+    educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutPostReactionsInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutPostReactionsInput,
+      UserUncheckedCreateWithoutPostReactionsInput
+    >;
+  };
+
+  export type PostUpsertWithoutReactionsInput = {
+    update: XOR<
+      PostUpdateWithoutReactionsInput,
+      PostUncheckedUpdateWithoutReactionsInput
+    >;
+    create: XOR<
+      PostCreateWithoutReactionsInput,
+      PostUncheckedCreateWithoutReactionsInput
+    >;
+    where?: PostWhereInput;
+  };
+
+  export type PostUpdateToOneWithWhereWithoutReactionsInput = {
+    where?: PostWhereInput;
+    data: XOR<
+      PostUpdateWithoutReactionsInput,
+      PostUncheckedUpdateWithoutReactionsInput
+    >;
+  };
+
+  export type PostUpdateWithoutReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput;
+    media?: PostMediaUpdateManyWithoutPostNestedInput;
+    collaborators?: PostCollaboratorUpdateManyWithoutPostNestedInput;
+    comments?: CommentUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUpdateManyWithoutPostNestedInput;
+  };
+
+  export type PostUncheckedUpdateWithoutReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    authorId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    media?: PostMediaUncheckedUpdateManyWithoutPostNestedInput;
+    collaborators?: PostCollaboratorUncheckedUpdateManyWithoutPostNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutPostNestedInput;
+  };
+
+  export type UserUpsertWithoutPostReactionsInput = {
+    update: XOR<
+      UserUpdateWithoutPostReactionsInput,
+      UserUncheckedUpdateWithoutPostReactionsInput
+    >;
+    create: XOR<
+      UserCreateWithoutPostReactionsInput,
+      UserUncheckedCreateWithoutPostReactionsInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutPostReactionsInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutPostReactionsInput,
+      UserUncheckedUpdateWithoutPostReactionsInput
+    >;
+  };
+
+  export type UserUpdateWithoutPostReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationality?: NationalityUpdateOneWithoutUserNestedInput;
+    experiences?: ExperienceUpdateManyWithoutUserNestedInput;
+    educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
+    posts?: PostUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutPostReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
+    experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
+    educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type PostCreateWithoutCommentsInput = {
+    id?: string;
+    content: string;
+    contentType?: $Enums.ContentType;
+    visibility?: $Enums.Visibility;
+    isCollaborative?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    author: UserCreateNestedOneWithoutPostsInput;
+    media?: PostMediaCreateNestedManyWithoutPostInput;
+    collaborators?: PostCollaboratorCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionCreateNestedManyWithoutPostInput;
+    mentions?: MentionCreateNestedManyWithoutPostInput;
+  };
+
+  export type PostUncheckedCreateWithoutCommentsInput = {
+    id?: string;
+    authorId: string;
+    content: string;
+    contentType?: $Enums.ContentType;
+    visibility?: $Enums.Visibility;
+    isCollaborative?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    media?: PostMediaUncheckedCreateNestedManyWithoutPostInput;
+    collaborators?: PostCollaboratorUncheckedCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionUncheckedCreateNestedManyWithoutPostInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutPostInput;
+  };
+
+  export type PostCreateOrConnectWithoutCommentsInput = {
+    where: PostWhereUniqueInput;
+    create: XOR<
+      PostCreateWithoutCommentsInput,
+      PostUncheckedCreateWithoutCommentsInput
+    >;
+  };
+
+  export type UserCreateWithoutCommentsInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationality?: NationalityCreateNestedOneWithoutUserInput;
+    experiences?: ExperienceCreateNestedManyWithoutUserInput;
+    educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    degrees?: DegreeCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
+    posts?: PostCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    mentions?: MentionCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutCommentsInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationalityId?: string | null;
+    experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
+    educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutCommentsInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutCommentsInput,
+      UserUncheckedCreateWithoutCommentsInput
+    >;
+  };
+
+  export type CommentCreateWithoutRepliesInput = {
+    id?: string;
+    content: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    post: PostCreateNestedOneWithoutCommentsInput;
+    user: UserCreateNestedOneWithoutCommentsInput;
+    parent?: CommentCreateNestedOneWithoutRepliesInput;
+    mentions?: MentionCreateNestedManyWithoutCommentInput;
+  };
+
+  export type CommentUncheckedCreateWithoutRepliesInput = {
+    id?: string;
+    postId: string;
+    userId: string;
+    content: string;
+    parentId?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    mentions?: MentionUncheckedCreateNestedManyWithoutCommentInput;
+  };
+
+  export type CommentCreateOrConnectWithoutRepliesInput = {
+    where: CommentWhereUniqueInput;
+    create: XOR<
+      CommentCreateWithoutRepliesInput,
+      CommentUncheckedCreateWithoutRepliesInput
+    >;
+  };
+
+  export type CommentCreateWithoutParentInput = {
+    id?: string;
+    content: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    post: PostCreateNestedOneWithoutCommentsInput;
+    user: UserCreateNestedOneWithoutCommentsInput;
+    replies?: CommentCreateNestedManyWithoutParentInput;
+    mentions?: MentionCreateNestedManyWithoutCommentInput;
+  };
+
+  export type CommentUncheckedCreateWithoutParentInput = {
+    id?: string;
+    postId: string;
+    userId: string;
+    content: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    replies?: CommentUncheckedCreateNestedManyWithoutParentInput;
+    mentions?: MentionUncheckedCreateNestedManyWithoutCommentInput;
+  };
+
+  export type CommentCreateOrConnectWithoutParentInput = {
+    where: CommentWhereUniqueInput;
+    create: XOR<
+      CommentCreateWithoutParentInput,
+      CommentUncheckedCreateWithoutParentInput
+    >;
+  };
+
+  export type CommentCreateManyParentInputEnvelope = {
+    data: CommentCreateManyParentInput | CommentCreateManyParentInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type MentionCreateWithoutCommentInput = {
+    id?: string;
+    createdAt?: Date | string;
+    post?: PostCreateNestedOneWithoutMentionsInput;
+    user: UserCreateNestedOneWithoutMentionsInput;
+  };
+
+  export type MentionUncheckedCreateWithoutCommentInput = {
+    id?: string;
+    postId?: string | null;
+    userId: string;
+    createdAt?: Date | string;
+  };
+
+  export type MentionCreateOrConnectWithoutCommentInput = {
+    where: MentionWhereUniqueInput;
+    create: XOR<
+      MentionCreateWithoutCommentInput,
+      MentionUncheckedCreateWithoutCommentInput
+    >;
+  };
+
+  export type MentionCreateManyCommentInputEnvelope = {
+    data: MentionCreateManyCommentInput | MentionCreateManyCommentInput[];
+    skipDuplicates?: boolean;
+  };
+
+  export type PostUpsertWithoutCommentsInput = {
+    update: XOR<
+      PostUpdateWithoutCommentsInput,
+      PostUncheckedUpdateWithoutCommentsInput
+    >;
+    create: XOR<
+      PostCreateWithoutCommentsInput,
+      PostUncheckedCreateWithoutCommentsInput
+    >;
+    where?: PostWhereInput;
+  };
+
+  export type PostUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: PostWhereInput;
+    data: XOR<
+      PostUpdateWithoutCommentsInput,
+      PostUncheckedUpdateWithoutCommentsInput
+    >;
+  };
+
+  export type PostUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput;
+    media?: PostMediaUpdateManyWithoutPostNestedInput;
+    collaborators?: PostCollaboratorUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUpdateManyWithoutPostNestedInput;
+  };
+
+  export type PostUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    authorId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    media?: PostMediaUncheckedUpdateManyWithoutPostNestedInput;
+    collaborators?: PostCollaboratorUncheckedUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUncheckedUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutPostNestedInput;
+  };
+
+  export type UserUpsertWithoutCommentsInput = {
+    update: XOR<
+      UserUpdateWithoutCommentsInput,
+      UserUncheckedUpdateWithoutCommentsInput
+    >;
+    create: XOR<
+      UserCreateWithoutCommentsInput,
+      UserUncheckedCreateWithoutCommentsInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutCommentsInput,
+      UserUncheckedUpdateWithoutCommentsInput
+    >;
+  };
+
+  export type UserUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationality?: NationalityUpdateOneWithoutUserNestedInput;
+    experiences?: ExperienceUpdateManyWithoutUserNestedInput;
+    educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
+    posts?: PostUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
+    experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
+    educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
+  };
+
+  export type CommentUpsertWithoutRepliesInput = {
+    update: XOR<
+      CommentUpdateWithoutRepliesInput,
+      CommentUncheckedUpdateWithoutRepliesInput
+    >;
+    create: XOR<
+      CommentCreateWithoutRepliesInput,
+      CommentUncheckedCreateWithoutRepliesInput
+    >;
+    where?: CommentWhereInput;
+  };
+
+  export type CommentUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: CommentWhereInput;
+    data: XOR<
+      CommentUpdateWithoutRepliesInput,
+      CommentUncheckedUpdateWithoutRepliesInput
+    >;
+  };
+
+  export type CommentUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneRequiredWithoutCommentsNestedInput;
+    user?: UserUpdateOneRequiredWithoutCommentsNestedInput;
+    parent?: CommentUpdateOneWithoutRepliesNestedInput;
+    mentions?: MentionUpdateManyWithoutCommentNestedInput;
+  };
+
+  export type CommentUncheckedUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    mentions?: MentionUncheckedUpdateManyWithoutCommentNestedInput;
+  };
+
+  export type CommentUpsertWithWhereUniqueWithoutParentInput = {
+    where: CommentWhereUniqueInput;
+    update: XOR<
+      CommentUpdateWithoutParentInput,
+      CommentUncheckedUpdateWithoutParentInput
+    >;
+    create: XOR<
+      CommentCreateWithoutParentInput,
+      CommentUncheckedCreateWithoutParentInput
+    >;
+  };
+
+  export type CommentUpdateWithWhereUniqueWithoutParentInput = {
+    where: CommentWhereUniqueInput;
+    data: XOR<
+      CommentUpdateWithoutParentInput,
+      CommentUncheckedUpdateWithoutParentInput
+    >;
+  };
+
+  export type CommentUpdateManyWithWhereWithoutParentInput = {
+    where: CommentScalarWhereInput;
+    data: XOR<
+      CommentUpdateManyMutationInput,
+      CommentUncheckedUpdateManyWithoutParentInput
+    >;
+  };
+
+  export type MentionUpsertWithWhereUniqueWithoutCommentInput = {
+    where: MentionWhereUniqueInput;
+    update: XOR<
+      MentionUpdateWithoutCommentInput,
+      MentionUncheckedUpdateWithoutCommentInput
+    >;
+    create: XOR<
+      MentionCreateWithoutCommentInput,
+      MentionUncheckedCreateWithoutCommentInput
+    >;
+  };
+
+  export type MentionUpdateWithWhereUniqueWithoutCommentInput = {
+    where: MentionWhereUniqueInput;
+    data: XOR<
+      MentionUpdateWithoutCommentInput,
+      MentionUncheckedUpdateWithoutCommentInput
+    >;
+  };
+
+  export type MentionUpdateManyWithWhereWithoutCommentInput = {
+    where: MentionScalarWhereInput;
+    data: XOR<
+      MentionUpdateManyMutationInput,
+      MentionUncheckedUpdateManyWithoutCommentInput
+    >;
+  };
+
+  export type PostCreateWithoutMentionsInput = {
+    id?: string;
+    content: string;
+    contentType?: $Enums.ContentType;
+    visibility?: $Enums.Visibility;
+    isCollaborative?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    author: UserCreateNestedOneWithoutPostsInput;
+    media?: PostMediaCreateNestedManyWithoutPostInput;
+    collaborators?: PostCollaboratorCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionCreateNestedManyWithoutPostInput;
+    comments?: CommentCreateNestedManyWithoutPostInput;
+  };
+
+  export type PostUncheckedCreateWithoutMentionsInput = {
+    id?: string;
+    authorId: string;
+    content: string;
+    contentType?: $Enums.ContentType;
+    visibility?: $Enums.Visibility;
+    isCollaborative?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    media?: PostMediaUncheckedCreateNestedManyWithoutPostInput;
+    collaborators?: PostCollaboratorUncheckedCreateNestedManyWithoutPostInput;
+    reactions?: PostReactionUncheckedCreateNestedManyWithoutPostInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput;
+  };
+
+  export type PostCreateOrConnectWithoutMentionsInput = {
+    where: PostWhereUniqueInput;
+    create: XOR<
+      PostCreateWithoutMentionsInput,
+      PostUncheckedCreateWithoutMentionsInput
+    >;
+  };
+
+  export type CommentCreateWithoutMentionsInput = {
+    id?: string;
+    content: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    post: PostCreateNestedOneWithoutCommentsInput;
+    user: UserCreateNestedOneWithoutCommentsInput;
+    parent?: CommentCreateNestedOneWithoutRepliesInput;
+    replies?: CommentCreateNestedManyWithoutParentInput;
+  };
+
+  export type CommentUncheckedCreateWithoutMentionsInput = {
+    id?: string;
+    postId: string;
+    userId: string;
+    content: string;
+    parentId?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    replies?: CommentUncheckedCreateNestedManyWithoutParentInput;
+  };
+
+  export type CommentCreateOrConnectWithoutMentionsInput = {
+    where: CommentWhereUniqueInput;
+    create: XOR<
+      CommentCreateWithoutMentionsInput,
+      CommentUncheckedCreateWithoutMentionsInput
+    >;
+  };
+
+  export type UserCreateWithoutMentionsInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationality?: NationalityCreateNestedOneWithoutUserInput;
+    experiences?: ExperienceCreateNestedManyWithoutUserInput;
+    educations?: EducationCreateNestedManyWithoutUserInput;
+    follows?: FollowCreateNestedManyWithoutFollowerInput;
+    following?: FollowCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionCreateNestedManyWithoutUserInput;
+    degrees?: DegreeCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyCreateNestedManyWithoutUserInput;
+    posts?: PostCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationCreateNestedManyWithoutUserInput;
+    accounts?: AccountCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionCreateNestedManyWithoutUserInput;
+    comments?: CommentCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserUncheckedCreateWithoutMentionsInput = {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    password: string;
+    avatarPicture?: string | null;
+    coverPicture?: string | null;
+    description?: string | null;
+    dateBirth: Date | string;
+    title?: string | null;
+    titleProfession?: string | null;
+    linkWebsite?: string | null;
+    isVerify?: boolean;
+    phoneNumber?: string | null;
+    isOnline?: boolean;
+    phoneNumberVerificationToken?: string | null;
+    phoneNumberVerificationTokenExpiresAt?: Date | string | null;
+    location?: string | null;
+    socialLinks?: string | null;
+    emailVerificationToken?: string | null;
+    emailVerificationTokenExpiresAt?: Date | string | null;
+    resetPasswordToken?: string | null;
+    resetPasswordTokenExpiresAt?: Date | string | null;
+    onboarding?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    role?: $Enums.userRole;
+    nationalityId?: string | null;
+    experiences?: ExperienceUncheckedCreateNestedManyWithoutUserInput;
+    educations?: EducationUncheckedCreateNestedManyWithoutUserInput;
+    follows?: FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    following?: FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput;
+    degrees?: DegreeUncheckedCreateNestedManyWithoutUserInput;
+    userSkills?: UserSkillUncheckedCreateNestedManyWithoutUserInput;
+    userTechnologies?: UserTechnologyUncheckedCreateNestedManyWithoutUserInput;
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput;
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
+    postCollaborations?: PostCollaboratorUncheckedCreateNestedManyWithoutUserInput;
+    postReactions?: PostReactionUncheckedCreateNestedManyWithoutUserInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+  };
+
+  export type UserCreateOrConnectWithoutMentionsInput = {
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutMentionsInput,
+      UserUncheckedCreateWithoutMentionsInput
+    >;
+  };
+
+  export type PostUpsertWithoutMentionsInput = {
+    update: XOR<
+      PostUpdateWithoutMentionsInput,
+      PostUncheckedUpdateWithoutMentionsInput
+    >;
+    create: XOR<
+      PostCreateWithoutMentionsInput,
+      PostUncheckedCreateWithoutMentionsInput
+    >;
+    where?: PostWhereInput;
+  };
+
+  export type PostUpdateToOneWithWhereWithoutMentionsInput = {
+    where?: PostWhereInput;
+    data: XOR<
+      PostUpdateWithoutMentionsInput,
+      PostUncheckedUpdateWithoutMentionsInput
+    >;
+  };
+
+  export type PostUpdateWithoutMentionsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput;
+    media?: PostMediaUpdateManyWithoutPostNestedInput;
+    collaborators?: PostCollaboratorUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUpdateManyWithoutPostNestedInput;
+    comments?: CommentUpdateManyWithoutPostNestedInput;
+  };
+
+  export type PostUncheckedUpdateWithoutMentionsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    authorId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    media?: PostMediaUncheckedUpdateManyWithoutPostNestedInput;
+    collaborators?: PostCollaboratorUncheckedUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUncheckedUpdateManyWithoutPostNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput;
+  };
+
+  export type CommentUpsertWithoutMentionsInput = {
+    update: XOR<
+      CommentUpdateWithoutMentionsInput,
+      CommentUncheckedUpdateWithoutMentionsInput
+    >;
+    create: XOR<
+      CommentCreateWithoutMentionsInput,
+      CommentUncheckedCreateWithoutMentionsInput
+    >;
+    where?: CommentWhereInput;
+  };
+
+  export type CommentUpdateToOneWithWhereWithoutMentionsInput = {
+    where?: CommentWhereInput;
+    data: XOR<
+      CommentUpdateWithoutMentionsInput,
+      CommentUncheckedUpdateWithoutMentionsInput
+    >;
+  };
+
+  export type CommentUpdateWithoutMentionsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneRequiredWithoutCommentsNestedInput;
+    user?: UserUpdateOneRequiredWithoutCommentsNestedInput;
+    parent?: CommentUpdateOneWithoutRepliesNestedInput;
+    replies?: CommentUpdateManyWithoutParentNestedInput;
+  };
+
+  export type CommentUncheckedUpdateWithoutMentionsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    replies?: CommentUncheckedUpdateManyWithoutParentNestedInput;
+  };
+
+  export type UserUpsertWithoutMentionsInput = {
+    update: XOR<
+      UserUpdateWithoutMentionsInput,
+      UserUncheckedUpdateWithoutMentionsInput
+    >;
+    create: XOR<
+      UserCreateWithoutMentionsInput,
+      UserUncheckedCreateWithoutMentionsInput
+    >;
+    where?: UserWhereInput;
+  };
+
+  export type UserUpdateToOneWithWhereWithoutMentionsInput = {
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutMentionsInput,
+      UserUncheckedUpdateWithoutMentionsInput
+    >;
+  };
+
+  export type UserUpdateWithoutMentionsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationality?: NationalityUpdateOneWithoutUserNestedInput;
+    experiences?: ExperienceUpdateManyWithoutUserNestedInput;
+    educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
+    posts?: PostUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+  };
+
+  export type UserUncheckedUpdateWithoutMentionsInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    firstName?: StringFieldUpdateOperationsInput | string;
+    lastName?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    avatarPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    coverPicture?: NullableStringFieldUpdateOperationsInput | string | null;
+    description?: NullableStringFieldUpdateOperationsInput | string | null;
+    dateBirth?: DateTimeFieldUpdateOperationsInput | Date | string;
+    title?: NullableStringFieldUpdateOperationsInput | string | null;
+    titleProfession?: NullableStringFieldUpdateOperationsInput | string | null;
+    linkWebsite?: NullableStringFieldUpdateOperationsInput | string | null;
+    isVerify?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: BoolFieldUpdateOperationsInput | boolean;
+    phoneNumberVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    phoneNumberVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    location?: NullableStringFieldUpdateOperationsInput | string | null;
+    socialLinks?: NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerificationToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    emailVerificationTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    resetPasswordToken?:
+      | NullableStringFieldUpdateOperationsInput
+      | string
+      | null;
+    resetPasswordTokenExpiresAt?:
+      | NullableDateTimeFieldUpdateOperationsInput
+      | Date
+      | string
+      | null;
+    onboarding?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
+    nationalityId?: NullableStringFieldUpdateOperationsInput | string | null;
+    experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
+    educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
+    degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
+    userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type ExperienceCreateManyUserInput = {
@@ -33118,11 +49031,16 @@ export namespace Prisma {
     updatedAt?: Date | string;
   };
 
-  export type DegreeCreateManyUserInput = {
+  export type FollowCreateManyFollowerInput = {
     id?: string;
-    title: string;
-    identify: string;
-    dateDelivrance: Date | string;
+    followingId: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type FollowCreateManyFollowingInput = {
+    id?: string;
+    followerId: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -33139,10 +49057,48 @@ export namespace Prisma {
     expiresAt: Date | string;
   };
 
+  export type DegreeCreateManyUserInput = {
+    id?: string;
+    title: string;
+    identify: string;
+    dateDelivrance: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
   export type UserSkillCreateManyUserInput = {
     id?: string;
     skillId: string;
     level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type UserTechnologyCreateManyUserInput = {
+    id?: string;
+    technologyId: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type PostCreateManyAuthorInput = {
+    id?: string;
+    content: string;
+    contentType?: $Enums.ContentType;
+    visibility?: $Enums.Visibility;
+    isCollaborative?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type NotificationCreateManyUserInput = {
+    id?: string;
+    type: $Enums.NotificationType;
+    title: string;
+    message: string;
+    data?: NullableJsonNullValueInput | InputJsonValue;
+    read?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
@@ -33162,38 +49118,34 @@ export namespace Prisma {
     updatedAt?: Date | string;
   };
 
-  export type FollowCreateManyFollowingInput = {
+  export type PostCollaboratorCreateManyUserInput = {
     id?: string;
-    followerId: string;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
+    postId: string;
+    role?: $Enums.CollaboratorRole;
+    addedAt?: Date | string;
   };
 
-  export type FollowCreateManyFollowerInput = {
+  export type PostReactionCreateManyUserInput = {
     id?: string;
-    followingId: string;
+    postId: string;
+    type: $Enums.ReactionType;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
   };
 
-  export type PostCreateManyAuthorInput = {
+  export type CommentCreateManyUserInput = {
     id?: string;
+    postId: string;
     content: string;
-    visibility?: $Enums.Visibility;
-    media?: string | null;
+    parentId?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
 
-  export type NotificationCreateManyUserInput = {
+  export type MentionCreateManyUserInput = {
     id?: string;
-    type: $Enums.NotificationType;
-    title: string;
-    message: string;
-    data?: NullableJsonNullValueInput | InputJsonValue;
-    read?: boolean;
+    postId?: string | null;
+    commentId?: string | null;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
   };
 
   export type ExperienceUpdateWithoutUserInput = {
@@ -33286,29 +49238,44 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type DegreeUpdateWithoutUserInput = {
+  export type FollowUpdateWithoutFollowerInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    title?: StringFieldUpdateOperationsInput | string;
-    identify?: StringFieldUpdateOperationsInput | string;
-    dateDelivrance?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    following?: UserUpdateOneRequiredWithoutFollowingNestedInput;
+  };
+
+  export type FollowUncheckedUpdateWithoutFollowerInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    followingId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type DegreeUncheckedUpdateWithoutUserInput = {
+  export type FollowUncheckedUpdateManyWithoutFollowerInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    title?: StringFieldUpdateOperationsInput | string;
-    identify?: StringFieldUpdateOperationsInput | string;
-    dateDelivrance?: DateTimeFieldUpdateOperationsInput | Date | string;
+    followingId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type DegreeUncheckedUpdateManyWithoutUserInput = {
+  export type FollowUpdateWithoutFollowingInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    title?: StringFieldUpdateOperationsInput | string;
-    identify?: StringFieldUpdateOperationsInput | string;
-    dateDelivrance?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    follower?: UserUpdateOneRequiredWithoutFollowsNestedInput;
+  };
+
+  export type FollowUncheckedUpdateWithoutFollowingInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    followerId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type FollowUncheckedUpdateManyWithoutFollowingInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    followerId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -33349,6 +49316,33 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
+  export type DegreeUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    identify?: StringFieldUpdateOperationsInput | string;
+    dateDelivrance?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type DegreeUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    identify?: StringFieldUpdateOperationsInput | string;
+    dateDelivrance?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type DegreeUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    identify?: StringFieldUpdateOperationsInput | string;
+    dateDelivrance?: DateTimeFieldUpdateOperationsInput | Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
   export type UserSkillUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
@@ -33369,6 +49363,115 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string;
     skillId?: StringFieldUpdateOperationsInput | string;
     level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserTechnologyUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    technology?: TechnologyUpdateOneRequiredWithoutUserTechnologiesNestedInput;
+  };
+
+  export type UserTechnologyUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    technologyId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type UserTechnologyUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    technologyId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    media?: PostMediaUpdateManyWithoutPostNestedInput;
+    collaborators?: PostCollaboratorUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUpdateManyWithoutPostNestedInput;
+    comments?: CommentUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUpdateManyWithoutPostNestedInput;
+  };
+
+  export type PostUncheckedUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    media?: PostMediaUncheckedUpdateManyWithoutPostNestedInput;
+    collaborators?: PostCollaboratorUncheckedUpdateManyWithoutPostNestedInput;
+    reactions?: PostReactionUncheckedUpdateManyWithoutPostNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutPostNestedInput;
+  };
+
+  export type PostUncheckedUpdateManyWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    contentType?:
+      | EnumContentTypeFieldUpdateOperationsInput
+      | $Enums.ContentType;
+    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
+    isCollaborative?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type NotificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumNotificationTypeFieldUpdateOperationsInput
+      | $Enums.NotificationType;
+    title?: StringFieldUpdateOperationsInput | string;
+    message?: StringFieldUpdateOperationsInput | string;
+    data?: NullableJsonNullValueInput | InputJsonValue;
+    read?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type NotificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumNotificationTypeFieldUpdateOperationsInput
+      | $Enums.NotificationType;
+    title?: StringFieldUpdateOperationsInput | string;
+    message?: StringFieldUpdateOperationsInput | string;
+    data?: NullableJsonNullValueInput | InputJsonValue;
+    read?: BoolFieldUpdateOperationsInput | boolean;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type NotificationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    type?:
+      | EnumNotificationTypeFieldUpdateOperationsInput
+      | $Enums.NotificationType;
+    title?: StringFieldUpdateOperationsInput | string;
+    message?: StringFieldUpdateOperationsInput | string;
+    data?: NullableJsonNullValueInput | InputJsonValue;
+    read?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
@@ -33442,112 +49545,104 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type FollowUpdateWithoutFollowingInput = {
+  export type PostCollaboratorUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    follower?: UserUpdateOneRequiredWithoutFollowingNestedInput;
+    role?:
+      | EnumCollaboratorRoleFieldUpdateOperationsInput
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneRequiredWithoutCollaboratorsNestedInput;
   };
 
-  export type FollowUncheckedUpdateWithoutFollowingInput = {
+  export type PostCollaboratorUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    followerId?: StringFieldUpdateOperationsInput | string;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    role?:
+      | EnumCollaboratorRoleFieldUpdateOperationsInput
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type FollowUncheckedUpdateManyWithoutFollowingInput = {
+  export type PostCollaboratorUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    followerId?: StringFieldUpdateOperationsInput | string;
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    role?:
+      | EnumCollaboratorRoleFieldUpdateOperationsInput
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type FollowUpdateWithoutFollowerInput = {
+  export type PostReactionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
+    type?: EnumReactionTypeFieldUpdateOperationsInput | $Enums.ReactionType;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    following?: UserUpdateOneRequiredWithoutFollowersNestedInput;
+    post?: PostUpdateOneRequiredWithoutReactionsNestedInput;
   };
 
-  export type FollowUncheckedUpdateWithoutFollowerInput = {
+  export type PostReactionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    followingId?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    type?: EnumReactionTypeFieldUpdateOperationsInput | $Enums.ReactionType;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type FollowUncheckedUpdateManyWithoutFollowerInput = {
+  export type PostReactionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    followingId?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    type?: EnumReactionTypeFieldUpdateOperationsInput | $Enums.ReactionType;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type PostUpdateWithoutAuthorInput = {
+  export type CommentUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
     content?: StringFieldUpdateOperationsInput | string;
-    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
-    media?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneRequiredWithoutCommentsNestedInput;
+    parent?: CommentUpdateOneWithoutRepliesNestedInput;
+    replies?: CommentUpdateManyWithoutParentNestedInput;
+    mentions?: MentionUpdateManyWithoutCommentNestedInput;
   };
 
-  export type PostUncheckedUpdateWithoutAuthorInput = {
+  export type CommentUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
     content?: StringFieldUpdateOperationsInput | string;
-    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
-    media?: NullableStringFieldUpdateOperationsInput | string | null;
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    replies?: CommentUncheckedUpdateManyWithoutParentNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutCommentNestedInput;
   };
 
-  export type PostUncheckedUpdateManyWithoutAuthorInput = {
+  export type CommentUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
     content?: StringFieldUpdateOperationsInput | string;
-    visibility?: EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility;
-    media?: NullableStringFieldUpdateOperationsInput | string | null;
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type NotificationUpdateWithoutUserInput = {
+  export type MentionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    type?:
-      | EnumNotificationTypeFieldUpdateOperationsInput
-      | $Enums.NotificationType;
-    title?: StringFieldUpdateOperationsInput | string;
-    message?: StringFieldUpdateOperationsInput | string;
-    data?: NullableJsonNullValueInput | InputJsonValue;
-    read?: BoolFieldUpdateOperationsInput | boolean;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneWithoutMentionsNestedInput;
+    comment?: CommentUpdateOneWithoutMentionsNestedInput;
   };
 
-  export type NotificationUncheckedUpdateWithoutUserInput = {
+  export type MentionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    type?:
-      | EnumNotificationTypeFieldUpdateOperationsInput
-      | $Enums.NotificationType;
-    title?: StringFieldUpdateOperationsInput | string;
-    message?: StringFieldUpdateOperationsInput | string;
-    data?: NullableJsonNullValueInput | InputJsonValue;
-    read?: BoolFieldUpdateOperationsInput | boolean;
+    postId?: NullableStringFieldUpdateOperationsInput | string | null;
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type NotificationUncheckedUpdateManyWithoutUserInput = {
+  export type MentionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    type?:
-      | EnumNotificationTypeFieldUpdateOperationsInput
-      | $Enums.NotificationType;
-    title?: StringFieldUpdateOperationsInput | string;
-    message?: StringFieldUpdateOperationsInput | string;
-    data?: NullableJsonNullValueInput | InputJsonValue;
-    read?: BoolFieldUpdateOperationsInput | boolean;
+    postId?: NullableStringFieldUpdateOperationsInput | string | null;
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type UserCreateManyNationalityInput = {
@@ -33633,14 +49728,19 @@ export namespace Prisma {
     role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
     experiences?: ExperienceUpdateManyWithoutUserNestedInput;
     educations?: EducationUpdateManyWithoutUserNestedInput;
+    follows?: FollowUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUpdateManyWithoutUserNestedInput;
-    session?: SessionUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUpdateManyWithoutUserNestedInput;
-    followers?: FollowUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUpdateManyWithoutUserNestedInput;
     posts?: PostUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUpdateManyWithoutUserNestedInput;
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutNationalityInput = {
@@ -33695,14 +49795,19 @@ export namespace Prisma {
     role?: EnumuserRoleFieldUpdateOperationsInput | $Enums.userRole;
     experiences?: ExperienceUncheckedUpdateManyWithoutUserNestedInput;
     educations?: EducationUncheckedUpdateManyWithoutUserNestedInput;
+    follows?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    following?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     degrees?: DegreeUncheckedUpdateManyWithoutUserNestedInput;
-    session?: SessionUncheckedUpdateManyWithoutUserNestedInput;
     userSkills?: UserSkillUncheckedUpdateManyWithoutUserNestedInput;
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
-    followers?: FollowUncheckedUpdateManyWithoutFollowingNestedInput;
-    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutUserNestedInput;
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
+    postCollaborations?: PostCollaboratorUncheckedUpdateManyWithoutUserNestedInput;
+    postReactions?: PostReactionUncheckedUpdateManyWithoutUserNestedInput;
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateManyWithoutNationalityInput = {
@@ -33777,7 +49882,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    Technology?: TechnologyUpdateManyWithoutSousSkillTechNestedInput;
+    Technology?: TechnologyUpdateManyWithoutSousSkillNestedInput;
   };
 
   export type sousSkillUncheckedUpdateWithoutSkillInput = {
@@ -33785,7 +49890,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
-    Technology?: TechnologyUncheckedUpdateManyWithoutSousSkillTechNestedInput;
+    Technology?: TechnologyUncheckedUpdateManyWithoutSousSkillNestedInput;
   };
 
   export type sousSkillUncheckedUpdateManyWithoutSkillInput = {
@@ -33819,32 +49924,320 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type TechnologyCreateManySousSkillTechInput = {
+  export type TechnologyCreateManySousSkillInput = {
     id?: string;
     title: string;
+    icon?: string | null;
+    color?: string | null;
+    category?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
   };
 
-  export type TechnologyUpdateWithoutSousSkillTechInput = {
+  export type TechnologyUpdateWithoutSousSkillInput = {
     id?: StringFieldUpdateOperationsInput | string;
     title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    userTechnologies?: UserTechnologyUpdateManyWithoutTechnologyNestedInput;
+  };
+
+  export type TechnologyUncheckedUpdateWithoutSousSkillInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    userTechnologies?: UserTechnologyUncheckedUpdateManyWithoutTechnologyNestedInput;
+  };
+
+  export type TechnologyUncheckedUpdateManyWithoutSousSkillInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    title?: StringFieldUpdateOperationsInput | string;
+    icon?: NullableStringFieldUpdateOperationsInput | string | null;
+    color?: NullableStringFieldUpdateOperationsInput | string | null;
+    category?: NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type TechnologyUncheckedUpdateWithoutSousSkillTechInput = {
+  export type UserTechnologyCreateManyTechnologyInput = {
+    id?: string;
+    userId: string;
+    level?: $Enums.SkillLevel;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type UserTechnologyUpdateWithoutTechnologyInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    title?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutUserTechnologiesNestedInput;
+  };
+
+  export type UserTechnologyUncheckedUpdateWithoutTechnologyInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type TechnologyUncheckedUpdateManyWithoutSousSkillTechInput = {
+  export type UserTechnologyUncheckedUpdateManyWithoutTechnologyInput = {
     id?: StringFieldUpdateOperationsInput | string;
-    title?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    level?: EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostMediaCreateManyPostInput = {
+    id?: string;
+    type: $Enums.MediaType;
+    url: string;
+    publicId?: string | null;
+    filename?: string | null;
+    size?: number | null;
+    duration?: number | null;
+    createdAt?: Date | string;
+  };
+
+  export type PostCollaboratorCreateManyPostInput = {
+    id?: string;
+    userId: string;
+    role?: $Enums.CollaboratorRole;
+    addedAt?: Date | string;
+  };
+
+  export type PostReactionCreateManyPostInput = {
+    id?: string;
+    userId: string;
+    type: $Enums.ReactionType;
+    createdAt?: Date | string;
+  };
+
+  export type CommentCreateManyPostInput = {
+    id?: string;
+    userId: string;
+    content: string;
+    parentId?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type MentionCreateManyPostInput = {
+    id?: string;
+    commentId?: string | null;
+    userId: string;
+    createdAt?: Date | string;
+  };
+
+  export type PostMediaUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType;
+    url?: StringFieldUpdateOperationsInput | string;
+    publicId?: NullableStringFieldUpdateOperationsInput | string | null;
+    filename?: NullableStringFieldUpdateOperationsInput | string | null;
+    size?: NullableIntFieldUpdateOperationsInput | number | null;
+    duration?: NullableIntFieldUpdateOperationsInput | number | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostMediaUncheckedUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType;
+    url?: StringFieldUpdateOperationsInput | string;
+    publicId?: NullableStringFieldUpdateOperationsInput | string | null;
+    filename?: NullableStringFieldUpdateOperationsInput | string | null;
+    size?: NullableIntFieldUpdateOperationsInput | number | null;
+    duration?: NullableIntFieldUpdateOperationsInput | number | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostMediaUncheckedUpdateManyWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType;
+    url?: StringFieldUpdateOperationsInput | string;
+    publicId?: NullableStringFieldUpdateOperationsInput | string | null;
+    filename?: NullableStringFieldUpdateOperationsInput | string | null;
+    size?: NullableIntFieldUpdateOperationsInput | number | null;
+    duration?: NullableIntFieldUpdateOperationsInput | number | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostCollaboratorUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    role?:
+      | EnumCollaboratorRoleFieldUpdateOperationsInput
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutPostCollaborationsNestedInput;
+  };
+
+  export type PostCollaboratorUncheckedUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    role?:
+      | EnumCollaboratorRoleFieldUpdateOperationsInput
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostCollaboratorUncheckedUpdateManyWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    role?:
+      | EnumCollaboratorRoleFieldUpdateOperationsInput
+      | $Enums.CollaboratorRole;
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostReactionUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    type?: EnumReactionTypeFieldUpdateOperationsInput | $Enums.ReactionType;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutPostReactionsNestedInput;
+  };
+
+  export type PostReactionUncheckedUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    type?: EnumReactionTypeFieldUpdateOperationsInput | $Enums.ReactionType;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type PostReactionUncheckedUpdateManyWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    type?: EnumReactionTypeFieldUpdateOperationsInput | $Enums.ReactionType;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CommentUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutCommentsNestedInput;
+    parent?: CommentUpdateOneWithoutRepliesNestedInput;
+    replies?: CommentUpdateManyWithoutParentNestedInput;
+    mentions?: MentionUpdateManyWithoutCommentNestedInput;
+  };
+
+  export type CommentUncheckedUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    replies?: CommentUncheckedUpdateManyWithoutParentNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutCommentNestedInput;
+  };
+
+  export type CommentUncheckedUpdateManyWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type MentionUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    comment?: CommentUpdateOneWithoutMentionsNestedInput;
+    user?: UserUpdateOneRequiredWithoutMentionsNestedInput;
+  };
+
+  export type MentionUncheckedUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null;
+    userId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type MentionUncheckedUpdateManyWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null;
+    userId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type CommentCreateManyParentInput = {
+    id?: string;
+    postId: string;
+    userId: string;
+    content: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+  };
+
+  export type MentionCreateManyCommentInput = {
+    id?: string;
+    postId?: string | null;
+    userId: string;
+    createdAt?: Date | string;
+  };
+
+  export type CommentUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneRequiredWithoutCommentsNestedInput;
+    user?: UserUpdateOneRequiredWithoutCommentsNestedInput;
+    replies?: CommentUpdateManyWithoutParentNestedInput;
+    mentions?: MentionUpdateManyWithoutCommentNestedInput;
+  };
+
+  export type CommentUncheckedUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    replies?: CommentUncheckedUpdateManyWithoutParentNestedInput;
+    mentions?: MentionUncheckedUpdateManyWithoutCommentNestedInput;
+  };
+
+  export type CommentUncheckedUpdateManyWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    content?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type MentionUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    post?: PostUpdateOneWithoutMentionsNestedInput;
+    user?: UserUpdateOneRequiredWithoutMentionsNestedInput;
+  };
+
+  export type MentionUncheckedUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: NullableStringFieldUpdateOperationsInput | string | null;
+    userId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type MentionUncheckedUpdateManyWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string;
+    postId?: NullableStringFieldUpdateOperationsInput | string | null;
+    userId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   /**

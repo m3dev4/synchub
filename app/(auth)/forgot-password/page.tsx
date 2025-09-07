@@ -20,7 +20,21 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-const page = () => {
+const getErrorMessage = (error: unknown): string => {
+  let message: string;
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (error && typeof error === "object" && "messsage" in error) {
+    message = String(error.messsage);
+  } else if (typeof error === "string") {
+    message = error;
+  } else {
+    message = "Une erreur est survenue";
+  }
+  return message;
+};
+
+const ForgotPasswordPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -42,9 +56,9 @@ const page = () => {
       setLoading(false);
       toast.success("Connexion réussie");
       setSuccessMessage("Connexion réussie, redirection en cours...");
-    } catch (error: any) {
+    } catch (error) {
       setLoading(false);
-      const errorMsg = error?.message || "Échec de la connexion";
+      const errorMsg = getErrorMessage(error);
 
       if (
         errorMsg.includes("Invalid credentials") ||
@@ -121,4 +135,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ForgotPasswordPage;

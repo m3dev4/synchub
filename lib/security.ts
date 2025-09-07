@@ -102,15 +102,12 @@ export function validateOrigin(request: Request): boolean {
   const referer = request.headers.get("referer");
 
   const allowedOrigins = [
-    process.env.NEXT_PUBLIC_CLIENT_URL || "http://localhost:3000",
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
     "http://localhost:3000",
     "https://localhost:3000",
   ];
 
   // Debug logs pour diagnostiquer le problème
-  console.log("Origin:", origin);
-  console.log("Referer:", referer);
-  console.log("Allowed origins:", allowedOrigins);
 
   if (origin && allowedOrigins.includes(origin)) {
     return true;
@@ -125,7 +122,6 @@ export function validateOrigin(request: Request): boolean {
 
   // Pour le développement local, accepter les requêtes sans origin/referer
   if (process.env.NODE_ENV === "development") {
-    console.log("Development mode: allowing request without valid origin");
     return true;
   }
 

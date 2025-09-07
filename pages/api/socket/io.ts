@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { NextApiResponseServerIO } from "@/lib/socket";
-import { initSocket } from "@/lib/socket";
+import { NextApiResponseServerIO, initSocket } from "@/lib/socket";
 
 export default function SocketHandler(
   req: NextApiRequest,

@@ -12,6 +12,8 @@ export interface OnboardingExperience {
   id: string;
   title?: string;
   description?: string;
+  company?: string;
+  current?: boolean;
   startDate: Date;
   endDate: Date;
 }

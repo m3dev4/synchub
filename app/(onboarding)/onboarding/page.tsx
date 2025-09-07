@@ -16,13 +16,13 @@ import {
   OnboardingExperience,
   OnboardingEducation,
 } from "@/types/onboarding";
-// import { countries } from '@/constants/nationality/countries'
+// import { countries } from &apos;@/constants/nationality/countries&apos;
 import { onBoardingValidation } from "@/validations/onboarding/onBoardingValidation";
 import { useAuthStore } from "@/stores/auth/authState";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "sonner";
 
-const page = () => {
+const OnboardingPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [canContinue, setCanContinue] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -52,13 +52,13 @@ const page = () => {
   }, []);
 
   // useEffect(() => {
-  //   // Attendre que l'hydratation soit terminée
+  //   // Attendre que l&apos;hydratation soit terminée
   //   if (hydrated && !isAuthenticated) {
   //     router.push("/sign-in");
   //   }
   // }, [isAuthenticated, hydrated, router]);
 
-  // // Afficher un loader pendant l'hydratation
+  // // Afficher un loader pendant l&apos;hydratation
   // if (!hydrated) {
   //   return (
   //     <div className="flex items-center justify-center min-h-screen">
@@ -110,7 +110,7 @@ const page = () => {
           newErrors.firstName = "Le prénom est requis";
         if (!formData.lastName.trim()) newErrors.lastName = "Le nom est requis";
         if (!formData.username.trim())
-          newErrors.username = "Le nom d'utilisateur est requis";
+          newErrors.username = "Le nom d&apos;utilisateur est requis";
         break;
       case 2: // Nationality & birth date
         if (!formData.dateBirth)
@@ -170,10 +170,8 @@ const page = () => {
         skills: formData.skills || [],
       };
 
-      console.log("Submitting data:", submissionData);
       await onboardingMutation.mutateAsync(submissionData);
     } catch (error: any) {
-      console.error("Submission error:", error);
       toast.error(`Erreur: ${error.message}`);
     }
   };
@@ -188,9 +186,9 @@ const page = () => {
     switch (currentStep) {
       case 0:
         return {
-          title: "Conditions d'utilisation",
+          title: "Conditions d&apos;utilisation",
           description:
-            "Veuillez lire attentivement nos conditions d'utilisation avant de continuer.",
+            "Veuillez lire attentivement nos conditions d&apos;utilisation avant de continuer.",
           image: "/onboarding/term&condition.png",
           indicatorTitle: "Sécurisé & Fiable",
           indicatorDesc:
@@ -202,7 +200,7 @@ const page = () => {
           description: "Commençons par vos informations de base.",
           image: "/onboarding/informationPersonal.png",
           indicatorTitle: "Identité",
-          indicatorDesc: "Prénom, nom et nom d'utilisateur",
+          indicatorDesc: "Prénom, nom et nom d&apos;utilisateur",
         };
       case 2:
         return {
@@ -268,7 +266,7 @@ const page = () => {
   const stepContent = getStepContent();
 
   // Animation variants
-  const pageVariants = {
+  const OnboardingPageVariants = {
     initial: { opacity: 0, x: 50 },
     in: { opacity: 1, x: 0 },
     out: { opacity: 0, x: -50 },
@@ -337,9 +335,10 @@ const page = () => {
                       1. Acceptation des conditions
                     </h2>
                     <p className="text-gray-200 leading-relaxed text-sm md:text-base">
-                      En utilisant SyncHub, vous acceptez d'être lié par ces
-                      conditions d'utilisation. Si vous n'acceptez pas ces
-                      conditions, veuillez ne pas utiliser notre service.
+                      En utilisant SyncHub, vous acceptez d&apos;être lié par
+                      ces conditions d&apos;utilisation. Si vous n&apos;acceptez
+                      pas ces conditions, veuillez ne pas utiliser notre
+                      service.
                     </p>
                   </section>
 
@@ -373,10 +372,11 @@ const page = () => {
                       4. Utilisation acceptable
                     </h2>
                     <p className="text-gray-200 leading-relaxed text-sm md:text-base">
-                      Vous acceptez d'utiliser SyncHub uniquement à des fins
-                      légales et de manière qui ne porte pas atteinte aux droits
-                      d'autrui. Vous ne devez pas utiliser le service pour des
-                      activités illégales, nuisibles ou offensantes.
+                      Vous acceptez d&apos;utiliser SyncHub uniquement à des
+                      fins légales et de manière qui ne porte pas atteinte aux
+                      droits d&apos;autrui. Vous ne devez pas utiliser le
+                      service pour des activités illégales, nuisibles ou
+                      offensantes.
                     </p>
                   </section>
 
@@ -386,11 +386,11 @@ const page = () => {
                     </h2>
                     <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       Tout le contenu et les matériaux disponibles sur SyncHub,
-                      y compris mais sans s'y limiter, le texte, les graphiques,
-                      le nom du site web, le code, les images et les logos sont
-                      la propriété intellectuelle de SyncHub et sont protégés
-                      par les lois applicables sur le droit d'auteur et les
-                      marques de commerce.
+                      y compris mais sans s&apos;y limiter, le texte, les
+                      graphiques, le nom du site web, le code, les images et les
+                      logos sont la propriété intellectuelle de SyncHub et sont
+                      protégés par les lois applicables sur le droit
+                      d&apos;auteur et les marques de commerce.
                     </p>
                   </section>
 
@@ -424,9 +424,9 @@ const page = () => {
                     </h2>
                     <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       Nous nous réservons le droit de modifier ces conditions
-                      d'utilisation à tout moment. Les modifications entreront
-                      en vigueur immédiatement après leur publication sur cette
-                      page.
+                      d&apos;utilisation à tout moment. Les modifications
+                      entreront en vigueur immédiatement après leur publication
+                      sur cette page.
                     </p>
                   </section>
 
@@ -448,7 +448,7 @@ const page = () => {
                     </h2>
                     <p className="text-gray-200 leading-relaxed text-sm md:text-base">
                       Si vous avez des questions concernant ces conditions
-                      d'utilisation, veuillez nous contacter à
+                      d&apos;utilisation, veuillez nous contacter à
                       support@synchub.com.
                     </p>
                   </section>
@@ -750,4 +750,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default OnboardingPage;

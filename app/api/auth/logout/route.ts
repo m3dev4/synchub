@@ -2,6 +2,7 @@
 
 import { logout } from "@/server/auth/logout";
 import { NextRequest, NextResponse } from "next/server";
+import { getErrorMessage } from "@/utils/errorMessage";
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,8 +16,11 @@ export async function POST(request: NextRequest) {
         status: 200,
       });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error logging out user:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: getErrorMessage(error) },
+      { status: 500 },
+    );
   }
 }

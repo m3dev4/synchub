@@ -141,7 +141,7 @@ export const PhotoUpload = ({ value, onChange, error }: PhotoUploadProps) => {
             <p className="text-white mb-2">
               Cliquez ou glissez votre photo ici
             </p>
-            <p className="text-gray-400 text-sm">PNG, JPG jusqu'à 10MB</p>
+            <p className="text-gray-400 text-sm">PNG, JPG jusqu&apos;à 10MB</p>
           </div>
         )}
       </div>

@@ -19,6 +19,20 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { toast, Toaster } from "sonner";
 
+const getErrorMessage = (error: unknown): string => {
+  let message: string;
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (error && typeof error === "object" && "messsage" in error) {
+    message = String(error.messsage);
+  } else if (typeof error === "string") {
+    message = error;
+  } else {
+    message = "Une erreur est survenue";
+  }
+  return message;
+};
+
 const SignIn = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -40,10 +54,9 @@ const SignIn = () => {
       await login.mutateAsync(data);
       setLoading(false);
       toast.success("Connexion réussie");
-      setSuccessMessage("Connexion réussie, redirection en cours...");
-    } catch (error: any) {
+    } catch (error) {
       setLoading(false);
-      const errorMsg = error?.message || "Échec de la connexion";
+      const errorMsg = getErrorMessage(error);
 
       if (
         errorMsg.includes("Invalid credentials") ||
@@ -65,7 +78,7 @@ const SignIn = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <Toaster />
+      <Toaster position="top-right" />
       <form
         className="w-full max-w-md space-y-4"
         onSubmit={handleSubmit(onSubmit)}
@@ -85,9 +98,9 @@ const SignIn = () => {
               Welcome Back
             </h2>
             <p className="text-xs sm:text-sm text-gray-400 text-center">
-              Vous n'avez pas enncore un compte ?{" "}
+              Vous n&apos;avez pas encore un compte ?{" "}
               <Link href="/sign-up" className="text-cyan-500">
-                S'inscrire
+                S&apos;inscrire
               </Link>{" "}
             </p>
           </CardHeader>

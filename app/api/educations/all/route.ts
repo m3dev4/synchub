@@ -9,12 +9,12 @@ export async function GET() {
       status: 200,
       educations: educations,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.log("Erreur", error);
     NextResponse.json({
       success: false,
       status: 500,
-      message: "Error lors du récupération l'éducations",
+      message: "Error lors du récupération l&apos;éducations",
     });
   }
 }

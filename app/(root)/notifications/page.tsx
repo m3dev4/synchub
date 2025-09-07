@@ -73,14 +73,26 @@ const NotificationsPage = () => {
     }
   };
 
-  const handleNotificationClick = (notification: any) => {
+  const handleNotificationClick = (notification: {
+    id: string;
+    read: boolean;
+    data?: string;
+    type: string;
+  }) => {
     if (!notification.read) {
       markAsRead([notification.id]);
     }
 
     // Navigation basée sur le type de notification
-    if (notification.type === "FOLLOW" && notification.data?.followerId) {
-      window.location.href = `/profile/${notification.data.followerId}`;
+    if (notification.type === "FOLLOW" && notification.data) {
+      try {
+        const data = JSON.parse(notification.data) as { followerId?: string };
+        if (data.followerId) {
+          window.location.href = `/profile/${data.followerId}`;
+        }
+      } catch (error) {
+        console.error("Error parsing notification data:", error);
+      }
     }
   };
 
@@ -170,7 +182,7 @@ const NotificationsPage = () => {
                   <h3 className="text-lg font-semibold mb-2">
                     Aucune notification
                   </h3>
-                  <p>Vous n'avez pas encore reçu de notifications.</p>
+                  <p>Vous n&apos;avez pas encore reçu de notifications.</p>
                 </div>
               ) : (
                 <div className="divide-y">

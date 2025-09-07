@@ -22,6 +22,20 @@ import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { toast, Toaster } from "sonner";
 
+const getErrorMessage = (error: unknown): string => {
+  let message: string;
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (error && typeof error === "object" && "messsage" in error) {
+    message = String(error.messsage);
+  } else if (typeof error === "string") {
+    message = error;
+  } else {
+    message = "Une erreur est survenue";
+  }
+  return message;
+};
+
 const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -44,9 +58,9 @@ const SignUp = () => {
       setLoading(false);
       toast.success("Inscription réussie");
       setSuccessMessage("Vérifiez votre email pour activer votre compte");
-    } catch (error: any) {
+    } catch (error) {
       setLoading(false);
-      const errorMsg = error?.message || "Échec de l'inscription";
+      const errorMsg = getErrorMessage(error);
 
       if (errorMsg.includes("User already exists")) {
         setErrorMessage("Un compte avec cet email existe déjà");
@@ -63,7 +77,7 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen w-full bg-background">
-      <Toaster />
+      <Toaster position="top-right" />
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen w-full gap-4 lg:gap-10 p-4">
         <div className="w-full hidden lg:block lg:w-1/2 relative order-2 lg:order-1">
           <Image
@@ -92,7 +106,7 @@ const SignUp = () => {
             <Card className="w-full shadow-lg bg-background">
               <CardHeader className="space-y-2 px-4 sm:px-6 pt-6">
                 <h2 className="text-xl sm:text-2xl font-bold text-center leading-tight">
-                  Rejoignez l'aventure en vous inscrivant
+                  Rejoignez l&apos;aventure en vous inscrivant
                 </h2>
                 <p className="text-xs sm:text-sm text-muted-foreground text-center">
                   Vous avez déjà un compte ?{" "}
@@ -157,7 +171,7 @@ const SignUp = () => {
                   {createUser.isPending ? (
                     <Loader className="animate-spin h-4 w-4" />
                   ) : (
-                    "S'inscrire"
+                    "S&apos;inscrire"
                   )}
                 </Button>
 

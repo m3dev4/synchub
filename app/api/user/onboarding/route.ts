@@ -1,19 +1,12 @@
 import { onboarding } from "@/server/onboarding/onboarding";
 import { auth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
+import { getErrorMessage } from "@/utils/errorMessage";
 
 export async function PUT(request: NextRequest) {
   try {
     // Debug: Log all cookies
     const cookieHeader = request.headers.get("cookie");
-    console.log("🍪 All cookies:", cookieHeader);
-
-    // Debug: Log specific headers
-    console.log("📋 Headers:", {
-      authorization: request.headers.get("authorization"),
-      cookie: request.headers.get("cookie"),
-      "user-agent": request.headers.get("user-agent"),
-    });
 
     // Try multiple approaches to get session
     let session = null;
@@ -23,9 +16,12 @@ export async function PUT(request: NextRequest) {
       session = await auth.api.getSession({
         headers: request.headers,
       });
-      console.log("✅ Method 1 - Standard headers:", session);
     } catch (error) {
-      console.log("❌ Method 1 failed:", error);
+      NextResponse.json({
+        message: "Method 1 Failed",
+        error,
+        status: 500,
+      });
     }
 
     // Method 2: Try with just the request object
@@ -34,9 +30,19 @@ export async function PUT(request: NextRequest) {
         session = await auth.api.getSession({
           headers: request.headers,
         });
-        console.log("✅ Method 2 - Second attempt:", session);
+        NextResponse.json({
+          message: "✅ Method 2 - Second attempt:",
+          session,
+          status: 200,
+          success: true,
+        });
       } catch (error) {
-        console.log("❌ Method 2 failed:", error);
+        NextResponse.json({
+          message: "❌ Method 2 failed",
+          error,
+          status: 500,
+          success: false,
+        });
       }
     }
 
@@ -46,7 +52,6 @@ export async function PUT(request: NextRequest) {
         const sessionTokenMatch = cookieHeader.match(/sessionToken=([^;]+)/);
         if (sessionTokenMatch) {
           const sessionToken = decodeURIComponent(sessionTokenMatch[1]);
-          console.log("🔑 Found sessionToken:", sessionToken);
 
           // Query database directly for this session token
           const { PrismaClient } = await import("@/lib/prisma-client-js");
@@ -65,27 +70,37 @@ export async function PUT(request: NextRequest) {
                 email: dbSession.user.email,
               },
             };
-            console.log("✅ Method 3 - Custom session_token:", session);
+            NextResponse.json({
+              message: "✅ Method  - Second attempt:",
+              session,
+              status: 200,
+              success: true,
+            });
           } else {
-            console.log("❌ Session expired or not found in database");
+            NextResponse.json({
+              message: "❌ Session expire or not found on the database",
+              session,
+              status: 500,
+            });
           }
 
           await prisma.$disconnect();
         }
       } catch (error) {
-        console.log("❌ Method 3 failed:", error);
+        NextResponse.json({
+          message: "✅ Method 3 failed:",
+          session,
+          status: 500,
+        });
       }
     }
 
     if (!session?.user?.id) {
-      console.log("❌ No valid session found after all methods");
       return NextResponse.json(
         { success: false, message: "Unauthorized - User not authenticated" },
         { status: 401 },
       );
     }
-
-    console.log("✅ Session found for user:", session.user.email);
 
     const data = await request.json();
 
@@ -103,8 +118,11 @@ export async function PUT(request: NextRequest) {
     } else {
       return NextResponse.json(result, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Onboarding error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: getErrorMessage(error) },
+      { status: 500 },
+    );
   }
 }

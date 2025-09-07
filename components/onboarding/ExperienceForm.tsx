@@ -58,7 +58,11 @@ export const ExperienceForm = ({
       {experiences.length === 0 && (
         <div className="text-center py-8 text-gray-400">
           <p>Aucune expérience ajoutée</p>
-          <p className="text-sm">Cliquez sur "Ajouter" pour commencer</p>
+          <p className="text-sm">
+            Cliquez sur{" "}
+            <span className="font-semibold text-purple-300">Ajouter</span> pour
+            commencer
+          </p>
         </div>
       )}
 
@@ -95,7 +99,7 @@ export const ExperienceForm = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
               label="Titre du poste"
-              value={experience.title}
+              value={experience.title || ""}
               onChange={(value) => updateExperience(index, "title", value)}
               placeholder="Ex: Développeur Full Stack"
               required
@@ -103,9 +107,9 @@ export const ExperienceForm = ({
 
             <FormField
               label="Entreprise"
-              value={experience.company}
-              onChange={(value) => updateExperience(index, "company", value)}
+              value={experience.company || ""}
               placeholder="Ex: Google"
+              onChange={(value) => updateExperience(index, "company", value)}
               required
             />
           </div>

@@ -20,7 +20,7 @@ export const initSocket = (server: NetServer) => {
       cors: {
         origin:
           process.env.NODE_ENV === "production"
-            ? process.env.NEXTAUTH_URL
+            ? process.env.NEXT_PUBLIC_BASE_URL
             : "http://localhost:3000",
         methods: ["GET", "POST"],
       },
@@ -82,7 +82,7 @@ export const emitNotification = (
 ) => {
   if (io) {
     console.log(`📤 Attempting to emit notification to user-${userId}`);
-    console.log(`📤 Notification data:`, notification);
+    console.log("📤 Notification data: ", notification);
     console.log(
       `📤 Connected sockets in room user-${userId}:`,
       io.sockets.adapter.rooms.get(`user-${userId}`)?.size || 0,

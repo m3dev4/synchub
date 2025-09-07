@@ -136,7 +136,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
 
     const socketInstance = io(
       process.env.NODE_ENV === "production"
-        ? process.env.NEXT_PUBLIC_SITE_URL || ""
+        ? process.env.NEXT_PUBLIC_BASE_URL || ""
         : "http://localhost:3000",
       {
         path: "/api/socket/io",
@@ -144,12 +144,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
     );
 
     socketInstance.on("connect", () => {
-      console.log(
-        "✅ Connected to socket server, socket ID:",
-        socketInstance.id,
-      );
       socketInstance.emit("join-user-room", user.id);
-      console.log("📡 Joined user room:", `user-${user.id}`);
     });
 
     socketInstance.on("notification", (notification: NotificationEvent) => {
@@ -175,7 +170,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
       // Incrémenter le compteur non lu
       setUnreadCount((prev) => {
         const newCount = prev + 1;
-        console.log("🔢 Unread count updated:", prev, "→", newCount);
+
         return newCount;
       });
 
@@ -193,9 +188,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
       console.error("❌ Socket connection error:", error);
     });
 
-    socketInstance.on("disconnect", (reason) => {
-      console.log("❌ Disconnected from socket server:", reason);
-    });
+    socketInstance.on("disconnect", (reason) => {});
 
     setSocket(socketInstance);
 
