@@ -9,7 +9,6 @@ const nextConfig: NextConfig = {
     // Ignore TypeScript errors during build for deployment
     ignoreBuildErrors: true,
   },
-  output: "standalone",
   // Netlify compatibility
   trailingSlash: true,
   images: {
