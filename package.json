@@ -11,7 +11,8 @@
     "lint": "next lint",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
     "seed:nationality": "tsx seeds/nationality.ts",
-    "seed:skills": "tsx seeds/skills.ts"
+    "seed:skills": "tsx seeds/skills.ts",
+    "netlify-build": "prisma generate && next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
