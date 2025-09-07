@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
     // Ignore TypeScript errors during build for deployment
     ignoreBuildErrors: true,
   },
+  output: "standalone",
+  // Netlify compatibility
+  trailingSlash: true,
   images: {
     remotePatterns: [
       {
@@ -45,7 +48,7 @@ const nextConfig: NextConfig = {
     
     return config;
   },
-  // Experimental features for better Vercel compatibility
+  // Experimental features for better deployment compatibility
   experimental: {
     serverComponentsExternalPackages: ['prisma', '@prisma/client'],
   },
