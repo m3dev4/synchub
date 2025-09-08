@@ -87,10 +87,10 @@ const UserProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col w-full py-6 my-6">
+    <div className="min-h-screen flex flex-col w-full py-4 sm:py-6 my-2 sm:my-6">
       <div className="flex flex-col w-full">
         {/* Header - Cover + Avatar */}
-        <div className="relative w-full h-48 coverBox rounded-2xl overflow-hidden">
+        <div className="relative w-full h-32 sm:h-48 coverBox rounded-xl sm:rounded-2xl overflow-hidden">
           <Image
             src={
               user.coverPicture ||
@@ -102,7 +102,7 @@ const UserProfilePage = () => {
           />
 
           <div className="absolute left-0 bottom-0">
-            <div className="relative w-26 h-26 top-10 ml-5 mb-4">
+            <div className="relative w-20 h-20 sm:w-26 sm:h-26 top-6 sm:top-10 ml-3 sm:ml-5 mb-4">
               <UserAvatar
                 avatarPicture={user.avatarPicture}
                 firstName={user.firstName}
@@ -114,20 +114,20 @@ const UserProfilePage = () => {
         </div>
 
         {/* User Info */}
-        <div className="flex flex-col items-start justify-start space-y-1 my-14 mx-5">
-          <div className="flex items-center justify-between w-full">
-            <div>
-              <h1 className="text-2xl font-bold">
+        <div className="flex flex-col items-start justify-start space-y-1 my-8 sm:my-14 mx-3 sm:mx-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full gap-4">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-xl sm:text-2xl font-bold truncate">
                 {user.firstName} {user.lastName}
               </h1>
-              <span className="text-lg font-semibold">{user.title}</span>
+              <span className="text-base sm:text-lg font-semibold text-muted-foreground">{user.title}</span>
               <div className="flex gap-2 items-center mt-1">
-                <MapPin className="w-4 h-4" />
-                <span>{user.nationality?.name || "Pays non défini"}</span>
+                <MapPin className="w-4 h-4 flex-shrink-0" />
+                <span className="text-sm sm:text-base truncate">{user.nationality?.name || "Pays non défini"}</span>
               </div>
 
               {/* Statistiques de suivi */}
-              <div className="flex gap-4 items-center mt-2 text-sm text-muted-foreground">
+              <div className="flex gap-3 sm:gap-4 items-center mt-2 text-xs sm:text-sm text-muted-foreground">
                 <span>
                   <strong>{followersCount}</strong> abonnés
                 </span>
@@ -137,11 +137,11 @@ const UserProfilePage = () => {
               </div>
               {user.linkWebsite && (
                 <div className="flex gap-2 items-center mt-1">
-                  <Link2 className="w-4 h-4" />
+                  <Link2 className="w-4 h-4 flex-shrink-0" />
                   <Link
                     href={user.linkWebsite}
                     target="_blank"
-                    className="text-blue-500 hover:underline"
+                    className="text-blue-500 hover:underline text-sm sm:text-base truncate"
                   >
                     Site web
                   </Link>
@@ -151,16 +151,18 @@ const UserProfilePage = () => {
 
             {/* Action Buttons */}
             {currentUser?.id && currentUser.id !== userId && (
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm">
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                <Button variant="outline" size="sm" className="w-full sm:w-auto">
                   <MessageCircle className="w-4 h-4 mr-2" />
-                  Message
+                  <span className="hidden sm:inline">Message</span>
+                  <span className="sm:hidden">Envoyer un message</span>
                 </Button>
                 <Button
                   size="sm"
                   onClick={toggleFollow}
                   disabled={followLoading}
                   variant={isFollowing ? "outline" : "default"}
+                  className="w-full sm:w-auto"
                 >
                   <UserPlus className="w-4 h-4 mr-2" />
                   {followLoading
@@ -175,22 +177,22 @@ const UserProfilePage = () => {
         </div>
 
         {/* Content Tabs */}
-        <div className="p-5 w-full">
+        <div className="p-3 sm:p-5 w-full">
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="w-full">
-              <TabsTrigger value="overview">Aperçu</TabsTrigger>
-              <TabsTrigger value="activity">Activité</TabsTrigger>
+            <TabsList className="w-full grid grid-cols-2">
+              <TabsTrigger value="overview" className="text-sm sm:text-base">Aperçu</TabsTrigger>
+              <TabsTrigger value="activity" className="text-sm sm:text-base">Activité</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="overview">
+            <TabsContent value="overview" className="mt-4 sm:mt-6">
               {/* Description */}
               {user.description && (
-                <Card className="w-full mb-6">
-                  <CardHeader>
-                    <CardTitle>À propos</CardTitle>
+                <Card className="w-full mb-4 sm:mb-6">
+                  <CardHeader className="pb-3 sm:pb-6">
+                    <CardTitle className="text-base sm:text-lg">À propos</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">
+                  <CardContent className="pt-0">
+                    <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
                       {user.description}
                     </p>
                   </CardContent>
@@ -198,8 +200,8 @@ const UserProfilePage = () => {
               )}
 
               {/* Experience & Education */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                <div className="space-y-4 sm:space-y-6">
                   <Card>
                     <CardContent className="p-0">
                       <UserExperience experiences={user.experience || []} />
@@ -207,7 +209,7 @@ const UserProfilePage = () => {
                   </Card>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   <Card>
                     <CardContent className="p-0">
                       <UserEducation educations={user.education || []} />
@@ -218,18 +220,18 @@ const UserProfilePage = () => {
 
               {/* Skills */}
               {user.userSkills && user.userSkills.length > 0 && (
-                <Card className="w-full mt-6">
-                  <CardHeader>
-                    <CardTitle>Compétences</CardTitle>
+                <Card className="w-full mt-4 sm:mt-6">
+                  <CardHeader className="pb-3 sm:pb-6">
+                    <CardTitle className="text-base sm:text-lg">Compétences</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-0">
                     <div className="flex flex-wrap gap-2">
                       {user.userSkills.map((userSkill) => (
                         <div
                           key={userSkill.id}
-                          className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
+                          className="px-2 sm:px-3 py-1 bg-primary/10 text-primary rounded-full text-xs sm:text-sm"
                         >
-                          {userSkill.skill.title}
+                          <span className="font-medium">{userSkill.skill.title}</span>
                           {userSkill.level && (
                             <span className="ml-1 text-xs opacity-70">
                               ({userSkill.level})
@@ -243,11 +245,11 @@ const UserProfilePage = () => {
               )}
             </TabsContent>
 
-            <TabsContent value="activity">
+            <TabsContent value="activity" className="mt-4 sm:mt-6">
               <Card>
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <div className="text-center text-muted-foreground">
-                    <p>Les activités de cet utilisateur apparaîtront ici.</p>
+                    <p className="text-sm sm:text-base">Les activités de cet utilisateur apparaîtront ici.</p>
                   </div>
                 </CardContent>
               </Card>

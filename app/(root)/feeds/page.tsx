@@ -5,7 +5,7 @@ import { FeedList } from "@/components/posts/FeedList";
 
 const Feeds = () => {
   return (
-    <div className="min-h-screen bg-background py-6">
+    <div className="min-h-screen bg-background py-12 lg:py-16">
       <div className="max-w-2xl mx-auto px-4 space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
