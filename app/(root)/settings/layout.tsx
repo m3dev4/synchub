@@ -15,10 +15,10 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-background my-11">
+    <div className="min-h-screen bg-background my-16">
       {/* Header */}
       <div className="border-b bg-card">
-        <div className="container mx-auto px-6 py-6">
+        <div className="container mx-auto px-6 py-12 lg:py-16">
           <div className="flex items-center gap-3">
             <Settings className="h-8 w-8 text-primary" />
             <div>

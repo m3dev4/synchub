@@ -113,7 +113,7 @@ export const PostCard = ({ post }: PostCardProps) => {
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
-            <Link href={`/profile/${post.author.id}`}>
+            <Link href={`/profile/user/${post.author.id}`}>
               <div className="relative">
                 <Avatar className="w-12 h-12 cursor-pointer hover:ring-2 hover:ring-accent/30 ring-offset-2 ring-offset-background transition-all duration-200">
                   <AvatarImage
@@ -131,7 +131,7 @@ export const PostCard = ({ post }: PostCardProps) => {
             <div className="flex-1">
               <div className="flex items-center gap-3">
                 <Link
-                  href={`/profile/${post.author.id}`}
+                  href={`/profile/user/${post.author.id}`}
                   className="font-semibold text-base hover:text-accent transition-colors duration-200"
                 >
                   {post.author.firstName} {post.author.lastName}

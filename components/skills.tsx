@@ -156,22 +156,23 @@ const Skills = () => {
   }
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Mes Compétences</CardTitle>
+    <Card className="w-full">
+      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <CardTitle className="text-lg sm:text-xl">Mes Compétences</CardTitle>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button size="sm">
+            <Button size="sm" className="w-full sm:w-auto">
               <Plus className="h-4 w-4 mr-2" />
-              Ajouter
+              <span className="hidden sm:inline">Ajouter</span>
+              <span className="sm:hidden">Ajouter une compétence</span>
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl">
+          <DialogContent className="max-w-2xl max-h-[90vh] w-[95vw] sm:w-full">
             <DialogHeader>
-              <DialogTitle>Ajouter une compétence</DialogTitle>
+              <DialogTitle className="text-base sm:text-lg">Ajouter une compétence</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
                   <div className="relative">
                     <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -189,7 +190,7 @@ const Skills = () => {
                     setSelectedLevel(value as SkillLevel)
                   }
                 >
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="w-full sm:w-40">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -205,13 +206,13 @@ const Skills = () => {
                 </Select>
               </div>
 
-              <ScrollArea className="h-96">
+              <ScrollArea className="h-80 sm:h-96">
                 <div className="space-y-4">
                   {availableSkills.map((skill) => (
-                    <div key={skill.id} className="border rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-semibold text-lg">{skill.title}</h4>
-                        <Badge variant="outline">
+                    <div key={skill.id} className="border rounded-lg p-3 sm:p-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2">
+                        <h4 className="font-semibold text-base sm:text-lg">{skill.title}</h4>
+                        <Badge variant="outline" className="self-start sm:self-center">
                           {skill.sousSkill?.length || 0} catégories
                         </Badge>
                       </div>
@@ -221,27 +222,27 @@ const Skills = () => {
                           <h5 className="font-medium text-sm text-gray-700 mb-2">
                             {sousSkill.title}
                           </h5>
-                          <div className="grid grid-cols-2 gap-2">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {sousSkill.Technology?.map((tech) => (
                               <div
                                 key={tech.id}
                                 className="flex items-center justify-between p-2 border rounded hover:bg-gray-50"
                               >
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2 flex-1 min-w-0">
                                   {tech.icon &&
                                   (tech.icon.startsWith("http://") ||
                                     tech.icon.startsWith("https://")) ? (
                                     <Image
                                       src={tech.icon}
                                       alt={tech.title}
-                                      width={24}
-                                      height={24}
-                                      className="object-contain"
+                                      width={20}
+                                      height={20}
+                                      className="object-contain flex-shrink-0"
                                     />
                                   ) : (
-                                    <span className="text-lg">{tech.icon}</span>
+                                    <span className="text-base flex-shrink-0">{tech.icon}</span>
                                   )}
-                                  <span className="text-sm font-medium">
+                                  <span className="text-sm font-medium truncate">
                                     {tech.title}
                                   </span>
                                 </div>
@@ -255,7 +256,7 @@ const Skills = () => {
                                     )
                                   }
                                   disabled={addSkillMutation.isPending}
-                                  className="h-6 px-2 text-xs"
+                                  className="h-6 w-6 p-0 text-xs flex-shrink-0"
                                 >
                                   +
                                 </Button>
@@ -281,8 +282,8 @@ const Skills = () => {
       <CardContent>
         {userTechnologies.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
-            <p>Aucune technologie ajoutée pour le moment.</p>
-            <p className="text-sm mt-2">
+            <p className="text-sm sm:text-base">Aucune technologie ajoutée pour le moment.</p>
+            <p className="text-xs sm:text-sm mt-2">
               Cliquez sur <strong>Ajouter</strong> pour commencer.
             </p>
           </div>
@@ -300,36 +301,36 @@ const Skills = () => {
                 {} as Record<string, typeof userTechnologies>,
               ),
             ).map(([skillTitle, techs]) => (
-              <div key={skillTitle} className="border rounded-lg p-4">
-                <h4 className="font-semibold text-lg mb-3">{skillTitle}</h4>
-                <div className="grid grid-cols-2 gap-3">
+              <div key={skillTitle} className="border rounded-lg p-3 sm:p-4">
+                <h4 className="font-semibold text-base sm:text-lg mb-3">{skillTitle}</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {techs.map((userTech) => (
                     <div
                       key={userTech.id}
                       className="flex items-center justify-between p-3 border rounded hover:bg-gray-50"
                     >
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
                         {userTech.technology.icon &&
                         (userTech.technology.icon.startsWith("http://") ||
                           userTech.technology.icon.startsWith("https://")) ? (
                           <Image
                             src={userTech.technology.icon}
                             alt={userTech.technology.title}
-                            width={24}
-                            height={24}
-                            className="object-contain"
+                            width={20}
+                            height={20}
+                            className="object-contain flex-shrink-0"
                           />
                         ) : (
-                          <span className="text-lg">
+                          <span className="text-base flex-shrink-0">
                             {userTech.technology.icon}
                           </span>
                         )}
-                        <div>
-                          <span className="font-medium text-sm">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 min-w-0">
+                          <span className="font-medium text-sm truncate">
                             {userTech.technology.title}
                           </span>
                           <Badge
-                            className={`ml-2 ${getLevelColor(userTech.level)}`}
+                            className={`text-xs ${getLevelColor(userTech.level)} self-start sm:self-center`}
                           >
                             {getLevelLabel(userTech.level)}
                           </Badge>
@@ -344,7 +345,7 @@ const Skills = () => {
                           )
                         }
                         disabled={removeTechnologyMutation.isPending}
-                        className="text-red-600 hover:text-red-700 hover:bg-red-50 h-6 w-6 p-0"
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50 h-6 w-6 p-0 flex-shrink-0"
                       >
                         <X className="h-3 w-3" />
                       </Button>

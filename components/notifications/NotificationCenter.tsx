@@ -100,34 +100,35 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md h-[600px] flex flex-col">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-          <div className="flex items-center gap-2">
-            <Bell className="w-5 h-5" />
-            <CardTitle>Notifications</CardTitle>
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-start justify-center p-2 sm:p-4 pt-16 sm:pt-20">
+      <Card className="w-full max-w-sm sm:max-w-md max-h-[80vh] sm:max-h-[70vh] flex flex-col">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 sm:pb-4 px-4 sm:px-6 flex-shrink-0">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            <Bell className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+            <CardTitle className="text-base sm:text-lg truncate">Notifications</CardTitle>
             {unreadCount > 0 && (
-              <Badge variant="destructive" className="text-xs">
+              <Badge variant="destructive" className="text-xs flex-shrink-0">
                 {unreadCount}
               </Badge>
             )}
           </div>
-          <Button variant="ghost" size="sm" onClick={onClose}>
+          <Button variant="ghost" size="sm" onClick={onClose} className="flex-shrink-0">
             <X className="w-4 h-4" />
           </Button>
         </CardHeader>
 
         {/* Actions */}
-        <div className="px-6 pb-4 flex gap-2 flex-wrap">
+        <div className="px-3 sm:px-6 pb-3 sm:pb-4 flex gap-1 sm:gap-2 flex-wrap flex-shrink-0 border-b">
           {unreadCount > 0 && (
             <Button
               variant="outline"
               size="sm"
               onClick={markAllAsRead}
-              className="text-xs"
+              className="text-xs flex-1 sm:flex-none"
             >
               <CheckCheck className="w-3 h-3 mr-1" />
-              Tout marquer comme lu
+              <span className="hidden sm:inline">Tout marquer comme lu</span>
+              <span className="sm:hidden">Tout lire</span>
             </Button>
           )}
 
@@ -137,41 +138,43 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                 variant="outline"
                 size="sm"
                 onClick={handleMarkSelectedAsRead}
-                className="text-xs"
+                className="text-xs flex-1 sm:flex-none"
               >
                 <Check className="w-3 h-3 mr-1" />
-                Marquer comme lu
+                <span className="hidden sm:inline">Marquer comme lu</span>
+                <span className="sm:hidden">Lire</span>
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleDeleteSelected}
-                className="text-xs text-red-600 hover:text-red-700"
+                className="text-xs text-red-600 hover:text-red-700 flex-1 sm:flex-none"
               >
                 <Trash2 className="w-3 h-3 mr-1" />
-                Supprimer
+                <span className="hidden sm:inline">Supprimer</span>
+                <span className="sm:hidden">Suppr.</span>
               </Button>
             </>
           )}
         </div>
 
-        <CardContent className="flex-1 p-0">
-          <ScrollArea className="h-full">
-            {loading && notifications.length === 0 ? (
-              <div className="p-6 text-center text-muted-foreground">
-                Chargement...
-              </div>
-            ) : notifications.length === 0 ? (
-              <div className="p-6 text-center text-muted-foreground">
-                <Bell className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                <p>Aucune notification</p>
-              </div>
-            ) : (
-              <div className="space-y-1">
+        <CardContent className="flex-1 p-0 min-h-0">
+          {loading && notifications.length === 0 ? (
+            <div className="p-4 sm:p-6 text-center text-muted-foreground">
+              <div className="text-sm sm:text-base">Chargement...</div>
+            </div>
+          ) : notifications.length === 0 ? (
+            <div className="p-4 sm:p-6 text-center text-muted-foreground">
+              <Bell className="w-8 h-8 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 opacity-50" />
+              <p className="text-sm sm:text-base">Aucune notification</p>
+            </div>
+          ) : (
+            <ScrollArea className="h-full">
+              <div className="space-y-0">
                 {notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className={`p-4 border-b cursor-pointer hover:bg-muted/50 transition-colors ${
+                    className={`p-3 sm:p-4 border-b cursor-pointer hover:bg-muted/50 transition-colors ${
                       !notification.read
                         ? "bg-blue-50/50 dark:bg-blue-950/20"
                         : ""
@@ -182,7 +185,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                     }`}
                     onClick={() => handleNotificationClick(notification)}
                   >
-                    <div className="flex items-start gap-3">
+                    <div className="flex items-start gap-2 sm:gap-3">
                       <input
                         type="checkbox"
                         checked={selectedNotifications.includes(
@@ -192,21 +195,21 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                           handleSelectNotification(notification.id)
                         }
                         onClick={(e) => e.stopPropagation()}
-                        className="mt-1"
+                        className="mt-1 flex-shrink-0"
                       />
 
                       <div className="flex-shrink-0">
                         {notification.data?.followerAvatar ? (
-                          <Avatar className="w-8 h-8">
+                          <Avatar className="w-6 h-6 sm:w-8 sm:h-8">
                             <AvatarImage
                               src={notification.data.followerAvatar}
                             />
                             <AvatarFallback>
-                              <User className="w-4 h-4" />
+                              <User className="w-3 h-3 sm:w-4 sm:h-4" />
                             </AvatarFallback>
                           </Avatar>
                         ) : (
-                          <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-muted flex items-center justify-center">
                             {getNotificationIcon(notification.type)}
                           </div>
                         )}
@@ -214,17 +217,17 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <p className="text-sm font-medium truncate">
+                          <p className="text-xs sm:text-sm font-medium truncate">
                             {notification.title}
                           </p>
                           {!notification.read && (
-                            <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" />
+                            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full flex-shrink-0" />
                           )}
                         </div>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                           {notification.message}
                         </p>
-                        <p className="text-xs text-muted-foreground mt-2">
+                        <p className="text-xs text-muted-foreground mt-1 sm:mt-2">
                           {formatDistanceToNow(
                             new Date(notification.createdAt),
                             {
@@ -238,8 +241,8 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                   </div>
                 ))}
               </div>
-            )}
-          </ScrollArea>
+            </ScrollArea>
+          )}
         </CardContent>
       </Card>
     </div>

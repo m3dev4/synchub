@@ -142,7 +142,7 @@ const SecurityPage = () => {
           {sessions && sessions.length > 0 ? (
             sessions.map((session: Session) => (
               <div key={session.id} className="border rounded-lg p-4 space-y-3">
-                <div className="flex items-start justify-between">
+                <div className="flex items-start justify-between ">
                   <div className="flex items-start gap-3">
                     <div className="mt-1">
                       {getDeviceIcon(session.useAgent)}
