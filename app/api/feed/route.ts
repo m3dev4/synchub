@@ -46,10 +46,15 @@ export async function GET(request: NextRequest) {
     followingIds.push(session.user.id); // Inclure ses propres posts
 
     // Construire la requête avec pagination
-    const whereClause: any = {
-      authorId: { in: followingIds },
-      visibility: { in: ["PUBLIC", "FOLLOWERS_ONLY"] },
-    };
+    // Si l'utilisateur ne suit personne (nouveau utilisateur), afficher tous les posts publics
+    const whereClause: any = followingIds.length === 1 
+      ? {
+          visibility: "PUBLIC", // Tous les posts publics pour les nouveaux utilisateurs
+        }
+      : {
+          authorId: { in: followingIds },
+          visibility: { in: ["PUBLIC", "FOLLOWERS_ONLY"] },
+        };
 
     if (cursor) {
       whereClause.createdAt = { lt: new Date(cursor) };
