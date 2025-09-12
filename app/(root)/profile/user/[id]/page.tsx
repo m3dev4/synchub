@@ -120,10 +120,14 @@ const UserProfilePage = () => {
               <h1 className="text-xl sm:text-2xl font-bold truncate">
                 {user.firstName} {user.lastName}
               </h1>
-              <span className="text-base sm:text-lg font-semibold text-muted-foreground">{user.title}</span>
+              <span className="text-base sm:text-lg font-semibold text-muted-foreground">
+                {user.title}
+              </span>
               <div className="flex gap-2 items-center mt-1">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
-                <span className="text-sm sm:text-base truncate">{user.nationality?.name || "Pays non défini"}</span>
+                <span className="text-sm sm:text-base truncate">
+                  {user.nationality?.name || "Pays non défini"}
+                </span>
               </div>
 
               {/* Statistiques de suivi */}
@@ -152,7 +156,11 @@ const UserProfilePage = () => {
             {/* Action Buttons */}
             {currentUser?.id && currentUser.id !== userId && (
               <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                <Button variant="outline" size="sm" className="w-full sm:w-auto">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full sm:w-auto"
+                >
                   <MessageCircle className="w-4 h-4 mr-2" />
                   <span className="hidden sm:inline">Message</span>
                   <span className="sm:hidden">Envoyer un message</span>
@@ -180,8 +188,12 @@ const UserProfilePage = () => {
         <div className="p-3 sm:p-5 w-full">
           <Tabs defaultValue="overview" className="w-full">
             <TabsList className="w-full grid grid-cols-2">
-              <TabsTrigger value="overview" className="text-sm sm:text-base">Aperçu</TabsTrigger>
-              <TabsTrigger value="activity" className="text-sm sm:text-base">Activité</TabsTrigger>
+              <TabsTrigger value="overview" className="text-sm sm:text-base">
+                Aperçu
+              </TabsTrigger>
+              <TabsTrigger value="activity" className="text-sm sm:text-base">
+                Activité
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview" className="mt-4 sm:mt-6">
@@ -189,7 +201,9 @@ const UserProfilePage = () => {
               {user.description && (
                 <Card className="w-full mb-4 sm:mb-6">
                   <CardHeader className="pb-3 sm:pb-6">
-                    <CardTitle className="text-base sm:text-lg">À propos</CardTitle>
+                    <CardTitle className="text-base sm:text-lg">
+                      À propos
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
@@ -222,7 +236,9 @@ const UserProfilePage = () => {
               {user.userSkills && user.userSkills.length > 0 && (
                 <Card className="w-full mt-4 sm:mt-6">
                   <CardHeader className="pb-3 sm:pb-6">
-                    <CardTitle className="text-base sm:text-lg">Compétences</CardTitle>
+                    <CardTitle className="text-base sm:text-lg">
+                      Compétences
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <div className="flex flex-wrap gap-2">
@@ -231,7 +247,9 @@ const UserProfilePage = () => {
                           key={userSkill.id}
                           className="px-2 sm:px-3 py-1 bg-primary/10 text-primary rounded-full text-xs sm:text-sm"
                         >
-                          <span className="font-medium">{userSkill.skill.title}</span>
+                          <span className="font-medium">
+                            {userSkill.skill.title}
+                          </span>
                           {userSkill.level && (
                             <span className="ml-1 text-xs opacity-70">
                               ({userSkill.level})
@@ -249,7 +267,9 @@ const UserProfilePage = () => {
               <Card>
                 <CardContent className="p-4 sm:p-6">
                   <div className="text-center text-muted-foreground">
-                    <p className="text-sm sm:text-base">Les activités de cet utilisateur apparaîtront ici.</p>
+                    <p className="text-sm sm:text-base">
+                      Les activités de cet utilisateur apparaîtront ici.
+                    </p>
                   </div>
                 </CardContent>
               </Card>

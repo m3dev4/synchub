@@ -38,7 +38,7 @@ export const createCommunity = async (
     let counter = 1;
 
     while (await prisma.community.findUnique({ where: { slug } })) {
-      slug = `${slugBase}-${counter}`;  // Fix: utilisez un tiret simple
+      slug = `${slugBase}-${counter}`; // Fix: utilisez un tiret simple
       counter++;
     }
 
@@ -73,7 +73,11 @@ export const createCommunity = async (
       finalCustomLink = slug;
       let linkCounter = 1;
 
-      while (await prisma.community.findUnique({ where: { customLink: finalCustomLink } })) {
+      while (
+        await prisma.community.findUnique({
+          where: { customLink: finalCustomLink },
+        })
+      ) {
         finalCustomLink = `${slug}-${linkCounter}`;
         linkCounter++;
       }

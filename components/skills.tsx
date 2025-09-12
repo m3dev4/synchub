@@ -169,7 +169,9 @@ const Skills = () => {
           </DialogTrigger>
           <DialogContent className="max-w-2xl max-h-[90vh] w-[95vw] sm:w-full">
             <DialogHeader>
-              <DialogTitle className="text-base sm:text-lg">Ajouter une compétence</DialogTitle>
+              <DialogTitle className="text-base sm:text-lg">
+                Ajouter une compétence
+              </DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row gap-4">
@@ -209,10 +211,18 @@ const Skills = () => {
               <ScrollArea className="h-80 sm:h-96">
                 <div className="space-y-4">
                   {availableSkills.map((skill) => (
-                    <div key={skill.id} className="border rounded-lg p-3 sm:p-4">
+                    <div
+                      key={skill.id}
+                      className="border rounded-lg p-3 sm:p-4"
+                    >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2">
-                        <h4 className="font-semibold text-base sm:text-lg">{skill.title}</h4>
-                        <Badge variant="outline" className="self-start sm:self-center">
+                        <h4 className="font-semibold text-base sm:text-lg">
+                          {skill.title}
+                        </h4>
+                        <Badge
+                          variant="outline"
+                          className="self-start sm:self-center"
+                        >
                           {skill.sousSkill?.length || 0} catégories
                         </Badge>
                       </div>
@@ -240,7 +250,9 @@ const Skills = () => {
                                       className="object-contain flex-shrink-0"
                                     />
                                   ) : (
-                                    <span className="text-base flex-shrink-0">{tech.icon}</span>
+                                    <span className="text-base flex-shrink-0">
+                                      {tech.icon}
+                                    </span>
                                   )}
                                   <span className="text-sm font-medium truncate">
                                     {tech.title}
@@ -282,7 +294,9 @@ const Skills = () => {
       <CardContent>
         {userTechnologies.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
-            <p className="text-sm sm:text-base">Aucune technologie ajoutée pour le moment.</p>
+            <p className="text-sm sm:text-base">
+              Aucune technologie ajoutée pour le moment.
+            </p>
             <p className="text-xs sm:text-sm mt-2">
               Cliquez sur <strong>Ajouter</strong> pour commencer.
             </p>
@@ -302,7 +316,9 @@ const Skills = () => {
               ),
             ).map(([skillTitle, techs]) => (
               <div key={skillTitle} className="border rounded-lg p-3 sm:p-4">
-                <h4 className="font-semibold text-base sm:text-lg mb-3">{skillTitle}</h4>
+                <h4 className="font-semibold text-base sm:text-lg mb-3">
+                  {skillTitle}
+                </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {techs.map((userTech) => (
                     <div

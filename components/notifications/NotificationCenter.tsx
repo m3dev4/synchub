@@ -105,14 +105,21 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 sm:pb-4 px-4 sm:px-6 flex-shrink-0">
           <div className="flex items-center gap-2 min-w-0 flex-1">
             <Bell className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-            <CardTitle className="text-base sm:text-lg truncate">Notifications</CardTitle>
+            <CardTitle className="text-base sm:text-lg truncate">
+              Notifications
+            </CardTitle>
             {unreadCount > 0 && (
               <Badge variant="destructive" className="text-xs flex-shrink-0">
                 {unreadCount}
               </Badge>
             )}
           </div>
-          <Button variant="ghost" size="sm" onClick={onClose} className="flex-shrink-0">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClose}
+            className="flex-shrink-0"
+          >
             <X className="w-4 h-4" />
           </Button>
         </CardHeader>

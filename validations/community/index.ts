@@ -6,7 +6,7 @@ export const createCommunitySchema = z.object({
     .min(1, "Le nom est requis")
     .max(100, "Le nom ne doit pas dépasser 100 caractères")
     .regex(
-      /^[a-zA-Z0-9\s-]+$/,  // ✅ FIX: Autoriser les espaces et tirets
+      /^[a-zA-Z0-9\s-]+$/, // ✅ FIX: Autoriser les espaces et tirets
       "Le nom ne doit contenir que des lettres, chiffres, espaces et tirets",
     ),
   description: z.string().optional(),
@@ -20,7 +20,7 @@ export const createCommunitySchema = z.object({
     .max(50, "Le lien personnalisé ne peut pas dépasser 50 caractères")
     .regex(
       /^[a-zA-Z0-9-_]+$/,
-      "Le lien ne peut contenir que des lettres, chiffres, tirets et underscores"
+      "Le lien ne peut contenir que des lettres, chiffres, tirets et underscores",
     )
     .optional(), // ✅ Optionnel, sera généré automatiquement si non fourni
 });
