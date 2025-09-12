@@ -42,25 +42,29 @@ model User {
 
   //  Attributes
   nationalityId String?
-  
 
   //  Relations
-  nationality Nationality? @relation(fields: [nationalityId], references: [id])
-  experiences Experience[]
-  educations  Education[]
-  follows     Follow[]     @relation("UserFollowers")
-  following   Follow[]     @relation("UserFollowing")
-  sessions    Session[]
-  degrees     Degree[]
-  userSkills  UserSkill[]
-  userTechnologies UserTechnology[]
-  posts       Post[]
-  notifications Notification[]
-  accounts    Account[]
+  nationality        Nationality?       @relation(fields: [nationalityId], references: [id])
+  experiences        Experience[]
+  educations         Education[]
+  follows            Follow[]           @relation("UserFollowers")
+  following          Follow[]           @relation("UserFollowing")
+  sessions           Session[]
+  degrees            Degree[]
+  userSkills         UserSkill[]
+  userTechnologies   UserTechnology[]
+  posts              Post[]
+  notifications      Notification[]
+  accounts           Account[]
   postCollaborations PostCollaborator[]
-  postReactions PostReaction[]
-  comments    Comment[]
-  mentions    Mention[]
+  postReactions      PostReaction[]
+  comments           Comment[]
+  mentions           Mention[]
+
+  // Communautés
+  ownedCommunities     Community[]       @relation("OwnedCommunities")
+  communityMemberships CommunityMember[] @relation("CommunityMemberships")
+  channelMessages      Message[]         @relation("ChannelMessages")
 }
 
 model Nationality {
@@ -163,16 +167,16 @@ model sousSkill {
 }
 
 model Technology {
-  id              String    @id() @default(cuid())
-  title           String
-  icon            String?   // URL ou nom d'icône
-  color           String?   // Couleur hexadécimale pour l'UI
-  category        String?   // Catégorie (language, framework, tool, etc.)
-  sousSkillTechId String
-  sousSkill       sousSkill @relation(fields: [sousSkillTechId], references: [id])
+  id               String           @id() @default(cuid())
+  title            String
+  icon             String? // URL ou nom d'icône
+  color            String? // Couleur hexadécimale pour l'UI
+  category         String? // Catégorie (language, framework, tool, etc.)
+  sousSkillTechId  String
+  sousSkill        sousSkill        @relation(fields: [sousSkillTechId], references: [id])
   userTechnologies UserTechnology[]
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
 }
 
 model UserSkill {
@@ -271,45 +275,44 @@ model Verification {
   @@unique([identifier, value])
 }
 
-
 model Post {
-  id           String       @id() @default(cuid())
-  author       User         @relation(fields: [authorId], references: [id])
-  authorId     String
-  content      String
-  contentType  ContentType  @default(TEXT)
-  visibility   Visibility   @default(PUBLIC)
-  media        PostMedia[]
-  isCollaborative Boolean   @default(false)
-  collaborators PostCollaborator[]
-  reactions    PostReaction[]
-  comments     Comment[]
-  mentions     Mention[]
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  id              String             @id() @default(cuid())
+  author          User               @relation(fields: [authorId], references: [id])
+  authorId        String
+  content         String
+  contentType     ContentType        @default(TEXT)
+  visibility      Visibility         @default(PUBLIC)
+  media           PostMedia[]
+  isCollaborative Boolean            @default(false)
+  collaborators   PostCollaborator[]
+  reactions       PostReaction[]
+  comments        Comment[]
+  mentions        Mention[]
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
 }
 
 model PostMedia {
-  id       String    @id() @default(cuid())
-  post     Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId   String
-  type     MediaType
-  url      String
-  publicId String?   // Cloudinary public_id pour suppression
-  filename String?
-  size     Int?      // Taille en bytes
-  duration Int?      // Durée pour vidéos/audio en secondes
-  createdAt DateTime @default(now())
+  id        String    @id() @default(cuid())
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  type      MediaType
+  url       String
+  publicId  String? // Cloudinary public_id pour suppression
+  filename  String?
+  size      Int? // Taille en bytes
+  duration  Int? // Durée pour vidéos/audio en secondes
+  createdAt DateTime  @default(now())
 }
 
 model PostCollaborator {
-  id       String   @id() @default(cuid())
-  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId   String
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId   String
-  role     CollaboratorRole @default(CONTRIBUTOR)
-  addedAt  DateTime @default(now())
+  id      String           @id() @default(cuid())
+  post    Post             @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId  String
+  user    User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+  role    CollaboratorRole @default(CONTRIBUTOR)
+  addedAt DateTime         @default(now())
 
   @@unique([postId, userId])
 }
@@ -342,13 +345,13 @@ enum CollaboratorRole {
 
 // Modèle pour les réactions sur les posts
 model PostReaction {
-  id       String      @id() @default(cuid())
-  post     Post        @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId   String
-  user     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId   String
-  type     ReactionType
-  createdAt DateTime   @default(now())
+  id        String       @id() @default(cuid())
+  post      Post         @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  type      ReactionType
+  createdAt DateTime     @default(now())
 
   @@unique([postId, userId, type])
 }
@@ -379,17 +382,114 @@ model Mention {
   comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
   commentId String?
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String   // Utilisateur mentionné
+  userId    String // Utilisateur mentionné
   createdAt DateTime @default(now())
 
   @@index([userId])
 }
 
 enum ReactionType {
-  LIKE      // 👍
-  LOVE      // ❤️
-  LAUGH     // 😂
-  WOW       // 😮
-  SAD       // 😢
-  ANGRY     // 😠
+  LIKE // 👍
+  LOVE // ❤️
+  LAUGH // 😂
+  WOW // 😮
+  SAD // 😢
+  ANGRY // 😠
+}
+
+// Ajout du modèle Community
+model Community {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+  avatarUrl   String?
+  bannerUrl   String?
+  categoryId  String
+  category    CommunityTags @relation(fields: [categoryId], references: [id])
+  isPrivate   Boolean @default(false)
+
+  // Lien unique personnalisé
+  customLink String @unique
+
+  // Relations
+  ownerId String
+  owner   User   @relation("OwnedCommunities", fields: [ownerId], references: [id])
+
+  members  CommunityMember[]
+  channels Channel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CommunityTags {
+  id        String   @id() @default(cuid())
+  name      String
+  slug      String   @unique
+  description String?
+  communities Community[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Channel {
+  id          String      @id @default(cuid())
+  name        String
+  description String?
+  type        ChannelType
+  position    Int         @default(0)
+
+  communityId String
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+
+  // Pour les channels privés
+  isPrivate Boolean @default(false)
+
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ChannelType {
+  GENERAL // Discussion générale
+  VOICE // Salon vocal
+  BUG_REPORT // Salon bugs comme StackOverflow
+  ANNOUNCEMENT // Annonces
+}
+
+model CommunityMember {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation("CommunityMemberships", fields: [userId], references: [id])
+
+  communityId String
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+
+  // Gamification
+  xp    Int @default(0)
+  level Int @default(1)
+
+  joinedAt   DateTime @default(now())
+  lastActive DateTime @default(now())
+
+  @@unique([userId, communityId])
+}
+
+model Message {
+  id      String @id @default(cuid())
+  content String
+
+  authorId String
+  author   User   @relation("ChannelMessages", fields: [authorId], references: [id])
+
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([channelId, createdAt])
 }

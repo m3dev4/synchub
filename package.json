@@ -12,6 +12,7 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
     "seed:nationality": "tsx seeds/nationality.ts",
     "seed:skills": "tsx seeds/skills.ts",
+    "seed:communityTags": "tsx seeds/commuTags.ts",
     "netlify-build": "prisma generate && next build"
   },
   "dependencies": {

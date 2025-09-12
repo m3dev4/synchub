@@ -60,6 +60,11 @@ model User {
   postReactions      PostReaction[]
   comments           Comment[]
   mentions           Mention[]
+
+  // Communautés
+  ownedCommunities     Community[]       @relation("OwnedCommunities")
+  communityMemberships CommunityMember[] @relation("CommunityMemberships")
+  channelMessages      Message[]         @relation("ChannelMessages")
 }
 
 model Nationality {
@@ -390,4 +395,101 @@ enum ReactionType {
   WOW // 😮
   SAD // 😢
   ANGRY // 😠
+}
+
+// Ajout du modèle Community
+model Community {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  description String?
+  avatarUrl   String?
+  bannerUrl   String?
+  categoryId  String
+  category    CommunityTags @relation(fields: [categoryId], references: [id])
+  isPrivate   Boolean       @default(false)
+
+  // Lien unique personnalisé
+  customLink String @unique
+
+  // Relations
+  ownerId String
+  owner   User   @relation("OwnedCommunities", fields: [ownerId], references: [id])
+
+  members  CommunityMember[]
+  channels Channel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CommunityTags {
+  id          String      @id() @default(cuid())
+  name        String
+  slug        String      @unique
+  description String?
+  communities Community[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Channel {
+  id          String      @id @default(cuid())
+  name        String
+  description String?
+  type        ChannelType
+  position    Int         @default(0)
+
+  communityId String
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+
+  // Pour les channels privés
+  isPrivate Boolean @default(false)
+
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ChannelType {
+  GENERAL // Discussion générale
+  VOICE // Salon vocal
+  BUG_REPORT // Salon bugs comme StackOverflow
+  ANNOUNCEMENT // Annonces
+}
+
+model CommunityMember {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation("CommunityMemberships", fields: [userId], references: [id])
+
+  communityId String
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+
+  // Gamification
+  xp    Int @default(0)
+  level Int @default(1)
+
+  joinedAt   DateTime @default(now())
+  lastActive DateTime @default(now())
+
+  @@unique([userId, communityId])
+}
+
+model Message {
+  id      String @id @default(cuid())
+  content String
+
+  authorId String
+  author   User   @relation("ChannelMessages", fields: [authorId], references: [id])
+
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([channelId, createdAt])
 }
