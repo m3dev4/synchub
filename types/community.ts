@@ -1,6 +1,7 @@
 import { User } from "./user";
 
-enum ChannelType {
+// Export de l'enum pour utilisation externe
+export enum ChannelType {
   GENERAL = "GENERAL",
   VOICE = "VOICE",
   BUG_REPORT = "BUG_REPORT",
@@ -71,6 +72,21 @@ export interface CommunityMember {
   level: number;
   joinedAt: Date;
   lastActive: Date;
-  createdAt: Date;
-  updatedAt: Date;
+}
+
+// Types pour les requests
+export interface CreateCommunityRequest {
+  name: string;
+  description?: string;
+  avatarUrl?: string;
+  bannerUrl?: string;
+  categoryId: string;
+  isPrivate: boolean;
+  customLink: string;
+}
+
+export interface CommunityResponse {
+  success: boolean;
+  data?: Community;
+  error?: string;
 }
