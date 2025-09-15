@@ -20,7 +20,30 @@ export const allCommunities = async (sessionToken: string) => {
       throw new Error("Session not found");
     }
 
-    const communities = await prisma.community.findMany();
+    // ✅ FIX: Inclure le count des membres directement
+    const communities = await prisma.community.findMany({
+      include: {
+        owner: {
+          select: {
+            id: true,
+            username: true,
+            firstName: true,
+            lastName: true,
+            avatarPicture: true,
+          },
+        },
+        category: true,
+        _count: {
+          select: {
+            members: true,
+            channels: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
     return communities;
   } catch (error) {
