@@ -19,6 +19,7 @@ import { Playfair_Display } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { useAuthStore } from "@/stores/auth/authState";
+import { UserCommunities } from "@/components/sidebar/UserCommunities";
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
@@ -80,6 +81,9 @@ export function AppSidebar() {
             ))}
           </SidebarMenu>
         </SidebarGroup>
+
+        {/* Section des communautés de l'utilisateur */}
+        <UserCommunities userId={user?.id || ""} />
       </SidebarContent>
       <Separator />
       <SidebarFooter className="-ml-2">

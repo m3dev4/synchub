@@ -9,6 +9,7 @@ import { FaUsersLine } from "react-icons/fa6";
 import { useCategory } from "@/hooks/communities/useCategory";
 import { Badge } from "../ui/badge";
 import { useRouter } from "next/navigation";
+import { JoinCommunityButton } from "./JoinCommunityButton";
 
 const ListCommunities = () => {
   const { communities, isLoading, error } = useCommunity();
@@ -91,6 +92,17 @@ const ListCommunities = () => {
                         </p>
                       </div>
                       <Badge>{community.category.name}</Badge>
+                    </div>
+
+                    {/* Bouton pour rejoindre/quitter la communauté */}
+                    <div className="mt-3">
+                      <JoinCommunityButton
+                        communityId={community.id}
+                        communityName={community.name}
+                        isPrivate={community.isPrivate}
+                        size="sm"
+                        className="w-full"
+                      />
                     </div>
                   </div>
                 </div>
