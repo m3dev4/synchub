@@ -55,6 +55,12 @@ export async function GET(
             },
           },
         },
+        _count: {
+          select: {
+            members: true,
+            channels: true,
+          },
+        },
       },
     });
 
@@ -66,9 +72,26 @@ export async function GET(
       });
     }
 
+    const isMember = community.members.some(
+      (member) => member.user.id === sessionToken,
+    );
+    const isOwner = community.owner.id === sessionToken;
+
+    if (community.isPrivate && !isMember && !isOwner) {
+      return NextResponse.json({
+        success: false,
+        message: "You are not a member of this community",
+        status: 403,
+      });
+    }
+
     return NextResponse.json({
       success: true,
-      community,
+      data: {
+        ...community,
+        userIsMember: isMember,
+        userIsOwner: isOwner,
+      },
       status: 200,
     });
   } catch (error) {
@@ -78,5 +101,8 @@ export async function GET(
       status: 500,
       success: false,
     });
+  } finally {
+    await prisma.$disconnect();
+    console.log("✅ Disconnected from database");
   }
 }

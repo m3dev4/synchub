@@ -1,15 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 
-//Get all communities
-export const useCommunity = () => {
+export const useChannels = (communityId: string) => {
   const {
-    data: communities,
+    data: channels,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["communities"],
+    queryKey: ["channels", communityId],
     queryFn: async () => {
-      const response = await fetch("/api/communities/all", {
+      const response = await fetch(`/api/communities/${communityId}/channels`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -19,20 +18,16 @@ export const useCommunity = () => {
       const result = await response.json();
       if (!response.ok || !result.success) {
         throw new Error(
-          result.message || "Erreur lors de la récupération des communautés",
+          result.message || "Erreur lors de la récupération des channels",
         );
       }
       return result.data || [];
     },
+    enabled: !!communityId,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
     retry: 2,
     refetchOnWindowFocus: false,
   });
-
-  return {
-    communities,
-    isLoading,
-    error,
-  };
+  return { channels, isLoading, error };
 };

@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-
 export const useMember = (id: string) => {
-// Get all number of members in a community
+  // Get all number of members in a community
   const {
     data: members,
     isLoading,

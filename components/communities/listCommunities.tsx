@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { FaUsersLine } from "react-icons/fa6";
 import { useCategory } from "@/hooks/communities/useCategory";
 import { Badge } from "../ui/badge";
+import { useRouter } from "next/navigation";
 
 const ListCommunities = () => {
   const { communities, isLoading, error } = useCommunity();
@@ -22,6 +23,8 @@ const ListCommunities = () => {
     error: errorCategory,
   } = useCategory(communities?.[0]?.id || "");
   const [allCommunities, setAllCommunities] = useState<Community[]>([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (communities) {
@@ -53,7 +56,10 @@ const ListCommunities = () => {
               {allCommunities.map((community) => (
                 <div
                   key={community.id}
-                  className="border rounded-lg p-3 sm:p-4 w-full"
+                  className="border rounded-lg p-3 sm:p-4 w-full cursor-pointer"
+                  onClick={() =>
+                    router.push(`/communauty/${community.slug}/${community.id}`)
+                  }
                 >
                   <div className="flex items-center gap-2 py-2 relative">
                     <div className="w-40 h-26 rounded-2xl overflow-hidden">
