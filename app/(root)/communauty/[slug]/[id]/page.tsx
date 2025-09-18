@@ -5,6 +5,7 @@ import { Loader2, Users, Hash, Volume2, Megaphone, Bug } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface CommunityPageProps {
   params: {
@@ -24,6 +25,8 @@ const CommunityPage = ({ params }: CommunityPageProps) => {
     isLoading: isLoadingChannels,
     error: channelsError,
   } = useChannels(params.id);
+
+  const router = useRouter()
 
   if (isLoadingCommunity || isLoadingChannels) {
     return (
@@ -118,11 +121,13 @@ const CommunityPage = ({ params }: CommunityPageProps) => {
             <CardTitle>Channels ({channels?.length || 0})</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4"
+            >
               {channels?.map((channel: any) => (
                 <div
                   key={channel.id}
                   className="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer"
+                  onClick={() => router.push(`/communauty/${community.slug}/${community.id}/channels/${channel.id}`)}
                 >
                   <div className="flex items-center gap-2 mb-2">
                     {getChannelIcon(channel.type)}
